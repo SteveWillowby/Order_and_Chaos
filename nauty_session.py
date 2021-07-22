@@ -1,3 +1,4 @@
+import bigfloat  # TODO: Move away from bigfloat.
 import subprocess
 from os import remove
 
@@ -637,8 +638,8 @@ class NautyTracesSession:
                     header_idx += 1
                     last_header_line_idx = line_idx
                     num_orbits = int(lines[line_idx][0])
-                    # TODO: Assure that the float does not overflow!
-                    num_automorphisms = float(lines[line_idx][2][8:-1])
+                    # TODO: Move away from bigfloat.
+                    num_automorphisms = bigfloat.BigFloat(lines[line_idx][2][8:-1])
 
                     node_indices_at_time = set([i for n, i in \
                             self.node_to_idx_maps[target_run].items()])
