@@ -1,3 +1,4 @@
+import bigfloat  # TODO: move away from bigfloat
 import math
 from nauty_session import NautyTracesSession
 import networkx as nx
@@ -192,7 +193,7 @@ def information_content(nodes, edges, proportional_p=False, \
             nodes, edges, temporal, directed, use_color_direction=True, \
             get_canon_order=False)
 
-    log2_num_automorphisms = math.log(num_automorphisms, 2.0)
+    log2_num_automorphisms = float(bigfloat.log2(num_automorphisms))
 
     # Compute the log-number of nodes factorial:
     log2_n_fact = 0

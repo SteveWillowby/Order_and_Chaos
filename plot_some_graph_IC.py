@@ -33,6 +33,8 @@ def plot_graph_sequence(graph_sequence, \
             max_information_content_limit(len(nodes), \
                                           directed=directed, \
                                           num_timestamps=num_timestamps))
+        # print("  Min: %f\n  IC: %f\n  Max: %f" % \
+        #         (min_ic_limit[-1], ic[-1], max_ic_limit[-1]))
 
     # plt.clear()
     plt.plot(graph_indices, min_ic_limit, color="red")
@@ -41,7 +43,46 @@ def plot_graph_sequence(graph_sequence, \
     plt.title("Information Content of %s" % sequence_name)
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Information Content")
+    plt.savefig("figs/IC_of_%s.pdf" % sequence_name)
     plt.show()
+
+# Reads the edge list with potentially duplicated edges and returns two lists:
+#   nodes and edges
+def __read_edge_list__(filename, directed, temporal):
+    f = open(filename, "r")
+    edges = set()
+    nodes = set()
+    self_loops = 0
+    for line in f:
+        line = line.strip()
+        line = line.split(" ")
+        assert len(line) == 2 + int(temporal)
+        source = int(line[0])
+        target = int(line[1])
+
+        nodes.add(source)
+        nodes.add(target)
+
+        if source == target:
+            self_loops += 1
+            continue
+
+        if directed:
+            edge = [source, target]
+        else:
+            edge = [min(source, target), max(source, target)]
+
+        if temporal:
+            timestamp = line[2]
+            if timestamp.isnumeric():
+                timestamp = int(timestamp)
+            edge.append(timestamp)
+        edges.add(tuple(edge))
+
+    f.close()
+    print("Input file had %d self-loops, all of which (if any) were removed." %\
+        self_loops)
+    return (list(nodes), list(edges))
 
 def __triangles_sequence__(sequence_length):
     sequence = []
@@ -105,6 +146,131 @@ def __binary_tree_sequence__(num_trees):
         num_nodes = new_num_nodes
     return sequence
 
+# Note, can change the order of elements within `edges`.
+#
+# O(|edges| log |edges| + |timestamps| * target_num_buckets)
+def __bucket_temporal_edges__(edges, target_num_buckets):
+    assert type(edges) is list
+    for i in range(0, len(edges)):
+        edges[i] = (edges[i][2], edges[i][0], edges[i][1])
+    edges.sort()
+
+    possible_bucket_start_positions = []
+
+    current_time = None
+    for i in range(0, len(edges)):
+        (t, a, b) = edges[i]
+        if current_time is None or t != current_time:
+            current_time = t
+            possible_bucket_start_positions.append(i)
+        edges[i] = (a, b, t)
+
+    if target_num_buckets > len(possible_bucket_start_positions):
+        print(("Note! It is not possible to have %d " % target_num_buckets) + \
+              ("with this edge list - only %d timestamps." % \
+                len(possible_bucket_start_positions)))
+        buckets = [(possible_bucket_start_positions[i], \
+                    possible_bucket_start_positions[i + 1]) for \
+                      i in range(0, len(possible_bucket_start_positions)-1)] + \
+                  [(possible_bucket_start_positions[-1], len(edges))]
+        edge_buckets = []
+        for (start, end) in buckets:
+            edge_buckets.append(edges[start:end])
+        return edge_buckets
+
+    possible_bucket_start_positions.append(len(edges))
+    target_edges_per_bucket = int(len(edges) / target_num_buckets)
+    pbsp = possible_bucket_start_positions
+    tbs = target_edges_per_bucket
+    # The first target-minus-1 buckets are as small as possible.
+    candidate_bucketing = [(i, i + 1) for i in range(0, target_num_buckets - 1)]
+    # The last bucket uses the rest of the edges.
+    candidate_bucketing.append((target_num_buckets - 1, len(pbsp) - 1))
+    # Sum up the differences between bucket size and target bucket size.
+    #   Lower is better.
+    bucket_score = sum([abs(tbs - (pbsp[end] - pbsp[start])) for \
+                            (start, end) in candidate_bucketing])
+    updated_bucket_score = bucket_score  # used for testing
+    done = False
+    while not done:
+        done = True
+        # Consider moving any bucket start position but the first one.
+        for i in range(1, target_num_buckets):
+            idx = target_num_buckets - i
+            (start, end) = candidate_bucketing[idx]
+            if start == end - 1:
+                continue  # can't move start
+            # See if moving bucket[idx] start pos further to the right helps.
+            (prev_start, prev_end) = candidate_bucketing[idx - 1]
+            assert prev_end == start
+            current_idx_score_contribution = \
+                abs(tbs - (pbsp[end] - pbsp[start])) + \
+                abs(tbs - (pbsp[prev_end] - pbsp[prev_start]))
+            new_idx_score_contribution = \
+                abs(tbs - (pbsp[end] - pbsp[start + 1])) + \
+                abs(tbs - (pbsp[prev_end + 1] - pbsp[prev_start]))
+            if new_idx_score_contribution <= current_idx_score_contribution:
+                candidate_bucketing[idx] = (start + 1, end)
+                candidate_bucketing[idx - 1] = (prev_start, prev_end + 1)
+                updated_bucket_score += new_idx_score_contribution - \
+                                        current_idx_score_contribution
+                done = False
+                break
+
+    bucket_score = sum([abs(tbs - (pbsp[end] - pbsp[start])) for \
+                            (start, end) in candidate_bucketing])
+    print("Average deviation from target bucket size: %f" % \
+            (bucket_score / target_num_buckets))
+
+    assert updated_bucket_score == bucket_score
+    
+    edge_buckets = []
+    for (start, end) in candidate_bucketing:
+        edge_buckets.append(edges[pbsp[start]:pbsp[end]])
+    return edge_buckets
+
+
+def __plot_temporal_sequence__(filename, directed=True, num_buckets=None):
+    (nodes, edges) = __read_edge_list__(filename, directed, True)
+    edges_by_timestamp = {}
+    timestamps = []
+    for (a, b, t) in edges:
+        if a == b:
+            continue
+        if t not in edges_by_timestamp:
+            edges_by_timestamp[t] = set()
+            timestamps.append(t)
+        if directed:
+            edges_by_timestamp[t].add((a, b))
+        else:
+            edges_by_timestamp[t].add((min(a, b), max(a, b)))
+    timestamps.sort()
+    if num_buckets is not None:
+        # Get buckets, then replace timestamps.
+        bucketed_edges = __bucket_temporal_edges__(edges, num_buckets)
+        edges = []
+        for i in range(0, len(bucketed_edges)):
+            bucket_set = set()
+            for (a, b, _) in bucketed_edges[i]:
+                if directed:
+                    bucket_set.add((a, b, i))
+                else:
+                    bucket_set.add((min(a, b), max(a, b), i))
+            edges += list(bucket_set)
+
+    graph_sequence = []
+    edge_sub_list = []
+    current_t = None
+    for (a, b, t) in edges:
+        if current_t is not None and current_t != t:
+            graph_sequence.append((nodes, list(edge_sub_list)))
+        edge_sub_list.append((a, b, t))
+        current_t = t
+    graph_sequence.append((nodes, edge_sub_list))
+    plot_graph_sequence(graph_sequence, directed=directed, temporal=True, \
+                        sequence_name=(filename.split("/")[-1] + \
+                                       ("with %d buckets" % num_buckets)))
+
 if __name__ == "__main__":
 
     plot_graph_sequence(__triangles_sequence__(9), \
@@ -123,3 +289,8 @@ if __name__ == "__main__":
     plot_graph_sequence(__binary_tree_sequence__(num_trees=7), \
                         directed=False, temporal=False, \
                         sequence_name="Binary Trees")
+
+    __plot_temporal_sequence__("datasets/college-temporal.g", \
+                               directed=True, num_buckets=10)
+    __plot_temporal_sequence__("datasets/college-temporal.g", \
+                               directed=True, num_buckets=100)
