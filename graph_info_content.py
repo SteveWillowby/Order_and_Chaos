@@ -2,97 +2,6 @@ import math
 from nauty_session import NautyTracesSession
 import networkx as nx
 
-def __get_graph_info__(nodes, given_edges, temporal, directed, \
-                       use_color_direction=True, get_canon_order=False):
-    if type(nodes) is not set:
-        nodes = set(nodes)
-
-    if directed and not use_color_direction:
-        graph = nx.DiGraph()
-    else:
-        graph = nx.Graph()
-
-    for node in nodes:
-        graph.add_node(node)
-
-    orbits = [list(nodes)]  # at first, everything in one orbit
-
-    # Use only to store highlights for nodes not in `nodes`
-    extra_highlights = []
-    if temporal:
-        edge_sets_by_timestamp = {}
-        for (a, b, t) in given_edges:
-            if t not in edge_sets_by_timestamp:
-                edge_sets_by_timestamp[t] = set()
-            edge_sets_by_timestamp[t].add((a, b))
-
-        timestamps = sorted([t for t, _ in edge_sets_by_timestamp.items()])
-        alt_nodes = []
-
-        if directed and use_color_direction:
-            dir_nodes_1 = []
-            dir_nodes_2 = []
-            extra_highlights = [dir_nodes_1, dir_nodes_2]
-
-        for i in range(0, len(timestamps)):
-            t = timestamps[i]
-            for node in nodes:
-                alt_nodes.append((node, t))
-                graph.add_node((node, t))
-                if i == 0:
-                    graph.add_edge(node, (node, t))
-                else:
-                    graph.add_edge((node, timestamps[i - 1]), (node, t))
-            for (a, b) in edge_sets_by_timestamp[t]:
-
-                if directed and use_color_direction:
-                    graph.add_node(((a, t), (b, t), 1))
-                    graph.add_node(((a, t), (b, t), 2))
-                    dir_nodes_1.append(((a, t), (b, t), 1))
-                    dir_nodes_2.append(((a, t), (b, t), 2))
-                    graph.add_edge((a, t), ((a, t), (b, t), 1))
-                    graph.add_edge(((a, t), (b, t), 1), ((a, t), (b, t), 2))
-                    graph.add_edge(((a, t), (b, t), 2), (b, t))
-
-                    # only add edge once
-                    if b not in graph.neighbors(a):
-                        graph.add_edge(a, b)
-                else:
-                    graph.add_edge((a, t), (b, t))
-    else:  # static
-        if directed and use_color_direction:
-            dir_nodes_1 = []
-            dir_nodes_2 = []
-            extra_highlights = [dir_nodes_1, dir_nodes_2]
-
-        for (a, b) in given_edges:
-
-            if directed and use_color_direction:
-                graph.add_node((a, b, 1))
-                graph.add_node((a, b, 2))
-                dir_nodes_1.append((a, b, 1))
-                dir_nodes_2.append((a, b, 2))
-                graph.add_edge(a, (a, b, 1))
-                graph.add_edge((a, b, 1), (a, b, 2))
-                graph.add_edge((a, b, 2), b)
-
-                # only add edge once
-                if b not in graph.neighbors(a):
-                    graph.add_edge(a, b)
-            else:
-                graph.add_edge(a, b)
-
-    NTSession = NautyTracesSession(graph, mode="Nauty", sparse=True)
-    NTSession.set_colors_by_highlights([list(nodes)] + extra_highlights)
-    na = NTSession.get_num_automorphisms()
-    if get_canon_order:
-        co = NTSession.get_canonical_order()
-    NTSession.complete()
-    na = na.get()
-    if get_canon_order:
-        co = co.get()
-        return (na, co)
-    return (na, None)
 
 # information_content()
 #
@@ -297,6 +206,121 @@ def information_content(nodes, edges, proportional_p=False, \
     #   In turn, that is:
     #       -log2(prob_of_this_matrix * |nodes|! / num_automorphisms)
     return -1.0 * (log2_prob_matrix + log2_n_fact - log2_num_automorphisms)
+
+def min_information_content_limit(num_nodes, directed=False, \
+                                  num_timestamps=1):
+    log2_n_fact = 0
+    for i in range(1, num_nodes + 1):
+        log2_num = math.log(i, 2.0)
+        log2_n_fact += log2_num
+
+    if directed:
+        log2_prob_matrix = -1 * num_timestamps * num_nodes * (num_nodes - 1)
+    else:
+        log2_prob_matrix = -1 * num_timestamps * (num_nodes * (num_nodes-1)) / 2
+
+    return -1.0 * (log2_prob_matrix + log2_n_fact - 0.0)
+
+def max_information_content_limit(num_nodes, directed=False, \
+                                  num_timestamps=1):
+    if directed:
+        log2_prob_matrix = -1 * num_timestamps * num_nodes * (num_nodes - 1)
+    else:
+        log2_prob_matrix = -1 * num_timestamps * (num_nodes * (num_nodes-1)) / 2
+
+    return -log2_prob_matrix
+
+def __get_graph_info__(nodes, given_edges, temporal, directed, \
+                       use_color_direction=True, get_canon_order=False):
+    if type(nodes) is not set:
+        nodes = set(nodes)
+
+    if directed and not use_color_direction:
+        graph = nx.DiGraph()
+    else:
+        graph = nx.Graph()
+
+    for node in nodes:
+        graph.add_node(node)
+
+    orbits = [list(nodes)]  # at first, everything in one orbit
+
+    # Use only to store highlights for nodes not in `nodes`
+    extra_highlights = []
+    if temporal:
+        edge_sets_by_timestamp = {}
+        for (a, b, t) in given_edges:
+            if t not in edge_sets_by_timestamp:
+                edge_sets_by_timestamp[t] = set()
+            edge_sets_by_timestamp[t].add((a, b))
+
+        timestamps = sorted([t for t, _ in edge_sets_by_timestamp.items()])
+        alt_nodes = []
+
+        if directed and use_color_direction:
+            dir_nodes_1 = []
+            dir_nodes_2 = []
+            extra_highlights = [dir_nodes_1, dir_nodes_2]
+
+        for i in range(0, len(timestamps)):
+            t = timestamps[i]
+            for node in nodes:
+                alt_nodes.append((node, t))
+                graph.add_node((node, t))
+                if i == 0:
+                    graph.add_edge(node, (node, t))
+                else:
+                    graph.add_edge((node, timestamps[i - 1]), (node, t))
+            for (a, b) in edge_sets_by_timestamp[t]:
+
+                if directed and use_color_direction:
+                    graph.add_node(((a, t), (b, t), 1))
+                    graph.add_node(((a, t), (b, t), 2))
+                    dir_nodes_1.append(((a, t), (b, t), 1))
+                    dir_nodes_2.append(((a, t), (b, t), 2))
+                    graph.add_edge((a, t), ((a, t), (b, t), 1))
+                    graph.add_edge(((a, t), (b, t), 1), ((a, t), (b, t), 2))
+                    graph.add_edge(((a, t), (b, t), 2), (b, t))
+
+                    # only add edge once
+                    if b not in graph.neighbors(a):
+                        graph.add_edge(a, b)
+                else:
+                    graph.add_edge((a, t), (b, t))
+    else:  # static
+        if directed and use_color_direction:
+            dir_nodes_1 = []
+            dir_nodes_2 = []
+            extra_highlights = [dir_nodes_1, dir_nodes_2]
+
+        for (a, b) in given_edges:
+
+            if directed and use_color_direction:
+                graph.add_node((a, b, 1))
+                graph.add_node((a, b, 2))
+                dir_nodes_1.append((a, b, 1))
+                dir_nodes_2.append((a, b, 2))
+                graph.add_edge(a, (a, b, 1))
+                graph.add_edge((a, b, 1), (a, b, 2))
+                graph.add_edge((a, b, 2), b)
+
+                # only add edge once
+                if b not in graph.neighbors(a):
+                    graph.add_edge(a, b)
+            else:
+                graph.add_edge(a, b)
+
+    NTSession = NautyTracesSession(graph, mode="Nauty", sparse=True)
+    NTSession.set_colors_by_highlights([list(nodes)] + extra_highlights)
+    na = NTSession.get_num_automorphisms()
+    if get_canon_order:
+        co = NTSession.get_canonical_order()
+    NTSession.complete()
+    na = na.get()
+    if get_canon_order:
+        co = co.get()
+        return (na, co)
+    return (na, None)
 
 # Used only for testing.
 def __canonical_string__(nodes, edges, directed=False, temporal=False):
