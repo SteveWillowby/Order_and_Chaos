@@ -273,6 +273,7 @@ def __plot_temporal_sequence__(filename, directed=True, num_buckets=None):
 
 if __name__ == "__main__":
 
+    """
     plot_graph_sequence(__triangles_sequence__(9), \
                         directed=False, temporal=False, \
                         sequence_name="Triangles Sequence")
@@ -289,8 +290,15 @@ if __name__ == "__main__":
     plot_graph_sequence(__binary_tree_sequence__(num_trees=7), \
                         directed=False, temporal=False, \
                         sequence_name="Binary Trees")
+    """
 
-    __plot_temporal_sequence__("datasets/college-temporal.g", \
+    # __plot_temporal_sequence__("datasets/college-temporal.g", \
+    #                            directed=True, num_buckets=10)
+    # __plot_temporal_sequence__("datasets/college-temporal.g", \
+    #                            directed=True, num_buckets=100)
+
+
+    __plot_temporal_sequence__("datasets/eucore-temporal.g", \
                                directed=True, num_buckets=10)
-    __plot_temporal_sequence__("datasets/college-temporal.g", \
+    __plot_temporal_sequence__("datasets/eucore-temporal.g", \
                                directed=True, num_buckets=100)

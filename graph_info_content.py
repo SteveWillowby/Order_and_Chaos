@@ -188,12 +188,33 @@ def information_content(nodes, edges, proportional_p=False, \
             # the prob of a single matrix is 2^-(edge slots)
             log2_prob_matrix = -log2_num_matrices
 
+    nauty_run_nodes = nodes
+    if not only_consider_used_nodes:
+        # Remove unused nodes to prevent factorial scaling of Nauty computation,
+        #   then account for them after the run.
+        used_nodes = set()
+        for edge in edges:
+            used_nodes.add(edge[0])
+            used_nodes.add(edge[1])
+        used_nodes = used_nodes
+        unused_nodes = set(nodes) - used_nodes
+        if len(unused_nodes) > 0:
+            an_unused_node = unused_nodes.pop()
+            unused_nodes.add(an_unused_node)
+            nauty_run_nodes = used_nodes | set([an_unused_node])
+
     # Compute the log-number of automorphisms.
     (num_automorphisms, _) = __get_graph_info__(\
-            nodes, edges, temporal, directed, use_color_direction=True, \
+            nauty_run_nodes, edges, temporal, directed, \
+            use_color_direction=True, \
             get_canon_order=False)
 
     log2_num_automorphisms = float(bigfloat.log2(num_automorphisms))
+
+    if not only_consider_used_nodes:
+        # Add automorphisms for unused nodes:
+        for i in range(2, len(unused_nodes) + 1):
+            log2_num_automorphisms += math.log(i, 2.0)
 
     # Compute the log-number of nodes factorial:
     log2_n_fact = 0
