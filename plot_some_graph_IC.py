@@ -46,10 +46,16 @@ def plot_graph_sequence(graph_sequence, \
         #         (min_ic_limit[-1], ic[-1], max_ic_limit[-1]))
 
     if normalize:
-        ic = [(ic[i] - min_ic_limit[i]) / (max_ic_limit[i] - min_ic_limit[i]) \
-                for i in range(0, len(ic))]
-        min_ic_limit = [0 for _ in range(0, len(ic))]
-        max_ic_limit = [1 for _ in range(0, len(ic))]
+        for i in range(0, len(ic)):
+            if max_ic_limit[i] == min_ic_limit[i]:
+                min_ic_limit[i] = 1
+                max_ic_limit[i] = 1
+                ic[i] = 1
+            else:
+                ic[i] = (ic[i] - min_ic_limit[i]) / \
+                            (max_ic_limit[i] - min_ic_limit[i])
+            min_ic_limit[i] = 0
+            max_ic_limit[i] = 1
 
     plt.plot(graph_indices, min_ic_limit, color="red")
     plt.plot(graph_indices, max_ic_limit, color="red")
@@ -317,12 +323,13 @@ if __name__ == "__main__":
                                directed=True, num_buckets=10)
     __plot_temporal_sequence__("datasets/eucore-temporal.g", \
                                directed=True, num_buckets=10)
-    __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
-                               directed=True, num_buckets=10)
 
     __plot_temporal_sequence__("datasets/college-temporal.g", \
                                directed=True, num_buckets=100)
     __plot_temporal_sequence__("datasets/eucore-temporal.g", \
                                directed=True, num_buckets=100)
+
+    __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
+                               directed=True, num_buckets=10)
     __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
                                directed=True, num_buckets=100)
