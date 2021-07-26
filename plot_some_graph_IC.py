@@ -6,25 +6,34 @@ import random
 # graph_sequence should be a list of (nodes, edges) tuples.
 def plot_graph_sequence(graph_sequence, \
                         directed=False, temporal=False, \
-                        sequence_name="A Graph Sequence"):
+                        sequence_name="A Graph Sequence", \
+                        set_num_timestamps=None, \
+                        normalize=True, \
+                        proportional_p=False):
     graph_indices = [i for i in range(0, len(graph_sequence))]
     ic = []
     min_ic_limit = []
     max_ic_limit = []
     for (nodes, edges) in graph_sequence:
-        ic.append(information_content(nodes, edges, proportional_p=False, \
+
+        num_timestamps = 1
+        if temporal:
+            if set_num_timestamps is not None:
+                num_timestamps = set_num_timestamps
+            else:
+                timestamps = set()
+                for (a, b, t) in edges:
+                    timestamps.add(t)
+                num_timestamps = len(timestamps)
+
+        ic.append(information_content(nodes, edges, \
+                        proportional_p=proportional_p, \
                         directed=directed, temporal=temporal, \
-                        num_timestamps="auto", \
+                        num_timestamps=num_timestamps, \
                         node_colors=None, only_consider_used_nodes=False, \
                         extreme_only_consider_used_nodes=False, \
                         extreme_proportional_p=False))
 
-        num_timestamps = 1
-        if temporal:
-            timestamps = set()
-            for (a, b, t) in edges:
-                timestamps.add(t)
-            num_timestamps = len(timestamps)
         min_ic_limit.append(\
             min_information_content_limit(len(nodes), \
                                           directed=directed, \
@@ -36,15 +45,20 @@ def plot_graph_sequence(graph_sequence, \
         # print("  Min: %f\n  IC: %f\n  Max: %f" % \
         #         (min_ic_limit[-1], ic[-1], max_ic_limit[-1]))
 
-    # plt.clear()
+    if normalize:
+        ic = [(ic[i] - min_ic_limit[i]) / (max_ic_limit[i] - min_ic_limit[i]) \
+                for i in range(0, len(ic))]
+        min_ic_limit = [0 for _ in range(0, len(ic))]
+        max_ic_limit = [1 for _ in range(0, len(ic))]
+
     plt.plot(graph_indices, min_ic_limit, color="red")
     plt.plot(graph_indices, max_ic_limit, color="red")
     plt.plot(graph_indices, ic, color="blue")
-    plt.title("Information Content of %s" % sequence_name)
+    plt.title("Info Content of %s" % sequence_name)
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Information Content")
-    plt.savefig("figs/IC_of_%s.pdf" % sequence_name)
-    plt.show()
+    plt.savefig("figs/IC_of_%s.png" % sequence_name)
+    plt.close()
 
 # Reads the edge list with potentially duplicated edges and returns two lists:
 #   nodes and edges
@@ -230,7 +244,8 @@ def __bucket_temporal_edges__(edges, target_num_buckets):
     return edge_buckets
 
 
-def __plot_temporal_sequence__(filename, directed=True, num_buckets=None):
+def __plot_temporal_sequence__(filename, directed=True, num_buckets=None, \
+                               use_all_nodes=True):
     (nodes, edges) = __read_edge_list__(filename, directed, True)
     edges_by_timestamp = {}
     timestamps = []
@@ -261,19 +276,26 @@ def __plot_temporal_sequence__(filename, directed=True, num_buckets=None):
     graph_sequence = []
     edge_sub_list = []
     current_t = None
+
     for (a, b, t) in edges:
         if current_t is not None and current_t != t:
             graph_sequence.append((nodes, list(edge_sub_list)))
         edge_sub_list.append((a, b, t))
         current_t = t
     graph_sequence.append((nodes, edge_sub_list))
+
+    if num_buckets is not None:
+        num_timestamps_to_use = len(graph_sequence)
+    else:
+        num_timestamps_to_use = len(timestamps)
+
     plot_graph_sequence(graph_sequence, directed=directed, temporal=True, \
                         sequence_name=(filename.split("/")[-1] + \
-                                       ("with %d buckets" % num_buckets)))
+                                       (" - %d buckets" % num_buckets)), \
+                        set_num_timestamps=None)
 
 if __name__ == "__main__":
 
-    """
     plot_graph_sequence(__triangles_sequence__(9), \
                         directed=False, temporal=False, \
                         sequence_name="Triangles Sequence")
@@ -290,15 +312,17 @@ if __name__ == "__main__":
     plot_graph_sequence(__binary_tree_sequence__(num_trees=7), \
                         directed=False, temporal=False, \
                         sequence_name="Binary Trees")
-    """
 
-    # __plot_temporal_sequence__("datasets/college-temporal.g", \
-    #                            directed=True, num_buckets=10)
-    # __plot_temporal_sequence__("datasets/college-temporal.g", \
-    #                            directed=True, num_buckets=100)
-
-
-    __plot_temporal_sequence__("datasets/eucore-temporal.g", \
+    __plot_temporal_sequence__("datasets/college-temporal.g", \
                                directed=True, num_buckets=10)
     __plot_temporal_sequence__("datasets/eucore-temporal.g", \
+                               directed=True, num_buckets=10)
+    __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
+                               directed=True, num_buckets=10)
+
+    __plot_temporal_sequence__("datasets/college-temporal.g", \
+                               directed=True, num_buckets=100)
+    __plot_temporal_sequence__("datasets/eucore-temporal.g", \
+                               directed=True, num_buckets=100)
+    __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
                                directed=True, num_buckets=100)
