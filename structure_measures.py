@@ -1,4 +1,5 @@
 import bigfloat
+from graph_types import GraphTypes
 import math
 
 """
@@ -6,6 +7,34 @@ log2_num_automorphisms(nodes, edges,
                        directed=False, temporal=False,
                        only_consider_used_nodes=False)
 """
+
+def __possible_num_edges__(nodes, edges, graph_type):
+    if graph_type == GraphType.STATIC_UNDIRECTED:
+        pass
+    elif graph_type == GraphType.STATIC_DIRECTED:
+        pass
+    elif graph_type == GraphType.BIPARTITE_UNDIRECTED:
+        pass
+    elif graph_type == GraphType.BIPARTITE_DIRECTED:
+        pass
+    elif graph_type == GraphType.STATIC_COLORED_UNDIRECTED:
+        pass
+    elif graph_type == GraphType.STATIC_COLORED_DIRECTED:
+        pass
+    elif graph_type == GraphType.NODE_JOINING_UNDIRECTED:
+        pass
+    elif graph_type == GraphType.NODE_JOINING_DIRECTED:
+        pass
+    elif graph_type == GraphType.NODE_JOINING_DIRECTED_ONE_WAY:
+        pass
+    elif graph_type == GraphType.TEMPORAL_UNDIRECTED:
+        pass
+    elif graph_type == GraphType.TEMPORAL_DIRECTED:
+        pass
+    elif graph_type == GraphType.TEMPORAL_COLORED_UNDIRECTED:
+        pass
+    elif graph_type == GraphType.TEMPORAL_COLORED_DIRECTED:
+        pass
 
 # TODO: Finish/re-write. Instead of all these flags, have graph types.
 def __matrix_meta_info__(num_nodes, edges, num_timestamps="auto", \
