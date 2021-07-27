@@ -1,3 +1,4 @@
+from algorithmic_utils import get_reverse_dict
 import bigfloat
 from graph_types import GraphTypes
 import math
@@ -8,33 +9,159 @@ log2_num_automorphisms(nodes, edges,
                        only_consider_used_nodes=False)
 """
 
-def __possible_num_edges__(nodes, edges, graph_type):
-    if graph_type == GraphType.STATIC_UNDIRECTED:
-        pass
-    elif graph_type == GraphType.STATIC_DIRECTED:
-        pass
+# node_times_if_relevant must be a dict.
+#   It can map nodes to single time values, which are assumed to be the time
+#   at which the node is introduced, or it can map nodes to a set of time
+#   values, which are the times at which the node is considered to be part of
+#   the graph. If using a single value, a node is considered to be part of all
+#   snapshots during and after the time at which it is introduced.
+def __possible_num_edges__(nodes, graph_type, node_times_if_relevant=None):
+    if graph_type == GraphType.STATIC_UNDIRECTED or \
+            graph_type == GraphType.STATIC_COLORED_UNDIRECTED:
+        return (len(nodes) * (len(nodes) - 1)) / 2
+
+    elif graph_type == GraphType.STATIC_DIRECTED or \
+            graph_type == GraphType.STATIC_COLORED_DIRECTED:
+        return len(nodes) * (len(nodes) - 1)
+
     elif graph_type == GraphType.BIPARTITE_UNDIRECTED:
-        pass
+        return len(nodes[0]) * len(nodes[1])
+
     elif graph_type == GraphType.BIPARTITE_DIRECTED:
-        pass
-    elif graph_type == GraphType.STATIC_COLORED_UNDIRECTED:
-        pass
-    elif graph_type == GraphType.STATIC_COLORED_DIRECTED:
-        pass
-    elif graph_type == GraphType.NODE_JOINING_UNDIRECTED:
-        pass
-    elif graph_type == GraphType.NODE_JOINING_DIRECTED:
-        pass
-    elif graph_type == GraphType.NODE_JOINING_DIRECTED_ONE_WAY:
-        pass
-    elif graph_type == GraphType.TEMPORAL_UNDIRECTED:
-        pass
-    elif graph_type == GraphType.TEMPORAL_DIRECTED:
-        pass
-    elif graph_type == GraphType.TEMPORAL_COLORED_UNDIRECTED:
-        pass
-    elif graph_type == GraphType.TEMPORAL_COLORED_DIRECTED:
-        pass
+        return 2 * len(nodes[0]) * len(nodes[1])
+
+    elif graph_type == GraphType.NODE_JOINING_UNDIRECTED or \
+            graph_type == GraphType.NODE_JOINING_DIRECTED or \
+            graph_type == GraphType.NODE_JOINING_DIRECTED_ONE_WAY:
+
+        assert node_times_if_relevant is not None
+
+        intra_directions = 1 + int(\
+            graph_type == GraphType.NODE_JOINING_DIRECTED or \
+            graph_type == GraphType.NODE_JOINING_DIRECTED_ONE_WAY)
+        extra_directions = 1 + int(\
+            graph_type == GraphType.NODE_JOINING_DIRECTED)
+
+        time_partitions = get_reverse_dict(node_times_if_relevant)
+        times = [t for t, _ in time_partitions.items()]
+        times.sort()
+        num_possible_edges = 0
+        num_previous_nodes = 0
+        for t in times:
+            num_nodes = len(time_partitions[t])
+
+            intra_edges = ((num_nodes * (num_nodes - 1)) / 2) * \
+                            intra_directions
+            extra_edges = num_nodes * num_previous_nodes * extra_directions
+
+            num_possible_edges += intra_edges + extra_edges
+            num_previous_nodes += num_nodes
+        return num_possible_edges
+            
+    elif graph_type == GraphType.TEMPORAL_UNDIRECTED or \
+            graph_type == GraphType.TEMPORAL_COLORED_UNDIRECTED or \
+            graph_type == GraphType.TEMPORAL_DIRECTED or \
+            graph_type == GraphType.TEMPORAL_COLORED_DIRECTED:
+
+        assert node_times_if_relevant is not None
+
+        introduction_times = True
+        for node, time_s in node_times_if_relevant:
+            if type(time_s) is not set:
+                break
+            if type(time_s) is set and len(time_s) > 1:
+                introduction_times = False
+                break
+
+        num_directions = 1 + int(\
+            graph_type == GraphType.TEMPORAL_DIRECTED or \
+            graph_type == GraphType.TEMPORAL_COLORED_DIRECTED)
+
+        time_partitions = get_reverse_dict(node_times_if_relevant)
+        times = [t for t, _ in time_partitions.items()]
+        times.sort()
+        num_possible_edges = 0
+        cumulative_num_nodes = 0
+        for t in times:
+            num_nodes = len(time_partitions[t])
+            cumulative_num_nodes += num_nodes
+            if introduction_times:
+                num_possible_edges += num_directions * \
+                    ((cumulative_nodes * (cumulative_nodes - 1)) / 2)
+            else:
+                num_possible_edges += num_directions * \
+                    ((num_nodes * (num_nodes - 1)) / 2)
+        return num_possible_edges
+
+# Options for `mode` include:
+#   "cumulative"
+#   "permanent"
+#   "transitive"
+#   "source_transitive" -- only give a node a timestamp t if it is a source
+#       at time t
+def __node_timestamps__(nodes, sorted_edges, \
+                        all_timestamps="auto", mode="transitive"):
+    if all_timestamps == "auto":
+        all_timestamps = set()
+        for edge in sorted_edges:
+            all_timestamps.add(edge[2])
+    sorted_timestamps = sorted(list(all_timestamps))
+
+    assert mode == "permanent" or mode == "transitive" or \
+           mode == "cumulative" or mode == "source_transitive"
+
+    if mode == "permanent":
+        print("You are considering all timesteps for each node. Perhaps your" +\
+              " code could be more efficient if you have a special case.")
+
+        # Note that this does not use excessive space, because all_timestamps is
+        #   a pointer.
+        return {n: all_timestamps for n in nodes}
+
+    cumulative = 1
+    transitive = 2
+    source_transitive = 3
+    if mode == "cumulative":
+        mode = cumulative
+    elif mode == "transitive":
+        mode = transitive
+    else:
+        mode = source_transitive
+
+    node_timestamps = {n: set() for n in nodes}
+    prev_t = None
+    if mode == cumulative:
+        t_plus_sets = {sorted_timestamps[i]: \
+                        set([t for t in sorted_timestamps[i:]]) \
+                            for i in range(0, len(sorted_timestamps))}
+    for edge in sorted_edges:
+        source = edge[0]
+        target = edge[1]
+        t = edge[2]
+
+        if prev_t is not None and t < prev_t:
+            raise ValueError("Error! Edges were not sorted by timestamp!")
+        if prev_t is None or t > prev_t:
+            pass
+        prev_t = t
+
+        if mode == source_transitive:
+            node_timestamps[source].add(t)
+        elif mode == transitive:
+            node_timestamps[source].add(t)
+            node_timestamps[target].add(t)
+        else:  # cumulative
+            if len(node_timestamps[source]) == 0:
+                node_timestamps[source] = t_plus_sets[t]
+            if len(node_timestamps[target]) == 0:
+                node_timestamps[target] = t_plus_sets[t]
+
+    return node_timestamps
+
+def log2_ER_prob(nodes, edges, graph_type, \
+                 proportional_p=True, \
+                 node_timestamps=None):
+    pass
 
 # TODO: Finish/re-write. Instead of all these flags, have graph types.
 def __matrix_meta_info__(num_nodes, edges, num_timestamps="auto", \

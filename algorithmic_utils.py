@@ -30,6 +30,16 @@
 # get_all_n_rankings(n)
 #   Returns all possible rankings of n items where ties are allowed. To prohibit
 #     ties, just use get_all_k_permutations(n, n).
+#
+# get_reverse_dict(d)
+#   Returns a dictionary with elements reversed (in sets). Note that reversing a
+#   dict twice does not guarantee the same result:
+#       {a: 1, b: 1, c: 2} --> {1: {a, b}, 2: {c}}
+#
+#       {1: {a, b}, 2: {c}} --> {a: {1}, b: {1}, c: {2}}
+#       {a: {1}, b: {1}, c: {2}} --> {1: {a, b}, 2: {c}}
+#       {1: {a, b}, 2: {c}} --> {a: {1}, b: {1}, c: {2}}
+
 
 # Returns False if the tuple cannot be incremented. True otherwise.
 # Modifies t in place. n is the number of values a variable in the tuple
@@ -136,7 +146,25 @@ def __get_all_n_rankings_helper__(n):
                 rankings[-1].append(tuple(next_ranking))
     return rankings
 
+def get_reverse_dict(d):
+    rd = {}
+    for key, value in d.items():
+        if type(value) is set:
+            for v in value:
+                if v not in rd:
+                    rd[v] = set()
+                rd[v].add(key)
+        else:
+            if value not in rd:
+                rd[value] = set()
+            rd[value].add(key)
+    return rd
+
 if __name__ == "__main__":
+    print(get_reverse_dict({"a": 1, "b": 1, "c": 2}))
+    print(get_reverse_dict({1: set(["a", "b"]), 2: set(["c"])}))
+    print(get_reverse_dict({"a": set([1]), "b": set([1]), "c": set([2])}))
+
     print(get_all_k_sets(3, 3))
     print(get_all_k_permutations(3, 3))
     print(get_all_k_tuples(3, 3))
