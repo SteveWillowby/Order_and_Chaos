@@ -4,6 +4,7 @@ from graph_types import GraphTypes
 import math
 from nauty_session import NautyTracesSession
 import networkx as nx
+import random
 
 """
 log2_num_automorphisms(nodes, edges,
@@ -459,8 +460,12 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
 def measure_of_structure(nodes_sets, edges, graph_type, \
                          all_timestamps="auto", \
                          num_ER_graphs=10):
+    directed = GraphTypes.IS_DIRECTED[graph_type]
+    temporal = GraphTypes.IS_TEMPORAL[graph_type]
     nodes = nodes_sets[0]
-    ER_graphs = []
+
+    ER_log2_na_values = []
+
     if GraphTypes.IS_TEMPORAL[graph_type]:
         if all_timestamps == "auto":
             all_timestamps = set()
@@ -468,10 +473,16 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                 all_timestamps.add(edge[2])
             all_timestamps = sorted(list(all_timestamps))
 
-        nt = {n: set() for n in nodes}
-        for edge in edges:
-            nt[edge[0]].add(edge[2])
-            nt[edge[1]].add(edge[2])
+        if graph_type == GraphTypes.NODE_JOINING_UNDIRECTED or \
+                graph_type == GraphTypes.NODE_JOINING_DIRECTED or \
+                graph_type == GraphTypes.NODE_JOINING_DIRECTED_ONE_WAY:
+            assert "This Code" == "Not Implemented"
+            nt = {n: set() for n in nodes}
+            for edge in edges:
+                nt[edge[0]].add(edge[2])
+                nt[edge[1]].add(edge[2])
+        else:
+            nt = None
 
         for i in range(0, num_ER_graphs):
             ER_graph = __create_ER_graph__(\
@@ -479,7 +490,10 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                         num_timestamps_if_relevant=len(all_timestamps), \
                         node_timestamps_if_relevant=nt, \
                         alt_num_nodes_if_relevant=None)
-            ER_graphs.append((ER_graph[0][0], ER_graph[1]))
+            (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
+            ER_log2_na_values.append(log2_num_automorphisms(ER_nodes, ER_edges,
+                                     directed=directed, temporal=temporal,
+                                     only_consider_used_nodes=False))
 
     elif graph_type == GraphTypes.BIPARTITE_UNDIRECTED or \
             graph_type == GraphTypes.BIPARTITE_DIRECTED:
@@ -490,7 +504,13 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                         num_timestamps_if_relevant=None, \
                         node_timestamps_if_relevant=None, \
                         alt_num_nodes_if_relevant=len(nodes_sets[1]))
-            ER_graphs.append(ER_graph)
+            ER_nodes = ER_graph[0][0] | ER_graph[0][1]
+            ER_edges = ER_graph[1]
+            colors = "NOWHERE TO BE FOUND RIGHT NOW"
+            assert type(colors) is dict
+            ER_log2_na_values.append(log2_num_automorphisms(ER_nodes, ER_edges,
+                                     directed=directed, temporal=temporal,
+                                     only_consider_used_nodes=False))
     else:
         for i in range(0, num_ER_graphs):
             ER_graph = __create_ER_graph__(\
@@ -498,17 +518,12 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                         num_timestamps_if_relevant=None, \
                         node_timestamps_if_relevant=None, \
                         alt_num_nodes_if_relevant=None)
-            ER_graphs.append((ER_graph[0][0], ER_graph[1]))
+            (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
+            ER_log2_na_values.append(log2_num_automorphisms(ER_nodes, ER_edges,
+                                     directed=directed, temporal=temporal,
+                                     only_consider_used_nodes=False))
 
-    directed = GraphTypes.IS_DIRECTED[graph_type]
-    temporal = GraphTypes.IS_TEMPORAL[graph_type]
-    lna = []
-    for (ER_nodes, ER_edges) in ER_graphs:
-        lna.append(log2_num_automorphisms(ER_nodes, ER_edges,
-                               directed=directed, temporal=temporal,
-                               only_consider_used_nodes=False))
-    print(lna)
-    min_ER_log2_num_automorphisms = min(lna)
+    min_ER_log2_num_automorphisms = min(ER_log2_na_values)
     graph_log2_num_automorphisms = log2_num_automorphisms(nodes, edges,
                                         directed=directed, temporal=temporal,
                                         only_consider_used_nodes=False)
@@ -610,17 +625,16 @@ def __create_ER_graph__(num_nodes, num_edges, graph_type, \
                     target = random.randint(1, num_nodes - 1)
                     if target >= source:
                         target += 1
-                    time = random.randint(1, num_timestamps_if_relevant)
 
                     if GraphTypes.IS_DIRECTED[graph_type]:
-                        if (source, target, time) not in edges:
-                            edges.add((source, target, time))
+                        if (source, target) not in edges:
+                            edges.add((source, target))
                             valid = True
                     else:
                         s = min(source, target)
                         t = max(source, target)
-                        if (s, t, time) not in edges:
-                            edges.add((s, t, time))
+                        if (s, t) not in edges:
+                            edges.add((s, t))
                             valid = True
 
     return (nodes_sets, edges)

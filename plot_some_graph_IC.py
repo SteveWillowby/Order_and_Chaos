@@ -1,4 +1,5 @@
 from graph_info_content import information_content, min_information_content_limit, max_information_content_limit
+from graph_types import GraphTypes
 import matplotlib.pyplot as plt
 import random
 from structure_measures import measure_of_structure
@@ -84,7 +85,7 @@ def plot_graph_SM_sequence(graph_sequence, \
     for (nodes, edges) in graph_sequence:
         sm.append(measure_of_structure([nodes], edges, graph_type, \
                                        all_timestamps="auto", \
-                                       num_ER_graphs=10))
+                                       num_ER_graphs=100))
 
     plt.plot(graph_indices, sm, color="blue")
     plt.title("Structure Measure of %s" % sequence_name)
@@ -324,8 +325,8 @@ def __plot_temporal_sequence__(filename, directed=True, num_buckets=None, \
 
     plot_graph_SM_sequence(graph_sequence, directed=directed, temporal=True, \
                            sequence_name=(filename.split("/")[-1] + \
-                                          (" - %d buckets" % num_buckets)), \
-                           set_num_timestamps=None)
+                                          (" - %d buckets" % num_buckets)))
+                           # set_num_timestamps=None)  # this just for IC
 
 if __name__ == "__main__":
 
