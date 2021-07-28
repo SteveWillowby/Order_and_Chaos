@@ -1,15 +1,16 @@
 from graph_info_content import information_content, min_information_content_limit, max_information_content_limit
 import matplotlib.pyplot as plt
 import random
+from structure_measures import measure_of_structure
 
 
 # graph_sequence should be a list of (nodes, edges) tuples.
-def plot_graph_sequence(graph_sequence, \
-                        directed=False, temporal=False, \
-                        sequence_name="A Graph Sequence", \
-                        set_num_timestamps=None, \
-                        normalize=True, \
-                        proportional_p=False):
+def plot_graph_IC_sequence(graph_sequence, \
+                           directed=False, temporal=False, \
+                           sequence_name="A Graph Sequence", \
+                           set_num_timestamps=None, \
+                           normalize=True, \
+                           proportional_p=False):
     graph_indices = [i for i in range(0, len(graph_sequence))]
     ic = []
     min_ic_limit = []
@@ -64,6 +65,32 @@ def plot_graph_sequence(graph_sequence, \
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Information Content")
     plt.savefig("figs/IC_of_%s.png" % sequence_name)
+    plt.close()
+
+def plot_graph_SM_sequence(graph_sequence, \
+                           directed=False, temporal=False, \
+                           sequence_name="A Graph Sequence"):
+    if directed and temporal:
+        graph_type = GraphTypes.TEMPORAL_DIRECTED
+    elif temporal:
+        graph_type = GraphTypes.TEMPORAL_UNDIRECTED
+    elif directed:
+        graph_type = GraphTypes.STATIC_DIRECTED
+    else:
+        graph_type = GraphTypes.STATIC_UNDIRECTED
+
+    graph_indices = [i for i in range(0, len(graph_sequence))]
+    sm = []
+    for (nodes, edges) in graph_sequence:
+        sm.append(measure_of_structure([nodes], edges, graph_type, \
+                                       all_timestamps="auto", \
+                                       num_ER_graphs=10))
+
+    plt.plot(graph_indices, sm, color="blue")
+    plt.title("Structure Measure of %s" % sequence_name)
+    plt.xlabel("Graph Sequence Index")
+    plt.ylabel("Structure Measure")
+    plt.savefig("figs/SM_of_%s.png" % sequence_name)
     plt.close()
 
 # Reads the edge list with potentially duplicated edges and returns two lists:
@@ -295,27 +322,27 @@ def __plot_temporal_sequence__(filename, directed=True, num_buckets=None, \
     else:
         num_timestamps_to_use = len(timestamps)
 
-    plot_graph_sequence(graph_sequence, directed=directed, temporal=True, \
-                        sequence_name=(filename.split("/")[-1] + \
-                                       (" - %d buckets" % num_buckets)), \
-                        set_num_timestamps=None)
+    plot_graph_SM_sequence(graph_sequence, directed=directed, temporal=True, \
+                           sequence_name=(filename.split("/")[-1] + \
+                                          (" - %d buckets" % num_buckets)), \
+                           set_num_timestamps=None)
 
 if __name__ == "__main__":
 
-    plot_graph_sequence(__triangles_sequence__(9), \
+    plot_graph_SM_sequence(__triangles_sequence__(9), \
                         directed=False, temporal=False, \
                         sequence_name="Triangles Sequence")
-    plot_graph_sequence(__triangles_sequence_with_all_nodes_always__(9), \
+    plot_graph_SM_sequence(__triangles_sequence_with_all_nodes_always__(9), \
                         directed=False, temporal=False, \
                         sequence_name="Triangles Sequence with All Nodes")
-    plot_graph_sequence(__random_edge_addition__(num_nodes=9*3, \
+    plot_graph_SM_sequence(__random_edge_addition__(num_nodes=9*3, \
                                                  edges_per_iter=3, \
                                                  sequence_length=9, \
                                                  directed=False), \
                         directed=False, temporal=False, \
                         sequence_name="Randomly Adding 3 Edges Each Time")
 
-    plot_graph_sequence(__binary_tree_sequence__(num_trees=7), \
+    plot_graph_SM_sequence(__binary_tree_sequence__(num_trees=7), \
                         directed=False, temporal=False, \
                         sequence_name="Binary Trees")
 

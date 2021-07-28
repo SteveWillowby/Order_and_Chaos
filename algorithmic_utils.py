@@ -160,6 +160,7 @@ def get_reverse_dict(d):
             rd[value].add(key)
     return rd
 
+
 if __name__ == "__main__":
     print(get_reverse_dict({"a": 1, "b": 1, "c": 2}))
     print(get_reverse_dict({1: set(["a", "b"]), 2: set(["c"])}))
