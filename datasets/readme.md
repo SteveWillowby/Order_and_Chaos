@@ -47,7 +47,8 @@
         - nodes: `1899`
         - static edges: `20296`
         - temporal edges: `59835`
-        - time span: `193` days
+        - time span: `193.7` days
     - list of attributed edges `(u, v, t)` where student `u` sent student `v` a message at time `t`
         - edge attributes `t` are natural number timestamps
+        - timestamps are in seconds
     - `https://snap.stanford.edu/data/CollegeMsg.html`
