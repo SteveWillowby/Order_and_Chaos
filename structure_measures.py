@@ -442,45 +442,6 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
                 for (a, b) in edge_sets_by_timestamp[t]:
 
                     graph.add_edge((a, t), (b, t))
-        """
-        edge_sets_by_timestamp = {}
-        for (a, b, t) in given_edges:
-            if t not in edge_sets_by_timestamp:
-                edge_sets_by_timestamp[t] = set()
-            edge_sets_by_timestamp[t].add((a, b))
-
-        timestamps = sorted([t for t, _ in edge_sets_by_timestamp.items()])
-
-        if directed and use_color_direction:
-            dir_nodes_1 = []
-            dir_nodes_2 = []
-            extra_highlights = [dir_nodes_1, dir_nodes_2]
-
-        for i in range(0, len(timestamps)):
-            t = timestamps[i]
-            for node in nodes:
-                graph.add_node((node, t))
-                if i == 0:
-                    graph.add_edge(node, (node, t))
-                else:
-                    graph.add_edge((node, timestamps[i - 1]), (node, t))
-            for (a, b) in edge_sets_by_timestamp[t]:
-
-                if directed and use_color_direction:
-                    graph.add_node(((a, t), (b, t), 1))
-                    graph.add_node(((a, t), (b, t), 2))
-                    dir_nodes_1.append(((a, t), (b, t), 1))
-                    dir_nodes_2.append(((a, t), (b, t), 2))
-                    graph.add_edge((a, t), ((a, t), (b, t), 1))
-                    graph.add_edge(((a, t), (b, t), 1), ((a, t), (b, t), 2))
-                    graph.add_edge(((a, t), (b, t), 2), (b, t))
-
-                    # only add edge once
-                    if b not in graph.neighbors(a):
-                        graph.add_edge(a, b)
-                else:
-                    graph.add_edge((a, t), (b, t))
-        """
     else:  # static
         if directed and use_color_direction:
             dir_nodes_1 = []
