@@ -9,7 +9,8 @@ import random
 """
 log2_num_automorphisms(nodes, edges,
                        directed=False, temporal=False,
-                       only_consider_used_nodes=False)
+                       only_consider_used_nodes=False, \
+                       node_colors=None)
 
   Returns the log-base-2 of the number of automorphisms.
 
@@ -254,10 +255,14 @@ def __possible_num_edges_with_assumptions__(nodes, sorted_edges, graph_type, \
 def __sorted_edges__(edges):
     return [(a, b, t) for (t, a, b) in \
             sorted([(t, a, b) for (a, b, t) in edges])]
-
 def log2_independent_edges_prob(nodes, edges, graph_type, \
                                 proportional_p=True, \
-                                all_timestamps="auto"):
+                                all_timestamps="auto", \
+                                node_colors=None):
+    if node_colors is None:
+        basic_highlights = [list(nodes)]
+    else:
+        assert len(node_colors) == len(nodes)
 
     if GraphTypes.IS_TEMPORAL[graph_type]:
         edges = __sorted_edges__(edges)
@@ -281,15 +286,30 @@ def log2_independent_edges_prob(nodes, edges, graph_type, \
     temporal = GraphTypes.IS_TEMPORAL[graph_type]
     log2_na = log2_num_automorphisms(nodes, edges, \
                                      directed=directed, temporal=temporal, \
-                                     only_consider_used_nodes=False)
-    log2_n_fact = 0.0
-    for i in range(1, len(nodes) + 1):
-        log2_n_fact += math.log(i, 2.0)
+                                     only_consider_used_nodes=False, \
+                                     node_colors=node_colors)
 
-    return (log2_n_fact - log2_na) + log2_matrix_prob
+    if node_colors is None:
+        color_partitions_sizes = [len(nodes)]
+    else:
+        color_partitions_sizes = {}
+        for n in nodes:
+            c = node_colors[n]
+            if c not in color_partitions_sizes:
+                color_partitions_sizes[c] = 0
+            color_partitions_sizes[c] += 1
+        color_partitions_sizes = \
+            [count for c, count in color_partitions_sizes.items()]
+
+    log2_max_permutations = 0.0
+    for color_partition_size in color_partitions_sizes:
+        for i in range(2, color_partition_size + 1):
+            log2_max_permutations += math.log(i, 2.0)
+
+    return (log2_max_permutations - log2_na) + log2_matrix_prob
 
 def log2_ER_prob(nodes, edges, graph_type, \
-                 all_timestamps="auto"):
+                 all_timestamps="auto", node_colors=None):
 
     if len(edges) == 0:
         return 1.0
@@ -312,16 +332,32 @@ def log2_ER_prob(nodes, edges, graph_type, \
     temporal = GraphTypes.IS_TEMPORAL[graph_type]
     log2_na = log2_num_automorphisms(nodes, edges, \
                                      directed=directed, temporal=temporal, \
-                                     only_consider_used_nodes=False)
-    log2_n_fact = 0.0
-    for i in range(1, len(nodes) + 1):
-        log2_n_fact += math.log(i, 2.0)
+                                     only_consider_used_nodes=False, \
+                                     node_colors=node_colors)
 
-    return (log2_n_fact - log2_na) + log2_matrix_prob
+    if node_colors is None:
+        color_partitions_sizes = [len(nodes)]
+    else:
+        color_partitions_sizes = {}
+        for n in nodes:
+            c = node_colors[n]
+            if c not in color_partitions_sizes:
+                color_partitions_sizes[c] = 0
+            color_partitions_sizes[c] += 1
+        color_partitions_sizes = \
+            [count for c, count in color_partitions_sizes.items()]
+        
+    log2_max_permutations = 0.0
+    for color_partition_size in color_partitions_sizes:
+        for i in range(2, color_partition_size + 1):
+            log2_max_permutations += math.log(i, 2.0)
+
+    return (log2_max_permutations - log2_na) + log2_matrix_prob
 
 def log2_num_automorphisms(nodes, edges, \
                            directed=False, temporal=False, \
-                           only_consider_used_nodes=False):
+                           only_consider_used_nodes=False, \
+                           node_colors=None):
     
     if only_consider_used_nodes:
         if len(edges) == 0:
@@ -349,24 +385,42 @@ def log2_num_automorphisms(nodes, edges, \
             unused_nodes.add(an_unused_node)
             nauty_run_nodes.add(an_unused_node)
 
+    if node_colors is None:
+        nauty_run_node_colors = None
+    else:
+        nauty_run_node_colors = {n: node_colors[n] for n in nauty_run_nodes}
+
     # Compute the log-number of automorphisms.
     (num_automorphisms, _) = __get_graph_info__(\
             nauty_run_nodes, edges, temporal, directed, \
             use_color_direction=True, \
-            get_canon_order=False)
+            get_canon_order=False, \
+            node_colors=nauty_run_node_colors)
 
     log2_num_automorphisms = float(bigfloat.log2(num_automorphisms))
 
     if not only_consider_used_nodes:
+        if node_colors is None:
+            partition_sizes = [len(unused_nodes)]
+        else:
+            partition_sizes = {}
+            for node in unused_nodes:
+                color = node_colors[node]
+                if color not in partition_sizes:
+                    partition_sizes[color] = 0
+                partition_sizes[color] += 1
+            partition_sizes = [count for col, count in partition_sizes.items()]
         # Add automorphisms for unused nodes:
-        for i in range(2, len(unused_nodes) + 1):
-            log2_num_automorphisms += math.log(i, 2.0)
+        for partition_size in partition_sizes:
+            for i in range(2, partition_size + 1):
+                log2_num_automorphisms += math.log(i, 2.0)
 
     return log2_num_automorphisms
 
 # Gives number of automorphisms and canonical node order.
 def __get_graph_info__(nodes, given_edges, temporal, directed, \
-                       use_color_direction=True, get_canon_order=False):
+                       use_color_direction=True, get_canon_order=False, \
+                       node_colors=None):
     if type(nodes) is not set:
         nodes = set(nodes)
 
@@ -379,6 +433,24 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
         graph.add_node(node)
 
     orbits = [list(nodes)]  # at first, everything in one orbit
+
+    if node_colors is None:
+        basic_highlights = [list(nodes)]
+    else:
+        assert len(node_colors) == len(nodes)
+        basic_highlights = []
+        color_collection = [node_colors[n] for n in nodes]
+        color_collection.sort()
+        next_highlight_idx = 0
+        color_to_highlight = {}
+        for c in color_collection:
+            if c not in color_to_highlight:
+                color_to_highlight[c] = next_highlight_idx
+                next_highlight_idx += 1
+                basic_highlights.append([])
+        for node in nodes:
+            basic_highlights[color_to_highlight[node_colors[node]]].append(node)
+        
 
     # Use only to store highlights for nodes not in `nodes`
     extra_highlights = []
@@ -469,7 +541,8 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
         NTSession = NautyTracesSession(graph, mode="Traces")
     else:
         NTSession = NautyTracesSession(graph, mode="Nauty", sparse=True)
-    NTSession.set_colors_by_highlights([list(nodes)] + extra_highlights)
+
+    NTSession.set_colors_by_highlights(basic_highlights + extra_highlights)
     na = NTSession.get_num_automorphisms()
     if get_canon_order:
         co = NTSession.get_canonical_order()
@@ -480,12 +553,16 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
         return (na, co)
     return (na, None)
 
-def measure_of_structure(nodes_sets, edges, graph_type, \
+def measure_of_structure(nodes_lists, edges, graph_type, \
                          all_timestamps="auto", \
-                         ER_try_count=10):
+                         ER_try_count=10, \
+                         node_colors=None):
     directed = GraphTypes.IS_DIRECTED[graph_type]
     temporal = GraphTypes.IS_TEMPORAL[graph_type]
-    nodes = nodes_sets[0]
+    all_nodes = []
+    for l in nodes_lists:
+        all_nodes += l
+    assert len(set(all_nodes)) == len(all_nodes)
 
     min_ER_log2_na = None
 
@@ -500,7 +577,7 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                 graph_type == GraphTypes.NODE_JOINING_DIRECTED or \
                 graph_type == GraphTypes.NODE_JOINING_DIRECTED_ONE_WAY:
             assert "This Code" == "Not Implemented"
-            nt = {n: set() for n in nodes}
+            nt = {n: set() for n in all_nodes}
             for edge in edges:
                 nt[edge[0]].add(edge[2])
                 nt[edge[1]].add(edge[2])
@@ -512,14 +589,14 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
             done = True
             for i in range(0, ER_try_count):
                 ER_graph = __create_ER_graph__(\
-                        len(nodes), len(edges), graph_type, \
+                        nodes_lists, len(edges), graph_type, \
                         num_timestamps_if_relevant=len(all_timestamps), \
-                        node_timestamps_if_relevant=nt, \
-                        alt_num_nodes_if_relevant=None)
+                        node_timestamps_if_relevant=nt)
                 (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
-                na_value = log2_num_automorphisms(ER_nodes, ER_edges,
-                                         directed=directed, temporal=temporal,
-                                         only_consider_used_nodes=False)
+                na_value = log2_num_automorphisms(ER_nodes, ER_edges, \
+                                         directed=directed, temporal=temporal, \
+                                         only_consider_used_nodes=False, \
+                                         node_colors=node_colors)
                 if float(na_value) == 0.0:
                     min_ER_log2_na = na_value
                     break
@@ -536,17 +613,17 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
             done = True
             for i in range(0, ER_try_count):
                 ER_graph = __create_ER_graph__(\
-                            len(nodes_sets[0]), len(edges), graph_type, \
+                            nodes_lists, len(edges), graph_type, \
                             num_timestamps_if_relevant=None, \
-                            node_timestamps_if_relevant=None, \
-                            alt_num_nodes_if_relevant=len(nodes_sets[1]))
+                            node_timestamps_if_relevant=None)
                 ER_nodes = ER_graph[0][0] | ER_graph[0][1]
                 ER_edges = ER_graph[1]
                 colors = "NOWHERE TO BE FOUND RIGHT NOW"
                 assert type(colors) is dict
-                na_value = log2_num_automorphisms(ER_nodes, ER_edges,
-                                     directed=directed, temporal=temporal,
-                                     only_consider_used_nodes=False)
+                na_value = log2_num_automorphisms(ER_nodes, ER_edges, \
+                                     directed=directed, temporal=temporal, \
+                                     only_consider_used_nodes=False, \
+                                     node_colors=node_colors)
 
                 if float(na_value) == 0.0:
                     min_ER_log2_na = na_value
@@ -561,14 +638,14 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
             done = True
             for i in range(0, ER_try_count):
                 ER_graph = __create_ER_graph__(\
-                            len(nodes), len(edges), graph_type, \
+                            nodes_lists, len(edges), graph_type, \
                             num_timestamps_if_relevant=None, \
-                            node_timestamps_if_relevant=None, \
-                            alt_num_nodes_if_relevant=None)
+                            node_timestamps_if_relevant=None)
                 (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
-                na_value = log2_num_automorphisms(ER_nodes, ER_edges,
-                                     directed=directed, temporal=temporal,
-                                     only_consider_used_nodes=False)
+                na_value = log2_num_automorphisms(ER_nodes, ER_edges, \
+                                     directed=directed, temporal=temporal, \
+                                     only_consider_used_nodes=False, \
+                                     node_colors=node_colors)
 
                 if float(na_value) == 0.0:
                     min_ER_log2_na = na_value
@@ -579,55 +656,53 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                     break
 
     print("Best log2_na for ER: %f" % min_ER_log2_na)
-    graph_log2_num_automorphisms = log2_num_automorphisms(nodes, edges,
-                                        directed=directed, temporal=temporal,
-                                        only_consider_used_nodes=False)
+    graph_log2_num_automorphisms = log2_num_automorphisms(all_nodes, edges, \
+                                        directed=directed, temporal=temporal, \
+                                        only_consider_used_nodes=False, \
+                                        node_colors=node_colors)
     return graph_log2_num_automorphisms - min_ER_log2_na
 
 # In a node_joining network, the node_timestamps are the join times of the
 #   nodes.
 #
 # Otherwise, nodes are assumed to be present throughout.
-def __create_ER_graph__(num_nodes, num_edges, graph_type, \
+def __create_ER_graph__(nodes_lists, num_edges, graph_type, \
                         num_timestamps_if_relevant=None, \
-                        node_timestamps_if_relevant=None, \
-                        alt_num_nodes_if_relevant=None):
-    nodes_sets = [set()]
+                        node_timestamps_if_relevant=None):
+
     edges = set()
     if graph_type == GraphTypes.NODE_JOINING_UNDIRECTED:
         assert node_timestamps_if_relevant is not None
         assert num_timestamps_if_relevant is None
-        assert alt_num_nodes_if_relevant is None
         assert "this code" == "not implemented"
 
     elif graph_type == GraphTypes.NODE_JOINING_DIRECTED:
         assert node_timestamps_if_relevant is not None
         assert num_timestamps_if_relevant is None
-        assert alt_num_nodes_if_relevant is None
         assert "this code" == "not implemented"
 
     elif graph_type == GraphTypes.NODE_JOINING_DIRECTED_ONE_WAY:
         assert node_timestamps_if_relevant is not None
         assert num_timestamps_if_relevant is None
-        assert alt_num_nodes_if_relevant is None
         assert "this code" == "not implemented"
 
     elif GraphTypes.IS_TEMPORAL[graph_type]:
         assert node_timestamps_if_relevant is None
         assert num_timestamps_if_relevant is not None
-        assert alt_num_nodes_if_relevant is None
-
-        nodes_sets[0] = set([i for i in range(1, num_nodes + 1)])
+        assert len(nodes_lists) == 1
 
         for i in range(0, num_edges):
             valid = False
             while not valid:
-                source = random.randint(1, num_nodes)
+                source = random.randint(0, len(nodes_lists[0]) - 1)
                 # This way of generating target ensures no self-loops.
-                target = random.randint(1, num_nodes - 1)
+                target = random.randint(0, len(nodes_lists[0]) - 2)
                 if target >= source:
                     target += 1
                 time = random.randint(1, num_timestamps_if_relevant)
+
+                source = nodes_lists[0][source]  # Move from indices to labels
+                target = nodes_lists[0][target]
 
                 if GraphTypes.IS_DIRECTED[graph_type]:
                     if (source, target, time) not in edges:
@@ -646,18 +721,16 @@ def __create_ER_graph__(num_nodes, num_edges, graph_type, \
 
         if graph_type == GraphTypes.BIPARTITE_UNDIRECTED or \
                 graph_type == GraphTypes.BIPARTITE_DIRECTED:
-            assert alt_num_nodes_if_relevant is not None
             # Bipartite
-            nodes_sets[0] = set([i for i in range(1, num_nodes + 1)])
-            nodes_sets.append(set([i + num_nodes for i in \
-                                range(1, alt_num_nodes_if_relevant + 1)]))
+            assert len(nodes_lists) == 2
 
             for i in range(0, num_edges):
                 valid = False
                 while not valid:
-                    source = random.randint(1, num_nodes)
-                    target = random.randint(num_nodes + 1, \
-                                num_nodes + alt_num_nodes_if_relevant)
+                    source = random.randint(0, len(nodes_lists[0]) - 1)
+                    target = random.randint(0, len(nodes_lists[1]) - 1)
+                    source = nodes_lists[0][source]
+                    target = nodes_lists[1][target]
 
                     if GraphTypes.IS_DIRECTED[graph_type]:
                         swap = random.randint(0, 1)
@@ -670,16 +743,18 @@ def __create_ER_graph__(num_nodes, num_edges, graph_type, \
                         valid = True
 
         else:
-            assert alt_num_nodes_if_relevant is None
-            nodes_sets[0] = set([i for i in range(1, num_nodes + 1)])
+            assert len(nodes_lists) == 1
+
             for i in range(0, num_edges):
                 valid = False
                 while not valid:
-                    source = random.randint(1, num_nodes)
+                    source = random.randint(0, len(nodes_lists[0]) - 1)
                     # This way of generating target ensures no self-loops.
-                    target = random.randint(1, num_nodes - 1)
+                    target = random.randint(0, len(nodes_lists[0]) - 2)
                     if target >= source:
                         target += 1
+                    source = nodes_lists[0][source]
+                    target = nodes_lists[0][target]
 
                     if GraphTypes.IS_DIRECTED[graph_type]:
                         if (source, target) not in edges:
@@ -692,20 +767,28 @@ def __create_ER_graph__(num_nodes, num_edges, graph_type, \
                             edges.add((s, t))
                             valid = True
 
-    return (nodes_sets, edges)
+    return (nodes_lists, edges)
 
 
 # Used only for testing.
 def __canonical_string__(nodes, edges, directed=False, temporal=False,\
-                         use_color_direction=True):
+                         use_color_direction=True, \
+                         node_coloring=None):
     (_, co) = __get_graph_info__(nodes, edges, temporal, directed, \
                        use_color_direction=use_color_direction, \
-                       get_canon_order=True)
+                       get_canon_order=True, \
+                       node_colors=node_coloring)
     node_to_idx_map = {}
     for i in range(0, len(co)):
         node_to_idx_map[co[i]] = i
 
     nodes = [i for i in range(0, len(nodes))]
+
+    if node_coloring is None:
+        colors = []
+    else:
+        colors = [node_coloring[co[i]] for i in range(0, len(nodes))]
+
     if temporal:
         edges = [(node_to_idx_map[a], node_to_idx_map[b], t) for \
                     (a, b, t) in edges]
@@ -717,11 +800,10 @@ def __canonical_string__(nodes, edges, directed=False, temporal=False,\
         if not directed:
             edges = [(min(a, b), max(a, b)) for (a, b) in edges]
     edges.sort()
-
-    return str((nodes, edges))
+    return str((nodes, colors, edges))
 
 # Used only for testing.
-def __temporal_graph_mashup__(graphs, directed=False):
+def __temporal_graph_mashup__(graphs, directed=False, node_coloring=None):
     from algorithmic_utils import get_all_k_permutations
     num_nodes = len(graphs[0][0])
     perms = get_all_k_permutations(num_nodes, num_nodes)
@@ -731,18 +813,20 @@ def __temporal_graph_mashup__(graphs, directed=False):
 
     for (nodes, first_edges) in graphs:
         for (_, second_edges) in graphs:
-            for perm in perms:
-                edges = []
-                for (a, b) in first_edges:
-                    edges.append((a, b, 1))
-                for (a, b) in second_edges:
-                    edges.append((nodes[perm[a-1]], nodes[perm[b-1]], 2))
-                cs = __canonical_string__(nodes, edges, directed=directed,\
-                                          temporal=True, \
-                                          use_color_direction=True)
-                if cs not in canonical_strings:
-                    canonical_strings.add(cs)
-                    temporal_graphs.append((nodes, edges))
+            for perm_A in perms:
+                for perm_B in perms:
+                    edges = []
+                    for (a, b) in first_edges:
+                        edges.append((nodes[perm_A[a-1]], nodes[perm_A[b-1]],1))
+                    for (a, b) in second_edges:
+                        edges.append((nodes[perm_B[a-1]], nodes[perm_B[b-1]],2))
+                    cs = __canonical_string__(nodes, edges, directed=directed,\
+                                              temporal=True, \
+                                              use_color_direction=True, \
+                                              node_coloring=node_coloring)
+                    if cs not in canonical_strings:
+                        canonical_strings.add(cs)
+                        temporal_graphs.append((nodes, edges))
     return temporal_graphs
 
 if __name__ == "__main__":
@@ -771,6 +855,41 @@ if __name__ == "__main__":
             (name, padding_string, ic))
         prob_total += math.pow(2.0, ic)
     print("The total probabilities sum to ~%f." % prob_total)
+
+    prob_total = 0.0
+    max_name_length = 26
+    print("For the THREE-node, UNDIRECTED, COLORED graphs, we get:")
+    for (nodes, edges, coloring, name) in [\
+            ([1,2,3], [], {1:1,2:1,3:1}, "Empty, All Same"), \
+            ([1,2,3], [], {1:1,2:1,3:2}, "Empty, Two Same"), \
+            ([1,2,3], [], {1:1,2:2,3:3}, "Empty, All Diff"), \
+            ([1,2,3], [(1, 2)], {1:1,2:1,3:1}, "Single Edge, All Same"), \
+            ([1,2,3], [(1, 2)], {1:1,2:1,3:2}, "Single Edge, Two Same Same"), \
+            ([1,2,3], [(1, 2)], {1:1,2:2,3:1}, "Single Edge, Two Diff Same"), \
+            ([1,2,3], [(1, 2)], {1:1,2:2,3:3}, "Single Edge, All Diff 3"), \
+            ([1,2,3], [(1, 2)], {1:1,2:3,3:2}, "Single Edge, All Diff 2"), \
+            ([1,2,3], [(1, 2)], {1:2,2:3,3:1}, "Single Edge, All Diff 1"), \
+            ([1,2,3], [(1, 3), (2, 3)], {1:1,2:1,3:1}, "Wedge, All Same"), \
+            ([1,2,3], [(1, 3), (2, 3)], {1:1,2:1,3:2}, "Wedge, Two Same Same"), \
+            ([1,2,3], [(1, 3), (2, 3)], {1:1,2:2,3:1}, "Wedge, Two Diff Same"), \
+            ([1,2,3], [(1, 2), (2, 3)], {1:1,2:2,3:3}, "Wedge, All Diff 3"), \
+            ([1,2,3], [(1, 2), (2, 3)], {1:1,2:3,3:2}, "Wedge, All Diff 2"), \
+            ([1,2,3], [(1, 2), (2, 3)], {1:2,2:3,3:1}, "Wedge, All Diff 1"), \
+            ([1,2,3], [(1, 2), (2, 3), (3, 1)], {1:1,2:1,3:1}, "Triangle, All Same"), \
+            ([1,2,3], [(1, 2), (2, 3), (3, 1)], {1:1,2:1,3:2}, "Triangle, Two Same"), \
+            ([1,2,3], [(1, 2), (2, 3), (3, 1)], {1:1,2:2,3:3}, "Triangle, All Diff")]:
+        ic = log2_independent_edges_prob(nodes, edges, GraphTypes.STATIC_UNDIRECTED, \
+                                         proportional_p=False, \
+                                         all_timestamps="auto", \
+                                         node_colors=coloring)
+        padding_string = ""
+        for _ in range(0, max_name_length - len(name)):
+            padding_string += " "
+        print("\n  Information Content of %s graph: %s%f." % \
+            (name, padding_string, ic))
+        prob_total += math.pow(2.0, ic)
+    print("We had 3 different colorings: all same, one diff, all diff.")
+    print("  Thus, the total probabilities sum to ~%f." % prob_total)
 
     prob_total = 0.0
     max_name_length = 24
@@ -839,8 +958,7 @@ if __name__ == "__main__":
         prob_total += math.pow(2.0, ic)
     print("The total probabilities sum to ~%f." % prob_total)
 
-    prob_total = 0.0
-    print("\n\n\nFor the THREE-node, DIRECTED, TEMPORAL graphs, we get:")
+    print("\n\n\nFor the THREE-node, COLORED, DIRECTED, TEMPORAL graphs, we get:")
     static_graphs = [\
             ([1, 2, 3], []), \
             ([1, 2, 3], [(1, 2)]), \
@@ -858,10 +976,18 @@ if __name__ == "__main__":
             ([1, 2, 3], [(1, 2), (2, 1), (1, 3), (3, 2)]), \
             ([1, 2, 3], [(1, 2), (2, 1), (1, 3), (3, 1), (2, 3)]), \
             ([1, 2, 3], [(1, 2), (2, 1), (1, 3), (3, 1), (2, 3), (3, 2)])]
-    temporal_graphs = __temporal_graph_mashup__(static_graphs, directed=True)
-    for (nodes, edges) in temporal_graphs:
-        ic = log2_independent_edges_prob(nodes, edges, GraphTypes.TEMPORAL_DIRECTED, \
-                                         proportional_p=False, \
-                                         all_timestamps=[1, 2])
-        prob_total += math.pow(2.0, ic)
-    print("The total probabilities sum to ~%f." % prob_total)
+    for coloring in [{1: 1, 2: 1, 3: 1}, \
+                     {1: 1, 2: 1, 3: 2}, \
+                     {1: 1, 2: 2, 3: 3}]:
+        prob_total = 0.0
+        temporal_graphs = __temporal_graph_mashup__(static_graphs, directed=True, \
+                                                    node_coloring=coloring)
+        print("  With coloring %s, we get %d graphs total." % \
+                (coloring, len(temporal_graphs)))
+        for (nodes, edges) in temporal_graphs:
+            ic = log2_independent_edges_prob(nodes, edges, GraphTypes.TEMPORAL_DIRECTED, \
+                                             proportional_p=False, \
+                                             all_timestamps=[1, 2], \
+                                             node_colors=coloring)
+            prob_total += math.pow(2.0, ic)
+        print("    The total probabilities sum to ~%f." % prob_total)
