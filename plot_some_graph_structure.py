@@ -187,6 +187,8 @@ def plot_graph_IC_sequence(graph_sequence, \
     ic = []
     while graph_sequence.has_next():
         (nodes, edges) = graph_sequence.next()
+        if len(nodes) == 0:
+            nodes = [1]
         gi += 1
         graph_indices.append(gi)
 
@@ -227,6 +229,8 @@ def plot_graph_SM_sequence(graph_sequence, \
     sm = []
     while graph_sequence.has_next():
         (nodes, edges) = graph_sequence.next()
+        if len(nodes) == 0:
+            nodes = [1]
         gi += 1
         graph_indices.append(gi)
         sm.append(measure_of_structure([nodes], edges, graph_type, \
