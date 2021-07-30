@@ -4,19 +4,113 @@ import matplotlib.pyplot as plt
 import random
 from structure_measures import measure_of_structure
 
+class GraphSequence:
+
+    def __init__(self):
+        self.__has_next__ = False
+        self.sequence_type = None
+        self.name = "A Graph Sequence"
+
+    def set_with_list(self, l):
+        self.sequence_type = "list"
+        self.next_idx = 0
+        self.sequence_list = l
+        self.__has_next__ = self.next_idx < len(self.sequence_list)
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_name(self):
+        return self.name
+
+    def set_with_temporal_graph_file(self, filename, directed=True, \
+                                     num_buckets=None):
+        self.sequence_type = "temporal_file"
+
+        (nodes, edges) = __read_edge_list__(filename, directed, True)
+        edges_by_timestamp = {}
+        timestamps = []
+        for (a, b, t) in edges:
+            if a == b:
+                continue
+            if t not in edges_by_timestamp:
+                edges_by_timestamp[t] = set()
+                timestamps.append(t)
+            if directed:
+                edges_by_timestamp[t].add((a, b))
+            else:
+                edges_by_timestamp[t].add((min(a, b), max(a, b)))
+        timestamps.sort()
+        if num_buckets is not None:
+            # Get buckets, then replace timestamps.
+            bucketed_edges = __bucket_temporal_edges__(edges, num_buckets)
+            edges = []
+            for i in range(0, len(bucketed_edges)):
+                bucket_set = set()
+                for (a, b, _) in bucketed_edges[i]:
+                    if directed:
+                        bucket_set.add((a, b, i))
+                    else:
+                        bucket_set.add((min(a, b), max(a, b), i))
+                edges += list(bucket_set)
+
+        edges = [(a, b, t) for (t, a, b) in \
+                    sorted([(t, a, b) for (a, b, t) in edges])]
+
+        self.full_sorted_edges = edges
+        self.cumulative_edges = []
+        self.nodes = nodes
+        self.next_edge_idx = 0
+        self.__has_next__ = self.next_edge_idx < len(self.full_sorted_edges)
+
+        if num_buckets is not None:
+            self.name = filename.split("/")[-1] + \
+                                   (" - %d buckets" % num_buckets)
+        else:
+            self.name = filename.split("/")[-1] + " - no buckets"
+
+    def has_next(self):
+        return self.__has_next__
+
+    def next(self):
+        assert self.has_next()
+
+        if self.sequence_type == "list":
+            self.next_idx += 1
+            self.__has_next__ = self.next_idx < len(self.sequence_list)
+            return self.sequence_list[self.next_idx - 1]
+
+        elif self.sequence_type == "temporal_file":
+            t = self.full_sorted_edges[self.next_edge_idx][2]
+            while self.next_edge_idx < len(self.full_sorted_edges) and \
+                    self.full_sorted_edges[self.next_edge_idx][2] == t:
+                self.cumulative_edges.append(\
+                    self.full_sorted_edges[self.next_edge_idx])
+                self.next_edge_idx += 1
+            self.__has_next__ = self.next_edge_idx < len(self.full_sorted_edges)
+            return (self.nodes, self.cumulative_edges)
+            
+
+        
 
 # graph_sequence should be a list of (nodes, edges) tuples.
 def plot_graph_IC_sequence(graph_sequence, \
                            directed=False, temporal=False, \
-                           sequence_name="A Graph Sequence", \
                            set_num_timestamps=None, \
                            normalize=True, \
                            proportional_p=False):
-    graph_indices = [i for i in range(0, len(graph_sequence))]
+
+    sequence_name = graph_sequence.get_name()
+
+    gi = 0
+    graph_indices = []
     ic = []
     min_ic_limit = []
     max_ic_limit = []
-    for (nodes, edges) in graph_sequence:
+    while graph_sequence.has_next():
+        (nodes, edges) = graph_sequence.next()
+        gi += 1
+        graph_indices.append(gi)
 
         num_timestamps = 1
         if temporal:
@@ -69,8 +163,7 @@ def plot_graph_IC_sequence(graph_sequence, \
     plt.close()
 
 def plot_graph_SM_sequence(graph_sequence, \
-                           directed=False, temporal=False, \
-                           sequence_name="A Graph Sequence"):
+                           directed=False, temporal=False):
     if directed and temporal:
         graph_type = GraphTypes.TEMPORAL_DIRECTED
     elif temporal:
@@ -80,9 +173,15 @@ def plot_graph_SM_sequence(graph_sequence, \
     else:
         graph_type = GraphTypes.STATIC_UNDIRECTED
 
-    graph_indices = [i for i in range(0, len(graph_sequence))]
+    sequence_name = graph_sequence.get_name()
+
+    gi = 0
+    graph_indices = []
     sm = []
-    for (nodes, edges) in graph_sequence:
+    while graph_sequence.has_next():
+        (nodes, edges) = graph_sequence.next()
+        gi += 1
+        graph_indices.append(gi)
         sm.append(measure_of_structure([nodes], edges, graph_type, \
                                        all_timestamps="auto", \
                                        ER_try_count=10))
@@ -278,85 +377,48 @@ def __bucket_temporal_edges__(edges, target_num_buckets):
     return edge_buckets
 
 
-def __plot_temporal_sequence__(filename, directed=True, num_buckets=None, \
-                               use_all_nodes=True):
-    (nodes, edges) = __read_edge_list__(filename, directed, True)
-    edges_by_timestamp = {}
-    timestamps = []
-    for (a, b, t) in edges:
-        if a == b:
-            continue
-        if t not in edges_by_timestamp:
-            edges_by_timestamp[t] = set()
-            timestamps.append(t)
-        if directed:
-            edges_by_timestamp[t].add((a, b))
-        else:
-            edges_by_timestamp[t].add((min(a, b), max(a, b)))
-    timestamps.sort()
-    if num_buckets is not None:
-        # Get buckets, then replace timestamps.
-        bucketed_edges = __bucket_temporal_edges__(edges, num_buckets)
-        edges = []
-        for i in range(0, len(bucketed_edges)):
-            bucket_set = set()
-            for (a, b, _) in bucketed_edges[i]:
-                if directed:
-                    bucket_set.add((a, b, i))
-                else:
-                    bucket_set.add((min(a, b), max(a, b), i))
-            edges += list(bucket_set)
-
-    graph_sequence = []
-    edge_sub_list = []
-    current_t = None
-
-    for (a, b, t) in edges:
-        if current_t is not None and current_t != t:
-            graph_sequence.append((nodes, list(edge_sub_list)))
-        edge_sub_list.append((a, b, t))
-        current_t = t
-    graph_sequence.append((nodes, edge_sub_list))
-
-    if num_buckets is not None:
-        num_timestamps_to_use = len(graph_sequence)
-    else:
-        num_timestamps_to_use = len(timestamps)
-
-    plot_graph_SM_sequence(graph_sequence, directed=directed, temporal=True, \
-                           sequence_name=(filename.split("/")[-1] + \
-                                          (" - %d buckets" % num_buckets)))
-                           # set_num_timestamps=None)  # this just for IC
-
 if __name__ == "__main__":
 
-    plot_graph_SM_sequence(__triangles_sequence__(9), \
-                        directed=False, temporal=False, \
-                        sequence_name="Triangles Sequence")
-    plot_graph_SM_sequence(__triangles_sequence_with_all_nodes_always__(9), \
-                        directed=False, temporal=False, \
-                        sequence_name="Triangles Sequence with All Nodes")
-    plot_graph_SM_sequence(__random_edge_addition__(num_nodes=9*3, \
-                                                 edges_per_iter=3, \
-                                                 sequence_length=9, \
-                                                 directed=False), \
-                        directed=False, temporal=False, \
-                        sequence_name="Randomly Adding 3 Edges Each Time")
+    list_GS = GraphSequence()
+    list_GS.set_with_list(__triangles_sequence__(9))
+    list_GS.set_name("Triangles Sequence")
+    plot_graph_SM_sequence(list_GS, directed=False, temporal=False)
 
-    plot_graph_SM_sequence(__binary_tree_sequence__(num_trees=7), \
-                        directed=False, temporal=False, \
-                        sequence_name="Binary Trees")
+    list_GS.set_with_list(__triangles_sequence_with_all_nodes_always__(9))
+    list_GS.set_name("Triangles Sequence with All Nodes")
+    plot_graph_SM_sequence(list_GS, directed=False, temporal=False)
 
-    __plot_temporal_sequence__("datasets/college-temporal.g", \
-                               directed=True, num_buckets=10)
-    __plot_temporal_sequence__("datasets/eucore-temporal.g", \
-                               directed=True, num_buckets=10)
+    list_GS.set_with_list(__random_edge_addition__(num_nodes=9*3, \
+                                                   edges_per_iter=3, \
+                                                   sequence_length=9, \
+                                                   directed=False))
+    list_GS.set_name("Randomly Adding 3 Edges Each Time")
+    plot_graph_SM_sequence(list_GS, directed=False, temporal=False)
 
-    # __plot_temporal_sequence__("datasets/college-temporal.g", \
-    #                            directed=True, num_buckets=100)
-    # __plot_temporal_sequence__("datasets/eucore-temporal.g", \
-    #                            directed=True, num_buckets=100)
+    list_GS.set_with_list(__binary_tree_sequence__(num_trees=7))
+    list_GS.set_name("Binary Trees")
+    plot_graph_SM_sequence(list_GS, directed=False, temporal=False)
 
+    file_GS = GraphSequence()
+    file_GS.set_with_temporal_graph_file("datasets/college-temporal.g", \
+                                         directed=True, \
+                                         num_buckets=10)
+    plot_graph_SM_sequence(file_GS, directed=True, temporal=True)
+
+    file_GS.set_with_temporal_graph_file("datasets/eucore-temporal.g", \
+                                         directed=True, \
+                                         num_buckets=10)
+    plot_graph_SM_sequence(file_GS, directed=True, temporal=True)
+
+    file_GS.set_with_temporal_graph_file("datasets/college-temporal.g", \
+                                         directed=True, \
+                                         num_buckets=None)
+    plot_graph_SM_sequence(file_GS, directed=True, temporal=True)
+
+    file_GS.set_with_temporal_graph_file("datasets/eucore-temporal.g", \
+                                         directed=True, \
+                                         num_buckets=None)
+    plot_graph_SM_sequence(file_GS, directed=True, temporal=True)
     # __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
     #                            directed=True, num_buckets=10)
     # __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
