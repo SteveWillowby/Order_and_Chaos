@@ -445,7 +445,10 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
             else:
                 graph.add_edge(a, b)
 
-    NTSession = NautyTracesSession(graph, mode="Nauty", sparse=True)
+    if use_color_direction:
+        NTSession = NautyTracesSession(graph, mode="Traces")
+    else:
+        NTSession = NautyTracesSession(graph, mode="Nauty", sparse=True)
     NTSession.set_colors_by_highlights([list(nodes)] + extra_highlights)
     na = NTSession.get_num_automorphisms()
     if get_canon_order:
@@ -459,12 +462,12 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
 
 def measure_of_structure(nodes_sets, edges, graph_type, \
                          all_timestamps="auto", \
-                         num_ER_graphs=10):
+                         ER_try_count=10):
     directed = GraphTypes.IS_DIRECTED[graph_type]
     temporal = GraphTypes.IS_TEMPORAL[graph_type]
     nodes = nodes_sets[0]
 
-    ER_log2_na_values = []
+    min_ER_log2_na = None
 
     if GraphTypes.IS_TEMPORAL[graph_type]:
         if all_timestamps == "auto":
@@ -484,50 +487,91 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
         else:
             nt = None
 
-        for i in range(0, num_ER_graphs):
-            ER_graph = __create_ER_graph__(\
+        done = False
+        print("Making ER Graphs...")
+        while not done:
+            done = True
+            for i in range(0, ER_try_count):
+                print("  Graph gen")
+                ER_graph = __create_ER_graph__(\
                         len(nodes), len(edges), graph_type, \
                         num_timestamps_if_relevant=len(all_timestamps), \
                         node_timestamps_if_relevant=nt, \
                         alt_num_nodes_if_relevant=None)
-            (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
-            ER_log2_na_values.append(log2_num_automorphisms(ER_nodes, ER_edges,
-                                     directed=directed, temporal=temporal,
-                                     only_consider_used_nodes=False))
+                (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
+                print("  Graph analysis")
+                na_value = log2_num_automorphisms(ER_nodes, ER_edges,
+                                         directed=directed, temporal=temporal,
+                                         only_consider_used_nodes=False)
+                if float(na_value) == 0.0:
+                    min_ER_log2_na = na_value
+                    break
+                elif min_ER_log2_na is None or na_value < min_ER_log2_na:
+                    min_ER_log2_na = na_value
+                    done = False
+                    break
+        print("...Done with ER Graphs")
 
     elif graph_type == GraphTypes.BIPARTITE_UNDIRECTED or \
             graph_type == GraphTypes.BIPARTITE_DIRECTED:
         assert "Needs graph colors for num-automorphisms" == "True"
-        for i in range(0, num_ER_graphs):
-            ER_graph = __create_ER_graph__(\
-                        len(nodes_sets[0]), len(edges), graph_type, \
-                        num_timestamps_if_relevant=None, \
-                        node_timestamps_if_relevant=None, \
-                        alt_num_nodes_if_relevant=len(nodes_sets[1]))
-            ER_nodes = ER_graph[0][0] | ER_graph[0][1]
-            ER_edges = ER_graph[1]
-            colors = "NOWHERE TO BE FOUND RIGHT NOW"
-            assert type(colors) is dict
-            ER_log2_na_values.append(log2_num_automorphisms(ER_nodes, ER_edges,
+        done = False
+        print("Making ER Graphs...")
+        while not done:
+            done = True
+            for i in range(0, ER_try_count):
+                ER_graph = __create_ER_graph__(\
+                            len(nodes_sets[0]), len(edges), graph_type, \
+                            num_timestamps_if_relevant=None, \
+                            node_timestamps_if_relevant=None, \
+                            alt_num_nodes_if_relevant=len(nodes_sets[1]))
+                ER_nodes = ER_graph[0][0] | ER_graph[0][1]
+                ER_edges = ER_graph[1]
+                colors = "NOWHERE TO BE FOUND RIGHT NOW"
+                assert type(colors) is dict
+                na_value = log2_num_automorphisms(ER_nodes, ER_edges,
                                      directed=directed, temporal=temporal,
-                                     only_consider_used_nodes=False))
-    else:
-        for i in range(0, num_ER_graphs):
-            ER_graph = __create_ER_graph__(\
-                        len(nodes), len(edges), graph_type, \
-                        num_timestamps_if_relevant=None, \
-                        node_timestamps_if_relevant=None, \
-                        alt_num_nodes_if_relevant=None)
-            (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
-            ER_log2_na_values.append(log2_num_automorphisms(ER_nodes, ER_edges,
-                                     directed=directed, temporal=temporal,
-                                     only_consider_used_nodes=False))
+                                     only_consider_used_nodes=False)
 
-    min_ER_log2_num_automorphisms = min(ER_log2_na_values)
+                if float(na_value) == 0.0:
+                    min_ER_log2_na = na_value
+                    break
+                elif min_ER_log2_na is None or na_value < min_ER_log2_na:
+                    min_ER_log2_na = na_value
+                    done = False
+                    break
+        print("...Done with ER Graphs")
+    else:
+        done = False
+        print("Making ER Graphs...")
+        while not done:
+            done = True
+            for i in range(0, ER_try_count):
+                print("  Graph gen")
+                ER_graph = __create_ER_graph__(\
+                            len(nodes), len(edges), graph_type, \
+                            num_timestamps_if_relevant=None, \
+                            node_timestamps_if_relevant=None, \
+                            alt_num_nodes_if_relevant=None)
+                (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
+                print("  Graph analysis")
+                na_value = log2_num_automorphisms(ER_nodes, ER_edges,
+                                     directed=directed, temporal=temporal,
+                                     only_consider_used_nodes=False)
+
+                if float(na_value) == 0.0:
+                    min_ER_log2_na = na_value
+                    break
+                elif min_ER_log2_na is None or na_value < min_ER_log2_na:
+                    min_ER_log2_na = na_value
+                    done = False
+                    break
+        print("...Done with ER Graphs")
+
     graph_log2_num_automorphisms = log2_num_automorphisms(nodes, edges,
                                         directed=directed, temporal=temporal,
                                         only_consider_used_nodes=False)
-    return graph_log2_num_automorphisms - min_ER_log2_num_automorphisms
+    return graph_log2_num_automorphisms - min_ER_log2_na
 
 # In a node_joining network, the node_timestamps are the join times of the
 #   nodes.

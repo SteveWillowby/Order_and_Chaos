@@ -85,7 +85,7 @@ def plot_graph_SM_sequence(graph_sequence, \
     for (nodes, edges) in graph_sequence:
         sm.append(measure_of_structure([nodes], edges, graph_type, \
                                        all_timestamps="auto", \
-                                       num_ER_graphs=100))
+                                       ER_try_count=10))
 
     plt.plot(graph_indices, sm, color="blue")
     plt.title("Structure Measure of %s" % sequence_name)
@@ -352,12 +352,12 @@ if __name__ == "__main__":
     __plot_temporal_sequence__("datasets/eucore-temporal.g", \
                                directed=True, num_buckets=10)
 
-    __plot_temporal_sequence__("datasets/college-temporal.g", \
-                               directed=True, num_buckets=100)
-    __plot_temporal_sequence__("datasets/eucore-temporal.g", \
-                               directed=True, num_buckets=100)
+    # __plot_temporal_sequence__("datasets/college-temporal.g", \
+    #                            directed=True, num_buckets=100)
+    # __plot_temporal_sequence__("datasets/eucore-temporal.g", \
+    #                            directed=True, num_buckets=100)
 
-    __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
-                               directed=True, num_buckets=10)
-    __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
-                               directed=True, num_buckets=100)
+    # __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
+    #                            directed=True, num_buckets=10)
+    # __plot_temporal_sequence__("datasets/wiki-en-additions.g", \
+    #                            directed=True, num_buckets=100)
