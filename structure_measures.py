@@ -383,6 +383,66 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
     # Use only to store highlights for nodes not in `nodes`
     extra_highlights = []
     if temporal:
+        if directed and use_color_direction:
+            # Since we're already adding nodes to indicate direction,
+            #   we can color those same nodes to set timesamps.
+            timestamp_sets_by_edge = {}
+            for (a, b, t) in given_edges:
+                if (a, b) not in timestamp_sets_by_edge:
+                    timestamp_sets_by_edge[(a, b)] = set()
+                timestamp_sets_by_edge[(a, b)].add(t)
+            timestamp_tuples_by_edge = {}
+            timestamp_tuples = set()
+            for (a, b), s in timestamp_sets_by_edge.items():
+                timestamp_tuples_by_edge[(a, b)] = tuple(sorted(list(s)))
+                timestamp_tuples.add(timestamp_tuples_by_edge[(a, b)])
+            del timestamp_sets_by_edge
+
+            # Need to sort the tuples to get consistent highlight order.
+            #   Otherwise, the canonical node ordering may be changed.
+            extra_highlights = [[]]
+            timestamp_tuples = sorted(list(timestamp_tuples))
+            next_highlight_idx = 1
+            timestamp_highlights = {}
+            for tup in timestamp_tuples:
+                timestamp_highlights[tup] = next_highlight_idx
+                next_highlight_idx += 1
+                extra_highlights.append([])
+
+            for (a, b), tup in timestamp_tuples_by_edge.items():
+                color_idx = timestamp_highlights[tup]
+                graph.add_node((a, b, 1))
+                graph.add_node((a, b, 2))
+                extra_highlights[0].append((a, b, 1))
+                extra_highlights[color_idx].append((a, b, 2))
+
+                graph.add_edge(a, (a, b, 1))
+                graph.add_edge((a, b, 1), (a, b, 2))
+                graph.add_edge((a, b, 2), b)
+                graph.add_edge(a, b)
+            # print(extra_highlights)
+        else:
+            edge_sets_by_timestamp = {}
+            for (a, b, t) in given_edges:
+                if t not in edge_sets_by_timestamp:
+                    edge_sets_by_timestamp[t] = set()
+                edge_sets_by_timestamp[t].add((a, b))
+
+            timestamps = \
+                sorted([t for t, _ in edge_sets_by_timestamp.items()])
+
+            for i in range(0, len(timestamps)):
+                t = timestamps[i]
+                for node in nodes:
+                    graph.add_node((node, t))
+                    if i == 0:
+                        graph.add_edge(node, (node, t))
+                    else:
+                        graph.add_edge((node, timestamps[i - 1]), (node, t))
+                for (a, b) in edge_sets_by_timestamp[t]:
+
+                    graph.add_edge((a, t), (b, t))
+        """
         edge_sets_by_timestamp = {}
         for (a, b, t) in given_edges:
             if t not in edge_sets_by_timestamp:
@@ -390,7 +450,6 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
             edge_sets_by_timestamp[t].add((a, b))
 
         timestamps = sorted([t for t, _ in edge_sets_by_timestamp.items()])
-        alt_nodes = []
 
         if directed and use_color_direction:
             dir_nodes_1 = []
@@ -400,7 +459,6 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
         for i in range(0, len(timestamps)):
             t = timestamps[i]
             for node in nodes:
-                alt_nodes.append((node, t))
                 graph.add_node((node, t))
                 if i == 0:
                     graph.add_edge(node, (node, t))
@@ -422,6 +480,7 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
                         graph.add_edge(a, b)
                 else:
                     graph.add_edge((a, t), (b, t))
+        """
     else:  # static
         if directed and use_color_direction:
             dir_nodes_1 = []
@@ -488,18 +547,15 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
             nt = None
 
         done = False
-        print("Making ER Graphs...")
         while not done:
             done = True
             for i in range(0, ER_try_count):
-                print("  Graph gen")
                 ER_graph = __create_ER_graph__(\
                         len(nodes), len(edges), graph_type, \
                         num_timestamps_if_relevant=len(all_timestamps), \
                         node_timestamps_if_relevant=nt, \
                         alt_num_nodes_if_relevant=None)
                 (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
-                print("  Graph analysis")
                 na_value = log2_num_automorphisms(ER_nodes, ER_edges,
                                          directed=directed, temporal=temporal,
                                          only_consider_used_nodes=False)
@@ -510,13 +566,11 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                     min_ER_log2_na = na_value
                     done = False
                     break
-        print("...Done with ER Graphs")
 
     elif graph_type == GraphTypes.BIPARTITE_UNDIRECTED or \
             graph_type == GraphTypes.BIPARTITE_DIRECTED:
         assert "Needs graph colors for num-automorphisms" == "True"
         done = False
-        print("Making ER Graphs...")
         while not done:
             done = True
             for i in range(0, ER_try_count):
@@ -540,21 +594,17 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                     min_ER_log2_na = na_value
                     done = False
                     break
-        print("...Done with ER Graphs")
     else:
         done = False
-        print("Making ER Graphs...")
         while not done:
             done = True
             for i in range(0, ER_try_count):
-                print("  Graph gen")
                 ER_graph = __create_ER_graph__(\
                             len(nodes), len(edges), graph_type, \
                             num_timestamps_if_relevant=None, \
                             node_timestamps_if_relevant=None, \
                             alt_num_nodes_if_relevant=None)
                 (ER_nodes, ER_edges) = (ER_graph[0][0], ER_graph[1])
-                print("  Graph analysis")
                 na_value = log2_num_automorphisms(ER_nodes, ER_edges,
                                      directed=directed, temporal=temporal,
                                      only_consider_used_nodes=False)
@@ -566,8 +616,8 @@ def measure_of_structure(nodes_sets, edges, graph_type, \
                     min_ER_log2_na = na_value
                     done = False
                     break
-        print("...Done with ER Graphs")
 
+    print("Best log2_na for ER: %f" % min_ER_log2_na)
     graph_log2_num_automorphisms = log2_num_automorphisms(nodes, edges,
                                         directed=directed, temporal=temporal,
                                         only_consider_used_nodes=False)
@@ -685,9 +735,11 @@ def __create_ER_graph__(num_nodes, num_edges, graph_type, \
 
 
 # Used only for testing.
-def __canonical_string__(nodes, edges, directed=False, temporal=False):
+def __canonical_string__(nodes, edges, directed=False, temporal=False,\
+                         use_color_direction=True):
     (_, co) = __get_graph_info__(nodes, edges, temporal, directed, \
-                       use_color_direction=True, get_canon_order=True)
+                       use_color_direction=use_color_direction, \
+                       get_canon_order=True)
     node_to_idx_map = {}
     for i in range(0, len(co)):
         node_to_idx_map[co[i]] = i
@@ -724,7 +776,9 @@ def __temporal_graph_mashup__(graphs, directed=False):
                     edges.append((a, b, 1))
                 for (a, b) in second_edges:
                     edges.append((nodes[perm[a-1]], nodes[perm[b-1]], 2))
-                cs = __canonical_string__(nodes, edges, directed=directed,temporal=True)
+                cs = __canonical_string__(nodes, edges, directed=directed,\
+                                          temporal=True, \
+                                          use_color_direction=True)
                 if cs not in canonical_strings:
                     canonical_strings.add(cs)
                     temporal_graphs.append((nodes, edges))
