@@ -1,8 +1,7 @@
-from graph_info_content import information_content, min_information_content_limit, max_information_content_limit
 from graph_types import GraphTypes
 import matplotlib.pyplot as plt
 import random
-from structure_measures import measure_of_structure
+from structure_measures import measure_of_structure, log2_independent_edges_prob, log2_ER_prob
 
 class GraphSequence:
 
@@ -95,18 +94,21 @@ class GraphSequence:
 
 # graph_sequence should be a list of (nodes, edges) tuples.
 def plot_graph_IC_sequence(graph_sequence, \
-                           directed=False, temporal=False, \
-                           set_num_timestamps=None, \
-                           normalize=True, \
-                           proportional_p=False):
+                           directed=False, temporal=False):
+    if directed and temporal:
+        graph_type = GraphTypes.TEMPORAL_DIRECTED
+    elif temporal:
+        graph_type = GraphTypes.TEMPORAL_UNDIRECTED
+    elif directed:
+        graph_type = GraphTypes.STATIC_DIRECTED
+    else:
+        graph_type = GraphTypes.STATIC_UNDIRECTED
 
     sequence_name = graph_sequence.get_name()
 
     gi = 0
     graph_indices = []
     ic = []
-    min_ic_limit = []
-    max_ic_limit = []
     while graph_sequence.has_next():
         (nodes, edges) = graph_sequence.next()
         gi += 1
@@ -122,39 +124,8 @@ def plot_graph_IC_sequence(graph_sequence, \
                     timestamps.add(t)
                 num_timestamps = len(timestamps)
 
-        ic.append(information_content(nodes, edges, \
-                        proportional_p=proportional_p, \
-                        directed=directed, temporal=temporal, \
-                        num_timestamps=num_timestamps, \
-                        node_colors=None, only_consider_used_nodes=False, \
-                        extreme_only_consider_used_nodes=False, \
-                        extreme_proportional_p=False))
+        ic.append(-log2_ER_prob(nodes, edges, graph_type))
 
-        min_ic_limit.append(\
-            min_information_content_limit(len(nodes), \
-                                          directed=directed, \
-                                          num_timestamps=num_timestamps))
-        max_ic_limit.append(\
-            max_information_content_limit(len(nodes), \
-                                          directed=directed, \
-                                          num_timestamps=num_timestamps))
-        # print("  Min: %f\n  IC: %f\n  Max: %f" % \
-        #         (min_ic_limit[-1], ic[-1], max_ic_limit[-1]))
-
-    if normalize:
-        for i in range(0, len(ic)):
-            if max_ic_limit[i] == min_ic_limit[i]:
-                min_ic_limit[i] = 1
-                max_ic_limit[i] = 1
-                ic[i] = 1
-            else:
-                ic[i] = (ic[i] - min_ic_limit[i]) / \
-                            (max_ic_limit[i] - min_ic_limit[i])
-            min_ic_limit[i] = 0
-            max_ic_limit[i] = 1
-
-    plt.plot(graph_indices, min_ic_limit, color="red")
-    plt.plot(graph_indices, max_ic_limit, color="red")
     plt.plot(graph_indices, ic, color="blue")
     plt.title("Info Content of %s" % sequence_name)
     plt.xlabel("Graph Sequence Index")
@@ -383,21 +354,34 @@ if __name__ == "__main__":
     list_GS.set_with_list(__triangles_sequence__(9))
     list_GS.set_name("Triangles Sequence")
     plot_graph_SM_sequence(list_GS, directed=False, temporal=False)
+    list_GS.set_with_list(__triangles_sequence__(9))
+    list_GS.set_name("Triangles Sequence")
+    plot_graph_IC_sequence(list_GS, directed=False, temporal=False)
 
     list_GS.set_with_list(__triangles_sequence_with_all_nodes_always__(9))
     list_GS.set_name("Triangles Sequence with All Nodes")
     plot_graph_SM_sequence(list_GS, directed=False, temporal=False)
+    list_GS.set_with_list(__triangles_sequence_with_all_nodes_always__(9))
+    list_GS.set_name("Triangles Sequence with All Nodes")
+    plot_graph_IC_sequence(list_GS, directed=False, temporal=False)
 
-    list_GS.set_with_list(__random_edge_addition__(num_nodes=9*3, \
+    rand_edge_addition = __random_edge_addition__(num_nodes=9*3, \
                                                    edges_per_iter=3, \
                                                    sequence_length=9, \
-                                                   directed=False))
+                                                   directed=False)
+    list_GS.set_with_list(rand_edge_addition)
     list_GS.set_name("Randomly Adding 3 Edges Each Time")
     plot_graph_SM_sequence(list_GS, directed=False, temporal=False)
+    list_GS.set_with_list(rand_edge_addition)
+    list_GS.set_name("Randomly Adding 3 Edges Each Time")
+    plot_graph_IC_sequence(list_GS, directed=False, temporal=False)
 
     list_GS.set_with_list(__binary_tree_sequence__(num_trees=7))
     list_GS.set_name("Binary Trees")
     plot_graph_SM_sequence(list_GS, directed=False, temporal=False)
+    list_GS.set_with_list(__binary_tree_sequence__(num_trees=7))
+    list_GS.set_name("Binary Trees")
+    plot_graph_IC_sequence(list_GS, directed=False, temporal=False)
 
     file_GS = GraphSequence()
     file_GS.set_with_temporal_graph_file("datasets/college-temporal.g", \
