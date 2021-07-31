@@ -660,7 +660,8 @@ def measure_of_structure(nodes_lists, edges, graph_type, \
                                         directed=directed, temporal=temporal, \
                                         only_consider_used_nodes=False, \
                                         node_colors=node_colors)
-    return graph_log2_num_automorphisms - min_ER_log2_na
+
+    return (graph_log2_num_automorphisms, min_ER_log2_na)
 
 # In a node_joining network, the node_timestamps are the join times of the
 #   nodes.

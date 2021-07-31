@@ -226,18 +226,25 @@ def plot_graph_SM_sequence(graph_sequence, \
 
     gi = 0
     graph_indices = []
-    sm = []
+    real_graph = []
+    rand_graph = []
+    # sm = []
     while graph_sequence.has_next():
         (nodes, edges) = graph_sequence.next()
         if len(nodes) == 0:
             nodes = [1]
         gi += 1
         graph_indices.append(gi)
-        sm.append(measure_of_structure([nodes], edges, graph_type, \
+        (real, rand) = measure_of_structure([nodes], edges, graph_type, \
                                        all_timestamps="auto", \
-                                       ER_try_count=20))
+                                       ER_try_count=20)
+        real_graph.append(real)
+        rand_graph.append(rand)
+        plt.plot([gi, gi], [rand, real], color="gray")
 
-    plt.plot(graph_indices, sm, color="blue")
+    # plt.plot(graph_indices, sm, color="blue")
+    plt.scatter(graph_indices, real_graph, color="blue")
+    plt.scatter(graph_indices, rand_graph, color="red")
     plt.title("Structure Measure of %s" % sequence_name)
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Structure Measure")
@@ -492,7 +499,7 @@ if __name__ == "__main__":
     window_GS.set_window_sequence_with_temporal_file(\
         filename="datasets/college-temporal.g", \
         time_numbers_per_unit=(60*60), \
-        unit_name="days",
+        unit_name="hours",
         units_per_window=24, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
