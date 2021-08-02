@@ -242,11 +242,12 @@ def plot_graph_IC_sequence(graph_sequence, \
     plt.title("Info Content of %s" % sequence_name)
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Information Content")
-    plt.savefig("figs/IC_of_%s.png" % sequence_name)
+    plt.savefig("figs/IC_of_%s.png" % sequence_name.replace(" ", "_"))
     plt.close()
 
 def plot_graph_SM_sequence(graph_sequence, \
-                           directed=False, temporal=False):
+                           directed=False, temporal=False, \
+                           add_nodes_edges_plot=False):
     if directed and temporal:
         graph_type = GraphTypes.TEMPORAL_DIRECTED
     elif temporal:
@@ -262,9 +263,14 @@ def plot_graph_SM_sequence(graph_sequence, \
     graph_indices = []
     real_graph = []
     rand_graph = []
+    n = []
+    m = []
     # sm = []
     while graph_sequence.has_next():
         (nodes, edges) = graph_sequence.next()
+        if add_nodes_edges_plot:
+            n.append(len(nodes))
+            m.append(len(edges))
         if len(nodes) == 0:
             nodes = [1]
         gi += 1
@@ -282,8 +288,18 @@ def plot_graph_SM_sequence(graph_sequence, \
     plt.title("Structure Measure of %s" % sequence_name)
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Structure Measure")
-    plt.savefig("figs/SM_of_%s.png" % sequence_name)
+    plt.savefig("figs/SM_of_%s.png" % sequence_name.replace(" ", "_"))
     plt.close()
+
+    if add_nodes_edges_plot:
+        plt.scatter(graph_indices, n, color="brown")
+        plt.scatter(graph_indices, m, color="purple")
+        plt.title("Nodes and Edges of %s" % sequence_name)
+        plt.xlabel("Graph Sequence Index")
+        plt.ylable("|V| (brown), |E|, (purple)")
+        plt.savefig("figs/Nodes_Edges_of_%s.png" % \
+                        sequence_name.replace(" ", "_"))
+        plt.close()
 
 # Reads the edge list with potentially duplicated edges and returns two lists:
 #   nodes and edges
@@ -534,7 +550,7 @@ if __name__ == "__main__":
         units_per_window=7, \
         start_offset_units=-28561, \
         windows_overlap=False, \
-        flatten_window=False, \
+        flatten_window=True, \
         weight_repeats=False, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
@@ -548,7 +564,21 @@ if __name__ == "__main__":
         units_per_window=24, \
         start_offset_units=-28561, \
         windows_overlap=False, \
-        flatten_window=False, \
+        flatten_window=True, \
+        weight_repeats=False, \
+        directed=True)
+    plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
+
+    # Hour, Hour resolution
+    window_GS = GraphSequence()
+    window_GS.set_window_sequence_with_temporal_file(\
+        filename="datasets/college-temporal.g", \
+        time_numbers_per_unit=(60*60), \
+        unit_name="hour",
+        units_per_window=1, \
+        start_offset_units=-28561, \
+        windows_overlap=False, \
+        flatten_window=True, \
         weight_repeats=False, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
