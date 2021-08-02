@@ -296,7 +296,7 @@ def plot_graph_SM_sequence(graph_sequence, \
         plt.scatter(graph_indices, m, color="purple")
         plt.title("Nodes and Edges of %s" % sequence_name)
         plt.xlabel("Graph Sequence Index")
-        plt.ylabel("|V| (brown), |E|, (purple)")
+        plt.ylabel("|V| (gray), |E|, (purple)")
         plt.savefig("figs/Nodes_Edges_of_%s.png" % \
                         sequence_name.replace(" ", "_"))
         plt.close()
