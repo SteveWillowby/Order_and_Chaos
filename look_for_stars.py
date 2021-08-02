@@ -46,7 +46,7 @@ def find_stars(temporal_directed_edges):
             for neighbor in out_neighbors:
                 if len(o_n_t[neighbor]) + len(i_n_t[neighbor]) == 1:
                     num_single_neighbors += 1
-            if num_single_neighbors == len(in_neighbors):
+            if num_single_neighbors == len(out_neighbors):
                 stars.append((num_single_neighbors, node))
             elif num_single_neighbors >= 2:
                 partial_stars.append((num_single_neighbors, node))
