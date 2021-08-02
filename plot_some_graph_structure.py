@@ -292,7 +292,7 @@ def plot_graph_SM_sequence(graph_sequence, \
     plt.close()
 
     if add_nodes_edges_plot:
-        plt.scatter(graph_indices, n, color="brown")
+        plt.scatter(graph_indices, n, color="gray")
         plt.scatter(graph_indices, m, color="purple")
         plt.title("Nodes and Edges of %s" % sequence_name)
         plt.xlabel("Graph Sequence Index")
