@@ -553,7 +553,8 @@ if __name__ == "__main__":
         flatten_window=True, \
         weight_repeats=False, \
         directed=True)
-    plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
+    plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
+                           add_nodes_edges_plot=True)
 
     # Hour, Day resolution
     window_GS = GraphSequence()
@@ -567,7 +568,8 @@ if __name__ == "__main__":
         flatten_window=True, \
         weight_repeats=False, \
         directed=True)
-    plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
+    plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
+                           add_nodes_edges_plot=True)
 
     # Hour, Hour resolution
     window_GS = GraphSequence()
@@ -581,7 +583,8 @@ if __name__ == "__main__":
         flatten_window=True, \
         weight_repeats=False, \
         directed=True)
-    plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
+    plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
+                           add_nodes_edges_plot=True)
 
     """
     # Minute, Hour resolution
