@@ -95,7 +95,8 @@ def plot_graph_SM_sequence(graph_sequence, \
             (a, b, c) = find_stars(edges)
             sau = 0.0
             for (size, _) in a + b + c:
-                sau += math.log(size, 2.0)
+                for value in range(2, size + 1):
+                    sau += math.log(value, 2.0)
             stars_as_unique.append(sau)
 
     # plt.plot(graph_indices, sm, color="blue")
