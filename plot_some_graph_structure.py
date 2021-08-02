@@ -72,15 +72,22 @@ class GraphSequence:
                                                      time_numbers_per_unit, \
                                                      unit_name, \
                                                      units_per_window, \
-                                                     directed=True):
+                                                     directed=True, \
+                                                     start_offset_units=0, \
+                                                     flatten_window=False, \
+                                                     weight_repeats=False, \
+                                                     windows_overlap=True):
         self.sequence_type = "windows_of_temporal_file"
+        self.windows_overlap = windows_overlap
+        self.flatten_window = flatten_window
+        self.weight_repeats = weight_repeats
 
         (nodes, edges) = __read_edge_list__(filename, directed, True)
         # Sort timestamps.
         edges = [(a, b, t) for (t, a, b) in \
                     sorted([(t, a, b) for (a, b, t) in edges])]
         # Relabel timestamps with the basic unit.
-        start_time = edges[0][2]
+        start_time = edges[0][2] + start_offset_units
         interval_end_time = start_time + time_numbers_per_unit
         replacement_timestamp = 1
         edges_lists = []
@@ -116,8 +123,24 @@ class GraphSequence:
         self.current_window_idx = 0
         self.last_window_idx = len(self.full_edges_lists) - units_per_window
         self.__has_next__ = self.current_window_idx <= self.last_window_idx
+
+        if flatten_window:
+            flattened_str = " flattened"
+        else:
+            flattened_str = ""
+        if windows_overlap:
+            overlapping_str = " overlapping"
+        else:
+            overlapping_str = ""
+        if weight_repeats:
+            weighted_str = " weighted"
+        else:
+            weighted_str = ""
+            
         self.name = filename.split("/")[-1] + \
-                        (" - %d %s window" % (units_per_window, unit_name))
+                        (" -%s%s%s %d %s windows" % \
+                           (weighted_str, flattened_str, overlapping_str, \
+                            units_per_window, unit_name))
 
     def has_next(self):
         return self.__has_next__
@@ -142,7 +165,10 @@ class GraphSequence:
 
         elif self.sequence_type == "windows_of_temporal_file":
             nodes = set()
-            edges = []
+            if self.flatten_window:
+                edges = set()
+            else:
+                edges = []
             for i in range(self.current_window_idx, \
                            self.current_window_idx + self.units_per_window):
                 nodes |= self.full_nodes_sets[i]
@@ -161,8 +187,16 @@ class GraphSequence:
                 # TODO: ALLOW EDGE WEIGHTS IN CALCULATIONS!!!!!!!!!!!!
                 # TODO: ALLOW EDGE WEIGHTS IN CALCULATIONS!!!!!!!!!!!!
                 # TODO: ALLOW EDGE WEIGHTS IN CALCULATIONS!!!!!!!!!!!!
-                edges += [(a, b, t) for (a, b, t, w) in self.full_edges_lists[i]]
-            self.current_window_idx += 1
+                if self.flatten_window:
+                    edges |= set([(a, b, 1) for \
+                                  (a, b, t, w) in self.full_edges_lists[i]])
+                else:
+                    edges += [(a, b, t) for \
+                              (a, b, t, w) in self.full_edges_lists[i]]
+            if self.window_overlap:
+                self.current_window_idx += 1
+            else:
+                self.current_window_idx += self.units_per_window
             self.__has_next__ = self.current_window_idx <= self.last_window_idx
             return (list(nodes), edges)
 
@@ -485,22 +519,35 @@ if __name__ == "__main__":
 
     # TODO: Add support for edge weights in calcs
 
-    window_GS = GraphSequence()
     # Day, Week resolution
+    #
+    # The -28561 makes the start time 12 AM on April 15th, 2004
+    #   (That's Pacific Daylight Time)
+    #   Choosing -10561 would be 5 AM instead.
+    window_GS = GraphSequence()
     window_GS.set_window_sequence_with_temporal_file(\
         filename="datasets/college-temporal.g", \
         time_numbers_per_unit=(60*60*24), \
         unit_name="days",
         units_per_window=7, \
+        start_offset_units=-28561, \
+        windows_overlap=False, \
+        flatten_window=False, \
+        weight_repeats=False, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
 
     # Hour, Day resolution
+    window_GS = GraphSequence()
     window_GS.set_window_sequence_with_temporal_file(\
         filename="datasets/college-temporal.g", \
         time_numbers_per_unit=(60*60), \
         unit_name="hours",
         units_per_window=24, \
+        start_offset_units=-28561, \
+        windows_overlap=False, \
+        flatten_window=False, \
+        weight_repeats=False, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True)
 
