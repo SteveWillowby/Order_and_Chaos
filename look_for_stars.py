@@ -27,6 +27,8 @@ def find_stars(temporal_directed_edges):
 
         # Inward star (e.g. followers)
         for node, in_neighbors in i_n_t.items():
+            if len(in_neighbors) == 0:
+                continue
             num_single_neighbors = 0
             for neighbor in in_neighbors:
                 if len(o_n_t[neighbor]) + len(i_n_t[neighbor]) == 1:
@@ -38,6 +40,8 @@ def find_stars(temporal_directed_edges):
 
         # Outward star (e.g. text recipients)
         for node, out_neighbors in o_n_t.items():
+            if len(out_neighbors) == 0:
+                continue
             num_single_neighbors = 0
             for neighbor in out_neighbors:
                 if len(o_n_t[neighbor]) + len(i_n_t[neighbor]) == 1:
@@ -49,6 +53,8 @@ def find_stars(temporal_directed_edges):
 
         # Bidirectional star
         for node, out_neighbors in o_n_t.items():
+            if len(out_neighbors) == 0:
+                continue
             num_single_neighbors = 0
             for neighbor in out_neighbors | i_n_t[node]:
                 if len(o_n_t[neighbor]) + len(i_n_t[neighbor]) == 2:
