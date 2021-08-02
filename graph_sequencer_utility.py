@@ -151,9 +151,9 @@ class GraphSequence:
                 edges_lists.append([(a, b, t, w) for \
                                         (a, b, t), w in edge_dict.items()])
                 edge_dict = {}
-                if len(nodes_set) == 0:
-                    print("Note: The %dth %s was empty." % \
-                            (replacement_timestamp - 1, unit_name))
+                # if len(nodes_set) == 0:
+                #     print("Note: The %dth %s was empty." % \
+                #             (replacement_timestamp - 1, unit_name))
                 nodes_sets.append(nodes_set)
                 nodes_set = set()
             new_edge = (a, b, replacement_timestamp)

@@ -1,5 +1,7 @@
 from graph_sequencer_utility import GraphSequence
 from graph_types import GraphTypes
+from look_for_stars import find_stars
+import math
 import matplotlib.pyplot as plt
 import random
 from structure_measures import measure_of_structure, log2_independent_edges_prob, log2_ER_prob
@@ -52,7 +54,8 @@ def plot_graph_IC_sequence(graph_sequence, \
 
 def plot_graph_SM_sequence(graph_sequence, \
                            directed=False, temporal=False, \
-                           add_nodes_edges_plot=False):
+                           add_nodes_edges_plot=False, \
+                           graph_flattened=False):
     if directed and temporal:
         graph_type = GraphTypes.TEMPORAL_DIRECTED
     elif temporal:
@@ -70,6 +73,8 @@ def plot_graph_SM_sequence(graph_sequence, \
     rand_graph = []
     n = []
     m = []
+    if directed and temporal and graph_flattened:
+        stars_as_unique = []
     # sm = []
     while graph_sequence.has_next():
         (nodes, edges) = graph_sequence.next()
@@ -85,11 +90,19 @@ def plot_graph_SM_sequence(graph_sequence, \
                                        ER_try_count=20)
         real_graph.append(real)
         rand_graph.append(rand)
-        plt.plot([gi, gi], [rand, real], color="gray")
+        # plt.plot([gi, gi], [rand, real], color="gray")
+        if directed and temporal and graph_flattened:
+            (a, b, c) = find_stars(edges)
+            sau = 0.0
+            for (size, _) in a + b + c:
+                sau += math.log(size, 2.0)
+            stars_as_unique.append(sau)
 
     # plt.plot(graph_indices, sm, color="blue")
     plt.scatter(graph_indices, real_graph, color="blue")
     plt.scatter(graph_indices, rand_graph, color="red")
+    if directed and temporal and graph_flattened:
+        plt.scatter(graph_indices, stars_as_unique, color="green")
     plt.title("Structure Measure of %s" % sequence_name)
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Structure Measure")
@@ -322,7 +335,8 @@ if __name__ == "__main__":
         weight_repeats=False, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
-                           add_nodes_edges_plot=True)
+                           add_nodes_edges_plot=True, \
+                           graph_flattened=True)
 
     # Hour, Day resolution
     window_GS = GraphSequence()
@@ -337,7 +351,8 @@ if __name__ == "__main__":
         weight_repeats=False, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
-                           add_nodes_edges_plot=True)
+                           add_nodes_edges_plot=True, \
+                           graph_flattened=True)
 
     # Hour, Hour resolution
     window_GS = GraphSequence()
@@ -352,7 +367,8 @@ if __name__ == "__main__":
         weight_repeats=False, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
-                           add_nodes_edges_plot=True)
+                           add_nodes_edges_plot=True, \
+                           graph_flattened=True)
 
     """
     # Minute, Hour resolution
