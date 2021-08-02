@@ -193,7 +193,7 @@ class GraphSequence:
                 else:
                     edges += [(a, b, t) for \
                               (a, b, t, w) in self.full_edges_lists[i]]
-            if self.window_overlap:
+            if self.windows_overlap:
                 self.current_window_idx += 1
             else:
                 self.current_window_idx += self.units_per_window
@@ -471,6 +471,7 @@ def __bucket_temporal_edges__(edges, target_num_buckets):
 
 if __name__ == "__main__":
 
+    """
     list_GS = GraphSequence()
     list_GS.set_with_list(__triangles_sequence__(9))
     list_GS.set_name("Triangles Sequence")
@@ -503,6 +504,7 @@ if __name__ == "__main__":
     list_GS.set_with_list(__binary_tree_sequence__(num_trees=7))
     list_GS.set_name("Binary Trees")
     plot_graph_IC_sequence(list_GS, directed=False, temporal=False)
+    """
 
     """
     file_GS = GraphSequence()
