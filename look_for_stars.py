@@ -53,14 +53,14 @@ def find_stars(temporal_directed_edges):
 
         # Bidirectional star
         for node, out_neighbors in o_n_t.items():
-            if len(out_neighbors) == 0:
+            if len(out_neighbors & i_n_t[node]) == 0:
                 continue
             num_single_neighbors = 0
-            for neighbor in out_neighbors | i_n_t[node]:
+            for neighbor in out_neighbors & i_n_t[node]:
                 if len(o_n_t[neighbor]) + len(i_n_t[neighbor]) == 2:
                     num_single_neighbors += 1
-            if num_single_neighbors == len(in_neighbors):
-                if num_single_neighbors == 1:
+            if num_single_neighbors == len(out_neighbors & i_n_t[node]):
+                if num_single_neighbors == 1 and len(out_neighbors) == 1:
                     bidir_pairs.append((2, node))
                 else:
                     stars.append((num_single_neighbors, node))
