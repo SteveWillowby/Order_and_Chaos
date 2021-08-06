@@ -31,6 +31,7 @@
         - time span: ~22.5 years
         - timestamp units are in seconds, assuming leap years every 4th year.
         - the first timestamp corresponds to 4PM PST December 31st, 1979
+        - contains self-loops, in that a person can be a recipient of their own email
     - File Format: sender recipient-A recipient-B ... recipient-Z timestamp
     - The email address(es) associated with the node ids can be found in `email_address_labels.txt`
     - Raw data available at `https://www.cs.cmu.edu/~enron/`
@@ -45,6 +46,7 @@
         - time span: ~22.5 years
         - timestamp units are in seconds, assuming leap years every 4th year.
         - the first timestamp corresponds to 4PM PST December 31st, 1979
+        - contains self-loops, in that a person can be a recipient of their own email
     - File Format: sender recipient-A recipient-B ... recipient-Z timestamp
     - The email address(es) associated with the node ids can be found in `email_address_labels.txt`
     - Raw data available at `https://www.cs.cmu.edu/~enron/`
