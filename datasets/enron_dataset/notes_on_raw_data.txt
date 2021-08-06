@@ -1,3 +1,12 @@
+Data from https://www.cs.cmu.edu/~enron/  (William Cohen)
+
+Paper introducing the data:
+https://www.ceas.cc/papers-2004/168.pdf
+Introducing the Enron Corpus
+Bryan Klimt, Yiming Yang
+
+----
+
 Rob Gay and Randall Gay are not the same people. It's Rob G. Gay and Randall L. Gay
     -- see maildir/gay-r/_sent_items/120.
 

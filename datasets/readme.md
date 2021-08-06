@@ -22,6 +22,34 @@
     - list of edges `(u, v)` where paper `u` cites paper `v`
     - `http://networkrepository.com/cora.php`
 ## temporal
+- enron-exclusive
+    - Has all emails sent BY and only-TO a select group of 148 key employees.
+    - properties
+        - directed, temporal
+        - nodes: `148`
+        - temporal emails (directed hyperedges): `9597`
+        - time span: ~22.5 years
+        - timestamp units are in seconds, assuming leap years every 4th year.
+        - the first timestamp corresponds to 4PM PST December 31st, 1979
+    - File Format: sender recipient-A recipient-B ... recipient-Z timestamp
+    - The email address(es) associated with the node ids can be found in `email_address_labels.txt`
+    - Raw data available at `https://www.cs.cmu.edu/~enron/`
+    - Code to convert the raw data into these graphs is found in `create_enron_graphs.py`
+    - Last but not least, the records of certain external "shocks" are in `Relevant_Enron_Events.csv`
+- enron-less-exclusive
+    - Has all emails sent BY a group of 148 key employees, where at least one of the recipients is also in the group.
+    - properties
+        - directed, temporal
+        - nodes: `148`
+        - temporal emails (directed hyperedges): `21580`
+        - time span: ~22.5 years
+        - timestamp units are in seconds, assuming leap years every 4th year.
+        - the first timestamp corresponds to 4PM PST December 31st, 1979
+    - File Format: sender recipient-A recipient-B ... recipient-Z timestamp
+    - The email address(es) associated with the node ids can be found in `email_address_labels.txt`
+    - Raw data available at `https://www.cs.cmu.edu/~enron/`
+    - Code to convert the raw data into these graphs is found in `create_enron_graphs.py`
+    - Last but not least, the records of certain external "shocks" are in `Relevant_Enron_Events.csv`
 - eucore-temporal
     - properties
         - directed, temporal
