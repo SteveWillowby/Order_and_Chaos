@@ -1,0 +1,9 @@
+Rob Gay and Randall Gay are not the same people. It's Rob G. Gay and Randall L. Gay
+    -- see maildir/gay-r/_sent_items/120.
+
+Albert Meyers is Bert Meyers
+    -- see maildir/meyers-a/sent_items/1.
+
+The Phanis directory just contains more Panus emails.
+
+The Lawrence Whalley directory seems to just contain more Greg Walley emails.
