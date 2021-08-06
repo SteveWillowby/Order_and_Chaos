@@ -94,7 +94,7 @@ def plot_graph_SM_sequence(graph_sequence, \
         if directed and temporal and graph_flattened:
             (a, b, c) = find_stars(edges)
             sau = 0.0
-            for (size, _) in a + b + c:
+            for (size, _) in a + b:  # + c
                 for value in range(2, size + 1):
                     sau += math.log(value, 2.0)
             stars_as_unique.append(sau)
@@ -317,6 +317,7 @@ if __name__ == "__main__":
     plot_graph_SM_sequence(file_GS, directed=True, temporal=True)
     """
 
+    """
     # TODO: Add support for edge weights in calcs
 
     # Day, Week resolution
@@ -354,6 +355,7 @@ if __name__ == "__main__":
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
                            add_nodes_edges_plot=True, \
                            graph_flattened=True)
+    """
 
     # Hour, Hour resolution
     window_GS = GraphSequence()
