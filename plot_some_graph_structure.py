@@ -266,6 +266,28 @@ def __bucket_temporal_edges__(edges, target_num_buckets):
         edge_buckets.append(edges[pbsp[start]:pbsp[end]])
     return edge_buckets
 
+def squashed_email_graph_filename(email_graph_filename, timestamp_range=None):
+    f = open(email_graph_filename, "r")
+    lines = f.readlines()
+    f.close()
+    tmp_filename = "/tmp/" + email_graph_filename.split("/")[-1]
+    f = open(tmp_filename, "w")
+    for i in range(0, len(lines)):
+        line = lines[i].strip().split(" ")
+        sender = line[0]
+        timestamp = line[-1]
+        if timestamp_range is not None and \
+                (int(timestamp) < timestamp_range[0] or \
+                 int(timestamp) > timestamp_range[1]):
+            continue
+        for j in range(1, len(line) - 1):
+            recipient = line[j]
+            if recipient != sender:
+                f.write("%s %s %s" % (sender, recipient, timestamp))
+                if j < len(line) - 2 or i < len(lines) - 1:
+                    f.write("\n")
+    f.close()
+    return tmp_filename
 
 if __name__ == "__main__":
 
@@ -317,6 +339,29 @@ if __name__ == "__main__":
     plot_graph_SM_sequence(file_GS, directed=True, temporal=True)
     """
 
+    Jan_1_1980 = 62483932800 + 8 * 60 * 60
+    Jan_1_2000 = int(365.25 * 20) * 24 * 60 * 60 + Jan_1_1980
+    Jan_1_2003 = (365 * 3 + 1) * 24 * 60 * 60 + Jan_1_2000
+    squashed = squashed_email_graph_filename(\
+                    "datasets/enron_dataset/exclusive_emails.txt", \
+                    timestamp_range=[Jan_1_2000, Jan_1_2003])
+    # Week, Month-ish resolution
+    window_GS = GraphSequence()
+    window_GS.set_window_sequence_with_temporal_file(\
+        filename=squashed, \
+        time_numbers_per_unit=(60*60*24*7), \
+        unit_name="week",
+        units_per_window=4, \
+        start_offset_number=0, \
+        windows_overlap=False, \
+        flatten_window=False, \
+        weight_repeats=False, \
+        directed=True)
+    plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
+                           add_nodes_edges_plot=True, \
+                           graph_flattened=False)
+    
+
     """
     # TODO: Add support for edge weights in calcs
 
@@ -355,7 +400,6 @@ if __name__ == "__main__":
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
                            add_nodes_edges_plot=True, \
                            graph_flattened=True)
-    """
 
     # Hour, Hour resolution
     window_GS = GraphSequence()
@@ -373,6 +417,7 @@ if __name__ == "__main__":
                            add_nodes_edges_plot=True, \
                            graph_flattened=True)
 
+    """
     """
     # Minute, Hour resolution
     window_GS.set_window_sequence_with_temporal_file(\
