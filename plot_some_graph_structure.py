@@ -55,7 +55,8 @@ def plot_graph_IC_sequence(graph_sequence, \
 def plot_graph_SM_sequence(graph_sequence, \
                            directed=False, temporal=False, \
                            add_nodes_edges_plot=False, \
-                           graph_flattened=False):
+                           graph_flattened=False, \
+                           show_plot=False):
     if directed and temporal:
         graph_type = GraphTypes.TEMPORAL_DIRECTED
     elif temporal:
@@ -87,10 +88,11 @@ def plot_graph_SM_sequence(graph_sequence, \
         graph_indices.append(gi)
         (real, rand) = measure_of_structure([nodes], edges, graph_type, \
                                        all_timestamps="auto", \
-                                       ER_try_count=20)
+                                       ER_try_count=100, \
+                                       average_ER=True)
         real_graph.append(real)
         rand_graph.append(rand)
-        # plt.plot([gi, gi], [rand, real], color="gray")
+        plt.plot([gi, gi], [rand, real], color="lightgray")
         if directed and temporal and graph_flattened:
             (a, b, c) = find_stars(edges)
             sau = 0.0
@@ -100,14 +102,16 @@ def plot_graph_SM_sequence(graph_sequence, \
             stars_as_unique.append(sau)
 
     # plt.plot(graph_indices, sm, color="blue")
-    plt.scatter(graph_indices, real_graph, color="blue")
-    plt.scatter(graph_indices, rand_graph, color="red")
+    plt.plot(graph_indices, real_graph, color="blue")
+    plt.plot(graph_indices, rand_graph, color="red")
     if directed and temporal and graph_flattened:
-        plt.scatter(graph_indices, stars_as_unique, color="green")
+        plt.plot(graph_indices, stars_as_unique, color="green")
     plt.title("Structure Measure of %s" % sequence_name)
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Structure Measure")
     plt.savefig("figs/SM_of_%s.png" % sequence_name.replace(" ", "_"))
+    if show_plot:
+        plt.show()
     plt.close()
 
     if add_nodes_edges_plot:
@@ -118,6 +122,8 @@ def plot_graph_SM_sequence(graph_sequence, \
         plt.ylabel("|V| (gray), |E|, (purple)")
         plt.savefig("figs/Nodes_Edges_of_%s.png" % \
                         sequence_name.replace(" ", "_"))
+        if show_plot:
+            plt.show()
         plt.close()
 
 
@@ -341,25 +347,28 @@ if __name__ == "__main__":
 
     Jan_1_1980 = 62483932800 + 8 * 60 * 60
     Jan_1_2000 = int(365.25 * 20) * 24 * 60 * 60 + Jan_1_1980
-    Jan_1_2003 = (365 * 3 + 1) * 24 * 60 * 60 + Jan_1_2000
+    Jan_1_2001 = int(365.25 * 20 + 366) * 24 * 60 * 60 + Jan_1_1980
+    Jan_1_2003 = (365 * 2) * 24 * 60 * 60 + Jan_1_2001
     squashed = squashed_email_graph_filename(\
                     "datasets/enron_dataset/exclusive_emails.txt", \
-                    timestamp_range=[Jan_1_2000, Jan_1_2003])
-    # Week, Month-ish resolution
+                    timestamp_range=[Jan_1_2001, Jan_1_2003])
+    # Hour, Day resolution
+    flatten = False
     window_GS = GraphSequence()
     window_GS.set_window_sequence_with_temporal_file(\
         filename=squashed, \
-        time_numbers_per_unit=(60*60*24*7), \
-        unit_name="week",
-        units_per_window=4, \
+        time_numbers_per_unit=(60*60*24), \
+        unit_name="day", \
+        units_per_window=7, \
         start_offset_number=0, \
         windows_overlap=False, \
-        flatten_window=False, \
+        flatten_window=flatten, \
         weight_repeats=False, \
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
                            add_nodes_edges_plot=True, \
-                           graph_flattened=False)
+                           graph_flattened=flatten, \
+                           show_plot=True)
     
 
     """

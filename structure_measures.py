@@ -553,10 +553,12 @@ def __get_graph_info__(nodes, given_edges, temporal, directed, \
         return (na, co)
     return (na, None)
 
+# average_ER gives log of average random NA
 def measure_of_structure(nodes_lists, edges, graph_type, \
                          all_timestamps="auto", \
                          ER_try_count=10, \
-                         node_colors=None):
+                         node_colors=None, \
+                         average_ER=False):
     directed = GraphTypes.IS_DIRECTED[graph_type]
     temporal = GraphTypes.IS_TEMPORAL[graph_type]
     all_nodes = []
@@ -565,6 +567,7 @@ def measure_of_structure(nodes_lists, edges, graph_type, \
     assert len(set(all_nodes)) == len(all_nodes)
 
     min_ER_log2_na = None
+    ER_log2_na_values = []
 
     if GraphTypes.IS_TEMPORAL[graph_type]:
         if all_timestamps == "auto":
@@ -597,13 +600,16 @@ def measure_of_structure(nodes_lists, edges, graph_type, \
                                          directed=directed, temporal=temporal, \
                                          only_consider_used_nodes=False, \
                                          node_colors=node_colors)
+                ER_log2_na_values.append(na_value)
                 if float(na_value) == 0.0:
                     min_ER_log2_na = na_value
-                    break
+                    if not average_ER:
+                        break
                 elif min_ER_log2_na is None or na_value < min_ER_log2_na:
                     min_ER_log2_na = na_value
-                    done = False
-                    break
+                    if not average_ER:
+                        done = False
+                        break
 
     elif graph_type == GraphTypes.BIPARTITE_UNDIRECTED or \
             graph_type == GraphTypes.BIPARTITE_DIRECTED:
@@ -624,14 +630,17 @@ def measure_of_structure(nodes_lists, edges, graph_type, \
                                      directed=directed, temporal=temporal, \
                                      only_consider_used_nodes=False, \
                                      node_colors=node_colors)
+                ER_log2_na_values.append(na_value)
 
                 if float(na_value) == 0.0:
                     min_ER_log2_na = na_value
-                    break
+                    if not average_ER:
+                        break
                 elif min_ER_log2_na is None or na_value < min_ER_log2_na:
                     min_ER_log2_na = na_value
-                    done = False
-                    break
+                    if not average_ER:
+                        done = False
+                        break
     else:
         done = False
         while not done:
@@ -646,22 +655,39 @@ def measure_of_structure(nodes_lists, edges, graph_type, \
                                      directed=directed, temporal=temporal, \
                                      only_consider_used_nodes=False, \
                                      node_colors=node_colors)
+                ER_log2_na_values.append(na_value)
 
                 if float(na_value) == 0.0:
                     min_ER_log2_na = na_value
-                    break
+                    if not average_ER:
+                        break
                 elif min_ER_log2_na is None or na_value < min_ER_log2_na:
                     min_ER_log2_na = na_value
-                    done = False
-                    break
+                    if not average_ER:
+                        done = False
+                        break
 
-    print("Best log2_na for ER: %f" % min_ER_log2_na)
+    print("Min log2_na for ER: %f" % min_ER_log2_na)
     graph_log2_num_automorphisms = log2_num_automorphisms(all_nodes, edges, \
                                         directed=directed, temporal=temporal, \
                                         only_consider_used_nodes=False, \
                                         node_colors=node_colors)
 
-    return (graph_log2_num_automorphisms, min_ER_log2_na)
+    if not average_ER:
+        return (graph_log2_num_automorphisms, min_ER_log2_na)
+
+    # Take log of average or average log?
+    assert len(ER_log2_na_values) == ER_try_count
+    avg = 0.0
+    overflow_tracker = 0.0
+    for log_val in ER_log2_na_values:
+        avg += bigfloat.pow(2.0, log_val)
+        if avg < overflow_tracker:
+            raise ValueError("Error! Bigfloat environment not large enough " + \
+                             "for averaging number of automorphisms.")
+        overflow_tracker = avg
+    avg /= len(ER_log2_na_values)
+    return (graph_log2_num_automorphisms, float(bigfloat.log2(avg)))
 
 # In a node_joining network, the node_timestamps are the join times of the
 #   nodes.
