@@ -203,4 +203,10 @@ if __name__ == "__main__":
     combos = paired_up(combos, node_max=100)
     combos = paired_up(combos, node_max=100)
     # TODO: Find the bug.
+    #
+    # I believe it is because paired_up() forgets that some combos already used
+    #   up all the available graphs of a given node count. For example, in the
+    #   first call, it may combine a 7-node tree graph with a 10-node graph;
+    #   then, it the second call, it may combine that 17-node graph with the 7-
+    #   node tree graph again, even though there's only one 7-node tree graph.
     print(max_hypothetically_possible_combos(100))
