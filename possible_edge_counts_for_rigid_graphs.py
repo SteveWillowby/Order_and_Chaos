@@ -202,4 +202,5 @@ if __name__ == "__main__":
     combos = paired_up(combos, node_max=100)
     combos = paired_up(combos, node_max=100)
     combos = paired_up(combos, node_max=100)
+    # TODO: Find the bug.
     print(max_hypothetically_possible_combos(100))
