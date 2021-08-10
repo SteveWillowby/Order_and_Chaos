@@ -52,11 +52,19 @@ def plot_graph_IC_sequence(graph_sequence, \
     plt.savefig("figs/IC_of_%s.png" % sequence_name.replace(" ", "_"))
     plt.close()
 
+# `window_size` is only relevant if using windows from the
+#   graph_sequencer_utility. It ensures that ER graphs use all the timestamps
+#   available in the window. DO NOT use in combination with flattened graphs.
 def plot_graph_SM_sequence(graph_sequence, \
                            directed=False, temporal=False, \
                            add_nodes_edges_plot=False, \
                            graph_flattened=False, \
-                           show_plot=False):
+                           show_plot=False, \
+                           include_star_amt=False, \
+                           include_pair_amt=False, \
+                           relative=True, \
+                           window_size=None):
+
     if directed and temporal:
         graph_type = GraphTypes.TEMPORAL_DIRECTED
     elif temporal:
@@ -70,13 +78,16 @@ def plot_graph_SM_sequence(graph_sequence, \
 
     gi = 0
     graph_indices = []
-    real_graph = []
-    rand_graph = []
+    if not relative:
+        real_graph = []
+        rand_graph = []
     n = []
     m = []
-    if directed and temporal and graph_flattened:
-        stars_as_unique = []
-    # sm = []
+    if relative:
+        sm = []
+    if include_star_amt or include_pair_amt:
+        star_sm = []
+        pair_sm = []
     while graph_sequence.has_next():
         (nodes, edges) = graph_sequence.next()
         if add_nodes_edges_plot:
@@ -86,37 +97,72 @@ def plot_graph_SM_sequence(graph_sequence, \
             nodes = [1]
         gi += 1
         graph_indices.append(gi)
-        (real, rand) = measure_of_structure([nodes], edges, graph_type, \
-                                       all_timestamps="auto", \
-                                       ER_try_count=100, \
-                                       average_ER=True)
-        real_graph.append(real)
-        rand_graph.append(rand)
-        plt.plot([gi, gi], [rand, real], color="lightgray")
-        if directed and temporal and graph_flattened:
-            (a, b, c) = find_stars(edges)
-            sau = 0.0
-            for (size, _) in a + b:  # + c
-                for value in range(2, size + 1):
-                    sau += math.log(value, 2.0)
-            stars_as_unique.append(sau)
+        if window_size is None:
+            timestamps = "auto"
+        else:
+            # the graph sequencer 1-indexes timestamps
+            timestamps = \
+                [(gi - 1) * window_size + i for i in range(1, window_size + 1)]
+            for edge in edges:
+                assert edge[-1] in timestamps
 
-    # plt.plot(graph_indices, sm, color="blue")
-    plt.plot(graph_indices, real_graph, color="blue")
-    plt.plot(graph_indices, rand_graph, color="red")
-    if directed and temporal and graph_flattened:
-        plt.plot(graph_indices, stars_as_unique, color="green")
-    plt.title("Structure Measure of %s" % sequence_name)
+        (real, rand) = measure_of_structure([nodes], edges, graph_type, \
+                                       all_timestamps=timestamps, \
+                                       ER_try_count=1000, \
+                                       average_ER=False)
+        if float(rand) != 0.0:
+            print(("Did not obtain rigid graph for %d edges" % len(edges)) + \
+                  (" spread over %d nodes" % len(nodes)))
+        if relative:
+            sm.append(real - rand)
+            plt.plot([gi, gi], [real - rand, 0.0], color="lightgray")
+        else:
+            real_graph.append(real)
+            rand_graph.append(rand)
+            plt.plot([gi, gi], [rand, real], color="lightgray")
+        if include_star_amt or include_pair_amt:
+            (stars, partial_stars, pairs) = \
+                find_stars(edges, directed=directed, temporal=temporal)
+            s_au = 0.0
+            for (size, _) in stars + partial_stars:
+                for value in range(2, size + 1):
+                    s_au += math.log(value, 2.0)
+            pair_au = 0.0
+            for value in range(2, len(pairs) + 1):
+                pair_au += math.log(value, 2.0)
+
+            if relative and real > 0:
+                # The % of the log2-difference between real and rand as
+                #   contributed by stars, pairs
+                star_sm.append((s_au / real) * (real - rand))
+                pair_sm.append((pair_au / real) * (real - rand))
+            else:
+                star_sm.append(s_au)
+                pair_sm.append(pair_au)
+
+    if relative:
+        plt.plot(graph_indices, sm, color="blue")
+    else:
+        plt.plot(graph_indices, real_graph, color="blue")
+        plt.plot(graph_indices, rand_graph, color="brown")
+    if include_star_amt:
+        plt.plot(graph_indices, star_sm, color="green")
+    if include_pair_amt:
+        plt.plot(graph_indices, pair_sm, color="orange")
+
+    plt.title("%sStructure Measure of %s" % \
+        (["", "Rel. "][int(relative)], sequence_name))
     plt.xlabel("Graph Sequence Index")
     plt.ylabel("Structure Measure")
-    plt.savefig("figs/SM_of_%s.png" % sequence_name.replace(" ", "_"))
+    plt.savefig("figs/%sSM_of_%s.png" % (\
+        ["", "relative_"][int(relative)], sequence_name.replace(" ", "_")))
     if show_plot:
         plt.show()
     plt.close()
 
     if add_nodes_edges_plot:
-        plt.scatter(graph_indices, n, color="gray")
-        plt.scatter(graph_indices, m, color="purple")
+        plt.plot(graph_indices, n, color="gray")
+        plt.plot(graph_indices, m, color="purple")
         plt.title("Nodes and Edges of %s" % sequence_name)
         plt.xlabel("Graph Sequence Index")
         plt.ylabel("|V| (gray), |E|, (purple)")
@@ -354,21 +400,32 @@ if __name__ == "__main__":
                     timestamp_range=[Jan_1_2001, Jan_1_2003])
     # Hour, Day resolution
     flatten = False
+    units_per_window = 24
+    if flatten:
+        window_size = None
+    else:
+        window_size = units_per_window
+
     window_GS = GraphSequence()
     window_GS.set_window_sequence_with_temporal_file(\
         filename=squashed, \
-        time_numbers_per_unit=(60*60*24), \
-        unit_name="day", \
-        units_per_window=7, \
+        time_numbers_per_unit=(60*60), \
+        unit_name="hour", \
+        units_per_window=units_per_window, \
         start_offset_number=0, \
         windows_overlap=False, \
         flatten_window=flatten, \
         weight_repeats=False, \
         directed=True)
+
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
                            add_nodes_edges_plot=True, \
                            graph_flattened=flatten, \
-                           show_plot=True)
+                           show_plot=True, \
+                           include_star_amt=True, \
+                           include_pair_amt=True, \
+                           relative=True, \
+                           window_size=window_size)
     
 
     """

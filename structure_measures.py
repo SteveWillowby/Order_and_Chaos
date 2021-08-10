@@ -667,7 +667,6 @@ def measure_of_structure(nodes_lists, edges, graph_type, \
                         done = False
                         break
 
-    print("Min log2_na for ER: %f" % min_ER_log2_na)
     graph_log2_num_automorphisms = log2_num_automorphisms(all_nodes, edges, \
                                         directed=directed, temporal=temporal, \
                                         only_consider_used_nodes=False, \
