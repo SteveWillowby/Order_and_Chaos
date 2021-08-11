@@ -1,6 +1,6 @@
 import bigfloat  # TODO: Move away from bigfloat.
 import subprocess
-from os import remove
+from os import getpid, remove
 
 # This file contains the class NautyTracesSession, a class designed
 #   to allow runs of nauty/traces that do not require continually
@@ -11,7 +11,7 @@ from os import remove
 #   `mode` -- "Nauty" or "Traces" -- default of "Traces"
 #   `sparse` -- True or False, only relevant if mode = "Nauty"
 #   `tmp_path` -- path for a temporary file used when calling nauty
-#       default is "/tmp/dreadnaut.txt"
+#       default is "/tmp/<pid>_dreadnaut.txt"
 #   `dreadnaut_call` -- path to (and including) the dreadnaut binary
 #       default is "Nauty_n_Traces/nauty26r12/dreadnaut"
 #
@@ -105,7 +105,7 @@ from os import remove
 class NautyTracesSession:
 
     def __init__(self, start_graph, mode="Nauty", sparse=True, \
-                    tmp_path="/tmp/dreadnaut.txt", \
+                    tmp_path="/tmp/%d_dreadnaut.txt" % getpid(), \
                     dreadnaut_call="Nauty_n_Traces/nauty26r12/dreadnaut"):
 
         # start_nodes_list gets used in the original graph write to make sure
