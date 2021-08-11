@@ -21,6 +21,13 @@
         - edges: `5429`
     - list of edges `(u, v)` where paper `u` cites paper `v`
     - `http://networkrepository.com/cora.php`
+- Twitter Subsample Network (with Bots)
+    - properties
+        - directed
+        - nodes: `16260`
+        - edges: `31757`
+    - list of edges `(u, v)` where nodes are twitter users and edges indicate the sending of a message
+    - Nodes 1 through 64 are considered bots by the dataset creators.
 ## temporal
 - enron-exclusive
     - Has all emails sent BY and only-TO a select group of 148 key employees.
