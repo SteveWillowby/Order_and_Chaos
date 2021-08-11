@@ -391,6 +391,7 @@ if __name__ == "__main__":
     plot_graph_SM_sequence(file_GS, directed=True, temporal=True)
     """
 
+    """
     Jan_1_1980 = 62483932800 + 8 * 60 * 60
     Jan_1_2000 = int(365.25 * 20) * 24 * 60 * 60 + Jan_1_1980
     Jan_1_2001 = int(365.25 * 20 + 366) * 24 * 60 * 60 + Jan_1_1980
@@ -426,9 +427,8 @@ if __name__ == "__main__":
                            include_pair_amt=True, \
                            relative=True, \
                            window_size=window_size)
-    
-
     """
+
     # TODO: Add support for edge weights in calcs
 
     # Day, Week resolution
@@ -449,7 +449,12 @@ if __name__ == "__main__":
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
                            add_nodes_edges_plot=True, \
-                           graph_flattened=True)
+                           graph_flattened=True, \
+                           show_plot=False, \
+                           include_star_amt=True, \
+                           include_pair_amt=True, \
+                           relative=True, \
+                           window_size=None)
 
     # Hour, Day resolution
     window_GS = GraphSequence()
@@ -465,7 +470,12 @@ if __name__ == "__main__":
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
                            add_nodes_edges_plot=True, \
-                           graph_flattened=True)
+                           graph_flattened=True, \
+                           show_plot=False, \
+                           include_star_amt=True, \
+                           include_pair_amt=True, \
+                           relative=True, \
+                           window_size=None)
 
     # Hour, Hour resolution
     window_GS = GraphSequence()
@@ -481,9 +491,13 @@ if __name__ == "__main__":
         directed=True)
     plot_graph_SM_sequence(window_GS, directed=True, temporal=True, \
                            add_nodes_edges_plot=True, \
-                           graph_flattened=True)
+                           graph_flattened=True, \
+                           show_plot=False, \
+                           include_star_amt=True, \
+                           include_pair_amt=True, \
+                           relative=True, \
+                           window_size=None)
 
-    """
     """
     # Minute, Hour resolution
     window_GS.set_window_sequence_with_temporal_file(\
