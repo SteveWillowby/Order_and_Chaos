@@ -21,12 +21,15 @@ def get_node_contributions(edges, directed, ER_try_count=100):
         neighbors[a].add(b)
         neighbors[b].add(a)
 
-    basic_structure_amount = measure_of_structure([list(nodes)], edges, \
+    print("Formatted graph")
+
+    (real, rand) = measure_of_structure([list(nodes)], edges, \
                                 graph_type, \
                                 all_timestamps="auto", \
-                                ER_try_count=ER_try_count*10, \
+                                ER_try_count=ER_try_count*2, \
                                 node_colors=None, \
                                 average_ER=False)
+    basic_structure_amount = real - rand
 
     node_contributions = []
     for node in nodes:
@@ -35,14 +38,14 @@ def get_node_contributions(edges, directed, ER_try_count=100):
                                      [(n, node) for n in neighbors[node]])
         relevant_nodes = set([a for (a, b) in relevant_edges] + \
                              [b for (a, b) in relevant_edges])
-        contribution = measure_of_structure([list(relevant_nodes)], \
+        (real, rand) = measure_of_structure([list(relevant_nodes)], \
                                             relevant_edges, \
                                             graph_type, \
                                             all_timestamps="auto", \
                                             ER_try_count=ER_try_count, \
                                             node_colors=None, \
                                             average_ER=False)
-        node_contributions.append((contribution - basic_structure_amount, node))
+        node_contributions.append(((real - rand) - basic_structure_amount,node))
     node_contributions.sort(reverse=True)
     return node_contributions
 
@@ -85,6 +88,7 @@ def __read_edge_list__(filename, directed, temporal):
 if __name__ == "__main__":
     (nodes, edges) = __read_edge_list__("datasets/twitter_subsample_network.g",\
                                         directed=True, temporal=False)
+    print("Loaded graph.")
     nc = get_node_contributions(edges, directed=True, ER_try_count=100)
     print(nc)
 
