@@ -16,13 +16,112 @@ from prob_calc_utils import *
 # Things might work better if I had a way to calculate P(occ at least once)
 def subgraph_structure_score(n, directed, edge_list, auto_solver_class):
     m = len(edge_list)
-    return subgraph_surprisal(n, directed, edge_list, auto_solver_class) - \
-           expected_surprisal_estimate(n, m, directed, auto_solver_class)
+    nc = edge_list_to_neighbors_collections(edge_list, directed)
 
-# Assumes there are no duplicate edges in edge_list
-def subgraph_surprisal(n, directed, edge_list, auto_solver_class):
-    m = len(edge_list)
+    # fn = subgraph_prob
+    fn = subgraph_surprisal
+    # fn = expected_subgraph_count
 
+    reverse_divide = (lambda x: x[1] / x[0])
+    divide = (lambda x: x[0] / x[1])
+    subtract = (lambda x: x[0] - x[1])
+    fn_only = (lambda x: x[0])
+
+    combiner = subtract
+
+    fn_value = fn(n, m, nc, directed, auto_solver_class)
+    expected_fn_value = expected_fn_estimate(n, m, directed, fn, auto_solver_class)
+    # expected_fn_value = expected_number_of_subgraphs(n, m, directed)
+    # print("%f vs %f" % (fn_value, expected_fn_value))
+
+    return combiner((fn_value, expected_fn_value))
+    # return 2.0 ** -subgraph_surprisal(n, m, nc, directed, auto_solver_class)
+
+# The expected number of times you would find an m-edge pattern isomorphic
+#   to this m-edge pattern in an 0.5 edge-prob ER graph on n nodes.
+def expected_subgraph_count(n, m, nc, directed, auto_solver_class):
+    nc = graph_without_singletons(nc)
+
+    log2_full_factorial = log2_factorial(n)
+    log2_edge_choice = float(-m)  # log2(0.5^m)
+
+    num_singletons = n - len(nc)
+    log2_aut = log2_automorphisms(directed, has_edge_types=False, \
+                                  neighbors_collections=nc, \
+                                  auto_solver_class=auto_solver_class)
+    log2_aut += log2_factorial(num_singletons)
+
+    # log2( P(a given m-edge set) * # of relevant m-edge sets )
+    log2_expected_count = log2_edge_choice + (log2_full_factorial - log2_aut)
+
+    expected_count = 2.0 ** log2_expected_count
+    assert expected_count > 0
+    return expected_count
+
+def expected_number_of_subgraphs(n, m, directed):
+    if directed:
+        max_m = n * (n - 1)
+    else:
+        max_m = int((n * (n - 1)) / 2)
+
+    total_expected = 0.0
+    for curr_m in range(m, max_m + 1):
+        # log2(Prob there are curr_m edges)
+        log2_p_curr_m = (-max_m) + log2_a_choose_b(max_m, curr_m)
+        # log2(# m-edge sets among curr_m edges)
+        log2_m_in_curr_m = log2_a_choose_b(curr_m, m)
+
+        total_expected += 2.0 ** (log2_p_curr_m + log2_m_in_curr_m)
+
+    return total_expected
+
+# Negative log-probability that if you randomly sample |edge_list| edges on
+#   n nodes that you get an edge list isomorphic to this one.
+def subgraph_surprisal(n, m, nc, directed, auto_solver_class):
+    nc = graph_without_singletons(nc)
+
+    if directed:
+        max_m = n * (n - 1)
+    else:
+        max_m = int((n * (n - 1)) / 2)
+
+    log2_full_factorial = log2_factorial(n)
+    log2_edge_choice = log2_a_choose_b(max_m, m)
+    # log2_edge_choice = float(-m)  # log2(0.5^m)
+    # log2_edge_choice = 0.0
+
+    num_singletons = n - len(nc)
+    log2_aut = log2_automorphisms(directed, has_edge_types=False, \
+                                  neighbors_collections=nc, \
+                                  auto_solver_class=auto_solver_class)
+    log2_aut += log2_factorial(num_singletons)
+
+    return -((log2_full_factorial - log2_aut) - log2_edge_choice)
+
+# Probability that if you randomly sample |edge_list| edges on
+#   n nodes that you get an edge list isomorphic to this one.
+def subgraph_prob(n, m, nc, directed, auto_solver_class):
+    return 2.0 ** -subgraph_surprisal(n, m, nc, directed, auto_solver_class)
+
+def expected_fn_estimate(n, m, directed, fn, auto_solver_class):
+    if (n, m, directed, fn) in NMD_SUBGRAPH_EXPECTED_FN_VALUES:
+        return NMD_SUBGRAPH_EXPECTED_FN_VALUES[(n, m, directed, fn)]
+
+    values = []
+    NUM_RAND_GRAPHS = 10000
+    for _ in range(0, NUM_RAND_GRAPHS):
+        nc = ER_graph(n, m, directed)
+        values.append(fn(n, m, nc, directed, auto_solver_class))
+
+    expected_value = sum(values) / len(values)
+
+    NMD_SUBGRAPH_EXPECTED_FN_VALUES[(n, m, directed, fn)] = expected_value
+    return expected_value
+
+# Used as a reserve bank.
+NMD_SUBGRAPH_EXPECTED_FN_VALUES = {}
+
+def edge_list_to_neighbors_collections(edge_list, directed):
     nodes = set([a for (a, b) in edge_list] + [b for (a, b) in edge_list])
     nodes = sorted(list(nodes))
     relabeled = {nodes[i]: i for i in range(0, len(nodes))}
@@ -35,59 +134,7 @@ def subgraph_surprisal(n, directed, edge_list, auto_solver_class):
         for (a, b) in edge_list:
             nc[relabeled[a]].add(relabeled[b])
             nc[relabeled[b]].add(relabeled[a])
-
-    if directed:
-        max_m = n * (n - 1)
-    else:
-        max_m = int((n * (n - 1)) / 2)
-
-    log2_full_factorial = log2_factorial(n)
-    log2_edge_choice = log2_a_choose_b(max_m, m)
-
-    num_singletons = n - len(nc)
-    log2_aut = log2_automorphisms(directed, has_edge_types=False, \
-                                  neighbors_collections=nc, \
-                                  auto_solver_class=auto_solver_class)
-    log2_aut += log2_factorial(num_singletons)
-
-    return -((log2_full_factorial - log2_aut) - log2_edge_choice)
-
-# AKA Entropy Estimate
-def expected_surprisal_estimate(n, m, directed, auto_solver_class):
-    if (n, m, directed) in NMD_SUBGRAPH_EXPECTED_SURPRISAL:
-        return NMD_SUBGRAPH_EXPECTED_SURPRISAL[(n, m, directed)]
-
-    if directed:
-        max_m = n * (n - 1)
-    else:
-        max_m = int((n * (n - 1)) / 2)
-
-    log2_full_factorial = log2_factorial(n)
-    log2_edge_choice = log2_a_choose_b(max_m, m)
-
-    surprisals = []
-    NUM_RAND_GRAPHS = 1000
-    for _ in range(0, NUM_RAND_GRAPHS):
-        nc = ER_graph(n, m, directed)
-        nc = graph_without_singletons(nc)
-        num_singletons = n - len(nc)
-
-        log2_aut = log2_automorphisms(directed, has_edge_types=False, \
-                                      neighbors_collections=nc, \
-                                      auto_solver_class=auto_solver_class)
-        log2_aut += log2_factorial(num_singletons)
-
-        log2_ER_prob = (log2_full_factorial - log2_aut) - log2_edge_choice
-
-        surprisals.append(-log2_ER_prob)
-
-    expected_surprisal = sum(surprisals) / len(surprisals)
-
-    NMD_SUBGRAPH_EXPECTED_SURPRISAL[(n, m, directed)] = expected_surprisal
-    return expected_surprisal
-
-# Used as a reserve bank.
-NMD_SUBGRAPH_EXPECTED_SURPRISAL = {}
+    return nc
 
 def graph_without_singletons(neighbors_collections):
     nodes = set()
@@ -126,7 +173,7 @@ def connected_components(neighbors_collections, directed):
             visited |= new_frontier
             frontier = new_frontier
         node_pools.append(visited)
-        new_nodes -= node_pools
+        new_nodes -= visited
 
     new_NCs = []
     if directed:
@@ -185,23 +232,37 @@ def ER_graph(n, m, directed):
 
     del edges
 
+    # if len(connected_components(graph_without_singletons(neighbors_collections), directed)) > 1:
+    #     return ER_graph(n, m, directed)
+
     return neighbors_collections
 
 if __name__ == "__main__":
     from py_NT_session import PyNTSession
 
-    print(expected_surprisal_estimate(n=6, m=6, directed=False, \
-                                      auto_solver_class=PyNTSession))
+    # print(expected_surprisal_estimate(n=6, m=6, directed=False, \
+    #                                   auto_solver_class=PyNTSession))
+
+    wedge_nc = [set([1, 2]), set([0]), set([0])]
+    print(expected_subgraph_count(n=3, m=2, directed=False, nc=wedge_nc, auto_solver_class=PyNTSession))
+    print(expected_number_of_subgraphs(n=3, m=2, directed=False))
+    print(6.0 / 8.0)
 
     six_ring = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 0)]
     six_ring_with_chord = six_ring + [(0, 3)]
     eight_ring = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 0)]
-    print(subgraph_structure_score(n=20, directed=False, \
+    print("six-ring")
+    print(subgraph_structure_score(n=6, directed=False, \
                                    edge_list=six_ring, \
                                    auto_solver_class=PyNTSession))
-    print(subgraph_structure_score(n=20, directed=False, \
+    print("six-ring with chord")
+    print(subgraph_structure_score(n=6, directed=False, \
                                    edge_list=six_ring_with_chord, \
                                    auto_solver_class=PyNTSession))
-    print(subgraph_structure_score(n=20, directed=False, \
+
+    print("Setting n = 8")
+
+    print("eight-ring")
+    print(subgraph_structure_score(n=8, directed=False, \
                                    edge_list=eight_ring, \
                                    auto_solver_class=PyNTSession))
