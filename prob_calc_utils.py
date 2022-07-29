@@ -37,6 +37,7 @@ def log2_automorphisms(directed, has_edge_types, neighbors_collections, \
     num_automorphs = auto_solver.get_num_automorphisms()
     auto_solver.run()
     num_automorphs = num_automorphs.get()
+    auto_solver.end_session()
     if type(num_automorphs) is tuple:
         assert len(num_automorphs) == 2
         (a, b) = num_automorphs
