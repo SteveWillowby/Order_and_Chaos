@@ -13,6 +13,9 @@ if __name__ == "__main__":
     from subgraph_scorer import subgraph_structure_score, edge_list_to_neighbors_collections
 
     from py_NT_session import PyNTSession
+    from ram_friendly_NT_session import RAMFriendlyNTSession
+
+    session_type = PyNTSession
 
     graph_count_values = {False: {1: 1, 2: 2, 3: 8, 4: 64, 5: 1024, 6: 32768, 7: 2097152}, \
                           #, 8: 268435456}, \
@@ -82,6 +85,13 @@ if __name__ == "__main__":
                 first = False
                 continue
 
+            m = sum([len(s) for s in nc_B])
+            if not directed:
+                m = int(m / 2)
+
+            if m <= 2:
+                continue
+
             count = AE.graph_count()
             if int((count * 100.0) / graph_count_max) > percent_done:
                 percent_done = int((count * 100.0) / graph_count_max)
@@ -90,7 +100,8 @@ if __name__ == "__main__":
 
             # print(nc_B)
 
-            score = subgraph_structure_score(n, directed, nc_B, auto_solver_class=PyNTSession)
+            score = subgraph_structure_score(n, directed, nc_B, \
+                                             auto_solver_class=session_type)
             if None in best_scores or min(best_scores) < score:
                 score -= edge_difference(nc_A, nc_B, directed)
                 if None in best_scores or min(best_scores) < score:
@@ -98,6 +109,7 @@ if __name__ == "__main__":
                         for i in range(0, len(best_scores)):
                             if best_scores[i] is None:
                                 best_scores[i] = score
+                                del best_NCs[i][1]
                                 best_NCs[i] = (score, nc_B)
                                 break
 
