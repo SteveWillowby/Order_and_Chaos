@@ -250,11 +250,13 @@ if __name__ == "__main__":
     correct_values = {False: {1: 1, 2: 2, 3: 4, 4: 11, 5: 34, 6: 156, 7: 1044, 8: 12346, 9: 274668}, \
                        True: {1: 1, 2: 3, 3: 16, 4: 218, 5: 9608, 6: 1540944}}
 
-    print("Testing Graph Enumerator")
+    hashing = False
+    print("Testing Graph Enumerator with%s Hashing" % {True: "", False: "out"}[hashing])
     for directed in [False, True]:
         print("Directed = %s" % directed)
         for n in range(1, {False: 9, True: 6}[directed]):
-            GE = GraphEnumerator(n=n, directed=directed, auto_solver_class=PyNTSession)
+            GE = GraphEnumerator(n=n, directed=directed, auto_solver_class=PyNTSession, \
+                                 hashing=hashing)
             while GE.next_graph() is not None:
                 pass
             print(GE.graph_count())
@@ -263,7 +265,7 @@ if __name__ == "__main__":
     correct_values = {False: {1: 1, 2: 2, 3: 8, 4: 64, 5: 1024, 6: 32768, 7: 2097152, 8: 268435456}, \
                        True: {1: 1, 2: 4, 3: 64, 4: 4096, 5: 1048576, 6: 1073741824}}
 
-    print("Testing Adj Enumerator")
+    print("Testing Adjacency Matrix Enumerator")
     for directed in [False, True]:
         print("Directed = %s" % directed)
         for n in range(1, {False: 8, True: 6}[directed]):
