@@ -1,3 +1,4 @@
+import math
 import random
 
 from prob_calc_utils import *
@@ -108,10 +109,17 @@ def expected_fn_estimate(n, m, directed, fn, auto_solver_class):
         return NMD_SUBGRAPH_EXPECTED_FN_VALUES[(n, m, directed, fn)]
 
     values = []
-    NUM_RAND_GRAPHS = 10000
-    for _ in range(0, NUM_RAND_GRAPHS):
-        nc = ER_graph(n, m, directed)
-        values.append(fn(n, m, nc, directed, auto_solver_class))
+    TARGET_NUM_SAMPLES = 1000000
+
+    CHUNK_SIZE = int(math.sqrt(TARGET_NUM_SAMPLES))
+    NUM_CHUNKS = CHUNK_SIZE
+
+    for _ in range(0, NUM_CHUNKS):
+        chunk_values = []
+        for _ in range(0, CHUNK_SIZE):
+            nc = ER_graph(n, m, directed)
+            chunk_values.append(fn(n, m, nc, directed, auto_solver_class))
+        values.append(sum(chunk_values) / len(chunk_values))
 
     expected_value = sum(values) / len(values)
 
