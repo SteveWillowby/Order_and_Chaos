@@ -8,16 +8,13 @@ from prob_calc_utils import *
 # Returns how many more bits this subgraph surprises us with than we'd expect
 #   a random subgraph of the same size to surprise us with.
 #
-# Currently this suffers when n is large.
-#
 # This function assumes that the m edges forming the subgraph you are looking
 #   at were randomly sampled from your overall set of edges, which in turn is
 #   assumed to be an ER graph.
-#
-# Things might work better if I had a way to calculate P(occ at least once)
-def subgraph_structure_score(n, directed, edge_list, auto_solver_class):
-    m = len(edge_list)
-    nc = edge_list_to_neighbors_collections(edge_list, directed)
+def subgraph_structure_score(n, directed, nc, auto_solver_class):
+    m = sum([len(s) for s in nc])
+    if not directed:
+        m = int(m / 2)
 
     # fn = subgraph_prob
     fn = subgraph_surprisal
@@ -109,8 +106,10 @@ def expected_fn_estimate(n, m, directed, fn, auto_solver_class):
         return NMD_SUBGRAPH_EXPECTED_FN_VALUES[(n, m, directed, fn)]
 
     values = []
+
     TARGET_NUM_SAMPLES = 1000000
 
+    # chunk so as to reduce risk of FP errors
     CHUNK_SIZE = int(math.sqrt(TARGET_NUM_SAMPLES))
     NUM_CHUNKS = CHUNK_SIZE
 
@@ -257,20 +256,26 @@ if __name__ == "__main__":
     print(6.0 / 8.0)
 
     six_ring = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 0)]
+    six_ring = edge_list_to_neighbors_collections(six_ring, directed=False)
+
     six_ring_with_chord = six_ring + [(0, 3)]
+    six_ring_with_chord = edge_list_to_neighbors_collections(six_ring_with_chord, directed=False)
+
     eight_ring = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 0)]
+    eight_ring = edge_list_to_neighbors_collections(eight_ring, directed=False)
+
     print("six-ring")
     print(subgraph_structure_score(n=6, directed=False, \
-                                   edge_list=six_ring, \
+                                   nc=six_ring, \
                                    auto_solver_class=PyNTSession))
     print("six-ring with chord")
     print(subgraph_structure_score(n=6, directed=False, \
-                                   edge_list=six_ring_with_chord, \
+                                   nc=six_ring_with_chord, \
                                    auto_solver_class=PyNTSession))
 
     print("Setting n = 8")
 
     print("eight-ring")
     print(subgraph_structure_score(n=8, directed=False, \
-                                   edge_list=eight_ring, \
+                                   nc=eight_ring, \
                                    auto_solver_class=PyNTSession))
