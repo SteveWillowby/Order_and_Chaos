@@ -1,10 +1,83 @@
+# Iterates through all distinct adjacency matrices on n nodes.
+#   Returns them in the "neighbors collections" format.
+#
+# No self-loops.
+#
+# O(2^(n choose 2) ) if undirected
+# O(2^(n * (n - 1)) ) if directed
+class AdjEnumerator:
+
+    def __init__(self, n, directed):
+        assert n >= 1
+        self.__n__ = n
+        self.__directed__ = directed
+
+        self.__counters__ = [0 for _ in range(0, n)]
+        if self.__directed__:
+            self.__maxs__ = [self.__n__ - 1 for _ in range(0, self.__n__)]
+        else:
+            self.__maxs__ = [self.__n__ - (i + 1) for i in range(0, self.__n__)]
+        self.__maxs__ = [int(2**v) for v in self.__maxs__]
+
+        self.__masks__ = [int(2**i) for i in range(0, self.__n__)]
+
+        self.__done__ = False
+        self.__graph_count__ = 0
+
+    # Returns the number of graphs returned thus far.
+    def graph_count(self):
+        return self.__graph_count__
+
+    # Returns a new graph, or None if there are no more graphs to find.
+    def next_graph(self):
+        if self.__done__:
+            return None
+
+        nc = []
+        if self.__directed__:
+            for i in range(0, self.__n__):
+                s = set()
+                c = self.__counters__[i]
+                for j in range(0, self.__n__):
+                    if j == i:
+                        continue
+                    j_idx = j - int(j > i)
+
+                    if c & self.__masks__[j_idx]:
+                        s.add(j)
+                nc.append(s)
+        else:
+            for i in range(0, self.__n__):
+                s = set()
+                c = self.__counters__[i]
+                for j_idx in range(0, self.__n__ - (i + 1)):
+                    if c & self.__masks__[j_idx]:
+                        j = i + j_idx + 1
+                        s.add(j)
+                nc.append(s)
+
+        self.__done__ = True
+        for i in range(0, self.__n__):
+            if self.__counters__[i] < self.__maxs__[i] - 1:
+                self.__counters__[i] += 1
+                self.__done__ = False
+                break
+            else:
+                self.__counters__[i] = 0
+
+        self.__graph_count__ += 1
+        return nc
+
 # Iterates through all isomorphically distinct graphs on n nodes. 
 #
-# O(2^{n choose 2} if undirected) -- or better
-# O(2^n if directed) -- or better
+# No self-loops.
+#
+# O(2^(n choose 2) * automorphism stuff) if undirected -- or better
+# O(2^(n * (n - 1)) * automorphism stuff) if directed -- or better
 class GraphEnumerator:
 
     def __init__(self, n, directed, auto_solver_class, hashing=False):
+        assert n >= 1
         self.__n__ = n
         self.__directed__ = directed
 
@@ -12,7 +85,7 @@ class GraphEnumerator:
         self.__curr_orbit_pair__ = None
         self.__curr__ = []
         self.__next__ = {}
-        self.__graph_count__ = 1  # We begin with just 1 graph, the empty graph.
+        self.__graph_count__ = 0
         self.__auto_solver_class__ = auto_solver_class
         self.__hashing__ = hashing
         self.__first__ = True
@@ -23,9 +96,15 @@ class GraphEnumerator:
         self.__next__[canon] = \
             (empty_graph, node_to_orbit, orbits, orbitwise_orbits)
 
+    # Returns the number of graphs returned thus far.
+    def graph_count(self):
+        return self.__graph_count__
+
+    # Returns a new graph, or None if there are no more graphs to find.
     def next_graph(self):
         if self.__first__:
             self.__first__ = False
+            self.__graph_count__ += 1
             return [set() for _ in range(0, self.__n__)]
 
         while True:
@@ -93,12 +172,6 @@ class GraphEnumerator:
                 self.__next__[canon] = (new_graph, n_to_o, o, o_o)
                 self.__graph_count__ += 1
                 return new_graph
-
-
-
-    # Returns the number of graphs found thus far.
-    def graph_count(self):
-        return self.__graph_count__
 
     def __canonical_form_and_orbits__(self, nc):
         session = self.__auto_solver_class__(directed=self.__directed__, \
@@ -177,6 +250,7 @@ if __name__ == "__main__":
     correct_values = {False: {1: 1, 2: 2, 3: 4, 4: 11, 5: 34, 6: 156, 7: 1044, 8: 12346, 9: 274668}, \
                        True: {1: 1, 2: 3, 3: 16, 4: 218, 5: 9608, 6: 1540944}}
 
+    print("Testing Graph Enumerator")
     for directed in [False, True]:
         print("Directed = %s" % directed)
         for n in range(1, {False: 9, True: 6}[directed]):
@@ -185,3 +259,16 @@ if __name__ == "__main__":
                 pass
             print(GE.graph_count())
             assert GE.graph_count() == correct_values[directed][n]
+
+    correct_values = {False: {1: 1, 2: 2, 3: 8, 4: 64, 5: 1024, 6: 32768, 7: 2097152, 8: 268435456}, \
+                       True: {1: 1, 2: 4, 3: 64, 4: 4096, 5: 1048576, 6: 1073741824}}
+
+    print("Testing Adj Enumerator")
+    for directed in [False, True]:
+        print("Directed = %s" % directed)
+        for n in range(1, {False: 8, True: 6}[directed]):
+            AE = AdjEnumerator(n=n, directed=directed)
+            while AE.next_graph() is not None:
+                pass
+            print(AE.graph_count())
+            assert AE.graph_count() == correct_values[directed][n]
