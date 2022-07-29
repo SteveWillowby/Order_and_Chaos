@@ -109,7 +109,6 @@ if __name__ == "__main__":
                         for i in range(0, len(best_scores)):
                             if best_scores[i] is None:
                                 best_scores[i] = score
-                                del best_NCs[i][1]
                                 best_NCs[i] = (score, nc_B)
                                 break
 
