@@ -14,8 +14,10 @@ if __name__ == "__main__":
 
     from py_NT_session import PyNTSession
 
-    graph_count_values = {False: {1: 1, 2: 2, 3: 8, 4: 64, 5: 1024, 6: 32768, 7: 2097152, 8: 268435456}, \
-                           True: {1: 1, 2: 4, 3: 64, 4: 4096, 5: 1048576, 6: 1073741824}}
+    graph_count_values = {False: {1: 1, 2: 2, 3: 8, 4: 64, 5: 1024, 6: 32768, 7: 2097152}, \
+                          #, 8: 268435456}, \
+                          True: {1: 1, 2: 4, 3: 64, 4: 4096, 5: 1048576}}
+                          #, 6: 1073741824}}
 
     directed = False
 
@@ -52,10 +54,14 @@ if __name__ == "__main__":
         edge_list = test_graphs[i]
         test_name = test_names[i]
 
-        best_score = None
-        best_NCs = [None, None, None, None, None]
+        best_scores = [None, None, None, None, None]
+        best_NCs =    [None, None, None, None, None]
 
         nc_A = edge_list_to_neighbors_collections(edge_list, directed=directed)
+
+        if len(nc_A) not in graph_count_values[directed]:
+            print("\n\nToo many nodes (%d). Skipping this test." % len(nc_A))
+            continue
 
         graph_count_max = graph_count_values[directed][len(nc_A)]
         percent_done = 0
@@ -65,6 +71,8 @@ if __name__ == "__main__":
         first = True
         n = len(nc_A)
         AE = AdjEnumerator(n, directed)
+        # GE = GraphEnumerator(n, directed, auto_solver_class=PyNTSession)
+        # canonizer = (lambda x: return GE.__canonical_form_and_orbits__(x)[0])
         while True:
             nc_B = AE.next_graph()
             if nc_B is None:
@@ -83,14 +91,22 @@ if __name__ == "__main__":
             # print(nc_B)
 
             score = subgraph_structure_score(n, directed, nc_B, auto_solver_class=PyNTSession)
-            if best_score is None or best_score < score:
+            if None in best_scores or min(best_scores) < score:
                 score -= edge_difference(nc_A, nc_B, directed)
-                if best_score is None or best_score < score:
-                    best_score = score
-                    best_NCs = [(score, nc_B)] + [best_NCs[i] for i in range(1, len(best_NCs))]
+                if None in best_scores or min(best_scores) < score:
+                    if None in best_scores:
+                        for i in range(0, len(best_scores)):
+                            if best_scores[i] is None:
+                                best_scores[i] = score
+                                best_NCs[i] = (score, nc_B)
+                                break
+
+                    else:
+                        best_NCs[0] = (score, nc_B)
+                        best_NCs.sort()
 
         print("Original graph:")
         print(nc_A)
-        print("Top Graphs:")
+        print("Top Graphs (in reverse order - higher score is better):")
         for (score, nc_B) in best_NCs:
             print("\nScore: %f -- Graph: %s" % (score, nc_B))
