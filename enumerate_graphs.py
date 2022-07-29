@@ -35,6 +35,7 @@ class AdjEnumerator:
 
         nc = []
         if self.__directed__:
+            print("WAT???")
             for i in range(0, self.__n__):
                 s = set()
                 c = self.__counters__[i]
@@ -47,14 +48,14 @@ class AdjEnumerator:
                         s.add(j)
                 nc.append(s)
         else:
+            nc = [set() for _ in range(0, self.__n__)]
             for i in range(0, self.__n__):
-                s = set()
                 c = self.__counters__[i]
                 for j_idx in range(0, self.__n__ - (i + 1)):
                     if c & self.__masks__[j_idx]:
                         j = i + j_idx + 1
-                        s.add(j)
-                nc.append(s)
+                        nc[i].add(j)
+                        nc[j].add(i)
 
         self.__done__ = True
         for i in range(0, self.__n__):
