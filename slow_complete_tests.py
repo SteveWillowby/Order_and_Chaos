@@ -53,7 +53,7 @@ if __name__ == "__main__":
         test_name = test_names[i]
 
         best_score = None
-        best_NC = None
+        best_NCs = [None, None, None, None, None]
 
         nc_A = edge_list_to_neighbors_collections(edge_list, directed=directed)
 
@@ -87,9 +87,10 @@ if __name__ == "__main__":
                 score -= edge_difference(nc_A, nc_B, directed)
                 if best_score is None or best_score < score:
                     best_score = score
-                    best_NC = nc_B
+                    best_NCs = [(score, nc_B)] + [best_NCs[i] for i in range(1, len(best_NCs))]
 
         print("Original graph:")
         print(nc_A)
-        print("Chosen graph:")
-        print(best_NC)
+        print("Top Graphs:")
+        for (score, nc_B) in best_NCs:
+            print("\nScore: %f -- Graph: %s" % (score, nc_B))
