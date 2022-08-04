@@ -10,7 +10,9 @@ def edge_difference(nc_A, nc_B, directed):
 
 if __name__ == "__main__":
     from enumerate_graphs import AdjEnumerator
-    from subgraph_scorer import subgraph_structure_score, edge_list_to_neighbors_collections
+    from subgraph_scorer import old_subgraph_structure_score, \
+                                altgraph_structure_score, \
+                                edge_list_to_neighbors_collections
 
     from py_NT_session import PyNTSession
     from ram_friendly_NT_session import RAMFriendlyNTSession
@@ -18,7 +20,7 @@ if __name__ == "__main__":
     session_type = PyNTSession
 
     graph_count_values = {False: {1: 1, 2: 2, 3: 8, 4: 64, 5: 1024, 6: 32768, 7: 2097152}, \
-                          #, 8: 268435456}, \
+                          # , 8: 268435456}, \
                           True: {1: 1, 2: 4, 3: 64, 4: 4096, 5: 1048576}}
                           #, 6: 1073741824}}
 
@@ -35,6 +37,9 @@ if __name__ == "__main__":
                         (1, 2), (1, 3), (1, 4), \
                         (2, 3), (2, 4), \
                         (3, 4)])
+
+    test_names.append("7-chain on eight nodes")
+    test_graphs.append([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7)])
 
     test_names.append("grid on 9 nodes")
     test_graphs.append([(0, 1), (1, 2), \
@@ -100,7 +105,7 @@ if __name__ == "__main__":
 
             # print(nc_B)
 
-            score = subgraph_structure_score(n, directed, nc_B, \
+            score = altgraph_structure_score(directed, nc_A, nc_B, \
                                              auto_solver_class=session_type)
             if None in best_scores or min(best_scores) < score:
                 score -= edge_difference(nc_A, nc_B, directed)
