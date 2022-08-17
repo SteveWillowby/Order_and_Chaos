@@ -57,37 +57,27 @@ public:
     int add_node();
     // Deletes node a AND if a < n-1, relabels node n-1 to have label a.
     // O(number of node a's neighbors + number of node n-1's neighbors)
-    int delete_node(int a);
+    int delete_node(const int a);
 
     //////////////////////////////////////////////////////////////
     // All edge-changing functions have amortized O(1) runtime. //
     //////////////////////////////////////////////////////////////
 
-    // If the graph has edge types, sets the edge type to 0.
     void add_edge(const int a, const int b);
-    // Only call on graphs with edge types.
-    void add_edge(const int a, const int b, const int type);
-    // Returns the edge type if there is one and zero otherwise.
-    //  (note that 0 is an edge type, too)
-    int del_edge(const int a, const int b);
+    void delete_edge(const int a, const int b);
 
     // Deletes the edge if it exists and adds it if it does not.
-    //  Returns the type of the changed edge if it has one and zero otherwise.
-    //  Defaults to adding edge types of zero if the graph has edge types.
-    int flip_edge(const int a, const int b);
-    int flip_edge(const int a, const int b, const int type);
-
-    // Requires that the graph has edge types and that edge (a, b) is present.
-    int set_edge_type(const int a, const int b, const int type);
+    void flip_edge(const int a, const int b);
+    void flip_edge(const int a, const int b, const int type);
 
     // O(1)
-    const std::unordered_set<int> &neighbors(int a) const;
+    const std::unordered_set<int> &neighbors(const int a) const;
     // neighbors that node a points to
     // O(1)
-    const std::unordered_set<int> &out_neighbors(int a) const;
+    const std::unordered_set<int> &out_neighbors(const int a) const;
     // neighbors that point to node a
     // O(1)
-    const std::unordered_set<int> &in_neighbors(int a) const;
+    const std::unordered_set<int> &in_neighbors(const int a) const;
 
 private:
     // size_t n; -- defined in graph.h
@@ -95,15 +85,11 @@ private:
     // size_t m; -- defined in graph.h
     size_t m_undirected;
 
-    std::vector<std::unordered_set<int>> neighbors_sets;
+    std::vector<std::unordered_set<int>> neighbors;
     // Unused if graph is undirected
-    std::vector<std::unordered_set<int>> out_neighbors_sets;
+    std::vector<std::unordered_set<int>> out_neighbors;
     // Unused if graph is undirected
-    std::vector<std::unordered_set<int>> in_neighbors_sets;
-    // Unused if graph does not have edge types.
-    //  Maps an edge (a, b) to ((n1, n2), type) where n1 and n2 are the nodes
-    //      representing the edge and type is the edge type.
-    std::unordered_map<Edge, std::pair<std::pair<int, int>, int>> edge_types;
+    std::vector<std::unordered_set<int>> in_neighbors;
 
     std::vector<int> out_degrees;
     std::vector<int> node_vec_placement_maps;
