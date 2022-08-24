@@ -27,7 +27,7 @@
 
 const size_t NAUTY_TRACES_MAXN = 2000000000;
 
-class NTSparseGraph : SparseGraph {
+class NTSparseGraph : public SparseGraph {
 
 public:
     NTSparseGraph(const bool directed);
@@ -57,7 +57,7 @@ public:
     int add_node();
     // Deletes node a AND if a < n-1, relabels node n-1 to have label a.
     // O(number of node a's neighbors + number of node n-1's neighbors)
-    int delete_node(const int a);
+    void delete_node(const int a);
 
     //////////////////////////////////////////////////////////////
     // All edge-changing functions have amortized O(1) runtime. //

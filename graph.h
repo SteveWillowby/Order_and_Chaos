@@ -21,7 +21,7 @@ public:
     // Returns the id of the new node.
     virtual int add_node() = 0;
     // Deletes node a AND if a < n-1, relabels node n-1 to have label a.
-    virtual int delete_node(const int a) = 0;
+    virtual void delete_node(const int a) = 0;
 
     virtual void add_edge(const int a, const int b) = 0;
     virtual void delete_edge(const int a, const int b) = 0;
