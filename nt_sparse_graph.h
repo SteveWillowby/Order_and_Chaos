@@ -1,13 +1,28 @@
 /* Provides a C++ graph class that interfaces with the Nauty & Traces sparse
  *  graph classes.
  *
- * Extends the SparseGraph class defined in sparse_graph.h
+ * Extends the Graph class defined in graph.h
  *
  * This class prioritizes efficient asymptotic (i.e. big-O) runtime at the
  *  expense of data storage and constant factors.
  *
- * Undirected graphs can have 1 <= n <= 2,000,000,000 and any m.
- * Directed graphs are limited to 1 <= n + 2m <= 2,000,000,000.
+ *
+ * Undirected graphs can have 1 <= n + m <= 2,000,000,000.
+ * Directed graphs are limited to 1 <= n + 2*m_undir <= 2,000,000,000 where
+ *  m_undir is the number of edges in the undirected version of the graph.
+ *
+ *  These limits exist for the following reasons.
+ *  2,000,000,000 is the maximum number of nodes that the Nauty and Traces code
+ *      allows.
+ *  We add 1 node per edge on undirected graphs so that the edges can be
+ *      colored.
+ *  We add 2 nodes per (unidrected) edge on directed graphs so that even if the
+ *      edges are not colored, the code can use colors behind the scenes to run
+ *      Traces on the graph. Traces does not natively support a directed input.
+ *      Additionally, these extra nodes do allow for colorings on the edges.
+ *  The extra nodes are entirely behind the scenes. For example, they do not
+ *      change the output of num_nodes(). They only appear in the output of
+ *      functions with "nauty_traces" in their name.
  */
 
 #include "nauty.h"
@@ -15,7 +30,7 @@
 
 #include "coloring.h"
 #include "edge.h"
-#include "sparse_graph.h"
+#include "graph.h"
 
 #include<pair>
 #include<unordered_map>
@@ -27,7 +42,7 @@
 
 const size_t NAUTY_TRACES_MAXN = 2000000000;
 
-class NTSparseGraph : public SparseGraph {
+class NTSparseGraph : public Graph {
 
 public:
     NTSparseGraph(const bool directed);
@@ -56,8 +71,9 @@ public:
     // O(1)
     int add_node();
     // Deletes node a AND if a < n-1, relabels node n-1 to have label a.
+    //  Returns the old label of the node that is now labeled a.
     // O(number of node a's neighbors + number of node n-1's neighbors)
-    void delete_node(const int a);
+    int delete_node(const int a);
 
     //////////////////////////////////////////////////////////////
     // All edge-changing functions have amortized O(1) runtime. //
@@ -68,7 +84,8 @@ public:
 
     // Deletes the edge if it exists and adds it if it does not.
     void flip_edge(const int a, const int b);
-    void flip_edge(const int a, const int b, const int type);
+
+    bool has_edge(const int a, const int b) const;
 
     // O(1)
     const std::unordered_set<int> &neighbors(const int a) const;

@@ -1,9 +1,12 @@
 /* Abstract graph class interface.
  *
- * Designed to handle graphs with nodes labeled 0 through n-1.
+ * Handles graphs with nodes labeled 0 through n-1.
  *
  * Supports directed and undirected graphs.
+ * Supports self-loops.
  */
+
+#include<unordered_set>
 
 #ifndef SYM__GRAPH_H
 #define SYM__GRAPH_H
@@ -21,13 +24,16 @@ public:
     // Returns the id of the new node.
     virtual int add_node() = 0;
     // Deletes node a AND if a < n-1, relabels node n-1 to have label a.
-    virtual void delete_node(const int a) = 0;
+    //  Returns the old label of the node that is now labeled a.
+    virtual int delete_node(const int a) = 0;
 
     virtual void add_edge(const int a, const int b) = 0;
     virtual void delete_edge(const int a, const int b) = 0;
 
     // Deletes the edge if it exists and adds it if it does not.
     virtual void flip_edge(const int a, const int b) = 0;
+
+    virtual bool has_edge(const int a, const int b) const = 0;
 
     virtual const std::unordered_set<int> &neighbors(const int a) const = 0;
     // neighbors that node a points to
