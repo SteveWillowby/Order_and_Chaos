@@ -84,6 +84,12 @@ int SparseGraph::delete_node(const int a) {
     #endif
 
     n--;
+    if (directed) {
+        m -= (_out_neighbors[a].size() + _in_neighbors[a].size());
+    } else {
+        m -= _neighbors[a].size();
+    }
+
     int last_node = n;
 
     if (directed) {
@@ -185,7 +191,6 @@ void SparseGraph::delete_edge(const int a, const int b) {
         if (_out_neighbors[a].erase(b)) {
             _in_neighbors[b].erase(a);
             m--;
-
             if (_out_neighbors[b].find(a) == _out_neighbors[b].end()) {
                 _neighbors[a].erase(b);
                 _neighbors[b].erase(a);

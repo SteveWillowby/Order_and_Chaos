@@ -72,6 +72,11 @@ int main(void) {
         std::cout<< g.has_edge(1, 2)<<std::endl;
         std::cout<< g.has_edge(2, 2)<<std::endl;
     }
+    std::cout<<(g.num_edges() == 3)<<std::endl;
+
+    SparseGraph g2 = SparseGraph(directed, 5);
+    std::cout<<(g2.num_nodes() == 5)<<std::endl;
+    std::cout<<(g2.num_edges() == 0)<<std::endl;
 
     return 0;
 };
