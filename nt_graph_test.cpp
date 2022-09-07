@@ -78,5 +78,27 @@ int main(void) {
     std::cout<<(g2.num_nodes() == 5)<<std::endl;
     std::cout<<(g2.num_edges() == 0)<<std::endl;
 
+    SparseGraph g3 = SparseGraph(g);
+    if (directed) {
+        std::cout<<!g3.has_edge(0, 0)<<std::endl;
+        std::cout<<!g3.has_edge(0, 1)<<std::endl;
+        std::cout<<!g3.has_edge(0, 2)<<std::endl;
+        std::cout<< g3.has_edge(1, 0)<<std::endl;
+        std::cout<<!g3.has_edge(1, 1)<<std::endl;
+        std::cout<<!g3.has_edge(1, 2)<<std::endl;
+        std::cout<<!g3.has_edge(2, 0)<<std::endl;
+        std::cout<< g3.has_edge(2, 1)<<std::endl;
+        std::cout<< g3.has_edge(2, 2)<<std::endl;
+    } else {
+        std::cout<<!g3.has_edge(0, 0)<<std::endl;
+        std::cout<< g3.has_edge(0, 1)<<std::endl;
+        std::cout<<!g3.has_edge(0, 2)<<std::endl;
+        std::cout<<!g3.has_edge(1, 1)<<std::endl;
+        std::cout<< g3.has_edge(1, 2)<<std::endl;
+        std::cout<< g3.has_edge(2, 2)<<std::endl;
+    }
+    std::cout<<(g3.num_nodes() == 3)<<std::endl;
+    std::cout<<(g3.num_edges() == 3)<<std::endl;
+
     return 0;
 };
