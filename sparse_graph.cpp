@@ -269,7 +269,7 @@ const std::unordered_set<int> &SparseGraph::in_neighbors(const int a) const {
 }
 
 void SparseGraph::range_check(const int a) const {
-    if (a < 0 || a >= n) {
+    if (a < 0 || size_t(a) >= n) {
         throw std::out_of_range("Error! Node " + std::to_string(a) +
                                 " out of range - does not exist.");
     }

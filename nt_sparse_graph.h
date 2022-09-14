@@ -105,7 +105,7 @@ protected:
     // size_t n; -- defined in graph.h
     size_t internal_n;
     // size_t m; -- defined in graph.h
-    size_t m_undirected;
+    size_t undirected_m;
 
     //  defined in sparse_graph.h
     // std::vector<std::unordered_set<int>> _neighbors;
@@ -127,14 +127,19 @@ protected:
     // Stores the ID of a node corresponding to edge (a, b).
     //  In a directed graph, each (undirected) edge really has two nodes. To
     //  access the second node, access the node for edge (b, a).
-    // std::unordered_map<Edge, int> edge_to_edge_node;
+    std::unordered_map<Edge, int, EdgeHash> edge_to_edge_node;
 
     // We require that the nodes of the actual graph get the first n labels.
     //  Then the edge nodes get the remaining labels.
     std::vector<int> out_degrees;
-    std::vector<int> node_vec_placement_maps;
+    std::vector<int> node_to_startpoint;
+    std::vector<int> node_to_endpoint;
+    std::unordered_map<int, int> startpoint_to_node;
+
     std::vector<int> out_neighbors_vec;
-    std::vector<std::pair<size_t, size_t>> available_chunks;
+    std::vector<std::pair<size_t, size_t>> chunks;
+
+    const size_t ORIG_EDGE_SPACE_PER_NODE = 8;
 };
 
 #endif
