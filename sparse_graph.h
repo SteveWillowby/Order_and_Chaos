@@ -63,7 +63,8 @@ protected:
     std::vector<std::unordered_set<int>> _out_neighbors;
     std::vector<std::unordered_set<int>> _in_neighbors;
 
-    virtual inline void range_check(const int a) const;
+private:
+    inline void range_check(const int a) const;
 };
 
 

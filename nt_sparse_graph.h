@@ -51,7 +51,7 @@ public:
     NTSparseGraph(const Graph &g);
 
     // returns a `sparsegraph` struct that can be passed into nauty or traces
-    virtual const sparsegraph as_nauty_traces_graph() const;
+    // virtual const sparsegraph as_nauty_traces_graph() const;
 
     // Returns a coloring for the Nauty/Traces sparsegraph
     /*
@@ -117,10 +117,12 @@ protected:
     // std::vector<std::unordered_set<int>> _in_neighbors;
 
     // The following functions edit the Nauty/Traces graph representation.
+    /*
     virtual void _add_node();
     virtual int _delete_node(const int a);
     virtual void _add_edge(const int a, const int b);
     virtual void _delete_edge(const int a, const int b);
+    */
 
     // Stores the ID of a node corresponding to edge (a, b).
     //  In a directed graph, each (undirected) edge really has two nodes. To
