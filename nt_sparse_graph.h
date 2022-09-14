@@ -30,25 +30,19 @@
 
 // #include "coloring.h"
 #include "edge.h"
-#include "graph.h"
+#include "sparse_graph.h"
 
 #include<unordered_map>
 #include<unordered_set>
 #include<utility>
 #include<vector>
 
-#ifndef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
-// Comment out this next line if you want this class's input error checks to
-//  be ignored by the compiler.
-#define SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
-#endif
-
 #ifndef SYM__NT_SPARSE_GRAPH_H
 #define SYM__NT_SPARSE_GRAPH_H
 
 const size_t NAUTY_TRACES_MAXN = 2000000000;
 
-class NTSparseGraph : public Graph {
+class NTSparseGraph : public SparseGraph {
 
 public:
     NTSparseGraph(const bool directed);
@@ -57,7 +51,7 @@ public:
     NTSparseGraph(const Graph &g);
 
     // returns a `sparsegraph` struct that can be passed into nauty or traces
-    const sparsegraph as_nauty_traces_graph() const;
+    virtual const sparsegraph as_nauty_traces_graph() const;
 
     // Returns a coloring for the Nauty/Traces sparsegraph
     /*
@@ -77,32 +71,35 @@ public:
 
     // Returns the id of the new node.
     // O(1)
-    int add_node();
+    virtual int add_node();
     // Deletes node a AND if a < n-1, relabels node n-1 to have label a.
     //  Returns the old label of the node that is now labeled a.
     // O(number of node a's neighbors + number of node n-1's neighbors)
-    int delete_node(const int a);
+    virtual int delete_node(const int a);
 
     //////////////////////////////////////////////////////////////
     // All edge-changing functions have amortized O(1) runtime. //
     //////////////////////////////////////////////////////////////
 
-    void add_edge(const int a, const int b);
-    void delete_edge(const int a, const int b);
+    // Returns true iff the edge was absent (and thus now added)
+    virtual bool add_edge(const int a, const int b);
+    // Returns true iff the edge was present (and thus now deleted)
+    virtual bool delete_edge(const int a, const int b);
 
     // Deletes the edge if it exists and adds it if it does not.
-    void flip_edge(const int a, const int b);
+    virtual void flip_edge(const int a, const int b);
 
-    bool has_edge(const int a, const int b) const;
+    //  defined in sparse_graph.h/cpp
+    // virtual bool has_edge(const int a, const int b) const;
 
-    // O(1)
-    const std::unordered_set<int> &neighbors(const int a) const;
-    // neighbors that node a points to
-    // O(1)
-    const std::unordered_set<int> &out_neighbors(const int a) const;
-    // neighbors that point to node a
-    // O(1)
-    const std::unordered_set<int> &in_neighbors(const int a) const;
+    //  O(1) -- defined in sparse_graph.cpp
+    // virtual const std::unordered_set<int> &neighbors(const int a) const;
+    //  neighbors that node a points to
+    //  O(1) -- defined in sparse_graph.cpp
+    // virtual const std::unordered_set<int> &out_neighbors(const int a) const;
+    //  neighbors that point to node a
+    //  O(1) -- defined in sparse_graph.cpp
+    // virtual const std::unordered_set<int> &in_neighbors(const int a) const;
 
 protected:
     // size_t n; -- defined in graph.h
@@ -110,17 +107,20 @@ protected:
     // size_t m; -- defined in graph.h
     size_t m_undirected;
 
-    std::vector<std::unordered_set<int>> _neighbors;
-    // Unused if graph is undirected
-    std::vector<std::unordered_set<int>> _out_neighbors;
-    // Unused if graph is undirected
-    std::vector<std::unordered_set<int>> _in_neighbors;
+    //  defined in sparse_graph.h
+    // std::vector<std::unordered_set<int>> _neighbors;
+    //  defined in sparse_graph.h
+    //  Unused if graph is undirected
+    // std::vector<std::unordered_set<int>> _out_neighbors;
+    //  defined in sparse_graph.h
+    //  Unused if graph is undirected
+    // std::vector<std::unordered_set<int>> _in_neighbors;
 
     // The following functions edit the Nauty/Traces graph representation.
-    void _add_node();
-    int _delete_node(const int a);
-    void _add_edge(const int a, const int b);
-    void _delete_edge(const int a, const int b);
+    virtual void _add_node();
+    virtual int _delete_node(const int a);
+    virtual void _add_edge(const int a, const int b);
+    virtual void _delete_edge(const int a, const int b);
 
     // Stores the ID of a node corresponding to edge (a, b).
     //  In a directed graph, each (undirected) edge really has two nodes. To
@@ -133,8 +133,6 @@ protected:
     std::vector<int> node_vec_placement_maps;
     std::vector<int> out_neighbors_vec;
     std::vector<std::pair<size_t, size_t>> available_chunks;
-
-    inline void range_check(const int a) const;
 };
 
 #endif

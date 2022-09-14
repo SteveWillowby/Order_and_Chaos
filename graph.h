@@ -27,8 +27,10 @@ public:
     //  Returns the old label of the node that is now labeled a.
     virtual int delete_node(const int a) = 0;
 
-    virtual void add_edge(const int a, const int b) = 0;
-    virtual void delete_edge(const int a, const int b) = 0;
+    // Returns true iff the edge was absent (and thus now added)
+    virtual bool add_edge(const int a, const int b) = 0;
+    // Returns true iff the edge was present (and thus now deleted)
+    virtual bool delete_edge(const int a, const int b) = 0;
 
     // Deletes the edge if it exists and adds it if it does not.
     virtual void flip_edge(const int a, const int b) = 0;

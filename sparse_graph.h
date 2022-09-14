@@ -39,8 +39,10 @@ public:
     // O(number of node a's neighbors + number of node n-1's neighbors)
     virtual int delete_node(int a);
 
-    virtual void add_edge(const int a, const int b);
-    virtual void delete_edge(const int a, const int b);
+    // Returns true iff the edge was absent (and thus now added)
+    virtual bool add_edge(const int a, const int b);
+    // Returns true iff the edge was present (and thus now deleted)
+    virtual bool delete_edge(const int a, const int b);
 
     // Deletes the edge if it exists and adds it if it does not.
     virtual void flip_edge(const int a, const int b);
@@ -61,7 +63,7 @@ protected:
     std::vector<std::unordered_set<int>> _out_neighbors;
     std::vector<std::unordered_set<int>> _in_neighbors;
 
-    inline void range_check(const int a) const;
+    virtual inline void range_check(const int a) const;
 };
 
 

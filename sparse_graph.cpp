@@ -156,7 +156,7 @@ int SparseGraph::delete_node(const int a) {
 }
 
 
-void SparseGraph::add_edge(const int a, const int b) {
+bool SparseGraph::add_edge(const int a, const int b) {
     #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     range_check(b);
@@ -172,16 +172,19 @@ void SparseGraph::add_edge(const int a, const int b) {
             if (_neighbors[a].insert(b).second) {
                 _neighbors[b].insert(a);
             }
+            return true;
         }
     } else {
         if (_neighbors[a].insert(b).second) {
             _neighbors[b].insert(a);
             m++;
+            return true;
         }
     }
+    return false;
 }
 
-void SparseGraph::delete_edge(const int a, const int b) {
+bool SparseGraph::delete_edge(const int a, const int b) {
     #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     range_check(b);
@@ -195,13 +198,16 @@ void SparseGraph::delete_edge(const int a, const int b) {
                 _neighbors[a].erase(b);
                 _neighbors[b].erase(a);
             }
+            return true;
         }
     } else {
         if (_neighbors[a].erase(b)) {
             _neighbors[b].erase(a);
             m--;
+            return true;
         }
     }
+    return false;
 }
 
 void SparseGraph::flip_edge(const int a, const int b) {
