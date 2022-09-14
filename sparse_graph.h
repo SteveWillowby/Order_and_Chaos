@@ -29,7 +29,7 @@ public:
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
 
-    const bool directed;
+    // const bool directed; -- defined in graph.h
 
     // Returns the id of the new node.
     // O(1)

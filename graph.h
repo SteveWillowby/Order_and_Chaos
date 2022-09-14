@@ -14,7 +14,7 @@
 class Graph {
 
 public:
-    Graph();
+    Graph(const bool directed);
 
     size_t num_nodes() const;
     size_t num_edges() const;

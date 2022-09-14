@@ -1,12 +1,15 @@
-#include "sparse_graph.h"
+#include "edge.h"
+#include "nt_sparse_graph.h"
 
 #include<stdexcept>
 #include<string>
+#include<unordered_map>
 #include<unordered_set>
+#include<utility>
 #include<vector>
 
 
-SparseGraph::SparseGraph(const bool directed) : Graph(directed) {
+NTSparseGraph::NTSparseGraph(const bool directed) : Graph(directed) {
     n = 1;
     m = 0;
 
@@ -21,8 +24,8 @@ SparseGraph::SparseGraph(const bool directed) : Graph(directed) {
     }
 }
 
-SparseGraph::SparseGraph(const bool directed, size_t n) : Graph(directed) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+NTSparseGraph::NTSparseGraph(const bool directed, size_t n) : Graph(directed) {
+    #ifdef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     if (n == 0) {
         throw std::domain_error("Error! Cannot make a graph with 0 nodes.");
     }
@@ -41,7 +44,7 @@ SparseGraph::SparseGraph(const bool directed, size_t n) : Graph(directed) {
     }
 }
 
-SparseGraph::SparseGraph(const Graph &g) : Graph(g.directed) {
+NTSparseGraph::NTSparseGraph(const Graph &g) : Graph(g.directed) {
     n = g.num_nodes();
     m = g.num_edges();
 
@@ -61,7 +64,7 @@ SparseGraph::SparseGraph(const Graph &g) : Graph(g.directed) {
 }
 
 
-int SparseGraph::add_node() {
+int NTSparseGraph::add_node() {
     n++;
     if (size_t(int(n - 1)) != n - 1) {
         throw std::out_of_range(
@@ -78,8 +81,8 @@ int SparseGraph::add_node() {
     return n - 1;
 }
 
-int SparseGraph::delete_node(const int a) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+int NTSparseGraph::delete_node(const int a) {
+    #ifdef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     #endif
 
@@ -156,8 +159,8 @@ int SparseGraph::delete_node(const int a) {
 }
 
 
-void SparseGraph::add_edge(const int a, const int b) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+void NTSparseGraph::add_edge(const int a, const int b) {
+    #ifdef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     range_check(b);
     #endif
@@ -181,8 +184,8 @@ void SparseGraph::add_edge(const int a, const int b) {
     }
 }
 
-void SparseGraph::delete_edge(const int a, const int b) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+void NTSparseGraph::delete_edge(const int a, const int b) {
+    #ifdef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     range_check(b);
     #endif
@@ -204,8 +207,8 @@ void SparseGraph::delete_edge(const int a, const int b) {
     }
 }
 
-void SparseGraph::flip_edge(const int a, const int b) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+void NTSparseGraph::flip_edge(const int a, const int b) {
+    #ifdef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     range_check(b);
     #endif
@@ -225,23 +228,23 @@ void SparseGraph::flip_edge(const int a, const int b) {
     }
 }
 
-bool SparseGraph::has_edge(const int a, const int b) const {
+bool NTSparseGraph::has_edge(const int a, const int b) const {
     if (directed) {
         return _out_neighbors[a].find(b) != _out_neighbors[a].end();
     }
     return _neighbors[a].find(b) != _neighbors[a].end();
 }
 
-const std::unordered_set<int> &SparseGraph::neighbors(const int a) const {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+const std::unordered_set<int> &NTSparseGraph::neighbors(const int a) const {
+    #ifdef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     #endif
 
     return _neighbors[a];
 }
 
-const std::unordered_set<int> &SparseGraph::out_neighbors(const int a) const {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+const std::unordered_set<int> &NTSparseGraph::out_neighbors(const int a) const {
+    #ifdef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     #endif
 
@@ -251,8 +254,8 @@ const std::unordered_set<int> &SparseGraph::out_neighbors(const int a) const {
     return _neighbors[a];
 }
 
-const std::unordered_set<int> &SparseGraph::in_neighbors(const int a) const {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+const std::unordered_set<int> &NTSparseGraph::in_neighbors(const int a) const {
+    #ifdef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     #endif
 
@@ -262,7 +265,7 @@ const std::unordered_set<int> &SparseGraph::in_neighbors(const int a) const {
     return _neighbors[a];
 }
 
-void SparseGraph::range_check(const int a) const {
+void NTSparseGraph::range_check(const int a) const {
     if (a < 0 || a >= n) {
         throw std::out_of_range("Error! Node " + std::to_string(a) +
                                 " out of range - does not exist.");

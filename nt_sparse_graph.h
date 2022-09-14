@@ -25,17 +25,23 @@
  *      functions with "nauty_traces" in their name.
  */
 
-#include "nauty.h"
-#include "nausparse.h"
+#include "nauty27r4/nauty.h"
+#include "nauty27r4/nausparse.h"
 
-#include "coloring.h"
+// #include "coloring.h"
 #include "edge.h"
 #include "graph.h"
 
-#include<pair>
 #include<unordered_map>
 #include<unordered_set>
+#include<utility>
 #include<vector>
+
+#ifndef SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+// Comment out this next line if you want this class's input error checks to
+//  be ignored by the compiler.
+#define SYM__NT_SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+#endif
 
 #ifndef SYM__NT_SPARSE_GRAPH_H
 #define SYM__NT_SPARSE_GRAPH_H
@@ -54,6 +60,7 @@ public:
     const sparsegraph as_nauty_traces_graph() const;
 
     // Returns a coloring for the Nauty/Traces sparsegraph
+    /*
     const Coloring<int> &
         nauty_traces_coloring(const Coloring<int> &node_coloring) const;
     const Coloring<int> &
@@ -61,6 +68,7 @@ public:
     const Coloring<int> &
         nauty_traces_coloring(const Coloring<int> &node_coloring,
                               const Coloring<Edge> &edge_coloring) const;
+    */
 
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
@@ -96,22 +104,37 @@ public:
     // O(1)
     const std::unordered_set<int> &in_neighbors(const int a) const;
 
-private:
+protected:
     // size_t n; -- defined in graph.h
     size_t internal_n;
     // size_t m; -- defined in graph.h
     size_t m_undirected;
 
-    std::vector<std::unordered_set<int>> neighbors;
+    std::vector<std::unordered_set<int>> _neighbors;
     // Unused if graph is undirected
-    std::vector<std::unordered_set<int>> out_neighbors;
+    std::vector<std::unordered_set<int>> _out_neighbors;
     // Unused if graph is undirected
-    std::vector<std::unordered_set<int>> in_neighbors;
+    std::vector<std::unordered_set<int>> _in_neighbors;
 
+    // The following functions edit the Nauty/Traces graph representation.
+    void _add_node();
+    int _delete_node(const int a);
+    void _add_edge(const int a, const int b);
+    void _delete_edge(const int a, const int b);
+
+    // Stores the ID of a node corresponding to edge (a, b).
+    //  In a directed graph, each (undirected) edge really has two nodes. To
+    //  access the second node, access the node for edge (b, a).
+    // std::unordered_map<Edge, int> edge_to_edge_node;
+
+    // We require that the nodes of the actual graph get the first n labels.
+    //  Then the edge nodes get the remaining labels.
     std::vector<int> out_degrees;
     std::vector<int> node_vec_placement_maps;
     std::vector<int> out_neighbors_vec;
     std::vector<std::pair<size_t, size_t>> available_chunks;
+
+    inline void range_check(const int a) const;
 };
 
 #endif

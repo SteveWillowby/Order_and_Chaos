@@ -1,11 +1,12 @@
 #include<iostream>
 
 #include "sparse_graph.h"
+#include "nt_sparse_graph.h"
 
 
 int main(void) {
     const bool directed = true;
-    SparseGraph g = SparseGraph(directed);
+    NTSparseGraph g = NTSparseGraph(directed);
 
     std::cout<<"All Printed Numbers Should be 1 Unless the Line Specifies Otherwise."<<std::endl<<std::endl;
 
@@ -99,6 +100,13 @@ int main(void) {
     }
     std::cout<<(g3.num_nodes() == 3)<<std::endl;
     std::cout<<(g3.num_edges() == 3)<<std::endl;
+
+    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    std::cout<<"The next thing you should see is a custom error message."<<std::endl;
+    #else
+    std::cout<<"The next thing you should see is a generic error message."<<std::endl;
+    #endif
+    g3.add_edge(0, 3);
 
     return 0;
 };
