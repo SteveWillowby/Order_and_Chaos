@@ -32,6 +32,7 @@
 #include "edge.h"
 #include "sparse_graph.h"
 
+#include<map>
 #include<unordered_map>
 #include<unordered_set>
 #include<utility>
@@ -136,10 +137,26 @@ protected:
     std::vector<int> node_to_endpoint;
     std::unordered_map<int, int> startpoint_to_node;
 
-    std::vector<int> out_neighbors_vec;
-    std::vector<std::pair<size_t, size_t>> chunks;
+    // Only real nodes have extra space. Edge nodes always have a fixed amount.
 
-    const size_t ORIG_EDGE_SPACE_PER_NODE = 8;
+    // A node is defined to have extra space when the following are all met:
+    //  * (endpoint - startpoint) >= 2 * MIN_EDGE_SPACE_PER_NODE
+    //  * out_degree <= ((end_point - start_point) - out_degree) / 4
+    //
+    // We always give half the space to the node that needs space. Further, we
+    //  require that the new space have at least twice as much space as the
+    //  node receiving that space needs.
+    std::vector<bool> has_extra_space;
+    std::vector<int> extra_space;
+    // Kept in sorted order from large to small.
+    //
+    // Store with negative capacities and call lower_bound(-target) to get the
+    //  node and neg. cap. with the smallest (non-negative) capacity >= target.
+    std::multimap<int, int> extra_space_and_node;
+
+    std::vector<int> out_neighbors_vec;
+
+    const size_t MIN_EDGE_SPACE_PER_NODE = 8;
 };
 
 #endif
