@@ -106,7 +106,7 @@ protected:
     // size_t n; -- defined in graph.h
     size_t internal_n;
     // size_t m; -- defined in graph.h
-    size_t undirected_m;
+    size_t num_edge_nodes;
 
     //  defined in sparse_graph.h
     // std::vector<std::unordered_set<int>> _neighbors;
@@ -129,13 +129,22 @@ protected:
     //  In a directed graph, each (undirected) edge really has two nodes. To
     //  access the second node, access the node for edge (b, a).
     std::unordered_map<Edge, int, EdgeHash> edge_to_edge_node;
+    std::unordered_map<int, Edge> edge_node_to_edge;
 
     // We require that the nodes of the actual graph get the first n labels.
     //  Then the edge nodes get the remaining labels.
     std::vector<int> out_degrees;
     std::vector<int> node_to_startpoint;
     std::vector<int> node_to_endpoint;
-    std::unordered_map<int, int> startpoint_to_node;
+
+    // Gives the two places in out_neighbors_vec where the internal node is
+    //  listed as a neighbor.
+    // When the graph is directed, we follow the
+    //  convention that the first listed node is the real node and the second
+    //  is the other edge node.
+    std::unordered_map<int, std::pair<int,int>> edge_node_to_places;
+
+    std::unordered_map<int, int> endpoint_to_node;
 
     // Only real nodes have extra space. Edge nodes always have a fixed amount.
 
@@ -147,16 +156,22 @@ protected:
     //  require that the new space have at least twice as much space as the
     //  node receiving that space needs.
     std::vector<bool> has_extra_space;
-    std::vector<int> extra_space;
-    // Kept in sorted order from large to small.
-    //
-    // Store with negative capacities and call lower_bound(-target) to get the
-    //  node and neg. cap. with the smallest (non-negative) capacity >= target.
+    // std::vector<int> extra_space; -- currently unused.
+
+    // Call lower_bound(target) to get the node with the smallest capacity that
+    //  is at least as large as your target storage space.
     std::multimap<int, int> extra_space_and_node;
 
+    // When a node is an edge node and the graph is directed, we follow the
+    //  convention that the first listed node is the real node and the second
+    //  is the other edge node.
     std::vector<int> out_neighbors_vec;
 
+    // Must be an even number.
     const size_t MIN_EDGE_SPACE_PER_NODE = 8;
+
+    int allocate_edge_node();
+    void relabel_edge_node(const int a, const int b);
 };
 
 #endif
