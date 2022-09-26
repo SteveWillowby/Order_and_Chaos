@@ -144,6 +144,7 @@ protected:
     //  is the other edge node.
     std::unordered_map<int, std::pair<int,int>> edge_node_to_places;
 
+    // Used for regular nodes.
     std::unordered_map<int, int> endpoint_to_node;
 
     // Only real nodes have extra space. Edge nodes always have a fixed amount.
@@ -172,6 +173,14 @@ protected:
 
     int allocate_edge_node();
     void relabel_edge_node(const int a, const int b);
+    void slide_first_edge_node_to_back();
+
+    // Can be used for new nodes as well that currently have no space and no
+    //  edges. (i.e. endpoint = startpoint)
+    // Only for regular nodes.
+    void move_node_to_more_space(const int a);
+
+    void move_edge_node(const int init_loc, const int target_loc);
 };
 
 #endif
