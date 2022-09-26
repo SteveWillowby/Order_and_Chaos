@@ -2,6 +2,8 @@
 #include "sparse_graph.h"
 #include "nt_sparse_graph.h"
 
+#include<map>
+#include<set>
 #include<stdexcept>
 #include<string>
 #include<unordered_map>
@@ -292,6 +294,9 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
             // There was no left node. Add the old slot to extra capacity as
             //  node "-1".
             int left_node = -1;
+            extra_space_and_node.erase(
+                std::pair<int, int>(old_endpoint - old_startpoint, a));
+            extra_space_and_node.insert(
         } else {
             // Note that the node could have been moved to the slot immediately
             //  to its left, such that "left node" is the same as node a.
