@@ -28,14 +28,12 @@
 #include "nauty27r4/nauty.h"
 #include "nauty27r4/nausparse.h"
 
+#include "augmented_multimap.h"
 // #include "coloring.h"
 #include "edge.h"
 #include "sparse_graph.h"
 
-#include<map>
-#include<set>
 #include<unordered_map>
-#include<unordered_set>
 #include<utility>
 #include<vector>
 
@@ -152,11 +150,11 @@ protected:
 
     // A node is defined to have extra space when the following are all met:
     //  * (endpoint - startpoint) >= 2 * MIN_EDGE_SPACE_PER_NODE
-    //  * out_degree <= ((end_point - start_point) - out_degree) / 4
+    //  * out_degree <= (endpoint - startpoint) / 4
     //
-    // We always give half the space to the node that needs space. Further, we
-    //  require that the new space have at least twice as much space as the
-    //  node receiving that space needs.
+    // We always give FLOOR(half the space) to the node that needs space.
+    //  Further, we require that the new space have at least twice as much space
+    //  as the node receiving that space needs.
 
     // std::vector<bool> has_extra_space; -- currently unused
     // std::vector<int> extra_space; -- currently unused.
@@ -164,8 +162,7 @@ protected:
     // Call lower_bound(target) to get the node with the smallest capacity that
     //  is at least as large as your target storage space.
 
-    // TODO: Update due to type change.
-    std::map<int, std::set> extra_space_and_node;
+    AugmentedMultimap<size_t, int> extra_space_and_node;
 
     // When a node is an edge node and the graph is directed, we follow the
     //  convention that the first listed node is the real node and the second

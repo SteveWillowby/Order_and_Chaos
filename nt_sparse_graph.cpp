@@ -1,20 +1,15 @@
+#include "augmented_multimap.h"
+// #include "coloring.h"
 #include "edge.h"
 #include "sparse_graph.h"
 #include "nt_sparse_graph.h"
 
-#include<map>
-#include<set>
-#include<stdexcept>
-#include<string>
 #include<unordered_map>
-#include<unordered_set>
 #include<utility>
 #include<vector>
 
 
-NTSparseGraph::NTSparseGraph(const bool directed) : SparseGraph(directed) {
-
-}
+NTSparseGraph::NTSparseGraph(const bool directed) : NTSparseGraph(directed,1) {}
 
 NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
                     : SparseGraph(directed, n) {
@@ -23,21 +18,23 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
     num_edge_nodes = 0;
 
     out_degrees = std::vector<int>(n, 0);
-    nodes_with_extra_space = std::vector<int>();
 
     // Begin with MIN_EDGE_SPACE_PER_NODE edge slots per node.
     node_to_startpoint = std::vector<int>();
     node_to_endpoint = std::vector<int>();
-    startpoint_to_node = std::unordered_map<int, int>();
+    endpoint_to_node = std::unordered_map<int, int>();
     for (size_t i = 0; i < n; i++) {
         node_to_startpoint.push_back(MIN_EDGE_SPACE_PER_NODE * i);
         node_to_endpoint.push_back(MIN_EDGE_SPACE_PER_NODE * (i + 1));
-        startpoint_to_node[MIN_EDGE_SPACE_PER_NODE * i] = i;
+        endpoint_to_node[MIN_EDGE_SPACE_PER_NODE * (i + 1)] = i;
     }
 
     out_neighbors_vec = std::vector<int>(n * MIN_EDGE_SPACE_PER_NODE, 0);
+    extra_space_and_node = AugmentedMultimap<size_t, int>();
 }
 
+// SparseGraph's constructor does not make any calls to functions like add_node
+//  or add_edge. Thus we can call it and then fill out the NT info separately.
 NTSparseGraph::NTSparseGraph(const Graph &g) : SparseGraph(g) {
 
 }
@@ -82,10 +79,10 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
     }
 
     if (directed) {
-        int edge_node_A = allocate_edge_node();
-        int edge_node_B = allocate_edge_node();
+        // int edge_node_A = allocate_edge_node();
+        // int edge_node_B = allocate_edge_node();
     } else {
-        int edge_node = allocate_edge_node();
+        // int edge_node = allocate_edge_node();
     }
 
     return true;
@@ -115,9 +112,9 @@ int NTSparseGraph::allocate_edge_node() {
     out_degrees.push_back(2);
     out_neighbors_vec.push_back(0);
     out_neighbors_vec.push_back(0);
-    node_to_startpoint.push_back(out_neighbors.size() - 2);
-    node_to_endpoint.push_back(out_neighbors.size());
-    edge_node_to_places.push_back(std::pair<int,int>(0, 0));
+    node_to_startpoint.push_back(out_neighbors_vec.size() - 2);
+    node_to_endpoint.push_back(out_neighbors_vec.size());
+    edge_node_to_places[out_degrees.size() - 1] = std::pair<int,int>(0, 0);
 
     return new_label;
 }
@@ -182,11 +179,11 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
     if (directed) {
         // One of this edge node's neighbors is itself an edge node.
         //  Update *that* edge node's `places` info.
-        neighbor_edge_node =
+        int neighbor_edge_node =
                         out_neighbors_vec[out_neighbors_vec.size() - 1];
         const std::pair<int, int> &nen_locs =
-                        edge_node_to_places(neighbor_edge_node);
-        edge_node_to_places[neighbors_edge_node] =
+                        edge_node_to_places[neighbor_edge_node];
+        edge_node_to_places[neighbor_edge_node] =
                           std::pair<int,int>(nen_locs.first,
                                              node_to_startpoint[edge_node] + 1);
     }
@@ -197,7 +194,7 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
 
 void NTSparseGraph::move_node_to_more_space(const int a) {
     // Determine required amount of space
-    int required_capacity = (node_to_endpoint[a] - node_to_startpoint[a]) * 2;
+    size_t required_capacity = (node_to_endpoint[a] - node_to_startpoint[a]) *2;
     if (required_capacity < MIN_EDGE_SPACE_PER_NODE) {
         required_capacity = MIN_EDGE_SPACE_PER_NODE;
     }
@@ -206,10 +203,10 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
     int old_endpoint = node_to_endpoint[a];
 
     // Check if such space is available.
-    auto space = extra_space_and_node.lower_bound(required_capacity);
+    const auto &space = extra_space_and_node.lower_bound(required_capacity);
     size_t edge_node_start = out_neighbors_vec.size() - (num_edge_nodes * 2);
 
-    if (space == extra_space_and_node.end()) {
+    if (space.is_none()) {
         // Create space for the new node's neighbors.
         for (size_t i = 0; i < required_capacity; i += 2) {
             if (num_edge_nodes == 0) {
@@ -226,13 +223,13 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
     } else {
         // Space is available. Use it.
 
-        int capacity_for_new_node = space->first;
-        int old_node = space->second;
+        size_t capacity_for_new_node = space.key();
+        int old_node = space.value();
 
         // Split existing node space to accommodate new node.
-        extra_space_and_node.erase(space);
+        extra_space_and_node.erase(capacity_for_new_node, old_node);
 
-        int old_node_new_capacity = 0;
+        size_t old_node_new_capacity = 0;
         if (old_node == -1) {
             // Update start- and end-points.
             node_to_endpoint[a] = capacity_for_new_node;
@@ -259,23 +256,22 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
         //  The new node currently has zero edges.
         if (capacity_for_new_node >= 2 * MIN_EDGE_SPACE_PER_NODE) {
             capacity = capacity_for_new_node / 2;
-            extra_space_and_node.insert(
-                std::pair<int, int>(capacity, a));
-            has_extra_space.push_back(true);
+            extra_space_and_node.insert(capacity, a);
+            // TODO: Remove references to `has_extra_space`
+            // has_extra_space.push_back(true);
         } else {
-            has_extra_space.push_back(false);
+            // has_extra_space.push_back(false);
         }
 
         // Old Node
         if (old_node != -1) {
             if (old_node_new_capacity >= 2 * MIN_EDGE_SPACE_PER_NODE &&
-                    old_node_new_capacity >= 4 * out_degrees[old_node]) {
+                   old_node_new_capacity >= 4 * size_t(out_degrees[old_node])) {
                 capacity = old_node_new_capacity / 2;
-                extra_space_and_node.insert(
-                    std::pair<int, int>(capacity, old_node));
-                // has_extra_space[old_node] is already true
+                extra_space_and_node.insert(capacity, old_node);
+                // // has_extra_space[old_node] is already true
             } else {
-                has_extra_space[old_node] = false;
+                // has_extra_space[old_node] = false;
             }
         }
         // Done updating extra capacity information.
@@ -290,19 +286,37 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
 
     // Give the old space to another node, if there was space.
     if (old_endpoint > old_startpoint) {
+        extra_space_and_node.erase(old_endpoint - old_startpoint, a);
+
         if (old_startpoint == 0) {
             // There was no left node. Add the old slot to extra capacity as
             //  node "-1".
-            int left_node = -1;
-            extra_space_and_node.erase(
-                std::pair<int, int>(old_endpoint - old_startpoint, a));
-            extra_space_and_node.insert(
+            extra_space_and_node.insert(old_endpoint - old_startpoint, -1);
         } else {
             // Note that the node could have been moved to the slot immediately
             //  to its left, such that "left node" is the same as node a.
             int left_node = endpoint_to_node[old_endpoint];
 
             // Patch in space.
+            size_t ln_deg = out_degrees[left_node];
+            int ln_start = node_to_startpoint[left_node];
+            int ln_end = node_to_endpoint[left_node];
+            int ln_old_end = old_startpoint; // Old startpoint of a.
+
+            size_t ln_size = ln_end - ln_start;
+            size_t ln_old_size = ln_old_end - ln_start;
+
+            // Determine whether left_node USED to have extra capacity.
+            if (ln_old_size >= 2 * MIN_EDGE_SPACE_PER_NODE &&
+                    ln_old_size >= 4 * ln_deg) {
+                int ln_old_capacity = ln_old_size / 2;
+                extra_space_and_node.erase(ln_old_capacity, left_node);
+            }
+            if (ln_size >= 2 * MIN_EDGE_SPACE_PER_NODE &&
+                    ln_size >= 4 * ln_deg) {
+                int ln_capacity = ln_size / 2;
+                extra_space_and_node.insert(ln_capacity, left_node);
+            }
         }
     }
 }
