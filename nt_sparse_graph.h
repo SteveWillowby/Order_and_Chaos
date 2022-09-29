@@ -103,9 +103,9 @@ public:
 
 protected:
     // size_t n; -- defined in graph.h
-    size_t internal_n;
+    size_t internal_n; // TODO: Check if actually used.
     // size_t m; -- defined in graph.h
-    size_t num_edge_nodes;
+    size_t num_edge_nodes; // TODO: Check if actually used.
 
     //  defined in sparse_graph.h
     // std::vector<std::unordered_set<int>> _neighbors;
@@ -141,7 +141,7 @@ protected:
     // When the graph is directed, we follow the
     //  convention that the first listed node is the real node and the second
     //  is the other edge node.
-    std::unordered_map<int, std::pair<int,int>> edge_node_to_places;
+    std::unordered_map<int, std::pair<size_t,size_t>> edge_node_to_places;
 
     // Used for regular nodes.
     std::unordered_map<int, int> endpoint_to_node;
@@ -181,7 +181,7 @@ protected:
     // Only for regular nodes.
     void move_node_to_more_space(const int a);
 
-    void move_edge_node(const int init_loc, const int target_loc);
+    void move_edge_node(const size_t init_loc, const size_t target_loc);
 };
 
 #endif

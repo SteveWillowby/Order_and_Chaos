@@ -71,19 +71,63 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         return false;
     }
 
+    if (directed && _out_neighbors[b].find(a) != _out_neighbors[b].end()) {
+        // The internal nodes already exist.
+        return true;
+    }
+
     if (out_degrees[a] == (node_to_endpoint[a] - node_to_startpoint[a])) {
         // Move node's edge info to a new place.
+        move_node_to_more_space(a);
     }
     if (out_degrees[b] == (node_to_endpoint[b] - node_to_startpoint[b])) {
         // Move node's edge info to a new place.
+        move_node_to_more_space(b);
     }
 
     if (directed) {
-        // int edge_node_A = allocate_edge_node();
-        // int edge_node_B = allocate_edge_node();
+        internal_n += 2;
+        num_edge_nodes += 2;
+
+        int edge_node_A = allocate_edge_node();
+        int edge_node_B = allocate_edge_node();
+
+        out_neighbors_vec[node_to_startpoint[a] + out_degrees[a]] = edge_node_A;
+        out_neighbors_vec[node_to_startpoint[b] + out_degrees[b]] = edge_node_B;
+        out_neighbors_vec[node_to_startpoint[edge_node_A]] = a;
+        out_neighbors_vec[node_to_startpoint[edge_node_A] + 1] = edge_node_B;
+        out_neighbors_vec[node_to_startpoint[edge_node_B]] = b;
+        out_neighbors_vec[node_to_startpoint[edge_node_B] + 1] = edge_node_A;
+
+        edge_node_to_places[edge_node_A] =
+            std::pair<size_t, size_t>(node_to_startpoint[a] + out_degrees[a],
+                                      node_to_startpoint[edge_node_B] + 1);
+        edge_node_to_places[edge_node_B] =
+            std::pair<size_t, size_t>(node_to_startpoint[b] + out_degrees[b],
+                                      node_to_startpoint[edge_node_A] + 1);
+
+        edge_to_edge_node[EDGE(a, b, directed)] = edge_node_A;
+        edge_to_edge_node[EDGE(b, a, directed)] = edge_node_B;
+        edge_node_to_edge[edge_node_A] = EDGE(a, b, directed);
+        edge_node_to_edge[edge_node_B] = EDGE(b, a, directed);
+
     } else {
-        // int edge_node = allocate_edge_node();
+        internal_n++;
+        num_edge_nodes++;
+
+        int edge_node = allocate_edge_node();
+        out_neighbors_vec[node_to_startpoint[a] + out_degrees[a]] = edge_node;
+        out_neighbors_vec[node_to_startpoint[b] + out_degrees[b]] = edge_node;
+        out_neighbors_vec[node_to_startpoint[edge_node]] = a;
+        out_neighbors_vec[node_to_startpoint[edge_node] + 1] = b;
+
+        edge_to_edge_node[EDGE(a, b, directed)] = edge_node;
+        edge_node_to_edge[edge_node] = EDGE(a, b, directed);
+
     }
+
+    out_degrees[a]++;
+    out_degrees[b]++;
 
     return true;
 }
@@ -114,7 +158,7 @@ int NTSparseGraph::allocate_edge_node() {
     out_neighbors_vec.push_back(0);
     node_to_startpoint.push_back(out_neighbors_vec.size() - 2);
     node_to_endpoint.push_back(out_neighbors_vec.size());
-    edge_node_to_places[out_degrees.size() - 1] = std::pair<int,int>(0, 0);
+    edge_node_to_places[out_degrees.size() - 1] = std::pair<size_t,size_t>(0,0);
 
     return new_label;
 }
@@ -123,7 +167,8 @@ int NTSparseGraph::allocate_edge_node() {
 //  slot, relabeling things as necessary.
 void NTSparseGraph::relabel_edge_node(const int a, const int b) {
 
-    const std::pair<int, int> locations = edge_node_to_places.find(a)->second;
+    const std::pair<size_t, size_t> locations =
+                edge_node_to_places.find(a)->second;
 
     // Update out_neighbors_vec
     out_neighbors_vec[locations.first] = b;
@@ -148,20 +193,21 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
     // Do not need to update out_degrees since all edge nodes have degree 2.
 }
 
-void NTSparseGraph::move_edge_node(const int init_loc, const int target_loc) {
+void NTSparseGraph::move_edge_node(const size_t init_loc,
+                                   const size_t target_loc) {
     int edge_node = out_neighbors_vec[init_loc];
     out_neighbors_vec[target_loc] = edge_node;
 
-    const std::pair<int, int> locations =
+    const std::pair<size_t, size_t> locations =
         edge_node_to_places.find(edge_node)->second;
 
     if (init_loc == locations.first) {
         edge_node_to_places[edge_node] =
-            std::pair<int, int>(target_loc, locations.second);
+            std::pair<size_t, size_t>(target_loc, locations.second);
     } else {
         // init_loc == locations.second
         edge_node_to_places[edge_node] =
-            std::pair<int, int>(locations.first, target_loc);
+            std::pair<size_t, size_t>(locations.first, target_loc);
     }
 }
 
@@ -181,10 +227,10 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
         //  Update *that* edge node's `places` info.
         int neighbor_edge_node =
                         out_neighbors_vec[out_neighbors_vec.size() - 1];
-        const std::pair<int, int> &nen_locs =
+        const std::pair<size_t, size_t> &nen_locs =
                         edge_node_to_places[neighbor_edge_node];
         edge_node_to_places[neighbor_edge_node] =
-                          std::pair<int,int>(nen_locs.first,
+                    std::pair<size_t,size_t>(nen_locs.first,
                                              node_to_startpoint[edge_node] + 1);
     }
 
@@ -257,10 +303,6 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
         if (capacity_for_new_node >= 2 * MIN_EDGE_SPACE_PER_NODE) {
             capacity = capacity_for_new_node / 2;
             extra_space_and_node.insert(capacity, a);
-            // TODO: Remove references to `has_extra_space`
-            // has_extra_space.push_back(true);
-        } else {
-            // has_extra_space.push_back(false);
         }
 
         // Old Node
@@ -269,9 +311,6 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
                    old_node_new_capacity >= 4 * size_t(out_degrees[old_node])) {
                 capacity = old_node_new_capacity / 2;
                 extra_space_and_node.insert(capacity, old_node);
-                // // has_extra_space[old_node] is already true
-            } else {
-                // has_extra_space[old_node] = false;
             }
         }
         // Done updating extra capacity information.
