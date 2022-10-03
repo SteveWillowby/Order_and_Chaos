@@ -30,29 +30,124 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
     }
 
     out_neighbors_vec = std::vector<int>(n * MIN_EDGE_SPACE_PER_NODE, 0);
+
     extra_space_and_node = AugmentedMultimap<size_t, int>();
+
+    edge_to_edge_node = std::unordered_map<Edge, int, EdgeHash>();
+    edge_node_to_edge = std::unordered_map<int, Edge>();
+
+    edge_node_to_places = std::unordered_map<int, std::pair<size_t,size_t>>();
 }
 
-// SparseGraph's constructor does not make any calls to functions like add_node
-//  or add_edge. Thus we can call it and then fill out the NT info separately.
-NTSparseGraph::NTSparseGraph(const Graph &g) : SparseGraph(g) {
+// O(n + m)
+NTSparseGraph::NTSparseGraph(const Graph &g) :
+        NTSparseGraph(g.directed, g.num_nodes()) {
 
+    for (int i = 0; i < int(n); i++) {
+        for (auto nbr = g.out_neighbors(i).begin();
+                                    nbr != g.out_neighbors(i).end(); nbr++) {
+            add_edge(i, *nbr);
+        }
+    }
+
+    /*
+    // This here is partially finished code for making this constructor more
+    //  efficient.
+    //  
+    // SparseGraph's constructor does not make any calls to functions like add_node
+    //  or add_edge. Thus we can call it and then fill out the NT info separately.
+    if (directed) {
+        num_edge_nodes = 2 * m;
+        internal_n = n + num_edge_nodes;
+
+        if (internal_n > NAUTY_TRACES_MAXN) {
+            throw std::logic_error(
+               std::string("Error! Too many nodes for Nauty/Traces. Directed") +
+               std::string(" graphs must have N + 2 * (undirected) M <= ") +
+               std::to_string(NAUTY_TRACES_MAXN));
+        }
+
+        size_t total_space_needed = 0;
+
+        // Add basic node info.
+        out_degrees = std::vector<int>(internal_n, 0);
+        node_to_startpoint = std::vector<int>(internal_n, 0);
+        node_to_endpoint = std::vector<int>(internal_n, 0);
+        endpoint_to_node = std::unordered_map<int, int>();
+
+        for (int i = 0; i < n; i++) {
+            out_degrees[i] = _neighbors[i].size();
+            node_to_startpoint[i] = total_space_needed;
+            total_space_needed +=
+                (out_degrees[i] < MIN_EDGE_SPACE_PER_NODE ?
+                    MIN_EDGE_SPACE_PER_NODE : out_degrees[i]);
+            node_to_endpoint[i] = total_space_needed;
+            endpoint_to_node[total_space_needed] = i;
+        }
+
+        size_t edge_node_start = total_space_needed;
+        total_space_needed += num_edge_nodes * 2;
+        out_neighbors_vec = std::vector<int>(total_space_needed, 0);
+
+        // Add edge and edge node info.
+
+        std::vector<int> slots_used = std::vector<int>(n, 0);
+        int next_edge_node = n;
+
+        for (int i = 0; i < n; i++) {
+            for (auto nbr = _neighbors[i].begin();
+                            nbr < _neighbors[i].end(); nbr++) {
+                if (*nbr < i) {
+                    continue;
+                }
+
+                out_neighbors_vec[node_to_startpoint[i] + slots_used[i]] =
+                                        next_edge_node;
+                slots_used[i]++;
+                out_neighbors_vec[node_to_startpoint[i]
+                
+            }
+        }
+    } else {
+
+    }
+    */
 }
 
 
 // O(log n) amortized
 int NTSparseGraph::add_node() {
+    if (internal_n >= NAUTY_TRACES_MAXN) {
+        if (directed) {
+            throw std::logic_error(
+               std::string("Error! Too many nodes for Nauty/Traces. Directed") +
+               std::string(" graphs must have N + 2 * (undirected) M <= ") +
+               std::to_string(NAUTY_TRACES_MAXN));
+        } else {
+            throw std::logic_error(
+               std::string("Error! Too many nodes for Nauty/Traces. Undirec") +
+               std::string("ted graphs must have N + M <= ") +
+               std::to_string(NAUTY_TRACES_MAXN));
+        }
+    }
+
     int new_node = SparseGraph::add_node();
 
     if (num_edge_nodes == 0) {
         // No edges in the graph.
         out_degrees.push_back(0);
+        node_to_startpoint.push_back(0);
+        node_to_endpoint.push_back(0);
     } else {
         int new_edge_node = allocate_edge_node();
         relabel_edge_node(n - 1, new_edge_node);
         out_degrees[n - 1] = 0;
+
+        node_to_startpoint[n - 1] = 0;  // TODO: verify these are valid
+        node_to_endpoint[n - 1] = 0;
     }
 
+    move_node_to_more_space(new_node);
 
     return new_node;
 }
@@ -74,6 +169,18 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
     if (directed && _out_neighbors[b].find(a) != _out_neighbors[b].end()) {
         // The internal nodes already exist.
         return true;
+    }
+
+    if (directed && internal_n >= NAUTY_TRACES_MAXN - 1) {
+        throw std::logic_error(
+            std::string("Error! Too many nodes for Nauty/Traces. Directed") +
+            std::string(" graphs must have N + 2 * (undirected) M <= ") +
+            std::to_string(NAUTY_TRACES_MAXN));
+    } else if (!directed && internal_n >= NAUTY_TRACES_MAXN) {
+        throw std::logic_error(
+            std::string("Error! Too many nodes for Nauty/Traces. Undirected") +
+            std::string(" graphs must have N + M <= ") +
+            std::to_string(NAUTY_TRACES_MAXN));
     }
 
     if (out_degrees[a] == (node_to_endpoint[a] - node_to_startpoint[a])) {
@@ -111,6 +218,9 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         edge_node_to_edge[edge_node_A] = EDGE(a, b, directed);
         edge_node_to_edge[edge_node_B] = EDGE(b, a, directed);
 
+        endpoint_to_node[node_to_endpoint[edge_node_A]] = edge_node_A;
+        endpoint_to_node[node_to_endpoint[edge_node_B]] = edge_node_B;
+
     } else {
         internal_n++;
         num_edge_nodes++;
@@ -124,6 +234,11 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         edge_to_edge_node[EDGE(a, b, directed)] = edge_node;
         edge_node_to_edge[edge_node] = EDGE(a, b, directed);
 
+        edge_node_to_places[edge_node] =
+            std::pair<size_t, size_t>(node_to_startpoint[a] + out_degrees[a],
+                                      node_to_startpoint[b] + out_degrees[b]);
+
+        endpoint_to_node[node_to_endpoint[edge_node]] = edge_node;
     }
 
     out_degrees[a]++;
@@ -193,6 +308,7 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
     // Do not need to update out_degrees since all edge nodes have degree 2.
 }
 
+// Just moves the references to the node, not the node's allocation itself.
 void NTSparseGraph::move_edge_node(const size_t init_loc,
                                    const size_t target_loc) {
     int edge_node = out_neighbors_vec[init_loc];
@@ -216,12 +332,14 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
 
     edge_node_start += 2; // Now the endpoint of the first edge node
     int edge_node = endpoint_to_node.find(edge_node_start)->second;
+    endpoint_to_node.erase(edge_node_start);
     endpoint_to_node[out_neighbors_vec.size()] = edge_node;
 
     out_neighbors_vec.push_back(
                     out_neighbors_vec[node_to_startpoint[edge_node]]);
     out_neighbors_vec.push_back(
                     out_neighbors_vec[node_to_startpoint[edge_node] + 1]);
+
     if (directed) {
         // One of this edge node's neighbors is itself an edge node.
         //  Update *that* edge node's `places` info.
@@ -251,6 +369,7 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
     // Check if such space is available.
     const auto &space = extra_space_and_node.lower_bound(required_capacity);
     size_t edge_node_start = out_neighbors_vec.size() - (num_edge_nodes * 2);
+
 
     if (space.is_none()) {
         // Create space for the new node's neighbors.

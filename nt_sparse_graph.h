@@ -101,11 +101,13 @@ public:
     //  O(1) -- defined in sparse_graph.cpp
     // virtual const std::unordered_set<int> &in_neighbors(const int a) const;
 
-protected:
+    // TODO: return to protected
+// protected: // temporarily made public so we can test the code
+
     // size_t n; -- defined in graph.h
-    size_t internal_n; // TODO: Check if actually used.
+    size_t internal_n;
     // size_t m; -- defined in graph.h
-    size_t num_edge_nodes; // TODO: Check if actually used.
+    size_t num_edge_nodes;
 
     //  defined in sparse_graph.h
     // std::vector<std::unordered_set<int>> _neighbors;
@@ -170,7 +172,7 @@ protected:
     std::vector<int> out_neighbors_vec;
 
     // Must be an even number.
-    const size_t MIN_EDGE_SPACE_PER_NODE = 8;
+    const size_t MIN_EDGE_SPACE_PER_NODE = 4;
 
     int allocate_edge_node();
     void relabel_edge_node(const int a, const int b);
