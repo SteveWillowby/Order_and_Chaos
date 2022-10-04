@@ -183,7 +183,8 @@ public:
     // Only for regular nodes.
     void move_node_to_more_space(const int a);
 
-    void move_edge_node(const size_t init_loc, const size_t target_loc);
+    void move_edge_node_reference(const size_t init_loc,
+                                  const size_t target_loc);
 };
 
 #endif

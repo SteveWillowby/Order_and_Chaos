@@ -133,19 +133,17 @@ int NTSparseGraph::add_node() {
 
     int new_node = SparseGraph::add_node();
 
-    if (num_edge_nodes == 0) {
-        // No edges in the graph.
-        out_degrees.push_back(0);
-        node_to_startpoint.push_back(0);
-        node_to_endpoint.push_back(0);
-    } else {
-        int new_edge_node = allocate_edge_node();
-        relabel_edge_node(n - 1, new_edge_node);
-        out_degrees[n - 1] = 0;
+    out_degrees.push_back(0);
+    node_to_startpoint.push_back(0);
+    node_to_endpoint.push_back(0);
 
-        node_to_startpoint[n - 1] = 0;  // TODO: verify these are valid
-        node_to_endpoint[n - 1] = 0;
+    if (num_edge_nodes > 0) {
+        relabel_edge_node(n - 1, out_degrees.size() - 1);
     }
+
+    out_degrees[n - 1] = 0;
+    node_to_startpoint[n - 1] = 0;  // TODO: verify these are valid
+    node_to_endpoint[n - 1] = 0;
 
     move_node_to_more_space(new_node);
 
@@ -308,9 +306,10 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
     // Do not need to update out_degrees since all edge nodes have degree 2.
 }
 
-// Just moves the references to the node, not the node's allocation itself.
-void NTSparseGraph::move_edge_node(const size_t init_loc,
-                                   const size_t target_loc) {
+// Used when moving a regular node's list of edge nodes.
+//  Does not change the allocation or ID of the edge node.
+void NTSparseGraph::move_edge_node_reference(const size_t init_loc,
+                                             const size_t target_loc) {
     int edge_node = out_neighbors_vec[init_loc];
     out_neighbors_vec[target_loc] = edge_node;
 
@@ -333,7 +332,6 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
     edge_node_start += 2; // Now the endpoint of the first edge node
     int edge_node = endpoint_to_node.find(edge_node_start)->second;
     endpoint_to_node.erase(edge_node_start);
-    endpoint_to_node[out_neighbors_vec.size()] = edge_node;
 
     out_neighbors_vec.push_back(
                     out_neighbors_vec[node_to_startpoint[edge_node]]);
@@ -354,6 +352,7 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
 
     node_to_endpoint[edge_node] = out_neighbors_vec.size();
     node_to_startpoint[edge_node] = out_neighbors_vec.size() - 2;
+    endpoint_to_node[out_neighbors_vec.size()] = edge_node;
 }
 
 void NTSparseGraph::move_node_to_more_space(const int a) {
@@ -439,7 +438,7 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
 
     // Now that space has been found, copy the edge info over.
     for (int i = 0; i < out_degrees[a]; i++) {
-        move_edge_node(old_startpoint + i, node_to_startpoint[a] + i);
+        move_edge_node_reference(old_startpoint + i, node_to_startpoint[a] + i);
     }
 
     // Give the old space to another node, if there was space.

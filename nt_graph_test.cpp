@@ -1,3 +1,4 @@
+#include<algorithm>
 #include<iostream>
 
 #include "sparse_graph.h"
@@ -23,6 +24,36 @@ std::string vec_as_string(const std::vector<int> &v) {
     return s;
 }
 
+std::string nt_graph_as_string(const NTSparseGraph &g) {
+    std::string s = "";
+
+    std::vector<int> startpoints = std::vector<int>(g.node_to_startpoint);
+    std::vector<int> endpoints = std::vector<int>(g.node_to_endpoint);
+
+    std::sort(startpoints.begin(), startpoints.end());
+    std::sort(endpoints.begin(), endpoints.end());
+
+    std::cout<<"Startpoints: "<<vec_as_string(startpoints)<<std::endl;
+    std::cout<<"Endpoints: "<<vec_as_string(endpoints)<<std::endl;
+    std::cout<<"Vec Size: "<<g.out_neighbors_vec.size()<<std::endl;
+
+    for (size_t idx = 0; idx < startpoints.size(); idx++) {
+        auto node_itr = g.endpoint_to_node.find(endpoints[idx]);
+        if (node_itr == g.endpoint_to_node.end()) {
+            std::cout<<"Missing endpoint info for endpoint "<<endpoints[idx]<<std::endl;
+            continue;
+        }
+        int node = node_itr->second;
+
+        s += std::to_string(node) + " @ " + std::to_string(startpoints[idx]) + ": ";
+        for (int i = startpoints[idx]; i < endpoints[idx]; i++) {
+            s += std::to_string(g.out_neighbors_vec[i]) + ", ";
+        }
+        s += "| ";
+    }
+    return s;
+}
+
 int main(void) {
 
     std::cout<<"All Printed Numbers Should be 1 Unless the Line Specifies Otherwise."<<std::endl<<std::endl;
@@ -44,6 +75,7 @@ int main(void) {
     std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
     std::cout<<vec_as_string(expected)<<std::endl;
     std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
+    std::cout<<nt_graph_as_string(g1)<<std::endl;
 
     return 0;
 
