@@ -185,6 +185,9 @@ public:
 
     void move_edge_node_reference(const size_t init_loc,
                                   const size_t target_loc);
+
+    // Updates out_degrees of main_node and the out_neighbors_vec
+    void remove_edge_node_ref(const int main_node, const size_t ref_loc);
 };
 
 #endif

@@ -179,6 +179,11 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         return false;
     }
 
+    if (a == b) {
+        // TODO: Add specialized code for self-loops.
+        return true;
+    }
+
     if (directed && _out_neighbors[b].find(a) != _out_neighbors[b].end()) {
         // The internal nodes already exist.
         return true;
@@ -257,6 +262,27 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
     out_degrees[a]++;
     out_degrees[b]++;
 
+    // Update extra_space_and_node
+    size_t quarter_capacity_A = (node_to_endpoint[a]-node_to_startpoint[a]) / 4;
+    size_t quarter_capacity_B = (node_to_endpoint[b]-node_to_startpoint[b]) / 4;
+    size_t capacity;
+    if (size_t(out_degrees[a]) > quarter_capacity_A &&
+            size_t(out_degrees[a]) - 1 <= quarter_capacity_A &&
+                    size_t(node_to_endpoint[a] - node_to_startpoint[a]) >
+                                               MIN_EDGE_SPACE_PER_NODE * 2) {
+        // Used to have space but no longer does.
+        capacity = (node_to_endpoint[a] - node_to_startpoint[a]) / 2;
+        extra_space_and_node.erase(capacity, a);
+    }
+    if (size_t(out_degrees[b]) > quarter_capacity_B &&
+            size_t(out_degrees[b]) - 1 <= quarter_capacity_B &&
+                    size_t(node_to_endpoint[b] - node_to_startpoint[b]) >
+                                               MIN_EDGE_SPACE_PER_NODE * 2) {
+        // Used to have space but no longer does.
+        capacity = (node_to_endpoint[b] - node_to_startpoint[b]) / 2;
+        extra_space_and_node.erase(capacity, b);
+    }
+
     return true;
 }
 
@@ -264,7 +290,83 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
 bool NTSparseGraph::delete_edge(const int a, const int b) {
     bool deleted = SparseGraph::delete_edge(a, b);
 
-    return deleted;
+    if (!deleted) {
+        return false;
+    }
+
+    if (a == b) {
+        // TODO: Add specialized code for self-loops.
+        return true;
+    }
+
+    if (deleted && directed &&
+            _out_neighbors[b].find(a) != _out_neighbors[b].end()) {
+        // The edge was deleted _but_ we need the same edge nodes for the
+        //  reverse edge.
+        return true;
+    }
+
+    if (directed) {
+        // Get edge node labels from edge_to_edge_node, then delete this edge
+        //  from edge_to_edge_node.
+        auto edge_node_itr = edge_to_edge_node.find(EDGE(a, b, directed));
+        int edge_node_A = edge_node_itr->second;
+        edge_to_edge_node.erase(edge_node_itr);
+        edge_node_itr = edge_to_edge_node.find(EDGE(b, a, directed));
+        int edge_node_B = edge_node_itr->second;
+        edge_to_edge_node.erase(edge_node_itr);
+
+        edge_node_to_edge.erase(edge_node_A);
+        edge_node_to_edge.erase(edge_node_B);
+
+        // TODO: Update:
+        //  * out_neighbors_vec
+        //  * out_degrees
+        //  * node_to_startpoint
+        //  * node_to_endpoint
+        //  * endpoint_to_node
+        //  * edge_node_to_places
+
+        // Update out_neighbors_vec
+        const std::pair<size_t, size_t> &locations_A =
+                            edge_node_to_places[edge_node_A];
+        const std::pair<size_t, size_t> &locations_B =
+                            edge_node_to_places[edge_node_B];
+        //      Removes the refs to the edge nodes from the regular nodes' part
+        //      of out_neighbors_vec.
+        //      In the process, decrements a's and b's out_degrees
+        remove_edge_node_ref(locations_A.first);
+        remove_edge_node_ref(locations_B.first);
+        edge_node_to_places.erase(edge_node_A);
+        edge_node_to_places.erase(edge_node_B);
+
+        internal_n -= 2;
+        num_edge_nodes -= 2;
+    } else {
+        // Get edge node label from edge_to_edge_node, then delete this edge
+        //  from edge_to_edge_node.
+        auto edge_node_itr = edge_to_edge_node.find(EDGE(a, b, directed));
+        int edge_node = edge_node_itr->second;
+        edge_to_edge_node.erase(edge_node_itr);
+
+        edge_node_to_edge.erase(edge_node);
+
+        // Update out_neighbors_vec
+        const auto &locations = edge_node_to_places.find(edge_node);
+        //      Removes the refs to the edge node from the regular nodes' part
+        //      of out_neighbors_vec.
+        //      In the process, decrements a's and b's out_degrees
+        remove_edge_node_ref(locations->second.first);
+        remove_edge_node_ref(locations->second.second);
+        edge_node_to_places.erase(locations);
+
+        internal_n--;
+        num_edge_nodes--;
+    }
+
+    // TODO: Check if capacity was opened in node a and/or node b.
+
+    return true;
 }
 
 void NTSparseGraph::flip_edge(const int a, const int b) {
@@ -323,8 +425,7 @@ void NTSparseGraph::move_edge_node_reference(const size_t init_loc,
     int edge_node = out_neighbors_vec[init_loc];
     out_neighbors_vec[target_loc] = edge_node;
 
-    const std::pair<size_t, size_t> locations =
-        edge_node_to_places.find(edge_node)->second;
+    const std::pair<size_t, size_t> locations = edge_node_to_places[edge_node];
 
     if (init_loc == locations.first) {
         edge_node_to_places[edge_node] =
@@ -487,4 +588,15 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
             }
         }
     }
+}
+
+
+void NTSparseGraph::remove_edge_node_ref(const int main_node,
+                                         const size_t ref_loc) {
+    size_t last_local_edge_node_loc = node_to_startpoint[main_node] +
+                                      out_degrees[main_node] - 1;
+    if (ref_loc < last_local_edge_node_loc) {
+        move_edge_node_reference(last_local_edge_node_loc, ref_loc);
+    }
+    out_degrees[main_node]--;
 }
