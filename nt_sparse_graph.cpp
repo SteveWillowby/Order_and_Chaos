@@ -246,8 +246,10 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         int edge_node = allocate_edge_node();
         out_neighbors_vec[node_to_startpoint[a] + out_degrees[a]] = edge_node;
         out_neighbors_vec[node_to_startpoint[b] + out_degrees[b]] = edge_node;
-        out_neighbors_vec[node_to_startpoint[edge_node]] = a;
-        out_neighbors_vec[node_to_startpoint[edge_node] + 1] = b;
+
+        // Put the smaller node ID first.
+        out_neighbors_vec[node_to_startpoint[edge_node]] = (a < b ? a : b);
+        out_neighbors_vec[node_to_startpoint[edge_node] + 1] = (a < b ? b : a);
 
         edge_to_edge_node[EDGE(a, b, directed)] = edge_node;
         edge_node_to_edge[edge_node] = EDGE(a, b, directed);
@@ -319,26 +321,25 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         edge_node_to_edge.erase(edge_node_A);
         edge_node_to_edge.erase(edge_node_B);
 
-        // TODO: Update:
-        //  * out_neighbors_vec
-        //  * out_degrees
-        //  * node_to_startpoint
-        //  * node_to_endpoint
-        //  * endpoint_to_node
-        //  * edge_node_to_places
-
         // Update out_neighbors_vec
+        //  First do the regular nodes area
         const std::pair<size_t, size_t> &locations_A =
                             edge_node_to_places[edge_node_A];
         const std::pair<size_t, size_t> &locations_B =
                             edge_node_to_places[edge_node_B];
         //      Removes the refs to the edge nodes from the regular nodes' part
         //      of out_neighbors_vec.
-        //      In the process, decrements a's and b's out_degrees
-        remove_edge_node_ref(locations_A.first);
-        remove_edge_node_ref(locations_B.first);
+        // NOTE: In the process, decrements a's and b's out_degrees
+        remove_edge_node_ref(a, locations_A.first);
+        remove_edge_node_ref(b, locations_B.first);
         edge_node_to_places.erase(edge_node_A);
         edge_node_to_places.erase(edge_node_B);
+
+        //  Second, update the edge nodes area.
+        //    Move the last edge node(s)' data into the slots of the deleted
+        //      edge node(s).
+        slide_back_edge_node_to_slot(edge_node_A);
+        slide_back_edge_node_to_slot(edge_node_B);
 
         internal_n -= 2;
         num_edge_nodes -= 2;
@@ -352,19 +353,44 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         edge_node_to_edge.erase(edge_node);
 
         // Update out_neighbors_vec
+        //  First do the regular nodes area
         const auto &locations = edge_node_to_places.find(edge_node);
         //      Removes the refs to the edge node from the regular nodes' part
         //      of out_neighbors_vec.
-        //      In the process, decrements a's and b's out_degrees
-        remove_edge_node_ref(locations->second.first);
-        remove_edge_node_ref(locations->second.second);
+        // NOTE: In the process, decrements a's and b's out_degrees
+        remove_edge_node_ref((a < b ? a : b), locations->second.first);
+        remove_edge_node_ref((a < b ? b : a), locations->second.second);
         edge_node_to_places.erase(locations);
+
+        //  Second, update the edge nodes area.
+        //    Move the last edge node(s)' data into the slots of the deleted
+        //      edge node(s).
+        slide_back_edge_node_to_slot(edge_node);
 
         internal_n--;
         num_edge_nodes--;
     }
 
-    // TODO: Check if capacity was opened in node a and/or node b.
+    // Update extra_space_and_node
+    size_t quarter_capacity_A = (node_to_endpoint[a]-node_to_startpoint[a]) / 4;
+    size_t quarter_capacity_B = (node_to_endpoint[b]-node_to_startpoint[b]) / 4;
+    size_t capacity;
+    if (size_t(out_degrees[a]) <= quarter_capacity_A &&
+            size_t(out_degrees[a]) + 1 > quarter_capacity_A &&
+                    size_t(node_to_endpoint[a] - node_to_startpoint[a]) >
+                                               MIN_EDGE_SPACE_PER_NODE * 2) {
+        // Just acquired enough extra space.
+        capacity = (node_to_endpoint[a] - node_to_startpoint[a]) / 2;
+        extra_space_and_node.insert(capacity, a);
+    }
+    if (size_t(out_degrees[b]) <= quarter_capacity_B &&
+            size_t(out_degrees[b]) + 1 > quarter_capacity_B &&
+                    size_t(node_to_endpoint[b] - node_to_startpoint[b]) >
+                                               MIN_EDGE_SPACE_PER_NODE * 2) {
+        // Just acquired enough extra space.
+        capacity = (node_to_endpoint[b] - node_to_startpoint[b]) / 2;
+        extra_space_and_node.insert(capacity, b);
+    }
 
     return true;
 }
@@ -415,7 +441,7 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
     edge_node_to_edge[b] = e_itr->second;
     edge_node_to_edge.erase(a);
 
-    endpoint_to_node[node_to_endpoint[a]] = b;
+    endpoint_to_node[node_to_endpoint[b]] = b;
 }
 
 // Used when moving a regular node's list of edge nodes.
@@ -464,6 +490,42 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
                     std::pair<size_t,size_t>(nen_locs.first,
                                              node_to_startpoint[edge_node] + 1);
     }
+}
+
+void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
+    int new_startpoint = node_to_startpoint[edge_node_of_slot];
+
+    int old_endpoint = out_neighbors_vec.size();
+    int old_startpoint = old_endpoint - 2;
+
+    int moving_node = endpoint_to_node[old_endpoint];
+
+    out_neighbors_vec[new_startpoint] = out_neighbors_vec[old_startpoint];
+    out_neighbors_vec[new_startpoint +1] = out_neighbors_vec[old_startpoint +1];
+
+    out_neighbors_vec.pop_back();
+    out_neighbors_vec.pop_back();
+    out_degrees.pop_back();
+    node_to_startpoint.pop_back();
+    node_to_endpoint.pop_back();
+    endpoint_to_node.erase(old_endpoint);
+
+    if (directed) {
+        // One of this edge node's neighbors is itself an edge node.
+        //  Update *that* edge node's `places` info.
+        int neighbor_edge_node = out_neighbors_vec[new_startpoint + 1];
+        const std::pair<size_t, size_t> &nen_locs =
+                        edge_node_to_places[neighbor_edge_node];
+        edge_node_to_places[neighbor_edge_node] =
+                    std::pair<size_t,size_t>(nen_locs.first,
+                                             new_startpoint + 1);
+    }
+
+    relabel_edge_node(out_degrees.size(), edge_node_of_slot);
+
+    edge_node_to_places.erase(moving_node);
+    // edge_node_to_edge and edge_to_edge_node were updated by
+    //  relabel_edge_node()
 }
 
 void NTSparseGraph::move_node_to_more_space(const int a) {

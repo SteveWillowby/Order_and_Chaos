@@ -118,13 +118,8 @@ public:
     //  Unused if graph is undirected
     // std::vector<std::unordered_set<int>> _in_neighbors;
 
-    // The following functions edit the Nauty/Traces graph representation.
-    /*
-    virtual void _add_node();
-    virtual int _delete_node(const int a);
-    virtual void _add_edge(const int a, const int b);
-    virtual void _delete_edge(const int a, const int b);
-    */
+    // The following functions and data structures manage the Nauty/Traces
+    //  graph representation.
 
     // Stores the ID of a node corresponding to edge (a, b).
     //  In a directed graph, each (undirected) edge really has two nodes. To
@@ -159,7 +154,6 @@ public:
     //  as the node receiving that space needs.
 
     // std::vector<bool> has_extra_space; -- currently unused
-    // std::vector<int> extra_space; -- currently unused.
 
     // Call lower_bound(target) to get the node with the smallest capacity that
     //  is at least as large as your target storage space.
@@ -176,6 +170,10 @@ public:
 
     int allocate_edge_node();
     void relabel_edge_node(const int a, const int b);
+
+    // Moves an edge node's out_neighbors_vec info to the back of
+    //  out_neighbors_vec, extending out_neighbors_vec to create the needed
+    //  space. Does not relabel or delete any edge nodes.
     void slide_first_edge_node_to_back();
 
     // Can be used for new nodes as well that currently have no space and no
@@ -188,6 +186,14 @@ public:
 
     // Updates out_degrees of main_node and the out_neighbors_vec
     void remove_edge_node_ref(const int main_node, const size_t ref_loc);
+
+    // Removes reference to edge_node_of_slot and puts the last edge_node of
+    //  out_neighbors_vec its place. If the last edge node of out_neighbors_vec
+    //  IS edge_node_of_slot, then this removes edge_node_of_slot.
+    //
+    // ADDITIONALLY, this function must change the ID of the edge node with the
+    //  highest ID to now have the ID of the destroyed node.
+    void slide_back_edge_node_to_slot(int edge_node_of_slot);
 };
 
 #endif
