@@ -136,8 +136,6 @@ int NTSparseGraph::add_node() {
     if (num_edge_nodes > 0) {
         // Take the edge node with label n-1 and turn it into node internal_n-1
         //  so that the regular nodes can be labeled 0 through n-1.
-        size_t edge_node_start = out_neighbors_vec.size() - (num_edge_nodes *2);
-        int edge_node = endpoint_to_node[edge_node_start + 2];
 
         out_degrees.push_back(out_degrees[n-1]);
         node_to_startpoint.push_back(node_to_startpoint[n-1]);
