@@ -133,19 +133,28 @@ int NTSparseGraph::add_node() {
 
     int new_node = SparseGraph::add_node();
 
-    out_degrees.push_back(0);
-    node_to_startpoint.push_back(0);
-    node_to_endpoint.push_back(0);
-
     if (num_edge_nodes > 0) {
-        relabel_edge_node(n - 1, out_degrees.size() - 1);
+        size_t edge_node_start = out_neighbors_vec.size() - (num_edge_nodes *2);
+        int edge_node = endpoint_to_node[edge_node_start + 2];
+
+        out_degrees.push_back(out_degrees[edge_node]);
+        node_to_startpoint.push_back(node_to_startpoint[edge_node]);
+        node_to_endpoint.push_back(node_to_endpoint[edge_node]);
+
+        relabel_edge_node(edge_node, out_degrees.size() - 1);
+
+        out_degrees[n - 1] = 0;
+        node_to_startpoint[n - 1] = 0;
+        node_to_endpoint[n - 1] = 0;
+    } else {
+        out_degrees.push_back(0);
+        node_to_startpoint.push_back(0);
+        node_to_endpoint.push_back(0);
     }
 
-    out_degrees[n - 1] = 0;
-    node_to_startpoint[n - 1] = 0;  // TODO: verify these are valid
-    node_to_endpoint[n - 1] = 0;
-
     move_node_to_more_space(new_node);
+
+    internal_n++;
 
     return new_node;
 }
@@ -276,8 +285,8 @@ int NTSparseGraph::allocate_edge_node() {
     return new_label;
 }
 
-// Given space allocated for an edge node at slot b, move a's edge info to that
-//  slot, relabeling things as necessary.
+// Change the edge node's label. REQUIRES that node_to_startpoint and
+//  node_to_endpoint have already been updated for node b to point to node a.
 void NTSparseGraph::relabel_edge_node(const int a, const int b) {
 
     const std::pair<size_t, size_t> locations =
@@ -286,11 +295,6 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
     // Update out_neighbors_vec
     out_neighbors_vec[locations.first] = b;
     out_neighbors_vec[locations.second] = b;
-
-    out_neighbors_vec[node_to_startpoint[b]] =
-        out_neighbors_vec[node_to_startpoint[a]];
-    out_neighbors_vec[node_to_startpoint[b] + 1] =
-        out_neighbors_vec[node_to_startpoint[a] + 1];
 
     // Update edge_node_to_places
     edge_node_to_places.erase(a);
@@ -303,7 +307,7 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
     edge_node_to_edge[b] = e_itr->second;
     edge_node_to_edge.erase(a);
 
-    // Do not need to update out_degrees since all edge nodes have degree 2.
+    endpoint_to_node[node_to_endpoint[a]] = b;
 }
 
 // Used when moving a regular node's list of edge nodes.
@@ -330,13 +334,17 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
     size_t edge_node_start = out_neighbors_vec.size() - (num_edge_nodes * 2);
 
     edge_node_start += 2; // Now the endpoint of the first edge node
-    int edge_node = endpoint_to_node.find(edge_node_start)->second;
+    int edge_node = endpoint_to_node[edge_node_start];
     endpoint_to_node.erase(edge_node_start);
 
     out_neighbors_vec.push_back(
                     out_neighbors_vec[node_to_startpoint[edge_node]]);
     out_neighbors_vec.push_back(
                     out_neighbors_vec[node_to_startpoint[edge_node] + 1]);
+
+    node_to_endpoint[edge_node] = out_neighbors_vec.size();
+    node_to_startpoint[edge_node] = out_neighbors_vec.size() - 2;
+    endpoint_to_node[out_neighbors_vec.size()] = edge_node;
 
     if (directed) {
         // One of this edge node's neighbors is itself an edge node.
@@ -349,10 +357,6 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
                     std::pair<size_t,size_t>(nen_locs.first,
                                              node_to_startpoint[edge_node] + 1);
     }
-
-    node_to_endpoint[edge_node] = out_neighbors_vec.size();
-    node_to_startpoint[edge_node] = out_neighbors_vec.size() - 2;
-    endpoint_to_node[out_neighbors_vec.size()] = edge_node;
 }
 
 void NTSparseGraph::move_node_to_more_space(const int a) {
@@ -384,6 +388,7 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
         // Update startpoint and endpoint
         node_to_startpoint[a] = edge_node_start;
         node_to_endpoint[a] = edge_node_start + required_capacity;
+
     } else {
         // Space is available. Use it.
 

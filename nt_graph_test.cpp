@@ -8,7 +8,8 @@ std::vector<int> cleaned_out_N_vec(const NTSparseGraph &g) {
     std::vector<int> result = std::vector<int>(g.out_neighbors_vec.size(), 0);
 
     for (int i = 0; i < int(g.internal_n); i++) {
-        for (int j = g.node_to_startpoint[i]; j < g.node_to_endpoint[i]; j++) {
+        for (int j = g.node_to_startpoint[i];
+                    j < g.node_to_startpoint[i] + g.out_degrees[i]; j++) {
             result[j] = g.out_neighbors_vec[j];
         }
     }
@@ -33,9 +34,9 @@ std::string nt_graph_as_string(const NTSparseGraph &g) {
     std::sort(startpoints.begin(), startpoints.end());
     std::sort(endpoints.begin(), endpoints.end());
 
-    std::cout<<"Startpoints: "<<vec_as_string(startpoints)<<std::endl;
-    std::cout<<"Endpoints: "<<vec_as_string(endpoints)<<std::endl;
-    std::cout<<"Vec Size: "<<g.out_neighbors_vec.size()<<std::endl;
+    // std::cout<<"Startpoints: "<<vec_as_string(startpoints)<<std::endl;
+    // std::cout<<"Endpoints: "<<vec_as_string(endpoints)<<std::endl;
+    // std::cout<<"Vec Size: "<<g.out_neighbors_vec.size()<<std::endl;
 
     for (size_t idx = 0; idx < startpoints.size(); idx++) {
         auto node_itr = g.endpoint_to_node.find(endpoints[idx]);
@@ -71,11 +72,11 @@ int main(void) {
     g1.add_edge(0, 2);
     std::cout<<(g1.out_neighbors_vec == std::vector<int>({3,6,0,0, 4,0,0,0, 5,0,0,0, 0,4, 1,3, 2,6, 0,5}))<<std::endl;
     g1.add_node();
-    std::vector<int> expected = std::vector<int>({7,6,0,0, 8,0,0,0, 5,0,0,0, 0,0,0,0, 2,6, 0,5, 0,8, 1,7});
+    std::vector<int> expected = std::vector<int>({7,6,0,0, 4,0,0,0, 5,0,0,0, 0,0,0,0, 2,6, 0,5, 0,4, 1,7});
     std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    std::cout<<vec_as_string(expected)<<std::endl;
-    std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
-    std::cout<<nt_graph_as_string(g1)<<std::endl;
+    // std::cout<<vec_as_string(expected)<<std::endl;
+    // std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
+    // std::cout<<nt_graph_as_string(g1)<<std::endl;
 
     return 0;
 
