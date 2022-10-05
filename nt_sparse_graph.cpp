@@ -146,15 +146,16 @@ int NTSparseGraph::add_node() {
         //  * edge_to_edge_node
         //  * edge_node_to_edge
         //  * edge_node_to_places
+        //  * out_neighbors_vec
         relabel_edge_node(n - 1, out_degrees.size() - 1);
 
         out_degrees[n - 1] = 0;
-        node_to_startpoint[n - 1] = 0;
-        node_to_endpoint[n - 1] = 0;
+        node_to_startpoint[n - 1] = -1;  // placeholder values - uninitialized
+        node_to_endpoint[n - 1] = -1;  // placeholder values - uninitialized
     } else {
         out_degrees.push_back(0);
-        node_to_startpoint.push_back(0);
-        node_to_endpoint.push_back(0);
+        node_to_startpoint.push_back(-1);  // placeholder values - uninitialized
+        node_to_endpoint.push_back(-1);  // placeholder values - uninitialized
     }
 
     move_node_to_more_space(new_node);
