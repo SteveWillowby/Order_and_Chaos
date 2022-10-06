@@ -147,9 +147,13 @@ public:
 
     // A node is defined to have extra space when the following are all met:
     //  * (endpoint - startpoint) >= 2 * MIN_EDGE_SPACE_PER_NODE
-    //  * out_degree <= (endpoint - startpoint) / 4
+    //  * (out_degree * 4) <= (endpoint - startpoint)
     //
-    // We always give FLOOR(half the space) to the node that needs space.
+    // NOTE: requiring that out_degree <= (endpoint - startpoint) / 4 IS NOT THE
+    //  SAME AS requiring that (out_degree * 4) <= (endpoint - startpoint) due
+    //  to integer math. We choose the latter for computational efficiency.
+    //
+    // We always give FLOOR(half the space) to the node that needs new space.
     //  Further, we require that the new space have at least twice as much space
     //  as the node receiving that space needs.
 

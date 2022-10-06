@@ -265,24 +265,22 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
     out_degrees[b]++;
 
     // Update extra_space_and_node
-    size_t quarter_capacity_A = (node_to_endpoint[a]-node_to_startpoint[a]) / 4;
-    size_t quarter_capacity_B = (node_to_endpoint[b]-node_to_startpoint[b]) / 4;
-    size_t capacity;
-    if (size_t(out_degrees[a]) > quarter_capacity_A &&
-            size_t(out_degrees[a]) - 1 <= quarter_capacity_A &&
-                    size_t(node_to_endpoint[a] - node_to_startpoint[a]) >
-                                               MIN_EDGE_SPACE_PER_NODE * 2) {
+    size_t capacity_A = node_to_endpoint[a] - node_to_startpoint[a];
+    size_t capacity_B = node_to_endpoint[b] - node_to_startpoint[b];
+    size_t extra_capacity;
+    if (size_t(out_degrees[a]) * 4 > capacity_A &&
+            size_t(out_degrees[a] - 1) * 4 <= capacity_A &&
+                size_t(capacity_A) >= MIN_EDGE_SPACE_PER_NODE * 2) {
         // Used to have space but no longer does.
-        capacity = (node_to_endpoint[a] - node_to_startpoint[a]) / 2;
-        extra_space_and_node.erase(capacity, a);
+        extra_capacity = capacity_A / 2;
+        extra_space_and_node.erase(extra_capacity, a);
     }
-    if (size_t(out_degrees[b]) > quarter_capacity_B &&
-            size_t(out_degrees[b]) - 1 <= quarter_capacity_B &&
-                    size_t(node_to_endpoint[b] - node_to_startpoint[b]) >
-                                               MIN_EDGE_SPACE_PER_NODE * 2) {
+    if (size_t(out_degrees[b]) * 4 > capacity_B &&
+            size_t(out_degrees[b] - 1) * 4 <= capacity_B &&
+                size_t(capacity_B) >= MIN_EDGE_SPACE_PER_NODE * 2) {
         // Used to have space but no longer does.
-        capacity = (node_to_endpoint[b] - node_to_startpoint[b]) / 2;
-        extra_space_and_node.erase(capacity, b);
+        extra_capacity = capacity_B / 2;
+        extra_space_and_node.erase(extra_capacity, b);
     }
 
     return true;
@@ -377,7 +375,7 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
     size_t capacity;
     if (size_t(out_degrees[a]) <= quarter_capacity_A &&
             size_t(out_degrees[a]) + 1 > quarter_capacity_A &&
-                    size_t(node_to_endpoint[a] - node_to_startpoint[a]) >
+                    size_t(node_to_endpoint[a] - node_to_startpoint[a]) >=
                                                MIN_EDGE_SPACE_PER_NODE * 2) {
         // Just acquired enough extra space.
         capacity = (node_to_endpoint[a] - node_to_startpoint[a]) / 2;
@@ -385,7 +383,7 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
     }
     if (size_t(out_degrees[b]) <= quarter_capacity_B &&
             size_t(out_degrees[b]) + 1 > quarter_capacity_B &&
-                    size_t(node_to_endpoint[b] - node_to_startpoint[b]) >
+                    size_t(node_to_endpoint[b] - node_to_startpoint[b]) >=
                                                MIN_EDGE_SPACE_PER_NODE * 2) {
         // Just acquired enough extra space.
         capacity = (node_to_endpoint[b] - node_to_startpoint[b]) / 2;
