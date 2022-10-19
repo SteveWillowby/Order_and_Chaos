@@ -109,10 +109,136 @@ int main(void) {
         {0,0,0,0, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 7,14,10,11,0,0,0,0, 0,12, 4,11, 0,8, 1,7, 2,14, 0,13, 3,10, 0,9});
     std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
 
+    g1.delete_edge(1, 0); // The edge does not exist - expect unchanged vector.
+    expected = std::vector<int>(
+// Nodes 6        1        2         3        4         5        0                   11    12    7    8    13    14    9     10
+        {0,0,0,0, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 7,14,10,11,0,0,0,0, 0,12, 4,11, 0,8, 1,7, 2,14, 0,13, 3,10, 0,9});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.delete_edge(0, 1);
+    expected = std::vector<int>(
+// Nodes 6        1        2        3        4         5        0                  11    12    10   9     8    7
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 11,7,10,0,0,0,0,0, 0,12, 4,11, 0,9, 3,10, 2,7, 0,8});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    /*
+    // A check to ensure that a node isn't added into empty space too soon.
+    //  This check does not fit within the main test sequence thread --
+    //  hence the return 0;
+    g1.add_node();
+    expected = std::vector<int>(
+// Nodes 6        1        2        3        4         5        0                   7        10   9     8     13   11    12
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 11,13,10,0,0,0,0,0, 0,0,0,0, 0,9, 3,10, 2,13, 0,8, 0,12, 4,11});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+    return 0;
+    */
+
+    g1.delete_edge(0, 4);
+    expected = std::vector<int>(
+// Nodes 6        1        2        3        4        5        0                 7    8    10   9
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 0,0,0,0, 0,0,0,0, 10,7,0,0,0,0,0,0, 0,8, 2,7, 0,9, 3,10});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.add_node();
+    expected = std::vector<int>(
+// Nodes 6        1        2        3        4        5        0          7        11   8     10   9
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 0,0,0,0, 0,0,0,0, 10,11,0,0, 0,0,0,0, 0,8, 2,11, 0,9, 3,10});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.add_edge(2, 7);
+    expected = std::vector<int>(
+// Nodes 6        1        2         3        4        5        0          7         11   8     10   9     12    13
+        {0,0,0,0, 0,0,0,0, 8,12,0,0, 9,0,0,0, 0,0,0,0, 0,0,0,0, 10,11,0,0, 13,0,0,0, 0,8, 2,11, 0,9, 3,10, 2,13, 7,12});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.delete_edge(2, 7);
+    expected = std::vector<int>(
+// Nodes 6        1        2        3        4        5        0          7        11   8     10   9
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 0,0,0,0, 0,0,0,0, 10,11,0,0, 0,0,0,0, 0,8, 2,11, 0,9, 3,10});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.delete_edge(3, 0);
+    expected = std::vector<int>(
+// Nodes 6        1        2        3        4        5        0        7        9    8
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 9,0,0,0, 0,0,0,0, 0,8, 2,9});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.add_edge(3, 0);
+    expected = std::vector<int>(
+// Nodes 6        1        2        3         4        5        0         7        9    8    10    11
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 0,0,0,0, 0,0,0,0, 9,11,0,0, 0,0,0,0, 0,8, 2,9, 3,11, 0,10});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.add_edge(0, 7);
+    expected = std::vector<int>(
+// Nodes 6        1        2        3         4        5        0          7         9    8    10    11    12    13
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 0,0,0,0, 0,0,0,0, 9,11,12,0, 13,0,0,0, 0,8, 2,9, 3,11, 0,10, 0,13, 7,12});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.add_edge(5, 0);
+    expected = std::vector<int>(
+// Nodes 6        1        2        3         4        5         0           7         9    8    10    11    12    13    14    15
+        {0,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 0,0,0,0, 14,0,0,0, 9,11,12,15, 13,0,0,0, 0,8, 2,9, 3,11, 0,10, 0,13, 7,12, 5,15, 0,14});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.add_edge(6, 0);
+    expected = std::vector<int>(
+// Nodes 6         1        2        3         4        5                 7         0                   
+        {16,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 0,0,0,0, 14,0,0,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
+
+//ENodes 12    13    14    15    9    8    10    11    16    17
+         0,13, 7,12, 5,15, 0,14, 0,8, 2,9, 3,11, 0,10, 6,17, 0,16});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    /*
+    //  This check does not fit within the main test sequence thread --
+    //  hence the return 0;
+    g1.add_node();
+    expected = std::vector<int>(
+// Nodes 6         1        2         3         4        5         8        7         0                   
+        {16,0,0,0, 0,0,0,0, 18,0,0,0, 10,0,0,0, 0,0,0,0, 14,0,0,0, 0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
+
+//ENodes 12    13    14    15    9     18   10    11    16    17
+         0,13, 7,12, 5,15, 0,14, 0,18, 2,9, 3,11, 0,10, 6,17, 0,16});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+    return 0;
+    */
+
+    g1.add_edge(5, 4);
+    expected = std::vector<int>(
+// Nodes 6         1        2        3         4         5                  7         0                   
+        {16,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 19,0,0,0, 14,18,0,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
+
+//ENodes 12    13    14    15    9    8    10    11    16    17    18    19
+         0,13, 7,12, 5,15, 0,14, 0,8, 2,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.add_edge(5, 3);
+    expected = std::vector<int>(
+// Nodes 6         1        2        3          4         5                   7         0                   
+        {16,0,0,0, 0,0,0,0, 8,0,0,0, 10,21,0,0, 19,0,0,0, 14,18,20,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
+
+//ENodes 12    13    14    15    9    8    10    11    16    17    18    19    20    21
+         0,13, 7,12, 5,15, 0,14, 0,8, 2,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18, 5,21, 3,20});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    /*
+    //  This check does not fit within the main test sequence thread --
+    //  hence the return 0;
+    g1.add_node();
+    expected = std::vector<int>(
+// Nodes 6         1        2         3          4         5                   7         0                    8
+        {16,0,0,0, 0,0,0,0, 22,0,0,0, 10,21,0,0, 19,0,0,0, 14,18,20,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0, 0,0,0,0,
+
+//ENodes 14    15    9     22   10    11    16    17    18    19    20    21    12    13
+         5,15, 0,14, 0,22, 2,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18, 5,21, 3,20, 0,13, 7,12});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+    return 0;
+    */
+
     std::cout<<vec_as_string(expected)<<std::endl;
     std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
     std::cout<<std::endl<<std::endl;
-
     std::cout<<nt_graph_as_string(g1)<<std::endl;
 
     return 0;

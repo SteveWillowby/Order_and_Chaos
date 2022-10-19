@@ -321,8 +321,6 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         edge_node_to_edge.erase(edge_node_A);
         edge_node_to_edge.erase(edge_node_B);
 
-        std::cout<<"Checkpoint A"<<std::endl;
-
         // Update out_neighbors_vec
         //  First do the regular nodes area
         const std::pair<size_t, size_t> &locations_A =
@@ -337,15 +335,11 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         edge_node_to_places.erase(edge_node_A);
         edge_node_to_places.erase(edge_node_B);
 
-        std::cout<<"Checkpoint B -- "<<edge_node_A<<" -- "<<edge_node_B<<std::endl;
-
         //  Second, update the edge nodes area.
         //    Move the last edge node(s)' data into the slots of the deleted
         //      edge node(s).
         slide_back_edge_node_to_slot(edge_node_A);
-        std::cout<<"Checkpoint C -- "<<edge_node_A<<std::endl;
         slide_back_edge_node_to_slot(edge_node_B);
-        std::cout<<"Checkpoint D -- "<<edge_node_B<<std::endl;
 
         internal_n -= 2;
         num_edge_nodes -= 2;
@@ -377,7 +371,6 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         num_edge_nodes--;
     }
 
-    std::cout<<"Hi Again."<<std::endl;
 
     // Update extra_space_and_node
     size_t capacity_A = node_to_endpoint[a] - node_to_startpoint[a];
@@ -429,8 +422,20 @@ int NTSparseGraph::allocate_edge_node() {
 //  node_to_endpoint have already been updated for node b to point to node a.
 void NTSparseGraph::relabel_edge_node(const int a, const int b) {
 
-    const std::pair<size_t, size_t> locations =
-                edge_node_to_places.find(a)->second;
+    const auto &locations_itr = edge_node_to_places.find(a);
+    if (locations_itr == edge_node_to_places.end()) {
+        // We are also in the process of deleting node b, so there's not much
+        //  we should do in relabeling node a. 
+        endpoint_to_node[node_to_endpoint[b]] = b;
+        return;
+    }
+    const std::pair<size_t, size_t> locations = locations_itr->second;
+    /*
+    std::cout<<"The locations for node "<<a<<" are thought to be "<<locations.first<<" and ";
+    std::cout<<locations.second<<". At those places we find the values ";
+    std::cout<<out_neighbors_vec[locations.first]<<" and "<<out_neighbors_vec[locations.second]<<"."<<std::endl;
+    std::cout<<"Node "<<b<<" will now be listed as having those locations: ";
+    */
 
     // Update out_neighbors_vec
     out_neighbors_vec[locations.first] = b;
@@ -439,6 +444,8 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
     // Update edge_node_to_places
     edge_node_to_places.erase(a);
     edge_node_to_places[b] = locations;
+
+    // std::cout<<edge_node_to_places[b].first<<" "<<edge_node_to_places[b].second<<std::endl;
 
     // Update edge_to_edge_node and edge_node_to_edge:
     auto e_itr = edge_node_to_edge.find(a);
@@ -510,8 +517,9 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
     int largest_node_startpoint = node_to_startpoint[largest_node];
     int largest_node_endpoint = largest_node_startpoint + 2;
 
-    std::cout<<"Old. vs. New startpoint: "<<old_startpoint<<" "<<new_startpoint<<std::endl;
-    std::cout<<moving_node<<" moves to "<<edge_node_of_slot<<"'s space."<<std::endl;
+    // TODO: remove
+    // std::cout<<"Old. vs. New startpoint: "<<old_startpoint<<" "<<new_startpoint<<std::endl;
+    // std::cout<<"###"<<moving_node<<" moves to "<<edge_node_of_slot<<"'s space."<<std::endl;
 
     out_neighbors_vec[new_startpoint] = out_neighbors_vec[old_startpoint];
     out_neighbors_vec[new_startpoint +1] = out_neighbors_vec[old_startpoint +1];
@@ -527,10 +535,12 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
     node_to_endpoint.pop_back();
     endpoint_to_node.erase(old_endpoint);
 
-    if (directed) {
+    int neighbor_edge_node = out_neighbors_vec[new_startpoint + 1];
+    if (directed && neighbor_edge_node != edge_node_of_slot &&
+                    moving_node != edge_node_of_slot) {
         // One of this edge node's neighbors is itself an edge node.
+        // Further, we are not removing that edge node.
         //  Update *that* edge node's `places` info.
-        int neighbor_edge_node = out_neighbors_vec[new_startpoint + 1];
         const std::pair<size_t, size_t> &nen_locs =
                         edge_node_to_places[neighbor_edge_node];
         edge_node_to_places[neighbor_edge_node] =
@@ -539,17 +549,19 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
     }
 
     // Only relabel if edge_node_of_slot is less than the new largest node.
-    if (size_t(edge_node_of_slot) < out_degrees.size()) {
+    if (edge_node_of_slot < largest_node) {
         node_to_startpoint[edge_node_of_slot] = largest_node_startpoint;
         node_to_endpoint[edge_node_of_slot] = largest_node_endpoint;
 
-        relabel_edge_node(out_degrees.size(), edge_node_of_slot);
-    } else if (size_t(edge_node_of_slot) != out_degrees.size()) {
+        // std::cout<<"Entering the gloom. Relabeling "<<largest_node<<" as "<<edge_node_of_slot<<std::endl;
+        relabel_edge_node(largest_node, edge_node_of_slot);
+    } else if (edge_node_of_slot > largest_node + 1) {
         // TODO: Remove this check and line.
         std::cout<<"Logic Error! size_t(edge_node_of_slot) != out_degrees.size())"<<std::endl;
     }
 
-    edge_node_to_places.erase(out_degrees.size());
+    edge_node_to_places.erase(largest_node);
+
     // edge_node_to_edge and edge_to_edge_node were updated by
     //  relabel_edge_node()
 }
@@ -643,6 +655,7 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
 
     // Give the old space to another node, if there was space.
     if (old_endpoint > old_startpoint) {
+
         extra_space_and_node.erase(old_endpoint - old_startpoint, a);
 
         if (old_startpoint == 0) {
@@ -652,7 +665,10 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
         } else {
             // Note that the node could have been moved to the slot immediately
             //  to its left, such that "left node" is the same as node a.
-            int left_node = endpoint_to_node[old_endpoint];
+            int left_node = endpoint_to_node[old_startpoint];
+            endpoint_to_node.erase(old_startpoint);
+            endpoint_to_node[old_endpoint] = left_node;
+            node_to_endpoint[left_node] = old_endpoint;
 
             // Patch in space.
             size_t ln_deg = out_degrees[left_node];
