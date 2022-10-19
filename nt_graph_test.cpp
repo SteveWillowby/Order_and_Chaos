@@ -1,5 +1,6 @@
 #include<algorithm>
 #include<iostream>
+#include<random>
 
 #include "sparse_graph.h"
 #include "nt_sparse_graph.h"
@@ -55,12 +56,11 @@ std::string nt_graph_as_string(const NTSparseGraph &g) {
     return s;
 }
 
-int main(void) {
+void trace_test_1() {
 
     std::cout<<"All Printed Numbers Should be 1 Unless the Line Specifies Otherwise."<<std::endl<<std::endl;
 
-    const bool directed = true;
-    NTSparseGraph g1 = NTSparseGraph(directed);
+    NTSparseGraph g1 = NTSparseGraph(true);
 
     g1.add_node();
     g1.add_node();
@@ -255,10 +255,77 @@ int main(void) {
          0,13, 7,12, 5,15, 0,14, 3,8, 5,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18});
     std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
 
-    std::cout<<vec_as_string(expected)<<std::endl;
-    std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
-    std::cout<<std::endl<<std::endl;
-    std::cout<<nt_graph_as_string(g1)<<std::endl;
+    // std::cout<<vec_as_string(expected)<<std::endl;
+    // std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
+    // std::cout<<std::endl<<std::endl;
+    // std::cout<<nt_graph_as_string(g1)<<std::endl;
+
+}
+
+void rand_test(float add_node_prob, float add_edge_prob, float delete_edge_prob,
+               const bool directed, int iterations) {
+
+    const int initial_n = 10;
+
+    // Normalize to sum to 1.
+    float prob_sum = add_node_prob + add_edge_prob + delete_edge_prob;
+    add_node_prob = add_node_prob / prob_sum;
+    add_edge_prob = add_edge_prob / prob_sum;
+    delete_edge_prob = delete_edge_prob / prob_sum;
+
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_real_distribution<> dist(0.0, 1.0);
+
+    NTSparseGraph g = NTSparseGraph(directed, initial_n);
+
+    int a, b;
+    float p;
+    bool done;
+
+    for (int i = 0; i < iterations; i++) {
+        p = dist(gen);
+        if (p < add_node_prob) {
+            // Add node.
+
+            g.add_node();
+        } else if (p < add_node_prob + add_edge_prob) {
+            // Add edge.
+
+            if (g.num_nodes() * (g.num_nodes() - 1) == 
+                    g.num_edges() * (1 + int(!directed)))
+                // Edges are already maxed out.
+                continue;
+            }
+
+            done = false;
+            while (!done) {
+                a = dist(gen) * g.num_nodes();
+                if (a == g.num_nodes()) {
+                    a = a - 1;  // This should never happen, but if it does it's not a problem.
+                }
+                b = dist(gen) * g.num_nodes();
+                if (b == g.num_nodes()) {
+                    b = b - 1;  // This should never happen, but if it does it's not a problem.
+                }
+                if (g.out_neighbors(a).find(b) == g.out_neighbors(a).end()) {
+                    done = true;
+                }
+            }
+
+            g.add_edge(a, b);
+
+        } else {
+            // Delete edge.
+        }
+    }
+}
+
+int main(void) {
+
+    trace_test_1();
+
+    const bool directed = true;
 
     return 0;
 
