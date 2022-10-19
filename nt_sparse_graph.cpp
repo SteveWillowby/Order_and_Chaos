@@ -517,7 +517,7 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
     int largest_node_startpoint = node_to_startpoint[largest_node];
     int largest_node_endpoint = largest_node_startpoint + 2;
 
-    // TODO: remove
+    // TODO: remove ALL print statements
     // std::cout<<"Old. vs. New startpoint: "<<old_startpoint<<" "<<new_startpoint<<std::endl;
     // std::cout<<"###"<<moving_node<<" moves to "<<edge_node_of_slot<<"'s space."<<std::endl;
 
@@ -550,8 +550,10 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
 
     // Only relabel if edge_node_of_slot is less than the new largest node.
     if (edge_node_of_slot < largest_node) {
-        node_to_startpoint[edge_node_of_slot] = largest_node_startpoint;
-        node_to_endpoint[edge_node_of_slot] = largest_node_endpoint;
+        if (moving_node != largest_node) {
+            node_to_startpoint[edge_node_of_slot] = largest_node_startpoint;
+            node_to_endpoint[edge_node_of_slot] = largest_node_endpoint;
+        }
 
         // std::cout<<"Entering the gloom. Relabeling "<<largest_node<<" as "<<edge_node_of_slot<<std::endl;
         relabel_edge_node(largest_node, edge_node_of_slot);

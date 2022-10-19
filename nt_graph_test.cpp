@@ -236,6 +236,25 @@ int main(void) {
     return 0;
     */
 
+    // Both edges (2, 0) and (0, 2) are currently present.
+    g1.delete_edge(2, 0);
+    expected = std::vector<int>(
+// Nodes 6         1        2        3          4         5                   7         0                   
+        {16,0,0,0, 0,0,0,0, 8,0,0,0, 10,21,0,0, 19,0,0,0, 14,18,20,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
+
+//ENodes 12    13    14    15    9    8    10    11    16    17    18    19    20    21
+         0,13, 7,12, 5,15, 0,14, 0,8, 2,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18, 5,21, 3,20});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    g1.delete_edge(0, 2);
+    expected = std::vector<int>(
+// Nodes 6         1        2        3         4         5                  7         0                   
+        {16,0,0,0, 0,0,0,0, 0,0,0,0, 10,9,0,0, 19,0,0,0, 14,18,8,0,0,0,0,0, 13,0,0,0, 17,11,12,15,0,0,0,0,
+
+//ENodes 12    13    14    15    9    8    10    11    16    17    18    19
+         0,13, 7,12, 5,15, 0,14, 3,8, 5,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
     std::cout<<vec_as_string(expected)<<std::endl;
     std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
     std::cout<<std::endl<<std::endl;
