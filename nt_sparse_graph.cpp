@@ -8,6 +8,8 @@
 #include<utility>
 #include<vector>
 
+// TODO: Remove
+#include<iostream>
 
 NTSparseGraph::NTSparseGraph(const bool directed) : NTSparseGraph(directed,1) {}
 
@@ -319,6 +321,8 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         edge_node_to_edge.erase(edge_node_A);
         edge_node_to_edge.erase(edge_node_B);
 
+        std::cout<<"Checkpoint A"<<std::endl;
+
         // Update out_neighbors_vec
         //  First do the regular nodes area
         const std::pair<size_t, size_t> &locations_A =
@@ -333,11 +337,15 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         edge_node_to_places.erase(edge_node_A);
         edge_node_to_places.erase(edge_node_B);
 
+        std::cout<<"Checkpoint B -- "<<edge_node_A<<" -- "<<edge_node_B<<std::endl;
+
         //  Second, update the edge nodes area.
         //    Move the last edge node(s)' data into the slots of the deleted
         //      edge node(s).
         slide_back_edge_node_to_slot(edge_node_A);
+        std::cout<<"Checkpoint C -- "<<edge_node_A<<std::endl;
         slide_back_edge_node_to_slot(edge_node_B);
+        std::cout<<"Checkpoint D -- "<<edge_node_B<<std::endl;
 
         internal_n -= 2;
         num_edge_nodes -= 2;
@@ -368,6 +376,8 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         internal_n--;
         num_edge_nodes--;
     }
+
+    std::cout<<"Hi Again."<<std::endl;
 
     // Update extra_space_and_node
     size_t capacity_A = node_to_endpoint[a] - node_to_startpoint[a];
@@ -496,8 +506,19 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
 
     int moving_node = endpoint_to_node[old_endpoint];
 
+    int largest_node = out_degrees.size() - 1;
+    int largest_node_startpoint = node_to_startpoint[largest_node];
+    int largest_node_endpoint = largest_node_startpoint + 2;
+
+    std::cout<<"Old. vs. New startpoint: "<<old_startpoint<<" "<<new_startpoint<<std::endl;
+    std::cout<<moving_node<<" moves to "<<edge_node_of_slot<<"'s space."<<std::endl;
+
     out_neighbors_vec[new_startpoint] = out_neighbors_vec[old_startpoint];
     out_neighbors_vec[new_startpoint +1] = out_neighbors_vec[old_startpoint +1];
+
+    endpoint_to_node[new_startpoint + 2] = moving_node;
+    node_to_endpoint[moving_node] = new_startpoint + 2;
+    node_to_startpoint[moving_node] = new_startpoint;
 
     out_neighbors_vec.pop_back();
     out_neighbors_vec.pop_back();
@@ -517,9 +538,18 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
                                              new_startpoint + 1);
     }
 
-    relabel_edge_node(out_degrees.size(), edge_node_of_slot);
+    // Only relabel if edge_node_of_slot is less than the new largest node.
+    if (size_t(edge_node_of_slot) < out_degrees.size()) {
+        node_to_startpoint[edge_node_of_slot] = largest_node_startpoint;
+        node_to_endpoint[edge_node_of_slot] = largest_node_endpoint;
 
-    edge_node_to_places.erase(moving_node);
+        relabel_edge_node(out_degrees.size(), edge_node_of_slot);
+    } else if (size_t(edge_node_of_slot) != out_degrees.size()) {
+        // TODO: Remove this check and line.
+        std::cout<<"Logic Error! size_t(edge_node_of_slot) != out_degrees.size())"<<std::endl;
+    }
+
+    edge_node_to_places.erase(out_degrees.size());
     // edge_node_to_edge and edge_to_edge_node were updated by
     //  relabel_edge_node()
 }

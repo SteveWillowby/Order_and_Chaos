@@ -100,9 +100,20 @@ int main(void) {
 // Nodes 6        1        2         3        4         5         0                    11    12    7    8    13    16    9     10   14    15
         {0,0,0,0, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 14,0,0,0, 7,16,10,11,15,0,0,0, 0,12, 4,11, 0,8, 1,7, 2,16, 0,13, 3,10, 0,9, 5,15, 0,14});
     std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    // std::cout<<vec_as_string(expected)<<std::endl;
-    // std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
-    // std::cout<<nt_graph_as_string(g1)<<std::endl;
+
+    // Now testing edge deletion.
+
+    g1.delete_edge(5, 0);
+    expected = std::vector<int>(
+// Nodes 6        1        2         3        4         5        0                   11    12    7    8    13    14    9     10
+        {0,0,0,0, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 7,14,10,11,0,0,0,0, 0,12, 4,11, 0,8, 1,7, 2,14, 0,13, 3,10, 0,9});
+    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
+
+    std::cout<<vec_as_string(expected)<<std::endl;
+    std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
+    std::cout<<std::endl<<std::endl;
+
+    std::cout<<nt_graph_as_string(g1)<<std::endl;
 
     return 0;
 
