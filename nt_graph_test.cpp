@@ -23,7 +23,9 @@ bool consistency_check(const NTSparseGraph &g) {
         return false;
     }
     if (g.endpoint_to_node.size() != g.internal_n) {
-        std::cout<<"g.endpoint_to_node.size() != g.internal_n"<<std::endl;
+        std::cout<<"g.endpoint_to_node.size() != g.internal_n"
+                 <<" ("<<g.endpoint_to_node.size()<<" vs. "
+                 <<g.internal_n<<")"<<std::endl;
         return false;
     }
     if (g.edge_node_to_edge.size() != g.num_edge_nodes) {
@@ -35,7 +37,9 @@ bool consistency_check(const NTSparseGraph &g) {
         return false;
     }
     if (g.edge_node_to_places.size() != g.num_edge_nodes) {
-        std::cout<<"g.edge_node_to_places.size() != g.num_edge_nodes"<<std::endl;
+        std::cout<<"g.edge_node_to_places.size() != g.num_edge_nodes"
+                 <<" ("<<g.edge_node_to_places.size()<<" vs. "
+                 <<g.num_edge_nodes<<")"<<std::endl;
         return false;
     }
 
@@ -124,6 +128,79 @@ bool consistency_check(const NTSparseGraph &g) {
         if (node_result->second != int(i)) {
             std::cout<<"g.edge_to_edge_node[g.edge_node_to_edge["<<i<<"]] != "
                      <<i<<std::endl;
+            return false;
+        }
+    }
+
+    // Check that every spot recorded as having extra space in fact has the
+    //  amount recorded.
+    std::vector<std::pair<const size_t&, const int&>> extra_space =
+                                            g.extra_space_and_node.all_pairs();
+    for (auto itr = extra_space.begin(); itr != extra_space.end(); itr++) {
+        size_t size = itr->first;
+        int node = itr->second;
+
+        if (node == -1) {
+            if (g.endpoint_to_node.find(size) != g.endpoint_to_node.end()) {
+                std::cout<<"Extra space is recoreded as having size "<<size
+                         <<" at start of vector (i.e. 'node -1') but there is "
+                         <<"an endpoint recorded at point "<<size<<" recorded "
+                         <<"as being for node "
+                         <<g.endpoint_to_node.find(size)->second<<std::endl;
+                return false;
+            }
+            continue;
+        }
+
+        int space = g.node_to_endpoint[node] - g.node_to_startpoint[node];
+        if (!(space >= 2 * int(g.MIN_EDGE_SPACE_PER_NODE) &&
+                space >= 4 * g.out_degrees[node])) {
+            std::cout<<"Node "<<node<<" is recorded as having extra space "
+                     <<"when in fact it does not."<<std::endl;
+            return false;
+        } else if (space / 2 != int(size)) {
+            std::cout<<"Node "<<node<<" is recorded as having "<<size
+                     <<" extra slots when in fact it has "<<space/2<<std::endl;
+            return false;
+        }
+    }
+
+    // Check that every node which has extra space is recorded as having it.
+    for (int node = 0; node < int(g.num_nodes()); node++) {
+        int space = g.node_to_endpoint[node] - g.node_to_startpoint[node];
+        if (space >= 2 * int(g.MIN_EDGE_SPACE_PER_NODE) &&
+                space >= 4 * g.out_degrees[node]) {
+            int capacity = space / 2;
+            if (!g.extra_space_and_node.contains(capacity, node)) {
+                std::cout<<"Node "<<node<<" should be recorded as having "
+                         <<capacity<<" extra slots but either it's not recorded"
+                         <<" as having any slots or is recorded as having the "
+                         <<"the wrong capacity."<<std::endl;
+                return false;
+            }
+        }
+    }
+    std::vector<int> startpoints = std::vector<int>(g.node_to_startpoint);
+    std::sort(startpoints.begin(), startpoints.end());
+    if (startpoints[0] > 0) {
+        bool found = false;
+        for (auto itr = extra_space.begin(); itr != extra_space.end(); itr++) {
+            size_t size = itr->first;
+            int node = itr->second;
+
+            if (node == -1) {
+                found = true;
+                if (int(size) != startpoints[0]) {
+                    std::cout<<"The extra space associated with node '-1' shoul"
+                             <<"d be "<<startpoints[0]<<" but it is "<<size
+                             <<std::endl;
+                    return false;
+                }
+            }
+        }
+        if (!found) {
+            std::cout<<"There should be an extra space with node '-1' recorded"
+                     <<" but there is no such recording."<<std::endl;
             return false;
         }
     }
@@ -373,7 +450,7 @@ std::string nt_graph_as_string(const NTSparseGraph &g) {
     // std::cout<<"Endpoints: "<<vec_as_string(endpoints)<<std::endl;
     // std::cout<<"Vec Size: "<<g.out_neighbors_vec.size()<<std::endl;
 
-    for (size_t idx = 0; idx < startpoints.size(); idx++) {
+    for (size_t idx = 0; idx < endpoints.size(); idx++) {
         auto node_itr = g.endpoint_to_node.find(endpoints[idx]);
         if (node_itr == g.endpoint_to_node.end()) {
             std::cout<<"Missing endpoint info for endpoint "<<endpoints[idx]<<std::endl;
@@ -381,13 +458,31 @@ std::string nt_graph_as_string(const NTSparseGraph &g) {
         }
         int node = node_itr->second;
 
-        s += std::to_string(node) + " @ " + std::to_string(startpoints[idx]) + ": ";
-        for (int i = startpoints[idx]; i < startpoints[idx] + g.out_degrees[node]; i++) {
+        int endpoint = g.node_to_endpoint[node];
+        if (endpoint != endpoints[idx]) {
+            std::cout<<"Error in nt_graph_as_string: node_to_endpoint[endpoint_to_node[ep]] != ep"<<std::endl;
+        }
+        int startpoint = g.node_to_startpoint[node];
+        if (startpoint != startpoints[idx]) {
+            std::cout<<"Error in nt_graph_as_string: startpoint mis-match"<<std::endl;
+        }
+
+        s += std::to_string(node) + " @ " + std::to_string(startpoint) + ": ";
+        for (int i = startpoint; i < startpoint + g.out_degrees[node]; i++) {
             s += std::to_string(g.out_neighbors_vec[i]) + ", ";
         }
         s += "| ";
     }
     return s;
+}
+
+void print_graph(const NTSparseGraph &g) {
+    std::cout<<"A Graph:"<<std::endl;
+    std::cout<<"n: "<<g.num_nodes()<<"  m: "<<g.num_edges()
+             <<"  internal_n: "<<g.internal_n<<"  num_edge_nodes: "
+             <<g.num_edge_nodes<<std::endl;
+    std::cout<<vec_as_string(cleaned_out_N_vec(g))<<std::endl;
+    std::cout<<nt_graph_as_string(g)<<std::endl;
 }
 
 void trace_test_1() {
@@ -616,7 +711,8 @@ void rand_test(float add_node_prob, float delete_node_prob,
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_real_distribution<> dist(0.0, 1.0);
 
-    NTSparseGraph g = NTSparseGraph(directed, initial_n);
+    NTSparseGraph before = NTSparseGraph(directed, initial_n);
+    NTSparseGraph after = NTSparseGraph(directed, initial_n);
 
     int a, b;
     float p;
@@ -629,38 +725,48 @@ void rand_test(float add_node_prob, float delete_node_prob,
         if (p < add_node_prob) {
             // Add node.
 
-            g.add_node();
+            after.add_node();
 
-            if (!consistency_check(g)) {
+            if (!consistency_check(after)) {
                 std::cout<<"Failed after an add_node() call."<<std::endl;
-                std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
-                         <<g.num_edges()<<" edges."<<std::endl;
+                std::cout<<"Before"<<std::endl;
+                print_graph(before);
+                std::cout<<std::endl<<"After"<<std::endl;
+                print_graph(after);
                 return;
             }
+
+            before.add_node();
+
         } else if (p < add_node_prob + delete_node_prob) {
             // Delete node.
             // TODO: Remove this error message and return statement once all is implemented.
             std::cout<<"ERROR: DELETE_NODE() NOT YET IMPLEMENTED. QUITTING TEST."<<std::endl;
             return;
 
-            int node = dist(gen) * g.num_nodes();
-            if (node == int(g.num_nodes())) {
+            int node = dist(gen) * after.num_nodes();
+            if (node == int(after.num_nodes())) {
                 node--;
             }
 
-            g.delete_node(node);
+            after.delete_node(node);
 
-            if (!consistency_check(g)) {
+            if (!consistency_check(after)) {
                 std::cout<<"Failed after a delete_node() call."<<std::endl;
-                std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
-                         <<g.num_edges()<<" edges."<<std::endl;
+                std::cout<<"Before"<<std::endl;
+                print_graph(before);
+                std::cout<<std::endl<<"After"<<std::endl;
+                print_graph(after);
                 return;
             }
+
+            before.delete_node(node);
+
         } else if (p < add_node_prob + delete_node_prob + add_edge_prob) {
             // Add edge.
 
-            if (g.num_nodes() * (g.num_nodes() - 1) == 
-                    g.num_edges() * (1 + int(!directed))) {
+            if (after.num_nodes() * (after.num_nodes() - 1) == 
+                    after.num_edges() * (1 + int(!directed))) {
                 // Edges are already maxed out.
                 skipped_iterations++;
                 continue;
@@ -668,83 +774,93 @@ void rand_test(float add_node_prob, float delete_node_prob,
 
             done = false;
             while (!done) {
-                a = dist(gen) * g.num_nodes();
-                if (size_t(a) == g.num_nodes()) {
+                a = dist(gen) * after.num_nodes();
+                if (size_t(a) == after.num_nodes()) {
                     a = a - 1;  // This should never happen, but if it does it's not a problem.
                 }
-                b = dist(gen) * g.num_nodes();
-                if (size_t(b) == g.num_nodes()) {
+                b = dist(gen) * after.num_nodes();
+                if (size_t(b) == after.num_nodes()) {
                     b = b - 1;  // This should never happen, but if it does it's not a problem.
                 }
-                if (g.out_neighbors(a).find(b) == g.out_neighbors(a).end()) {
+                if (after.out_neighbors(a).find(b) == after.out_neighbors(a).end()) {
                     done = true;
                 }
             }
 
-            g.add_edge(a, b);
+            after.add_edge(a, b);
 
-            if (!consistency_check(g)) {
+            if (!consistency_check(after)) {
                 std::cout<<"Failed after an add_edge("<<a<<", "<<b<<") call."
                          <<std::endl;
-                std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
-                         <<g.num_edges()<<" edges."<<std::endl;
+                std::cout<<"Before"<<std::endl;
+                print_graph(before);
+                std::cout<<std::endl<<"After"<<std::endl;
+                print_graph(after);
                 return;
             }
+
+            before.add_edge(a, b);
+
         } else {
             // Delete edge.
 
-            if (g.num_edges() == 0) {
+            if (after.num_edges() == 0) {
                 // No edges to delete.
                 skipped_iterations++;
                 continue;
             }
 
             // Delete the j'th edge where j is randomly drawn.
-            int edge_to_delete = dist(gen) * g.num_edges();
-            if (edge_to_delete == int(g.num_edges())) {
-                edge_to_delete = g.num_edges() - 1;
+            int edge_to_delete = dist(gen) * after.num_edges();
+            if (edge_to_delete == int(after.num_edges())) {
+                edge_to_delete = after.num_edges() - 1;
             }
 
             int node_a = 0;
             int covered_edges = 0;
             while (edge_to_delete >= covered_edges +
-                                     int(g.out_neighbors(node_a).size())) {
-                covered_edges += g.out_neighbors(node_a).size();
+                                     int(after.out_neighbors(node_a).size())) {
+                covered_edges += after.out_neighbors(node_a).size();
                 node_a++;
             }
 
             int node_b;
-            if (g.has_self_loop[node_a] &&
-                    dist(gen) < (1.0 / g.out_neighbors(node_a).size())) {
+            if (after.has_self_loop[node_a] &&
+                    dist(gen) < (1.0 / after.out_neighbors(node_a).size())) {
                 node_b = node_a;
             } else {
-                if (g.has_self_loop[node_a]) {
+                if (after.has_self_loop[node_a]) {
                     covered_edges++;
                 }
 
-                auto b_itr = g.out_neighbors(node_a).begin();
+                auto b_itr = after.out_neighbors(node_a).begin();
                 for (int i = 0; i < edge_to_delete - covered_edges; i++) {
                     b_itr++;
                 }
                 node_b = *b_itr;
             }
 
-            g.delete_edge(node_a, node_b);
+            after.delete_edge(node_a, node_b);
 
-            if (!consistency_check(g)) {
-                std::cout<<"Failed after a delete_edge("<<a<<", "<<b<<") call."
+            if (!consistency_check(after)) {
+                std::cout<<"Failed after a delete_edge("<<node_a<<", "<<node_b<<") call."
                          <<std::endl;
-                std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
-                         <<g.num_edges()<<" edges."<<std::endl;
+                std::cout<<"Before"<<std::endl;
+                print_graph(before);
+                std::cout<<std::endl<<"After"<<std::endl;
+                print_graph(after);
                 return;
             }
+
+            before.delete_edge(node_a, node_b);
+
         }
     }
     std::cout<<"Finished test successfully with "<<skipped_iterations
              <<" retried iterations."<<std::endl;
 
-    std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
-             <<g.num_edges()<<" edges."<<std::endl;
+    std::cout<<"Graph had "<<after.num_nodes()<<" nodes and "
+             <<after.num_edges()<<" edges."<<std::endl;
 }
 
 int main(void) {
