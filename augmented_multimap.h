@@ -8,6 +8,7 @@
 
 
 #include<map>
+#include<vector>
 
 // Define this if you want deterministic behavior for testing purposes.
 //  When this is defined, the set of values is a set rather than an
@@ -65,6 +66,8 @@ public:
     bool contains(const K &key) const;
     bool contains(const K &key, const V& value) const;
 
+    // O(n)
+    std::vector<std::pair<const K&, const V&>> all_pairs() const;
 
 protected:
     std::map<K, augmented_multimap_values<V>> data;
@@ -167,6 +170,24 @@ template<class K, class V> bool
     const auto &key_ref = data.find(key);
     return key_ref != data.end() &&
            key_ref->second.find(value) != key_ref->second.end();
+}
+
+template<class K, class V>
+        std::vector<std::pair<const K&, const V&>>
+            AugmentedMultimap<K, V>::all_pairs() const {
+
+    std::vector<std::pair<const K&, const V&>> result = 
+                    std::vector<std::pair<const K&, const V&>>();
+
+    for (auto main_itr = data.begin(); main_itr != data.end(); main_itr++) {
+        for (auto sub_itr = main_itr->second.begin();
+                    sub_itr != main_itr->second.end(); sub_itr++) {
+            result.push_back(std::pair<const K&, const V&>(main_itr->first,
+                                                           *sub_itr));
+        }
+    }
+
+    return result;
 }
 
 #endif
