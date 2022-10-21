@@ -618,21 +618,47 @@ void rand_test(float add_node_prob, float delete_node_prob,
     float p;
     bool done;
 
-    for (int i = 0; i < iterations; i++) {
+    int skipped_iterations = 0;
+
+    for (int i = 0; i < iterations + skipped_iterations; i++) {
         p = dist(gen);
         if (p < add_node_prob) {
             // Add node.
 
             g.add_node();
+
+            if (!consistency_check(g)) {
+                std::cout<<"Failed after an add_node() call."<<std::endl;
+                std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
+                         <<g.num_edges()<<" edges."<<std::endl;
+                return;
+            }
         } else if (p < add_node_prob + delete_node_prob) {
             // Delete node.
+            // TODO: Remove this error message and return statement once all is implemented.
+            std::cout<<"ERROR: DELETE_NODE() NOT YET IMPLEMENTED. QUITTING TEST."<<std::endl;
+            return;
 
+            int node = dist(gen) * g.num_nodes();
+            if (node == int(g.num_nodes())) {
+                node--;
+            }
+
+            g.delete_node(node);
+
+            if (!consistency_check(g)) {
+                std::cout<<"Failed after a delete_node() call."<<std::endl;
+                std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
+                         <<g.num_edges()<<" edges."<<std::endl;
+                return;
+            }
         } else if (p < add_node_prob + delete_node_prob + add_edge_prob) {
             // Add edge.
 
             if (g.num_nodes() * (g.num_nodes() - 1) == 
                     g.num_edges() * (1 + int(!directed))) {
                 // Edges are already maxed out.
+                skipped_iterations++;
                 continue;
             }
 
@@ -653,15 +679,76 @@ void rand_test(float add_node_prob, float delete_node_prob,
 
             g.add_edge(a, b);
 
+            if (!consistency_check(g)) {
+                std::cout<<"Failed after an add_edge("<<a<<", "<<b<<") call."
+                         <<std::endl;
+                std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
+                         <<g.num_edges()<<" edges."<<std::endl;
+                return;
+            }
         } else {
             // Delete edge.
+
+            if (g.num_edges() == 0) {
+                // No edges to delete.
+                skipped_iterations++;
+                continue;
+            }
+
+            // Delete the j'th edge where j is randomly drawn.
+            int edge_to_delete = dist(gen) * g.num_edges();
+            if (edge_to_delete == int(g.num_edges())) {
+                edge_to_delete = g.num_edges() - 1;
+            }
+
+            int node_a = 0;
+            int covered_edges = 0;
+            while (edge_to_delete >= covered_edges +
+                                     int(g.out_neighbors(node_a).size())) {
+                covered_edges += g.out_neighbors(node_a).size();
+                node_a++;
+            }
+
+            int node_b;
+            if (g.has_self_loop[node_a] &&
+                    dist(gen) < (1.0 / g.out_neighbors(node_a).size())) {
+                node_b = node_a;
+            } else {
+                if (g.has_self_loop[node_a]) {
+                    covered_edges++;
+                }
+
+                auto b_itr = g.out_neighbors(node_a).begin();
+                for (int i = 0; i < edge_to_delete - covered_edges; i++) {
+                    b_itr++;
+                }
+                node_b = *b_itr;
+            }
+
+            g.delete_edge(node_a, node_b);
+
+            if (!consistency_check(g)) {
+                std::cout<<"Failed after a delete_edge("<<a<<", "<<b<<") call."
+                         <<std::endl;
+                std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
+                         <<g.num_edges()<<" edges."<<std::endl;
+                return;
+            }
         }
     }
+    std::cout<<"Finished test successfully with "<<skipped_iterations
+             <<" retried iterations."<<std::endl;
+
+    std::cout<<"Graph had "<<g.num_nodes()<<" nodes and "
+             <<g.num_edges()<<" edges."<<std::endl;
 }
 
 int main(void) {
 
     trace_test_1();
+    rand_test(0.01, 0.0,
+              0.59, 0.4,
+              true, 10000);
 
     const bool directed = true;
 
