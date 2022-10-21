@@ -5,6 +5,186 @@
 #include "sparse_graph.h"
 #include "nt_sparse_graph.h"
 
+bool consistency_check(const NTSparseGraph &g) {
+    if (g.out_degrees.size() != g.internal_n) {
+        std::cout<<"g.out_degrees.size() != g.internal_n"<<std::endl;
+        return false;
+    }
+    if (g.num_nodes() + g.num_edge_nodes != g.internal_n) {
+        std::cout<<"g.num_nodes() + g.num_edge_nodes != g.internal_n"<<std::endl;
+        return false;
+    }
+    if (g.node_to_startpoint.size() != g.internal_n) {
+        std::cout<<"g.node_to_startpoint.size() != g.internal_n"<<std::endl;
+        return false;
+    }
+    if (g.node_to_endpoint.size() != g.internal_n) {
+        std::cout<<"g.node_to_endpoint.size() != g.internal_n"<<std::endl;
+        return false;
+    }
+    if (g.endpoint_to_node.size() != g.internal_n) {
+        std::cout<<"g.endpoint_to_node.size() != g.internal_n"<<std::endl;
+        return false;
+    }
+    if (g.edge_node_to_edge.size() != g.num_edge_nodes) {
+        std::cout<<"g.edge_node_to_edge.size() != g.num_edge_nodes"<<std::endl;
+        return false;
+    }
+    if (g.edge_to_edge_node.size() != g.num_edge_nodes) {
+        std::cout<<"g.edge_to_edge_node.size() != g.num_edge_nodes"<<std::endl;
+        return false;
+    }
+    if (g.edge_node_to_places.size() != g.num_edge_nodes) {
+        std::cout<<"g.edge_node_to_places.size() != g.num_edge_nodes"<<std::endl;
+        return false;
+    }
+
+    // Verify that out_degrees is correct. Account for self-loops not being
+    //  referenced by g.out_degrees but in a different vector.
+    for (size_t i = 0; i < g.num_nodes(); i++) {
+        if (g.out_degrees[i] != (int(g.neighbors(i).size()) - 
+                         int(g.neighbors(i).find(i) != g.neighbors(i).end()))) {
+            std::cout<<"g.out_degrees["<<i<<"] != g.neighbors("<<i<<").size()"
+                     <<std::endl;
+            return false;
+        }
+        if (g.out_degrees[i] + g.node_to_startpoint[i] > g.node_to_endpoint[i]){
+            std::cout<<"g.out_degrees["<<i<<"] + g.node_to_startpoint["<<i
+                     <<"] > g.node_to_endpoint["<<i<<"]"<<std::endl;
+            return false;
+        }
+    }
+
+    // Verify that the space of space referenced in out_neighbors_vec is the
+    //  same as the size of out_neighbors_vec
+    size_t space_accounted_for = 0;
+    for (size_t i = 0; i < g.node_to_startpoint.size(); i++) {
+        space_accounted_for += g.node_to_endpoint[i] - g.node_to_startpoint[i];
+        if (g.node_to_endpoint[i] > int(g.out_neighbors_vec.size())) {
+            std::cout<<"g.node_to_endpoint["<<i<<"] > g.out_neighbors_vec.size()"
+                     <<std::endl;
+            return false;
+        }
+    }
+    auto all_extra_space_pairs = g.extra_space_and_node.all_pairs();
+    for (auto itr = all_extra_space_pairs.begin();
+            itr < all_extra_space_pairs.end(); itr++) {
+        space_accounted_for += itr->first;
+    }
+    if (space_accounted_for != g.out_neighbors_vec.size()) {
+        std::cout<<"space_accounted_for != g.out_neighbors_vec.size()"<<std::endl;
+        return false;
+    }
+
+    // Verify that endpoint_to_node and node_to_endpoint are consistent.
+    for (size_t i = 0; i < g.internal_n; i++) {
+        int endpoint = g.node_to_endpoint[i];
+        auto result = g.endpoint_to_node.find(endpoint);
+        if (result == g.endpoint_to_node.end()) {
+            std::cout<<"g.endpoint_to_node does not contain node "<<i
+                     <<"'s endpoint ("<<endpoint<<")."<<std::endl;
+            return false;
+        }
+        if (int(i) != result->second) {
+            std::cout<<"g.endpoint_to_node[node_to_endpoint["<<i<<"]] != "<<i
+                     <<std::endl;
+            return false;
+        }
+    }
+
+    // Verify that edge_node_to_edge and edge_to_edge_node are consistent.
+    for (size_t i = g.num_nodes(); i < g.internal_n; i++) {
+        auto edge_result = g.edge_node_to_edge.find(i);
+        if (edge_result == g.edge_node_to_edge.end()) {
+            std::cout<<"g.edge_node_to_edge missing edge node "<<i<<std::endl;
+            return false;
+        }
+        auto edge = edge_result->second;
+        auto node_result = g.edge_to_edge_node.find(edge);
+        if (node_result == g.edge_to_edge_node.end()) {
+            std::cout<<"g.edge_to_edge_node missing edge ("<<edge.first<<", "
+                     <<edge.second<<")"<<std::endl;
+            return false;
+        }
+        if (node_result->second != int(i)) {
+            std::cout<<"g.edge_to_edge_node[g.edge_node_to_edge["<<i<<"]] != "
+                     <<i<<std::endl;
+            return false;
+        }
+    }
+
+    // Verify that edge_node_to_places is correct.
+    for (size_t i = 0; i < g.internal_n; i++) {
+        for (size_t idx = g.node_to_startpoint[i];
+                int(idx) < g.node_to_startpoint[i] + g.out_degrees[i]; idx++) {
+            int node = g.out_neighbors_vec[idx];
+            if (node < 0 || (node < int(g.num_nodes()) && i < g.num_nodes())) {
+                std::cout<<"g.out_neighbors_vec["<<idx<<"] < 0 or it is"
+                         <<" < g.num_nodes() while "<<idx<<" is an idx for a regular node"
+                         <<std::endl;
+                return false;
+            }
+
+            if (node < int(g.num_nodes())) {
+                continue;
+            }
+
+            // Node is an edge node.
+            auto places_itr = g.edge_node_to_places.find(node);
+            if (places_itr == g.edge_node_to_places.end()) {
+                std::cout<<"Edge node "<<node<<" in out_neighbors_vec but not"
+                         <<" in edge_node_to_places. One or the other is wrong."
+                         <<std::endl;
+                return false;
+            }
+            if (idx != places_itr->second.first &&
+                    idx != places_itr->second.second) {
+                std::cout<<"Edge node "<<node<<" appearance at idx "<<idx
+                         <<" is not referenced in edge_node_to_places"<<std::endl;
+                return false;
+            }
+        }
+    }
+
+    // Verify that num_edge_nodes corresponds to the num of undirected edges.
+    size_t num_undirected_edges = 0;  // excludes self-loops
+    for (size_t a = 0; a < g.num_nodes(); a++) {
+        for (auto b = g.neighbors(a).begin(); b != g.neighbors(a).end(); b++) {
+            if (*b > int(a)) {
+                num_undirected_edges++;
+            }
+        }
+    }
+    if (num_undirected_edges != g.num_edge_nodes) {
+        std::cout<<"num_undirected_edges != g.num_edge_nodes"<<std::endl;
+        return false;
+    }
+
+    // TODO: Implement after has_self_loop code is created.
+    // Verify that the edges match the neighbor sets.
+    if (g.directed) {
+        // Directed
+        
+    }
+    else {
+        // Undirected
+    }
+
+    /*
+    if () {
+        std::cout<<""<<std::endl;
+        return false;
+    }
+    if () {
+        std::cout<<""<<std::endl;
+        return false;
+    }
+    */
+
+    // All tests are passed. Graph is fully consistent.
+    return true;
+}
+
 std::vector<int> cleaned_out_N_vec(const NTSparseGraph &g) {
     std::vector<int> result = std::vector<int>(g.out_neighbors_vec.size(), 0);
 
@@ -260,16 +440,21 @@ void trace_test_1() {
     // std::cout<<std::endl<<std::endl;
     // std::cout<<nt_graph_as_string(g1)<<std::endl;
 
+    consistency_check(g1);
+
 }
 
-void rand_test(float add_node_prob, float add_edge_prob, float delete_edge_prob,
+void rand_test(float add_node_prob, float delete_node_prob,
+               float add_edge_prob, float delete_edge_prob,
                const bool directed, int iterations) {
 
     const int initial_n = 10;
 
     // Normalize to sum to 1.
-    float prob_sum = add_node_prob + add_edge_prob + delete_edge_prob;
+    float prob_sum = add_node_prob + delete_node_prob +
+                     add_edge_prob + delete_edge_prob;
     add_node_prob = add_node_prob / prob_sum;
+    delete_node_prob = delete_node_prob / prob_sum;
     add_edge_prob = add_edge_prob / prob_sum;
     delete_edge_prob = delete_edge_prob / prob_sum;
 
@@ -289,11 +474,14 @@ void rand_test(float add_node_prob, float add_edge_prob, float delete_edge_prob,
             // Add node.
 
             g.add_node();
-        } else if (p < add_node_prob + add_edge_prob) {
+        } else if (p < add_node_prob + delete_node_prob) {
+            // Delete node.
+
+        } else if (p < add_node_prob + delete_node_prob + add_edge_prob) {
             // Add edge.
 
             if (g.num_nodes() * (g.num_nodes() - 1) == 
-                    g.num_edges() * (1 + int(!directed)))
+                    g.num_edges() * (1 + int(!directed))) {
                 // Edges are already maxed out.
                 continue;
             }
@@ -301,11 +489,11 @@ void rand_test(float add_node_prob, float add_edge_prob, float delete_edge_prob,
             done = false;
             while (!done) {
                 a = dist(gen) * g.num_nodes();
-                if (a == g.num_nodes()) {
+                if (size_t(a) == g.num_nodes()) {
                     a = a - 1;  // This should never happen, but if it does it's not a problem.
                 }
                 b = dist(gen) * g.num_nodes();
-                if (b == g.num_nodes()) {
+                if (size_t(b) == g.num_nodes()) {
                     b = b - 1;  // This should never happen, but if it does it's not a problem.
                 }
                 if (g.out_neighbors(a).find(b) == g.out_neighbors(a).end()) {
