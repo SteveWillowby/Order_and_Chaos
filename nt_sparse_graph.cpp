@@ -679,12 +679,18 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
     // Give the old space to another node, if there was space.
     if (old_endpoint > old_startpoint) {
 
-        extra_space_and_node.erase(old_endpoint - old_startpoint, a);
+        // extra_space_and_node.erase(old_endpoint - old_startpoint, a);
 
         if (old_startpoint == 0) {
             // There was no left node. Add the old slot to extra capacity as
             //  node "-1".
-            extra_space_and_node.insert(old_endpoint - old_startpoint, -1);
+            extra_space_and_node.insert(old_endpoint, -1);
+
+            endpoint_to_node.erase(old_endpoint);  // No longer refers to a node
+        } else if (extra_space_and_node.contains(old_startpoint, -1)) {
+            // There was no left node AND there was empty space to the left.
+            extra_space_and_node.erase(old_startpoint, -1);
+            extra_space_and_node.insert(old_endpoint, -1);
 
             endpoint_to_node.erase(old_endpoint);  // No longer refers to a node
         } else {
