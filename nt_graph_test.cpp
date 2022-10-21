@@ -80,10 +80,14 @@ bool consistency_check(const NTSparseGraph &g) {
     auto all_extra_space_pairs = g.extra_space_and_node.all_pairs();
     for (auto itr = all_extra_space_pairs.begin();
             itr < all_extra_space_pairs.end(); itr++) {
-        space_accounted_for += itr->first;
+        if (itr->second == -1) {
+            space_accounted_for += itr->first;
+        }
     }
     if (space_accounted_for != g.out_neighbors_vec.size()) {
-        std::cout<<"space_accounted_for != g.out_neighbors_vec.size()"<<std::endl;
+        std::cout<<"space_accounted_for != g.out_neighbors_vec.size() "
+                 <<space_accounted_for<<" vs "<<g.out_neighbors_vec.size()
+                 <<std::endl;
         return false;
     }
 
@@ -744,6 +748,10 @@ void rand_test(float add_node_prob, float delete_node_prob,
 }
 
 int main(void) {
+
+    // TODO: investigate
+    // g.node_to_endpoint[11] > g.out_neighbors_vec.size()
+    // came after a delete_edge call when there were 1 or 2 edges left.
 
     trace_test_1();
     rand_test(0.01, 0.0,
