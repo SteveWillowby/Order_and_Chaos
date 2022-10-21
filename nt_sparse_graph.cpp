@@ -313,7 +313,7 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         return true;
     }
 
-    if (deleted && directed &&
+    if (directed &&
             _out_neighbors[b].find(a) != _out_neighbors[b].end()) {
         // The edge was deleted _but_ we need the same edge nodes for the
         //  reverse edge.
@@ -350,8 +350,17 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         //  Second, update the edge nodes area.
         //    Move the last edge node(s)' data into the slots of the deleted
         //      edge node(s).
-        slide_back_edge_node_to_slot(edge_node_A);
-        slide_back_edge_node_to_slot(edge_node_B);
+        //
+        //  Make sure to move the larger edge node first so as to avoid the case
+        //  where by moving one edge node you relabel the other one (bec. the
+        //  other was the largest).
+        if (edge_node_A > edge_node_B) {
+            slide_back_edge_node_to_slot(edge_node_A);
+            slide_back_edge_node_to_slot(edge_node_B);
+        } else {
+            slide_back_edge_node_to_slot(edge_node_B);
+            slide_back_edge_node_to_slot(edge_node_A);
+        }
 
         internal_n -= 2;
         num_edge_nodes -= 2;
@@ -676,6 +685,8 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
             // There was no left node. Add the old slot to extra capacity as
             //  node "-1".
             extra_space_and_node.insert(old_endpoint - old_startpoint, -1);
+
+            endpoint_to_node.erase(old_endpoint);  // No longer refers to a node
         } else {
             // Note that the node could have been moved to the slot immediately
             //  to its left, such that "left node" is the same as node a.
