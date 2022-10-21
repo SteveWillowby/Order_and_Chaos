@@ -133,7 +133,6 @@ public:
     std::vector<int> node_to_startpoint;
     std::vector<int> node_to_endpoint;
 
-    // TODO: implement
     std::vector<bool> has_self_loop;
 
     // Gives the two places in out_neighbors_vec where the internal node is

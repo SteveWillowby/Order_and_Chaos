@@ -20,6 +20,7 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
     num_edge_nodes = 0;
 
     out_degrees = std::vector<int>(n, 0);
+    has_self_loop = std::vector<bool>(n, false);
 
     // Begin with MIN_EDGE_SPACE_PER_NODE edge slots per node.
     node_to_startpoint = std::vector<int>();
@@ -135,6 +136,8 @@ int NTSparseGraph::add_node() {
 
     int new_node = SparseGraph::add_node();
 
+    has_self_loop.push_back(false);
+
     if (num_edge_nodes > 0) {
         // Take the edge node with label n-1 and turn it into node internal_n-1
         //  so that the regular nodes can be labeled 0 through n-1.
@@ -167,9 +170,18 @@ int NTSparseGraph::add_node() {
     return new_node;
 }
 
-// O()
+// O(N(a) + N(n - 1))
+//
+//  The runtime stems from the fact that a's edges have to be deleted and
+//   node n-1's edges have to be relabeled to now refer to "a".
 int NTSparseGraph::delete_node(const int a) {
     int replacement_node = SparseGraph::delete_node(a);
+
+    bool actually_replaced = replacement_node != int(has_self_loop.size() - 1);
+    if (actually_replaced) {
+        has_self_loop[a] = has_self_loop[replacement_node];
+    }
+    has_self_loop.pop_back();
 
     return replacement_node;
 }
@@ -182,7 +194,7 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
     }
 
     if (a == b) {
-        // TODO: Add specialized code for self-loops.
+        has_self_loop[a] = true;
         return true;
     }
 
@@ -297,7 +309,7 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
     }
 
     if (a == b) {
-        // TODO: Add specialized code for self-loops.
+        has_self_loop[a] = false;
         return true;
     }
 
