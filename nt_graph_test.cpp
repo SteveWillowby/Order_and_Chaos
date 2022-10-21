@@ -39,13 +39,24 @@ bool consistency_check(const NTSparseGraph &g) {
         return false;
     }
 
+    // Verify that has_self_loop is correct.
+    for (size_t i = 0; i < g.num_nodes(); i++) {
+        if (g.has_self_loop[i] !=
+                (g.neighbors(i).find(i) != g.neighbors(i).end())) {
+            std::cout<<"g.has_self_loop[i] != (g.neighbors(i).find(i)"
+                     <<" != g.neighbors(i).end())"<<std::endl;
+            return false;
+        }
+    }
+    
+
     // Verify that out_degrees is correct. Account for self-loops not being
     //  referenced by g.out_degrees but in a different vector.
     for (size_t i = 0; i < g.num_nodes(); i++) {
-        if (g.out_degrees[i] != (int(g.neighbors(i).size()) - 
-                         int(g.neighbors(i).find(i) != g.neighbors(i).end()))) {
-            std::cout<<"g.out_degrees["<<i<<"] != g.neighbors("<<i<<").size()"
-                     <<std::endl;
+        if (g.out_degrees[i] + int(g.has_self_loop[i]) !=
+                int(g.neighbors(i).size())) {
+            std::cout<<"g.out_degrees["<<i<<"] + int(g.has_self_loop["<<i
+                     <<"]) != g.neighbors("<<i<<").size()"<<std::endl;
             return false;
         }
         if (g.out_degrees[i] + g.node_to_startpoint[i] > g.node_to_endpoint[i]){
@@ -114,6 +125,10 @@ bool consistency_check(const NTSparseGraph &g) {
     }
 
     // Verify that edge_node_to_places is correct.
+    //
+    // Not only does edge node e appear at the two places that
+    //  edge_node_to_places[e] references, but also those two places are within
+    //  the domain of an actual node (between startpoint & startpoint + degree).
     for (size_t i = 0; i < g.internal_n; i++) {
         for (size_t idx = g.node_to_startpoint[i];
                 int(idx) < g.node_to_startpoint[i] + g.out_degrees[i]; idx++) {
@@ -155,31 +170,166 @@ bool consistency_check(const NTSparseGraph &g) {
             }
         }
     }
-    if (num_undirected_edges != g.num_edge_nodes) {
-        std::cout<<"num_undirected_edges != g.num_edge_nodes"<<std::endl;
+    if (num_undirected_edges * (1 + int(g.directed)) != g.num_edge_nodes) {
+        std::cout<<"num_undirected_edges * (1 + int(g.directed)) != "
+                 <<"g.num_edge_nodes"<<std::endl;
         return false;
     }
 
-    // TODO: Implement after has_self_loop code is created.
+    // Verify that edge_to_edge_node contains the actual edges.
+    for (int a = 0; a < int(g.num_nodes()); a++) {
+        for (auto b = g.neighbors(a).begin(); b != g.neighbors(a).end(); b++) {
+            if (*b == a) {
+                continue;
+            }
+            if (g.edge_to_edge_node.find(EDGE(a, *b, g.directed)) ==
+                    g.edge_to_edge_node.end()) {
+                std::cout<<"g.edge_to_edge_node missing an edge"<<std::endl;
+                return false;
+            }
+        }
+    }
+
     // Verify that the edges match the neighbor sets.
     if (g.directed) {
         // Directed
-        
+        for (int a = 0; a < int(g.num_nodes()); a++) {
+            for (auto b = g.neighbors(a).begin();
+                      b != g.neighbors(a).end(); b++) {
+                if (a == *b) {
+                    // A self-loop. Accounted for elsewhere.
+                    continue;
+                }
+                if (a > *b) {
+                    // We already checked this when a < *b.
+                    continue;
+                }
+
+                auto en_A_itr = g.edge_to_edge_node.find(EDGE(a, *b, true));
+                auto en_B_itr = g.edge_to_edge_node.find(EDGE(*b, a, true));
+                int edge_node_A = en_A_itr->second; // we know it exists
+                int edge_node_B = en_B_itr->second; // we know it exists
+
+                int en_A_startpoint = g.node_to_startpoint[edge_node_A];
+                int en_B_startpoint = g.node_to_startpoint[edge_node_B];
+
+                if (g.out_neighbors_vec[en_A_startpoint] != a) {
+                    std::cout<<"g.out_neighbors_vec[node_to_startpoint["
+                             <<"edge_to_edge_node[(a, b)]]] != a"
+                             <<" (directed graph)"<<std::endl;
+                    return false;
+                }
+                if (g.out_neighbors_vec[en_B_startpoint] != *b) {
+                    std::cout<<"g.out_neighbors_vec[node_to_startpoint["
+                             <<"edge_to_edge_node[(b, a)]]] != b"
+                             <<" (directed graph)"<<std::endl;
+                    return false;
+                }
+
+                if (g.out_neighbors_vec[en_A_startpoint + 1] != edge_node_B) {
+                    std::cout<<"g.out_neighbors_vec[node_to_startpoint["
+                             <<"edge_to_edge_node[(a, b)]] + 1] != "
+                             <<"edge_to_edge_node[(b, a)] (directed graph)"
+                             <<std::endl;
+                    return false;
+                }
+                if (g.out_neighbors_vec[en_B_startpoint + 1] != edge_node_A) {
+                    std::cout<<"g.out_neighbors_vec[node_to_startpoint["
+                             <<"edge_to_edge_node[(b, a)]] + 1] != "
+                             <<"edge_to_edge_node[(a, b)] (directed graph)"
+                             <<std::endl;
+                    return false;
+                }
+
+                const auto &en_A_places =
+                    g.edge_node_to_places.find(edge_node_A)->second;
+                const auto &en_B_places =
+                    g.edge_node_to_places.find(edge_node_B)->second;
+
+                if (int(en_A_places.first) < g.node_to_startpoint[a] ||
+                        int(en_A_places.first) >= g.node_to_startpoint[a] +
+                                                  g.out_degrees[a]) {
+                    std::cout<<"The place where edge_node "<<edge_node_A
+                             <<" is referenced is not in "<<a<<"'s range."
+                             <<std::endl;
+                    return false;
+                }
+                if (int(en_B_places.first) < g.node_to_startpoint[*b] ||
+                        int(en_B_places.first) >= g.node_to_startpoint[*b] +
+                                                  g.out_degrees[*b]) {
+                    std::cout<<"The place where edge_node "<<edge_node_B
+                             <<" is referenced is not in "<<*b<<"'s range."
+                             <<std::endl;
+                    return false;
+                }
+
+                if (int(en_A_places.second) !=
+                        g.node_to_startpoint[edge_node_B] + 1) {
+                    std::cout<<"edge_node_to_places[edge_to_edge_node[(a, b)]]"
+                             <<".second != node_to_startpoint[edge_to_edge_node"
+                             <<"[(b, a)]] + 1 (directed graph)"<<std::endl;
+                    return false;
+                }
+                if (int(en_B_places.second) !=
+                        g.node_to_startpoint[edge_node_A] + 1) {
+                    std::cout<<"edge_node_to_places[edge_to_edge_node[(b, a)]]"
+                             <<".second != node_to_startpoint[edge_to_edge_node"
+                             <<"[(a, b)]] + 1 (directed graph)"<<std::endl;
+                    return false;
+                }
+            }
+        }
     }
     else {
         // Undirected
-    }
+        for (int a = 0; a < int(g.num_nodes()); a++) {
+            for (auto b = g.neighbors(a).begin();
+                      b != g.neighbors(a).end(); b++) {
+                if (a == *b) {
+                    // A self-loop. Accounted for elsewhere.
+                    continue;
+                }
+                if (a > *b) {
+                    // We already checked this when a < *b.
+                    continue;
+                }
 
-    /*
-    if () {
-        std::cout<<""<<std::endl;
-        return false;
+                auto en_itr = g.edge_to_edge_node.find(EDGE(a, *b, false));
+                int edge_node = en_itr->second; // we know it exists
+
+                int en_startpoint = g.node_to_startpoint[edge_node];
+
+                if (g.out_neighbors_vec[en_startpoint] != a) {
+                    std::cout<<"g.out_neighbors_vec[g.edge_to_edge_node[(a, b)]"
+                             <<"] != a (undirected graph)"<<std::endl;
+                    return false;
+                }
+                if (g.out_neighbors_vec[en_startpoint + 1] != *b) {
+                    std::cout<<"g.out_neighbors_vec[g.edge_to_edge_node[(a, b)]"
+                             <<" + 1] != b (undirected graph)"<<std::endl;
+                    return false;
+                }
+
+                auto &en_places = g.edge_node_to_places.find(edge_node)->second;
+                if (int(en_places.first) < g.node_to_startpoint[a] ||
+                            int(en_places.first) >= g.node_to_startpoint[a] +
+                                                    g.out_degrees[a]) {
+                    std::cout<<"g.edge_node_to_places[g.edge_to_edge_node[(a, b"
+                             <<")].first not in a's range (undirected graph)"
+                             <<std::endl;
+                    return false;
+                }
+                if (int(en_places.second) < g.node_to_startpoint[*b] ||
+                            int(en_places.second) >= g.node_to_startpoint[*b] +
+                                                     g.out_degrees[*b]) {
+                    std::cout<<"g.edge_node_to_places[g.edge_to_edge_node[(a, b"
+                             <<")].second not in b's range (undirected graph)"
+                             <<std::endl;
+                    return false;
+                }
+            }
+        }
     }
-    if () {
-        std::cout<<""<<std::endl;
-        return false;
-    }
-    */
 
     // All tests are passed. Graph is fully consistent.
     return true;
