@@ -651,9 +651,9 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
         // Update the extra capacity information.
         int capacity;
 
-        // New Node
-        //  The new node currently has zero edges.
-        if (capacity_for_new_node >= 2 * MIN_EDGE_SPACE_PER_NODE) {
+        // Moving Node
+        if (capacity_for_new_node >= 2 * MIN_EDGE_SPACE_PER_NODE &&
+                capacity_for_new_node >= 4 * size_t(out_degrees[a])) {
             capacity = capacity_for_new_node / 2;
             extra_space_and_node.insert(capacity, a);
         }
