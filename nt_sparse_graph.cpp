@@ -205,6 +205,7 @@ int NTSparseGraph::delete_node(const int a) {
         extra_space_and_node.insert(a_endpoint, -1);
     } else {
         int left_node = left_node_itr->second;
+        std::cout<<"Left node: "<<left_node<<std::endl;
 
         // Hand over the space.
         int ln_start = node_to_startpoint[left_node];
@@ -243,6 +244,7 @@ int NTSparseGraph::delete_node(const int a) {
         size_t capacity = node_to_endpoint[a] - node_to_startpoint[a];
         if (capacity >= 2 * MIN_EDGE_SPACE_PER_NODE &&
                 capacity >= 4 * size_t(out_degrees[a])) {
+            std::cout<<"SPACE!!! "<<capacity / 2<<std::endl;
             extra_space_and_node.insert(capacity / 2, a);
             extra_space_and_node.erase(capacity / 2, replacement_node);
         }
@@ -258,6 +260,8 @@ int NTSparseGraph::delete_node(const int a) {
                      edge_to_edge_node.find(EDGE(*itr, replacement_node, true));
                 int en_A = en_A_itr->second;
                 int en_B = en_B_itr->second;
+                edge_to_edge_node.erase(en_A_itr);
+                edge_to_edge_node.erase(en_B_itr);
                 edge_to_edge_node[EDGE(a, *itr, true)] = en_A;
                 edge_to_edge_node[EDGE(*itr, a, true)] = en_B;
 

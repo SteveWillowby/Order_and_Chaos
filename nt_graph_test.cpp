@@ -749,7 +749,8 @@ void rand_test(float add_node_prob, float delete_node_prob,
             after.delete_node(node);
 
             if (!consistency_check(after)) {
-                std::cout<<"Failed after a delete_node() call."<<std::endl;
+                std::cout<<"Failed after a delete_node("<<node<<") call."
+                         <<std::endl;
                 std::cout<<"Before"<<std::endl;
                 print_graph(before);
                 std::cout<<std::endl<<"After"<<std::endl;
