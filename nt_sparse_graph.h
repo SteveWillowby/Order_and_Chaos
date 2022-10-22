@@ -118,8 +118,14 @@ public:
     //  Unused if graph is undirected
     // std::vector<std::unordered_set<int>> _in_neighbors;
 
+    ////////////////////////////////////////////////////////////////////////////
     // The following functions and data structures manage the Nauty/Traces
     //  graph representation.
+    ////////////////////////////////////////////////////////////////////////////
+
+    // Called within delete_edge() and delete_node()
+    //  Handles all the Nauty/Traces edge deletion
+    void delete_edge_node_or_nodes(const int a, const int b);
 
     // Stores the ID of a node corresponding to edge (a, b).
     //  In a directed graph, each (undirected) edge really has two nodes. To

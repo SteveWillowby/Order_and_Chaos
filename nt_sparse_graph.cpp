@@ -175,17 +175,147 @@ int NTSparseGraph::add_node() {
 //  The runtime stems from the fact that a's edges have to be deleted and
 //   node n-1's edges have to be relabeled to now refer to "a".
 int NTSparseGraph::delete_node(const int a) {
+    // This info is about to be erased. Save it for now.
+    std::vector<int> neighbors = std::vector<int>(_neighbors[a].begin(),
+                                                  _neighbors[a].end());
+
     int replacement_node = SparseGraph::delete_node(a);
 
-    bool actually_replaced = replacement_node != int(has_self_loop.size() - 1);
-    if (actually_replaced) {
-        has_self_loop[a] = has_self_loop[replacement_node];
+    // Delete all edge nodes for a's edges.
+    for (auto itr = neighbors.begin(); itr < neighbors.end(); itr++) {
+        delete_edge_node_or_nodes(a, *itr);
     }
-    has_self_loop.pop_back();
 
-    // TODO: In an undirected graph, the relabeling of a node might mean that
-    //  for some edge_node_to_places pairs, the order of the two places must be
-    //  swapped if the order of the places' node ids have been swapped.
+    // Give away node a's extra space.
+    int a_startpoint = node_to_startpoint[a];
+    int a_endpoint = node_to_endpoint[a];
+    size_t slot_size = a_endpoint - a_startpoint;
+    if (slot_size >= 2 * MIN_EDGE_SPACE_PER_NODE &&
+            slot_size >= 4 * neighbors.size()) {
+        // Node a was listed as having extra capacity. Delete that.
+        extra_space_and_node.erase(slot_size / 2, a);
+    }
+
+    auto left_node_itr = endpoint_to_node.find(a_startpoint);
+    if (left_node_itr == endpoint_to_node.end()) {
+        // Left node is '-1'
+        if (a_startpoint > 0) {
+            extra_space_and_node.erase(a_startpoint, -1);
+        }
+        extra_space_and_node.insert(a_endpoint, -1);
+    } else {
+        int left_node = left_node_itr->second;
+
+        // Hand over the space.
+        int ln_start = node_to_startpoint[left_node];
+        int ln_end_old = node_to_endpoint[left_node];
+        node_to_endpoint[left_node] = a_endpoint;
+        endpoint_to_node[a_endpoint] = left_node;
+        endpoint_to_node.erase(a_startpoint);
+
+        // Perform extra capacity updates.
+        int ln_end = a_endpoint;
+        size_t old_size = ln_end_old - ln_start;
+        size_t new_size = ln_end - ln_start;
+        size_t degree = out_degrees[left_node];
+
+        if (old_size >= 2 * MIN_EDGE_SPACE_PER_NODE &&
+                old_size >= 4 * degree) {
+            extra_space_and_node.erase(old_size / 2, left_node);
+        }
+        if (new_size >= 2 * MIN_EDGE_SPACE_PER_NODE &&
+                new_size >= 4 * degree) {
+            extra_space_and_node.insert(new_size / 2, left_node);
+        }
+    }
+
+    if (replacement_node != a) {
+        // We need to relabel replacement_node to be called 'a'.
+
+        // Copy basic info.
+        has_self_loop[a] = has_self_loop[replacement_node];
+        out_degrees[a] = out_degrees[replacement_node];
+        node_to_startpoint[a] = node_to_startpoint[replacement_node];
+        node_to_endpoint[a] = node_to_endpoint[replacement_node];
+        endpoint_to_node[node_to_endpoint[a]] = a;
+
+        // If replacement node had extra space, relabel that as belonging to a.
+        size_t capacity = node_to_endpoint[a] - node_to_startpoint[a];
+        if (capacity >= 2 * MIN_EDGE_SPACE_PER_NODE &&
+                capacity >= 4 * size_t(out_degrees[a])) {
+            extra_space_and_node.insert(capacity / 2, a);
+            extra_space_and_node.erase(capacity / 2, replacement_node);
+        }
+
+        // Handle the edges.
+        if (directed) {
+            for (auto itr = _neighbors[a].begin();
+                      itr != _neighbors[a].end(); itr++) {
+
+                auto en_A_itr =
+                     edge_to_edge_node.find(EDGE(replacement_node, *itr, true));
+                auto en_B_itr =
+                     edge_to_edge_node.find(EDGE(*itr, replacement_node, true));
+                int en_A = en_A_itr->second;
+                int en_B = en_B_itr->second;
+                edge_to_edge_node[EDGE(a, *itr, true)] = en_A;
+                edge_to_edge_node[EDGE(*itr, a, true)] = en_B;
+
+                edge_node_to_edge[en_A] = EDGE(a, *itr, true);
+                edge_node_to_edge[en_B] = EDGE(*itr, a, true);
+
+                out_neighbors_vec[node_to_startpoint[en_A]] = a;
+            }
+        } else {
+            // In an undirected graph, the relabeling of a node might mean that
+            //  for some edge_node_to_places pairs, the order of the two places
+            //  must be swapped if the order of the places' node ids have been
+            //  swapped.
+            for (auto itr = _neighbors[a].begin();
+                      itr != _neighbors[a].end(); itr++) {
+                int min_node = (a < *itr ? a : *itr);
+                int max_node = (a < *itr ? *itr : a);
+
+                auto en_itr =
+                     edge_to_edge_node.find(EDGE(replacement_node, *itr,false));
+                int edge_node = en_itr->second;
+                edge_to_edge_node.erase(en_itr);
+                edge_to_edge_node[EDGE(a, *itr, false)] = edge_node;
+
+                edge_node_to_edge[edge_node] = EDGE(a, *itr, false);
+
+                out_neighbors_vec[node_to_startpoint[edge_node]] = min_node;
+                out_neighbors_vec[node_to_startpoint[edge_node] + 1] = max_node;
+
+                if ((a < *itr) != (replacement_node < *itr)) {
+                    // The order of the node IDs swapped. Swap them in
+                    //  edge_node_to_places.
+                    const auto &locs = edge_node_to_places[edge_node];
+                    edge_node_to_places[edge_node] =
+                        std::pair<size_t, size_t>(locs.second, locs.first);
+                }
+            }
+        }
+    }
+
+    // Lastly, now that we have relabeled replacement_node to 'a', we should
+    //  relabel the largest edge node (if one exists) to 'replacement_node'.
+        
+    internal_n--;
+
+    //  Relabel the largest edge node to replacement_node.
+    if (num_edge_nodes > 0) {
+        node_to_startpoint[replacement_node] = node_to_startpoint[internal_n];
+        node_to_endpoint[replacement_node] = node_to_endpoint[internal_n];
+        out_degrees[replacement_node] = 2;
+        relabel_edge_node(internal_n, replacement_node);
+    }
+
+    // Delete surplus vector info.
+    out_degrees.pop_back();
+    node_to_startpoint.pop_back();
+    node_to_endpoint.pop_back();
+    has_self_loop.pop_back();
 
     return replacement_node;
 }
@@ -314,16 +444,22 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         return false;
     }
 
-    if (a == b) {
-        has_self_loop[a] = false;
-        return true;
-    }
-
     if (directed &&
             _out_neighbors[b].find(a) != _out_neighbors[b].end()) {
         // The edge was deleted _but_ we need the same edge nodes for the
         //  reverse edge.
         return true;
+    }
+
+    delete_edge_node_or_nodes(a, b);
+
+    return true;
+}
+
+void NTSparseGraph::delete_edge_node_or_nodes(const int a, const int b) {
+    if (a == b) {
+        has_self_loop[a] = false;
+        return;
     }
 
     if (directed) {
@@ -417,8 +553,6 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
         extra_capacity = capacity_B / 2;
         extra_space_and_node.insert(extra_capacity, b);
     }
-
-    return true;
 }
 
 void NTSparseGraph::flip_edge(const int a, const int b) {

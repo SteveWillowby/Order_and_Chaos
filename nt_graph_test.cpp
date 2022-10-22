@@ -740,9 +740,6 @@ void rand_test(float add_node_prob, float delete_node_prob,
 
         } else if (p < add_node_prob + delete_node_prob) {
             // Delete node.
-            // TODO: Remove this error message and return statement once all is implemented.
-            std::cout<<"ERROR: DELETE_NODE() NOT YET IMPLEMENTED. QUITTING TEST."<<std::endl;
-            return;
 
             int node = dist(gen) * after.num_nodes();
             if (node == int(after.num_nodes())) {
@@ -871,9 +868,17 @@ int main(void) {
 
     // trace_test_1(); -- currently outdated
 
-    rand_test(0.01, 0.0,
-              0.59, 0.4,
+    rand_test(0.02, 0.01,
+              0.57, 0.4,
+              true, 5000);
+
+    rand_test(0.02, 0.0,
+              0.46, 0.52,
               false, 5000);
+
+    rand_test(0.005, 0.0,
+              0.695, 0.3,
+              false, 2000);
 
     const bool directed = true;
 
