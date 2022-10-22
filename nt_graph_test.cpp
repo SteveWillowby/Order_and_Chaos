@@ -861,18 +861,19 @@ void rand_test(float add_node_prob, float delete_node_prob,
 
     std::cout<<"Graph had "<<after.num_nodes()<<" nodes and "
              <<after.num_edges()<<" edges."<<std::endl;
+    std::cout<<"That's "<<float(after.num_edges() * 100) /
+                    ((after.num_nodes() * (after.num_nodes() - 1)) /
+                                                (1 + int(!after.directed)))
+             <<" percent of all possible edges on that many nodes."<<std::endl;
 }
 
 int main(void) {
 
-    // TODO: investigate
-    // g.node_to_endpoint[11] > g.out_neighbors_vec.size()
-    // came after a delete_edge call when there were 1 or 2 edges left.
+    // trace_test_1(); -- currently outdated
 
-    trace_test_1();
     rand_test(0.01, 0.0,
               0.59, 0.4,
-              true, 10000);
+              true, 5000);
 
     const bool directed = true;
 
