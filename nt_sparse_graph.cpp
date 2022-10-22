@@ -183,6 +183,10 @@ int NTSparseGraph::delete_node(const int a) {
     }
     has_self_loop.pop_back();
 
+    // TODO: In an undirected graph, the relabeling of a node might mean that
+    //  for some edge_node_to_places pairs, the order of the two places must be
+    //  swapped if the order of the places' node ids have been swapped.
+
     return replacement_node;
 }
 
@@ -268,9 +272,11 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         edge_to_edge_node[EDGE(a, b, directed)] = edge_node;
         edge_node_to_edge[edge_node] = EDGE(a, b, directed);
 
-        edge_node_to_places[edge_node] =
-            std::pair<size_t, size_t>(node_to_startpoint[a] + out_degrees[a],
-                                      node_to_startpoint[b] + out_degrees[b]);
+        int min_node = (a < b ? a : b);
+        int max_node = (a < b ? b : a);
+        edge_node_to_places[edge_node] = std::pair<size_t, size_t>(
+                    node_to_startpoint[min_node] + out_degrees[min_node],
+                    node_to_startpoint[max_node] + out_degrees[max_node]);
 
         endpoint_to_node[node_to_endpoint[edge_node]] = edge_node;
     }

@@ -396,16 +396,16 @@ bool consistency_check(const NTSparseGraph &g) {
                             int(en_places.first) >= g.node_to_startpoint[a] +
                                                     g.out_degrees[a]) {
                     std::cout<<"g.edge_node_to_places[g.edge_to_edge_node[(a, b"
-                             <<")].first not in a's range (undirected graph)"
-                             <<std::endl;
+                             <<")]].first not in a's range (undirected graph)"
+                             <<" | value: "<<en_places.first<<std::endl;
                     return false;
                 }
                 if (int(en_places.second) < g.node_to_startpoint[*b] ||
                             int(en_places.second) >= g.node_to_startpoint[*b] +
                                                      g.out_degrees[*b]) {
                     std::cout<<"g.edge_node_to_places[g.edge_to_edge_node[(a, b"
-                             <<")].second not in b's range (undirected graph)"
-                             <<std::endl;
+                             <<")]].second not in b's range (undirected graph)"
+                             <<" | value: "<<en_places.second<<std::endl;
                     return false;
                 }
             }
@@ -873,7 +873,7 @@ int main(void) {
 
     rand_test(0.01, 0.0,
               0.59, 0.4,
-              true, 5000);
+              false, 5000);
 
     const bool directed = true;
 
