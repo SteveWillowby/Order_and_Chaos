@@ -6,6 +6,85 @@
 #include "nt_sparse_graph.h"
 
 bool consistency_check(const NTSparseGraph &g) {
+    // First, check the SparseGraph code for consistency.
+    size_t num_edges_found = 0;
+    size_t num_nodes = g.num_nodes();
+    if (g.directed) {
+        for (int i = 0; i < int(num_nodes); i++) {
+            num_edges_found += g.out_neighbors(i).size();
+        }
+        if (num_edges_found != g.num_edges()) {
+            std::cout<<"SUM of out_neighbors() sizes != g.num_edges()"
+                     <<num_edges_found<<" vs. "<<g.num_edges()<<std::endl;
+            return false;
+        }
+    } else {
+        size_t num_self_loops = 0;
+        for (int i = 0; i < int(num_nodes); i++) {
+            num_edges_found += g.neighbors(i).size();
+            if (g.neighbors(i).find(i) != g.neighbors(i).end()) {
+                num_self_loops++;
+            }
+        }
+        if (num_edges_found !=
+                ((g.num_edges() - num_self_loops) * 2 + num_self_loops)) {
+            std::cout<<"SUM of neighbors() sizes != g.num_edges()"<<std::endl;
+            return false;
+        }
+    }
+
+    if (g.directed) {
+        for (int i = 0; i < int(num_nodes); i++) {
+            for (auto itr = g.out_neighbors(i).begin();
+                      itr != g.out_neighbors(i).end(); itr++) {
+                if (g.neighbors(i).find(*itr) == g.neighbors(i).end()) {
+                    std::cout<<*itr<<" is in "<<i<<"'s out_neighbors but not in"
+                             <<i<<"'s neighbors"<<std::endl;
+                    return false;
+                }
+                if (g.in_neighbors(*itr).find(i) == g.in_neighbors(*itr).end()){
+                    std::cout<<*itr<<" is in "<<i<<"'s out_neighbors but "<<i
+                             <<"is not in "<<*itr<<"'s in_neighbors"<<std::endl;
+                    return false;
+                }
+            }
+            for (auto itr = g.in_neighbors(i).begin();
+                      itr != g.in_neighbors(i).end(); itr++) {
+                if (g.neighbors(i).find(*itr) == g.neighbors(i).end()) {
+                    std::cout<<*itr<<" is in "<<i<<"'s in_neighbors but not in"
+                             <<i<<"'s neighbors"<<std::endl;
+                    return false;
+                }
+                if (g.out_neighbors(*itr).find(i) ==
+                            g.out_neighbors(*itr).end()) {
+                    std::cout<<*itr<<" is in "<<i<<"'s in_neighbors but "<<i
+                             <<"isn't in "<<*itr<<"'s out_neighbors"<<std::endl;
+                    return false;
+                }
+            }
+            for (auto itr = g.neighbors(i).begin();
+                      itr != g.neighbors(i).end(); itr++) {
+                if (g.out_neighbors(i).find(*itr) == g.out_neighbors(i).end() &&
+                      g.in_neighbors(i).find(*itr) == g.in_neighbors(i).end()) {
+                    std::cout<<*itr<<" is in "<<i<<"'s neighbors but not in "<<i
+                             <<"'s in_ or out_neighbors."<<std::endl;
+                    return false;
+                }
+            }
+        }
+    } else {
+        for (int i = 0; i < int(num_nodes); i++) {
+            for (auto itr = g.neighbors(i).begin();
+                      itr != g.neighbors(i).end(); itr++) {
+                if (g.neighbors(*itr).find(i) == g.neighbors(*itr).end()) {
+                    std::cout<<*itr<<" is in "<<i<<"'s neighbors but "<<i<<"is "
+                             <<"not in "<<*itr<<"'s neighbors"<<std::endl;
+                    return false;
+                }
+            }
+        }
+    }
+
     if (g.out_degrees.size() != g.internal_n) {
         std::cout<<"g.out_degrees.size() != g.internal_n"<<std::endl;
         return false;
@@ -716,7 +795,6 @@ void rand_test(float add_node_prob, float delete_node_prob,
 
     int a, b;
     float p;
-    bool done;
 
     int skipped_iterations = 0;
 
@@ -755,6 +833,10 @@ void rand_test(float add_node_prob, float delete_node_prob,
                 print_graph(before);
                 std::cout<<std::endl<<"After"<<std::endl;
                 print_graph(after);
+                std::cout<<"NOTE: In the before graph, node "<<node<<" did "
+                         <<(before.neighbors(node).find(node) ==
+                            before.neighbors(node).end() ? "not " : "")
+                         <<"have a self-loop."<<std::endl;
                 return;
             }
 
@@ -763,25 +845,63 @@ void rand_test(float add_node_prob, float delete_node_prob,
         } else if (p < add_node_prob + delete_node_prob + add_edge_prob) {
             // Add edge.
 
-            if (after.num_nodes() * (after.num_nodes() - 1) == 
-                    after.num_edges() * (1 + int(!directed))) {
+            size_t n = after.num_nodes();
+            size_t max_num_edges = n + ((n * (n - 1)) / (1 + int(!directed)));
+
+            if (after.num_edges() == max_num_edges) {
                 // Edges are already maxed out.
                 skipped_iterations++;
                 continue;
             }
 
-            done = false;
-            while (!done) {
-                a = dist(gen) * after.num_nodes();
-                if (size_t(a) == after.num_nodes()) {
-                    a = a - 1;  // This should never happen, but if it does it's not a problem.
+            if (after.num_edges() >= max_num_edges / sqrt(after.num_nodes())) {
+                // Add the j'th possible edge where j is random.
+                // O(n)
+                size_t num_could_be_added = max_num_edges - after.num_edges();
+                int edge_to_add = dist(gen) * num_could_be_added;
+                if (edge_to_add == int(num_could_be_added)) {
+                    edge_to_add--;
                 }
-                b = dist(gen) * after.num_nodes();
-                if (size_t(b) == after.num_nodes()) {
-                    b = b - 1;  // This should never happen, but if it does it's not a problem.
+
+                a = 0;
+                int covered_edges = 0;
+                while (edge_to_add >= covered_edges +
+                        int(after.num_nodes() - after.out_neighbors(a).size())) {
+                    covered_edges += after.num_nodes() -
+                                     after.out_neighbors(a).size();
+                    a++;
+                    if (a == int(after.num_nodes())) {
+                        std::cout<<"Uh-oh a... "<<edge_to_add<<" vs. "<<covered_edges<<" vs. "<<num_could_be_added<<std::endl;
+                    }
                 }
-                if (after.out_neighbors(a).find(b) == after.out_neighbors(a).end()) {
-                    done = true;
+                b = 0;
+                for (; b < int(after.num_nodes()); b++) {
+                    if (after.out_neighbors(a).find(b) == 
+                               after.out_neighbors(a).end()) {
+                        if (covered_edges == edge_to_add) {
+                            break;
+                        }
+                        covered_edges++;
+                    }
+                }
+                if (b == int(after.num_nodes())) {
+                    std::cout<<"Uh-oh..."<<std::endl;
+                }
+            } else {
+                // Add a randomly selected possible edge.
+                bool done = false;
+                while (!done) {
+                    a = dist(gen) * after.num_nodes();
+                    if (size_t(a) == after.num_nodes()) {
+                        a = a - 1;  // This should never happen, but if it does it's not a problem.
+                    }
+                    b = dist(gen) * after.num_nodes();
+                    if (size_t(b) == after.num_nodes()) {
+                        b = b - 1;  // This should never happen, but if it does it's not a problem.
+                    }
+                    if (after.out_neighbors(a).find(b) == after.out_neighbors(a).end()) {
+                        done = true;
+                    }
                 }
             }
 
@@ -860,8 +980,8 @@ void rand_test(float add_node_prob, float delete_node_prob,
     std::cout<<"Graph had "<<after.num_nodes()<<" nodes and "
              <<after.num_edges()<<" edges."<<std::endl;
     std::cout<<"That's "<<float(after.num_edges() * 100) /
-                    ((after.num_nodes() * (after.num_nodes() - 1)) /
-                                                (1 + int(!after.directed)))
+           (after.num_nodes() + ((after.num_nodes() * (after.num_nodes() - 1)) /
+                                                (1 + int(!after.directed))))
              <<" percent of all possible edges on that many nodes."<<std::endl;
 }
 
@@ -869,22 +989,23 @@ int main(void) {
 
     // trace_test_1(); -- currently outdated
 
+    const bool directed = false;
+
     rand_test(0.02, 0.01,
               0.57, 0.4,
-              true, 5000);
+              directed, 6000);
 
     rand_test(0.02, 0.0,
               0.46, 0.52,
-              false, 5000);
+              directed, 6000);
 
     rand_test(0.005, 0.0,
               0.695, 0.3,
-              false, 2000);
-
-    const bool directed = true;
+              directed, 6000);
 
     return 0;
 
+    /*
     NTSparseGraph g2 = NTSparseGraph(directed);
 
     std::cout<<(g2.num_nodes() == 1)<<std::endl;
@@ -896,12 +1017,10 @@ int main(void) {
     std::cout<<(g2.neighbors(1) == std::unordered_set<int>({0, 2}))<<std::endl;
     g2.add_node();
     g2.add_edge(2, 3);
-    std::cout<<(g2.delete_node(1) == 3)<<std::endl; // TODO: delete_node unimplemented
+    std::cout<<(g2.delete_node(1) == 3)<<std::endl;
     std::cout<<(g2.neighbors(0) == std::unordered_set<int>())<<std::endl;
     std::cout<<(g2.neighbors(1) == std::unordered_set<int>({2}))<<std::endl;
     std::cout<<(g2.neighbors(2) == std::unordered_set<int>({1}))<<std::endl;
-
-    std::cout<<"Hola"<<std::endl;
 
     if (directed) {
         std::cout<<(g2.out_neighbors(0) == std::unordered_set<int>())<<std::endl;
@@ -919,11 +1038,7 @@ int main(void) {
         std::cout<<(g2.in_neighbors(2) == std::unordered_set<int>({1}))<<std::endl;
     }
 
-    std::cout<<"Como Estas"<<std::endl;
-
     g2.flip_edge(1, 0);
-
-    std::cout<<"Muy Bien"<<std::endl;
 
     g2.flip_edge(2, 2);
 
@@ -992,6 +1107,7 @@ int main(void) {
     std::cout<<"The next thing you should see is a generic error message."<<std::endl;
     #endif
     g4.add_edge(0, 3);
+    */
 
     return 0;
 };
