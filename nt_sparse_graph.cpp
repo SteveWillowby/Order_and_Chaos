@@ -8,9 +8,6 @@
 #include<utility>
 #include<vector>
 
-// TODO: Remove
-#include<iostream>
-
 NTSparseGraph::NTSparseGraph(const bool directed) : NTSparseGraph(directed,1) {}
 
 NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
@@ -190,8 +187,9 @@ int NTSparseGraph::delete_node(const int a) {
     int a_startpoint = node_to_startpoint[a];
     int a_endpoint = node_to_endpoint[a];
     size_t slot_size = a_endpoint - a_startpoint;
-    if (slot_size >= 2 * MIN_EDGE_SPACE_PER_NODE &&
-            slot_size >= 4 * neighbors.size()) {
+    // All of a's neighbors got deleted in the loop above. Thus we know that
+    //  slot_size >= 4 * out_degree, so we only need the MIN_... condition.
+    if (slot_size >= 2 * MIN_EDGE_SPACE_PER_NODE) {
         // Node a was listed as having extra capacity. Delete that.
         extra_space_and_node.erase(slot_size / 2, a);
     }
@@ -203,9 +201,9 @@ int NTSparseGraph::delete_node(const int a) {
             extra_space_and_node.erase(a_startpoint, -1);
         }
         extra_space_and_node.insert(a_endpoint, -1);
+        endpoint_to_node.erase(a_endpoint);
     } else {
         int left_node = left_node_itr->second;
-        std::cout<<"Left node: "<<left_node<<std::endl;
 
         // Hand over the space.
         int ln_start = node_to_startpoint[left_node];
@@ -244,7 +242,6 @@ int NTSparseGraph::delete_node(const int a) {
         size_t capacity = node_to_endpoint[a] - node_to_startpoint[a];
         if (capacity >= 2 * MIN_EDGE_SPACE_PER_NODE &&
                 capacity >= 4 * size_t(out_degrees[a])) {
-            std::cout<<"SPACE!!! "<<capacity / 2<<std::endl;
             extra_space_and_node.insert(capacity / 2, a);
             extra_space_and_node.erase(capacity / 2, replacement_node);
         }
@@ -253,6 +250,14 @@ int NTSparseGraph::delete_node(const int a) {
         if (directed) {
             for (auto itr = _neighbors[a].begin();
                       itr != _neighbors[a].end(); itr++) {
+
+                if (*itr == a) {
+                    // A self-loop. Has no edge nodes.
+                    //  NOTE: This self-loop was originally a self-loop from
+                    //  replacement_node to itself, but that got relabeled by
+                    //  SparseGraph::delete_node(a).
+                    continue;
+                }
 
                 auto en_A_itr =
                      edge_to_edge_node.find(EDGE(replacement_node, *itr, true));
@@ -277,6 +282,15 @@ int NTSparseGraph::delete_node(const int a) {
             //  swapped.
             for (auto itr = _neighbors[a].begin();
                       itr != _neighbors[a].end(); itr++) {
+
+                if (*itr == a) {
+                    // A self-loop. Has no edge nodes.
+                    //  NOTE: This self-loop was originally a self-loop from
+                    //  replacement_node to itself, but that got relabeled by
+                    //  SparseGraph::delete_node(a).
+                    continue;
+                }
+
                 int min_node = (a < *itr ? a : *itr);
                 int max_node = (a < *itr ? *itr : a);
 
@@ -595,12 +609,6 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
         return;
     }
     const std::pair<size_t, size_t> locations = locations_itr->second;
-    /*
-    std::cout<<"The locations for node "<<a<<" are thought to be "<<locations.first<<" and ";
-    std::cout<<locations.second<<". At those places we find the values ";
-    std::cout<<out_neighbors_vec[locations.first]<<" and "<<out_neighbors_vec[locations.second]<<"."<<std::endl;
-    std::cout<<"Node "<<b<<" will now be listed as having those locations: ";
-    */
 
     // Update out_neighbors_vec
     out_neighbors_vec[locations.first] = b;
@@ -609,8 +617,6 @@ void NTSparseGraph::relabel_edge_node(const int a, const int b) {
     // Update edge_node_to_places
     edge_node_to_places.erase(a);
     edge_node_to_places[b] = locations;
-
-    // std::cout<<edge_node_to_places[b].first<<" "<<edge_node_to_places[b].second<<std::endl;
 
     // Update edge_to_edge_node and edge_node_to_edge:
     auto e_itr = edge_node_to_edge.find(a);
@@ -682,9 +688,6 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
     int largest_node_startpoint = node_to_startpoint[largest_node];
     int largest_node_endpoint = largest_node_startpoint + 2;
 
-    // TODO: remove ALL print statements
-    // std::cout<<"Old. vs. New startpoint: "<<old_startpoint<<" "<<new_startpoint<<std::endl;
-    // std::cout<<"###"<<moving_node<<" moves to "<<edge_node_of_slot<<"'s space."<<std::endl;
 
     out_neighbors_vec[new_startpoint] = out_neighbors_vec[old_startpoint];
     out_neighbors_vec[new_startpoint +1] = out_neighbors_vec[old_startpoint +1];
@@ -720,11 +723,7 @@ void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
             node_to_endpoint[edge_node_of_slot] = largest_node_endpoint;
         }
 
-        // std::cout<<"Entering the gloom. Relabeling "<<largest_node<<" as "<<edge_node_of_slot<<std::endl;
         relabel_edge_node(largest_node, edge_node_of_slot);
-    } else if (edge_node_of_slot > largest_node + 1) {
-        // TODO: Remove this check and line.
-        std::cout<<"Logic Error! size_t(edge_node_of_slot) != out_degrees.size())"<<std::endl;
     }
 
     edge_node_to_places.erase(largest_node);

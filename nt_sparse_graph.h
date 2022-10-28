@@ -144,12 +144,15 @@ public:
     // Gives the two places in out_neighbors_vec where the internal node is
     //  listed as a neighbor.
     // When the graph is directed, we follow the
-    //  convention that the first listed node is the real node and the second
-    //  is the other edge node.
+    //  convention that the first place listed is for the real node and the
+    //  second place is for the other edge node.
+    // When the graph is undirected, we follow the convention that the first
+    //  place listed corresponds to the smaller of the two real node IDs.
     std::unordered_map<int, std::pair<size_t,size_t>> edge_node_to_places;
 
-    // Used for regular nodes.
+    // Used for regular and internal nodes.
     std::unordered_map<int, int> endpoint_to_node;
+
 
     // Only real nodes have extra space. Edge nodes always have a fixed amount.
 
@@ -165,8 +168,6 @@ public:
     //  Further, we require that the new space have at least twice as much space
     //  as the node receiving that space needs.
 
-    // std::vector<bool> has_extra_space; -- currently unused
-
     // Call lower_bound(target) to get the node with the smallest capacity that
     //  is at least as large as your target storage space.
 
@@ -175,6 +176,9 @@ public:
     // When a node is an edge node and the graph is directed, we follow the
     //  convention that the first listed node is the real node and the second
     //  is the other edge node.
+    // When a node is an edge node and the graph is undirected, we follow the
+    //  convention that the first node listed has the smaller of the two node
+    //  IDs.
     std::vector<int> out_neighbors_vec;
 
     // Must be an even number.

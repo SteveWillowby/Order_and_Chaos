@@ -86,6 +86,11 @@ int SparseGraph::delete_node(const int a) {
     n--;
     if (directed) {
         m -= (_out_neighbors[a].size() + _in_neighbors[a].size());
+        if (_neighbors[a].find(a) != _neighbors[a].end()) {
+            // One of the edges deleted was a self-loop. This would have shown
+            //  up twice in the above "m -= ..." line.
+            m++;
+        }
     } else {
         m -= _neighbors[a].size();
     }
@@ -126,13 +131,26 @@ int SparseGraph::delete_node(const int a) {
 
         for (auto i = _out_neighbors[a].begin();
                 i != _out_neighbors[a].end(); i++) {
+            if (*i == last_node) {
+                continue;
+            }
             _in_neighbors[*i].erase(last_node);
             _in_neighbors[*i].insert(a);
         }
         for (auto i = _in_neighbors[a].begin();
                 i != _in_neighbors[a].end(); i++) {
+            if (*i == last_node) {
+                continue;
+            }
             _out_neighbors[*i].erase(last_node);
             _out_neighbors[*i].insert(a);
+        }
+
+        // Check if there was a self-loop. If so, relabel it correctly.
+        if (_out_neighbors[a].erase(last_node)) {
+            _out_neighbors[a].insert(a);
+            _in_neighbors[a].erase(last_node);
+            _in_neighbors[a].insert(a);
         }
     }
 
@@ -141,8 +159,16 @@ int SparseGraph::delete_node(const int a) {
 
         for (auto i = _neighbors[a].begin();
                 i != _neighbors[a].end(); i++) {
+            if (*i == last_node) {
+                continue;
+            }
             _neighbors[*i].erase(last_node);
             _neighbors[*i].insert(a);
+        }
+
+        // Check if there was a self-loop. If so, relabel it correctly.
+        if (_neighbors[a].erase(last_node)) {
+            _neighbors[a].insert(a);
         }
     }
 
