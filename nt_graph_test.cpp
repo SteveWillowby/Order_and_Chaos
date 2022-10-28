@@ -85,6 +85,8 @@ bool consistency_check(const NTSparseGraph &g) {
         }
     }
 
+    // Now check the Nauty/Traces data.
+
     if (g.out_degrees.size() != g.internal_n) {
         std::cout<<"g.out_degrees.size() != g.internal_n"<<std::endl;
         return false;
