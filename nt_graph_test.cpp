@@ -1044,8 +1044,9 @@ int main(void) {
               0.57, 0.4,
               directed, 8555, 2000);
 
-    // This means that we expect there to be 0 edges roughly
-    //  (.57 - .41) / (1 + (.57 - .41)) ~= 13% of the time.
+    // This means that once we hit a stable state I expect there to be 0 edges
+    //  roughly ((.57 - .41)/.98) / (1 + ((.57 - .41)/.98)) ~= 13% of the time.
+    //  However, I have not observed it this way.
     rand_test(0.02, 0.0,
               0.41, 0.57,
               directed, 8555, 2000);
