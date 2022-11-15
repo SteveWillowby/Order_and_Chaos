@@ -7,7 +7,9 @@
 //  the same key. Here is it O(1).
 
 
+#include<cstddef>
 #include<map>
+#include<stdexcept>
 #include<vector>
 
 // Define this if you want deterministic behavior for testing purposes.

@@ -4,6 +4,7 @@
 #include "sparse_graph.h"
 #include "nt_sparse_graph.h"
 
+#include<stdexcept>
 #include<unordered_map>
 #include<utility>
 #include<vector>
@@ -40,16 +41,25 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
 }
 
 // O(n + m)
-NTSparseGraph::NTSparseGraph(const Graph &g) : Graph(g.directed) {
-
-    operator=(g);
-
-    
+//
+// The 1-node effects of the call to SparseGraph(d, 1) are overwritten by the
+//  call to copy_assignment(g) which in turn calls SparseGraph::operator=(g).
+NTSparseGraph::NTSparseGraph(const Graph &g) : SparseGraph(g.directed, 1) {
+    copy_assignment(g);
 }
 
 
-
+NTSparseGraph& NTSparseGraph::operator=(const NTSparseGraph& g) {
+    return copy_assignment(g);
+}
+NTSparseGraph& NTSparseGraph::operator=(const SparseGraph& g) {
+    return copy_assignment(g);
+}
 NTSparseGraph& NTSparseGraph::operator=(const Graph& g) {
+    return copy_assignment(g);
+}
+
+NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
     if (g.directed != directed) {
         throw std::logic_error(
                 std::string("Error! Cannot perform copy assignment when one") +
@@ -97,7 +107,7 @@ NTSparseGraph& NTSparseGraph::operator=(const Graph& g) {
             }
             node_to_startpoint[i] = total_space_needed;
             total_space_needed +=
-                (out_degrees[i] < MIN_EDGE_SPACE_PER_NODE ?
+                (size_t(out_degrees[i]) < MIN_EDGE_SPACE_PER_NODE ?
                     MIN_EDGE_SPACE_PER_NODE : out_degrees[i]);
             node_to_endpoint[i] = total_space_needed;
             endpoint_to_node[total_space_needed] = i;
@@ -113,6 +123,14 @@ NTSparseGraph& NTSparseGraph::operator=(const Graph& g) {
                 std::unordered_map<int, std::pair<size_t,size_t>>();
         
         extra_space_and_node = AugmentedMultimap<size_t, int>();
+
+        size_t loc = edge_node_start;
+        for (size_t en = n; en < internal_n; en++) {
+            node_to_startpoint[en] = loc;
+            loc += 2;
+            node_to_endpoint[en] = loc;
+            endpoint_to_node[loc] = en;
+        }
 
         // Add edge and edge node info.
 
@@ -191,7 +209,7 @@ NTSparseGraph& NTSparseGraph::operator=(const Graph& g) {
             }
             node_to_startpoint[i] = total_space_needed;
             total_space_needed +=
-                (out_degrees[i] < MIN_EDGE_SPACE_PER_NODE ?
+                (size_t(out_degrees[i]) < MIN_EDGE_SPACE_PER_NODE ?
                     MIN_EDGE_SPACE_PER_NODE : out_degrees[i]);
             node_to_endpoint[i] = total_space_needed;
             endpoint_to_node[total_space_needed] = i;
@@ -207,6 +225,14 @@ NTSparseGraph& NTSparseGraph::operator=(const Graph& g) {
                 std::unordered_map<int, std::pair<size_t,size_t>>();
         
         extra_space_and_node = AugmentedMultimap<size_t, int>();
+
+        size_t loc = edge_node_start;
+        for (size_t en = n; en < internal_n; en++) {
+            node_to_startpoint[en] = loc;
+            loc += 2;
+            node_to_endpoint[en] = loc;
+            endpoint_to_node[loc] = en;
+        }
 
         // Add edge and edge node info.
 

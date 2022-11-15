@@ -33,6 +33,7 @@
 #include "edge.h"
 #include "sparse_graph.h"
 
+#include<cstddef>
 #include<unordered_map>
 #include<utility>
 #include<vector>
@@ -50,8 +51,10 @@ public:
     NTSparseGraph(const bool directed, const size_t n);
     NTSparseGraph(const Graph &g);
 
-    // Copy assignment operator.
+    // Copy assignment operators.
     NTSparseGraph& operator=(const Graph& g);
+    NTSparseGraph& operator=(const SparseGraph& g);
+    NTSparseGraph& operator=(const NTSparseGraph& g);
 
     // returns a `sparsegraph` struct that can be passed into nauty or traces
     // virtual const sparsegraph as_nauty_traces_graph() const;
@@ -106,6 +109,8 @@ public:
 
     // TODO: return to protected
 // protected: // temporarily made public so we can test the code
+
+    NTSparseGraph& copy_assignment(const Graph& g);
 
     // size_t n; -- defined in graph.h
     size_t internal_n;

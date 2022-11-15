@@ -6,6 +6,7 @@
  * Supports self-loops.
  */
 
+#include<cstddef>
 #include<unordered_set>
 
 #ifndef SYM__GRAPH_H

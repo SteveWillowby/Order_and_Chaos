@@ -803,6 +803,7 @@ void rand_test(float add_node_prob, float delete_node_prob,
 
     NTSparseGraph before = NTSparseGraph(directed, initial_n);
     NTSparseGraph after = NTSparseGraph(directed, initial_n);
+    NTSparseGraph third = NTSparseGraph(directed, 1);
 
     int a, b;
     float p;
@@ -817,7 +818,8 @@ void rand_test(float add_node_prob, float delete_node_prob,
             // It would be more direct to write after = before;
             //  However, keeping the intermediate object allows us to do
             //  the same thing to before below.
-            after = NTSparseGraph(before);
+            third = before;
+            after = third;
             if (!consistency_check(after)) {
                 std::cout<<"Failed after an '=' assignment."<<std::endl;
                 std::cout<<"Before"<<std::endl;
@@ -829,7 +831,7 @@ void rand_test(float add_node_prob, float delete_node_prob,
             // I made this clunky in-between object so that
             //  thanks to determinism, after is exactly the same as
             //  before.
-            before = NTSparseGraph(before);
+            before = third;
         }
         p = dist(gen);
         if (p < add_node_prob) {
@@ -1021,19 +1023,19 @@ int main(void) {
 
     // trace_test_1(); -- currently outdated
 
-    const bool directed = false;
+    const bool directed = true;
 
     rand_test(0.02, 0.01,
               0.57, 0.4,
-              directed, 6000);
+              directed, 6000, 1000);
 
     rand_test(0.02, 0.0,
               0.46, 0.52,
-              directed, 6000);
+              directed, 6000, 1000);
 
     rand_test(0.005, 0.0,
               0.695, 0.3,
-              directed, 6000);
+              directed, 6000, 1000);
 
     return 0;
 

@@ -7,6 +7,7 @@
 
 #include "graph.h"
 
+#include<cstddef>
 #include<unordered_set>
 #include<vector>
 
