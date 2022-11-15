@@ -949,6 +949,14 @@ void rand_test(float add_node_prob, float delete_node_prob,
                 std::cout<<std::endl<<"After"<<std::endl;
                 print_graph(after);
                 return;
+            } else if (after.num_edges() != before.num_edges() + 1) {
+                std::cout<<"Failed after an add_edge("<<a<<", "<<b<<") call."
+                         <<" Num edges did not increment."<<std::endl;
+                std::cout<<"Before"<<std::endl;
+                print_graph(before);
+                std::cout<<std::endl<<"After"<<std::endl;
+                print_graph(after);
+                return;
             }
 
             before.add_edge(a, b);
@@ -968,35 +976,42 @@ void rand_test(float add_node_prob, float delete_node_prob,
                 edge_to_delete = after.num_edges() - 1;
             }
 
-            int node_a = 0;
+            a = 0;
             int covered_edges = 0;
             while (edge_to_delete >= covered_edges +
-                                     int(after.out_neighbors(node_a).size())) {
-                covered_edges += after.out_neighbors(node_a).size();
-                node_a++;
+                                     int(after.out_neighbors(a).size())) {
+                covered_edges += after.out_neighbors(a).size();
+                a++;
             }
 
-            int node_b;
-            if (after.has_self_loop[node_a] &&
-                    dist(gen) < (1.0 / after.out_neighbors(node_a).size())) {
-                node_b = node_a;
+            if (after.has_self_loop[a] &&
+                    dist(gen) < (1.0 / after.out_neighbors(a).size())) {
+                b = a;
             } else {
-                if (after.has_self_loop[node_a]) {
+                if (after.has_self_loop[a]) {
                     covered_edges++;
                 }
 
-                auto b_itr = after.out_neighbors(node_a).begin();
+                auto b_itr = after.out_neighbors(a).begin();
                 for (int i = 0; i < edge_to_delete - covered_edges; i++) {
                     b_itr++;
                 }
-                node_b = *b_itr;
+                b = *b_itr;
             }
 
-            after.delete_edge(node_a, node_b);
+            after.delete_edge(a, b);
 
             if (!consistency_check(after)) {
-                std::cout<<"Failed after a delete_edge("<<node_a<<", "<<node_b<<") call."
+                std::cout<<"Failed after a delete_edge("<<a<<", "<<b<<") call."
                          <<std::endl;
+                std::cout<<"Before"<<std::endl;
+                print_graph(before);
+                std::cout<<std::endl<<"After"<<std::endl;
+                print_graph(after);
+                return;
+            } else if (after.num_edges() != before.num_edges() - 1) {
+                std::cout<<"Failed after a delete_edge("<<a<<", "<<b<<") call."
+                         <<" Num edges did not decrement."<<std::endl;
                 std::cout<<"Before"<<std::endl;
                 print_graph(before);
                 std::cout<<std::endl<<"After"<<std::endl;
@@ -1004,7 +1019,7 @@ void rand_test(float add_node_prob, float delete_node_prob,
                 return;
             }
 
-            before.delete_edge(node_a, node_b);
+            before.delete_edge(a, b);
 
         }
     }
@@ -1027,15 +1042,17 @@ int main(void) {
 
     rand_test(0.02, 0.01,
               0.57, 0.4,
-              directed, 6000, 1000);
+              directed, 8555, 2000);
 
+    // This means that we expect there to be 0 edges roughly
+    //  (.57 - .41) / (1 + (.57 - .41)) ~= 13% of the time.
     rand_test(0.02, 0.0,
-              0.46, 0.52,
-              directed, 6000, 1000);
+              0.41, 0.57,
+              directed, 8555, 2000);
 
     rand_test(0.005, 0.0,
               0.695, 0.3,
-              directed, 6000, 1000);
+              directed, 8555, 2000);
 
     return 0;
 
