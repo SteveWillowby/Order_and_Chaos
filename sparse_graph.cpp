@@ -42,6 +42,10 @@ SparseGraph::SparseGraph(const bool directed, size_t n) : Graph(directed) {
 }
 
 SparseGraph::SparseGraph(const Graph &g) : Graph(g.directed) {
+    operator=(g);
+    
+    // TODO: Remove extra code.
+    /*
     n = g.num_nodes();
     m = g.num_edges();
 
@@ -58,6 +62,38 @@ SparseGraph::SparseGraph(const Graph &g) : Graph(g.directed) {
             _in_neighbors[i] = std::unordered_set<int>(g.in_neighbors(i));
         }
     }
+    */
+}
+
+SparseGraph& SparseGraph::operator=(const Graph& g) {
+    if (g.directed != directed) {
+        throw std::logic_error(
+                std::string("Error! Cannot perform copy assignment when one") +
+                " graph is directed and the other is not.");
+    }
+
+    if (this == &g) {
+        return *this;
+    }
+
+    n = g.num_nodes();
+    m = g.num_edges();
+
+    _neighbors = std::vector<std::unordered_set<int>>(n);
+    for (size_t i = 0; i < n; i++) {
+        _neighbors[i] = std::unordered_set<int>(g.neighbors(i));
+    }
+
+    if (directed) {
+        _out_neighbors = std::vector<std::unordered_set<int>>(n);
+        _in_neighbors = std::vector<std::unordered_set<int>>(n);
+        for (size_t i = 0; i < n; i++) {
+            _out_neighbors[i] = std::unordered_set<int>(g.out_neighbors(i));
+            _in_neighbors[i] = std::unordered_set<int>(g.in_neighbors(i));
+        }
+    }
+
+    return *this;
 }
 
 

@@ -40,24 +40,37 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
 }
 
 // O(n + m)
-NTSparseGraph::NTSparseGraph(const Graph &g) :
-        NTSparseGraph(g.directed, g.num_nodes()) {
+NTSparseGraph::NTSparseGraph(const Graph &g) : Graph(g.directed) {
 
-    for (int i = 0; i < int(n); i++) {
-        for (auto nbr = g.out_neighbors(i).begin();
-                                    nbr != g.out_neighbors(i).end(); nbr++) {
-            add_edge(i, *nbr);
-        }
+    operator=(g);
+
+    
+}
+
+
+
+NTSparseGraph& NTSparseGraph::operator=(const Graph& g) {
+    if (g.directed != directed) {
+        throw std::logic_error(
+                std::string("Error! Cannot perform copy assignment when one") +
+                " graph is directed and the other is not.");
     }
-
-    /*
-    // This here is partially finished code for making this constructor more
-    //  efficient.
-    //  
-    // SparseGraph's constructor does not make any calls to functions like add_node
-    //  or add_edge. Thus we can call it and then fill out the NT info separately.
+    
+    if (this == &g) {
+        return *this;
+    }
+    
+    SparseGraph::operator=(g);
+    
+    // SparseGraph's = operator does not make any calls to functions like
+    //  add_node or add_edge. Thus we can call it and then fill out the NT info
+    //  separately.
     if (directed) {
-        num_edge_nodes = 2 * m;
+        num_edge_nodes = 0;
+        for (int i = 0; i < int(n); i++) {
+            num_edge_nodes += _neighbors[i].size() -
+                size_t(_neighbors[i].find(i) != _neighbors[i].end());
+        }
         internal_n = n + num_edge_nodes;
 
         if (internal_n > NAUTY_TRACES_MAXN) {
@@ -67,16 +80,21 @@ NTSparseGraph::NTSparseGraph(const Graph &g) :
                std::to_string(NAUTY_TRACES_MAXN));
         }
 
-        size_t total_space_needed = 0;
-
         // Add basic node info.
         out_degrees = std::vector<int>(internal_n, 0);
         node_to_startpoint = std::vector<int>(internal_n, 0);
         node_to_endpoint = std::vector<int>(internal_n, 0);
         endpoint_to_node = std::unordered_map<int, int>();
+        has_self_loop = std::vector<bool>(n, false);
 
-        for (int i = 0; i < n; i++) {
+        size_t total_space_needed = 0;
+
+        for (int i = 0; i < int(n); i++) {
             out_degrees[i] = _neighbors[i].size();
+            if (_neighbors[i].find(i) != _neighbors[i].end()) {
+                out_degrees[i]--;
+                has_self_loop[i] = true;
+            }
             node_to_startpoint[i] = total_space_needed;
             total_space_needed +=
                 (out_degrees[i] < MIN_EDGE_SPACE_PER_NODE ?
@@ -89,29 +107,146 @@ NTSparseGraph::NTSparseGraph(const Graph &g) :
         total_space_needed += num_edge_nodes * 2;
         out_neighbors_vec = std::vector<int>(total_space_needed, 0);
 
+        edge_to_edge_node = std::unordered_map<Edge, int, EdgeHash>();
+        edge_node_to_edge = std::unordered_map<int, Edge>();
+        edge_node_to_places =
+                std::unordered_map<int, std::pair<size_t,size_t>>();
+        
+        extra_space_and_node = AugmentedMultimap<size_t, int>();
+
         // Add edge and edge node info.
 
         std::vector<int> slots_used = std::vector<int>(n, 0);
         int next_edge_node = n;
+        size_t loc_1, loc_2, en_loc_1, en_loc_2;
+        int en_1, en_2;
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < int(n); i++) {
             for (auto nbr = _neighbors[i].begin();
-                            nbr < _neighbors[i].end(); nbr++) {
-                if (*nbr < i) {
+                            nbr != _neighbors[i].end(); nbr++) {
+                if (*nbr <= i) {
+                    // Only count an edge once, and ignore self-loops.
                     continue;
                 }
 
-                out_neighbors_vec[node_to_startpoint[i] + slots_used[i]] =
-                                        next_edge_node;
+                en_1 = next_edge_node++;
+                en_2 = next_edge_node++;
+                loc_1 = node_to_startpoint[i] + slots_used[i];
+                out_neighbors_vec[loc_1] = en_1;
                 slots_used[i]++;
-                out_neighbors_vec[node_to_startpoint[i]
+                loc_2 = node_to_startpoint[*nbr] + slots_used[*nbr];
+                out_neighbors_vec[loc_2] = en_2;
+                slots_used[*nbr]++;
                 
+                edge_to_edge_node[EDGE(i, *nbr, true)] = en_1;
+                edge_to_edge_node[EDGE(*nbr, i, true)] = en_2;
+                edge_node_to_edge[en_1] = EDGE(i, *nbr, true);
+                edge_node_to_edge[en_2] = EDGE(*nbr, i, true);
+                
+                en_loc_1 = edge_node_start + (en_1 - n) * 2;
+                en_loc_2 = en_loc_1 + 2;
+                
+                out_neighbors_vec[en_loc_1] = i;
+                out_neighbors_vec[en_loc_1 + 1] = en_2;
+                out_neighbors_vec[en_loc_2] = *nbr;
+                out_neighbors_vec[en_loc_2 + 1] = en_1;
+                
+                edge_node_to_places[en_1] =
+                    std::pair<size_t, size_t>(loc_1, en_loc_2 + 1);
+                edge_node_to_places[en_2] =
+                    std::pair<size_t, size_t>(loc_2, en_loc_1 + 1);
             }
         }
     } else {
+        // Undirected
+        num_edge_nodes = 0;
+        for (int i = 0; i < int(n); i++) {
+            num_edge_nodes += _neighbors[i].size() -
+                size_t(_neighbors[i].find(i) != _neighbors[i].end());
+        }
+        num_edge_nodes /= 2;
+        internal_n = n + num_edge_nodes;
 
+        if (internal_n > NAUTY_TRACES_MAXN) {
+            throw std::logic_error(
+               std::string("Error! Too many nodes for Nauty/Traces. ") +
+               std::string("Undirected graphs must have N + M <= ") +
+               std::to_string(NAUTY_TRACES_MAXN));
+        }
+
+        // Add basic node info.
+        out_degrees = std::vector<int>(internal_n, 0);
+        node_to_startpoint = std::vector<int>(internal_n, 0);
+        node_to_endpoint = std::vector<int>(internal_n, 0);
+        endpoint_to_node = std::unordered_map<int, int>();
+        has_self_loop = std::vector<bool>(n, false);
+
+        size_t total_space_needed = 0;
+
+        for (int i = 0; i < int(n); i++) {
+            out_degrees[i] = _neighbors[i].size();
+            if (_neighbors[i].find(i) != _neighbors[i].end()) {
+                out_degrees[i]--;
+                has_self_loop[i] = true;
+            }
+            node_to_startpoint[i] = total_space_needed;
+            total_space_needed +=
+                (out_degrees[i] < MIN_EDGE_SPACE_PER_NODE ?
+                    MIN_EDGE_SPACE_PER_NODE : out_degrees[i]);
+            node_to_endpoint[i] = total_space_needed;
+            endpoint_to_node[total_space_needed] = i;
+        }
+
+        size_t edge_node_start = total_space_needed;
+        total_space_needed += num_edge_nodes * 2;
+        out_neighbors_vec = std::vector<int>(total_space_needed, 0);
+
+        edge_to_edge_node = std::unordered_map<Edge, int, EdgeHash>();
+        edge_node_to_edge = std::unordered_map<int, Edge>();
+        edge_node_to_places =
+                std::unordered_map<int, std::pair<size_t,size_t>>();
+        
+        extra_space_and_node = AugmentedMultimap<size_t, int>();
+
+        // Add edge and edge node info.
+
+        std::vector<int> slots_used = std::vector<int>(n, 0);
+        int next_edge_node = n;
+        size_t loc_1, loc_2, en_loc;
+        int en; // edge node
+
+        for (int i = 0; i < int(n); i++) {
+            for (auto nbr = _neighbors[i].begin();
+                            nbr != _neighbors[i].end(); nbr++) {
+                if (*nbr <= i) {
+                    // Only count an edge once, and ignore self-loops.
+                    continue;
+                }
+
+                en = next_edge_node++;
+                loc_1 = node_to_startpoint[i] + slots_used[i];
+                out_neighbors_vec[loc_1] = en;
+                slots_used[i]++;
+                loc_2 = node_to_startpoint[*nbr] + slots_used[*nbr];
+                out_neighbors_vec[loc_2] = en;
+                slots_used[*nbr]++;
+                
+                edge_to_edge_node[EDGE(i, *nbr, false)] = en;
+                edge_node_to_edge[en] = EDGE(i, *nbr, false);
+                
+                en_loc = edge_node_start + (en - n) * 2;
+                
+                // Remember that i > *nbr.
+                out_neighbors_vec[en_loc] = i;
+                out_neighbors_vec[en_loc + 1] = *nbr;
+                
+                edge_node_to_places[en] =
+                    std::pair<size_t, size_t>(loc_1, loc_2);
+            }
+        }
     }
-    */
+    
+    return *this;
 }
 
 

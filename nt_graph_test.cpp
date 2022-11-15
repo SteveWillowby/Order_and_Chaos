@@ -779,9 +779,13 @@ void trace_test_1() {
 
 }
 
+// If reconstruct_frequency is greater than 0, then every
+//  reconstruct_frequency iterations, the code will replace the graph with a
+//  new version of it made with a constructor.
 void rand_test(float add_node_prob, float delete_node_prob,
                float add_edge_prob, float delete_edge_prob,
-               const bool directed, int iterations) {
+               const bool directed, size_t iterations,
+               size_t reconstruct_frequency) {
 
     const int initial_n = 10;
 
@@ -803,9 +807,30 @@ void rand_test(float add_node_prob, float delete_node_prob,
     int a, b;
     float p;
 
-    int skipped_iterations = 0;
+    size_t skipped_iterations = 0;
+    size_t j;
 
-    for (int i = 0; i < iterations + skipped_iterations; i++) {
+    for (size_t i = 0; i < iterations + skipped_iterations; i++) {
+        j = i - skipped_iterations;
+        if (reconstruct_frequency != 0 && j > 0 &&
+                    j % reconstruct_frequency == 0) {
+            // It would be more direct to write after = before;
+            //  However, keeping the intermediate object allows us to do
+            //  the same thing to before below.
+            after = NTSparseGraph(before);
+            if (!consistency_check(after)) {
+                std::cout<<"Failed after an '=' assignment."<<std::endl;
+                std::cout<<"Before"<<std::endl;
+                print_graph(before);
+                std::cout<<std::endl<<"After"<<std::endl;
+                print_graph(after);
+                return;
+            }
+            // I made this clunky in-between object so that
+            //  thanks to determinism, after is exactly the same as
+            //  before.
+            before = NTSparseGraph(before);
+        }
         p = dist(gen);
         if (p < add_node_prob) {
             // Add node.

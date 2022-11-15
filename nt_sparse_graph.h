@@ -50,16 +50,19 @@ public:
     NTSparseGraph(const bool directed, const size_t n);
     NTSparseGraph(const Graph &g);
 
+    // Copy assignment operator.
+    NTSparseGraph& operator=(const Graph& g);
+
     // returns a `sparsegraph` struct that can be passed into nauty or traces
     // virtual const sparsegraph as_nauty_traces_graph() const;
 
     // Returns a coloring for the Nauty/Traces sparsegraph
     /*
-    const Coloring<int> &
+    const NTColoring &
         nauty_traces_coloring(const Coloring<int> &node_coloring) const;
-    const Coloring<int> &
+    const NTColoring &
         nauty_traces_coloring(const Coloring<Edge> &edge_coloring) const;
-    const Coloring<int> &
+    const NTColoring &
         nauty_traces_coloring(const Coloring<int> &node_coloring,
                               const Coloring<Edge> &edge_coloring) const;
     */
@@ -130,6 +133,8 @@ public:
     // Stores the ID of a node corresponding to edge (a, b).
     //  In a directed graph, each (undirected) edge really has two nodes. To
     //  access the second node, access the node for edge (b, a).
+    //  In a directed graph, the edge node associated with edge (a, b) is the
+    //  edge node that connects to a and to the other edge node.
     std::unordered_map<Edge, int, EdgeHash> edge_to_edge_node;
     std::unordered_map<int, Edge> edge_node_to_edge;
 
