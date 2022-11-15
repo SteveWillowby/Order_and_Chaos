@@ -61,14 +61,20 @@ public:
 
     // Returns a coloring for the Nauty/Traces sparsegraph
     /*
-    const NTColoring &
+    NTColoring &
         nauty_traces_coloring(const Coloring<int> &node_coloring) const;
-    const NTColoring &
+    NTColoring &
         nauty_traces_coloring(const Coloring<Edge> &edge_coloring) const;
-    const NTColoring &
+    NTColoring &
         nauty_traces_coloring(const Coloring<int> &node_coloring,
                               const Coloring<Edge> &edge_coloring) const;
     */
+
+    // When turned on, this class will keep an NTColoring that matches the
+    //  structure of the graph.
+    void turn_on_structure_coloring();
+    void turn_off_structure_coloring();
+    NTColoring& structure_coloring();
 
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
