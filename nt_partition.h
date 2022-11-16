@@ -1,3 +1,4 @@
+#include<cstddef>
 #include<vector>
 
 #ifndef SYM__NT_PARTITION_H
@@ -16,8 +17,13 @@ public:
 
     ~NTPartition();
 
-    int* get_node_ids();
-    int* get_partition_ints();
+    // This is perhaps a deceptive use of `const`, in the sense that someone
+    //  with access to this pointer can change the data in the class.
+    //
+    // However, this function itself does not change the class.
+    int* get_node_ids() const;
+    // Same as above.
+    int* get_partition_ints() const;
 
     size_t size() const;
 

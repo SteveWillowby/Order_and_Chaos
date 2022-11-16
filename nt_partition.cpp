@@ -1,12 +1,13 @@
 #include "nt_partition.h"
 
-#include<ordered_map>
+#include<cstddef>
+#include<map>
 #include<unordered_map>
 #include<vector>
 
 NTPartition::NTPartition(const std::vector<int>& cell_list)
                                         : _size(cell_list.size()) {
-    std::ordered_map<int, size_t> colors = std::ordered_map<int, size_t>();
+    std::map<int, size_t> colors = std::map<int, size_t>();
 
     // Count occurrences of each color, while sorting the colors.
     for (auto color = cell_list.begin(); color != cell_list.end(); color++) {
@@ -27,7 +28,7 @@ NTPartition::NTPartition(const std::vector<int>& cell_list)
     // cell_ends will be used below to place nodes.
     int cumulative_sizes = 0;
     int color_count;
-    color = 0;
+    int color = 0;
     for (auto itr = colors.begin(); itr != colors.end(); itr++) {
         color_count = itr->second;
         cell_ends[color] = cumulative_sizes;
@@ -36,8 +37,6 @@ NTPartition::NTPartition(const std::vector<int>& cell_list)
         color_to_idx[itr->first] = color;
         color++;
     }
-
-    node_ids = std::vector<int>(_size, 0);
 
     for (int node = 0; node < int(_size); node++) {
         color = color_to_idx[cell_list[node]];
@@ -75,11 +74,11 @@ NTPartition::~NTPartition() {
     delete partition_ints;
 }
 
-int* NTPartition::get_node_ids() {
+int* NTPartition::get_node_ids() const {
     return node_ids;
 }
 
-int* NTPartition::get_partition_ints() {
+int* NTPartition::get_partition_ints() const {
     return partition_ints;
 }
 
