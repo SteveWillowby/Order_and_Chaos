@@ -885,7 +885,17 @@ int main(void) {
     NTSparseGraph g = NTSparseGraph(false, 7);
     g.add_edge(0, 1);
     g.add_edge(2, 1);
+    // 4 * 3 * 2 = 24
 
+    SYMTracesOptions options;
+    options.get_node_orbits = false;
+    options.get_edge_orbits = false;
+    options.get_canonical_node_order = false;
+
+    SYMTracesResults result = traces(g, options);
+    std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
+    std::cout<<"Num Orbits: "<<result.num_orbits<<std::endl;
+    std::cout<<"Error Status: "<<result.error_status<<std::endl;
 
 
     return 0;

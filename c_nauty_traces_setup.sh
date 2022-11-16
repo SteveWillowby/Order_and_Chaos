@@ -1,7 +1,8 @@
 #!/bin/bash
 
 cd nauty27r4
-./configure --enable-tls
+# ./configure --enable-tls
+./configure
 make
 # git update-index --assume-unchanged nauty27r4/nauty.h
 # git update-index --assume-unchanged nauty27r4/makefile

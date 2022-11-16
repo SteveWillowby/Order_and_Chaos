@@ -83,12 +83,15 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
     NTPartition partition = g.nauty_traces_coloring();
 
     TracesOptions to = default_traces_options();
+    to.getcanon = o.get_canonical_node_order;
+
     TracesStats ts;
 
     Traces(&g_traces, partition.get_node_ids(), partition.get_partition_ints(),
            orbits, &to, &ts, NULL);
 
     results.error_status = ts.errstatus;
+    // TODO: num_orbits currently counts edge node orbits as well.
     results.num_orbits = ts.numorbits;
     results.num_aut_base = ts.grpsize1;
     results.num_aut_exponent = ts.grpsize2;
