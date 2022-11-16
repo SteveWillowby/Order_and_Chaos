@@ -29,7 +29,8 @@
 #include "nauty27r4/nausparse.h"
 
 #include "augmented_multimap.h"
-// #include "coloring.h"
+#include "coloring.h"
+#include "nt_partition.h"
 #include "edge.h"
 #include "sparse_graph.h"
 
@@ -59,22 +60,19 @@ public:
     // returns a `sparsegraph` struct that can be passed into nauty or traces
     // virtual const sparsegraph as_nauty_traces_graph() const;
 
-    // Returns a coloring for the Nauty/Traces sparsegraph
-    /*
-    NTColoring &
+    // Returns a partitioning (i.e. coloring) for the Nauty/Traces sparsegraph
+    NTPartition
         nauty_traces_coloring(const Coloring<int> &node_coloring) const;
-    NTColoring &
+    NTPartition
         nauty_traces_coloring(const Coloring<Edge> &edge_coloring) const;
-    NTColoring &
+    NTPartition
         nauty_traces_coloring(const Coloring<int> &node_coloring,
                               const Coloring<Edge> &edge_coloring) const;
-    */
 
-    // When turned on, this class will keep an NTColoring that matches the
-    //  structure of the graph.
+    // When on, this class keeps info ready to more quickly make an NTPartition.
     void turn_on_structure_coloring();
     void turn_off_structure_coloring();
-    NTColoring& structure_coloring();
+    NTPartition structure_coloring() const;
 
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp

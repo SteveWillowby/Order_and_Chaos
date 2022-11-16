@@ -17,6 +17,8 @@ protected:
     std::unordered_map<T, int> coloring;
 };
 
+/////////////////////////////// The Code //////////////////////////////
+
 template<class T> Coloring::Coloring() {
     coloring = std::unordered_map<T, int>();
 }

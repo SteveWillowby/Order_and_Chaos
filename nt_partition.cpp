@@ -1,0 +1,103 @@
+#include "nt_partition.h"
+
+#include<ordered_map>
+#include<unordered_map>
+#include<vector>
+
+NTPartition::NTPartition(const std::vector<int>& cell_list)
+                                        : _size(cell_list.size()) {
+    std::ordered_map<int, size_t> colors = std::ordered_map<int, size_t>();
+
+    // Count occurrences of each color, while sorting the colors.
+    for (auto color = cell_list.begin(); color != cell_list.end(); color++) {
+        auto itr = colors.find(*color);
+        if (itr == colors.end()) {
+            colors[*color] = 0;
+        } else {
+            colors[*color]++;
+        }
+    }
+
+    partition_ints = new int[_size];
+    node_ids = new int[_size];
+
+    std::vector<int> cell_ends = std::vector<int>(colors.size(), 0);
+    std::unordered_map<int, int> color_to_idx = std::unordered_map<int, int>();
+
+    // cell_ends will be used below to place nodes.
+    int cumulative_sizes = 0;
+    int color_count;
+    color = 0;
+    for (auto itr = colors.begin(); itr != colors.end(); itr++) {
+        color_count = itr->second;
+        cell_ends[color] = cumulative_sizes;
+        cumulative_sizes += color_count;
+        partition_ints[cumulative_sizes - 1] = 0; // Mark the end of a partition
+        color_to_idx[itr->first] = color;
+        color++;
+    }
+
+    node_ids = std::vector<int>(_size, 0);
+
+    for (int node = 0; node < int(_size); node++) {
+        color = color_to_idx[cell_list[node]];
+        node_ids[cell_ends[color]] = node;
+        cell_ends[color]++;
+    }
+}
+
+NTPartition::NTPartition(const NTPartition& ntp) : _size(ntp.size()) {
+    node_ids = new int[_size];
+    partition_ints = new int[_size];
+    int* ntp_ni = ntp.get_node_ids();
+    int* ntp_pi = ntp.get_partition_ints();
+
+    for (size_t i = 0; i < _size; i++) {
+        node_ids[i] = ntp_ni[i];
+        partition_ints[i] = ntp_pi[i];
+    }
+}
+
+NTPartition::NTPartition(const size_t s) : _size(s) {
+    node_ids = new int[_size];
+    partition_ints = new int[_size];
+
+    for (int i = 0; i < int(_size - 1); i++) {
+        node_ids[i] = i;
+        partition_ints[i] = 1;
+    }
+    node_ids[_size - 1] = _size - 1;
+    partition_ints[_size - 1] = 0;
+}
+
+NTPartition::~NTPartition() {
+    delete node_ids;
+    delete partition_ints;
+}
+
+int* NTPartition::get_node_ids() {
+    return node_ids;
+}
+
+int* NTPartition::get_partition_ints() {
+    return partition_ints;
+}
+
+size_t NTPartition::size() const {
+    return _size;
+}
+
+std::vector<int> NTPartition::get_cell_list() const {
+    std::vector<int> cell_list = std::vector<int>(_size, 0);
+    int cell = 0;
+    int node;
+    for (size_t i = 0; i < _size; i++) {
+        node = node_ids[i];
+        if (partition_ints[i] == 0) {
+            cell++;
+        }
+
+        cell_list[node] = cell;
+    }
+    return cell_list;
+}
