@@ -42,6 +42,11 @@
 #ifndef SYM__NT_SPARSE_GRAPH_H
 #define SYM__NT_SPARSE_GRAPH_H
 
+// Only define full debug mode to fully test out the class in nt_graph_test
+//  When this flag is defined, the protected members of the class become public.
+//  Comment out for normal use.
+#define SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+
 const size_t NAUTY_TRACES_MAXN = 2000000000;
 
 class NTSparseGraph : public SparseGraph {
@@ -58,11 +63,16 @@ public:
     NTSparseGraph& operator=(const NTSparseGraph& g);
 
     // returns a `sparsegraph` struct that can be passed into nauty or traces
-    // virtual const sparsegraph as_nauty_traces_graph() const;
+    //
+    // NOTE: This function is not a const function because the sparsegraph
+    //  struct type requires non-const pointers to the data. However, Nauty and
+    //  Traces do not modify the graph structure, so as long as you also do not
+    //  use this info to modify the graph, then this function is safe.
+    const sparsegraph as_nauty_traces_graph();
 
     // Returns a partitioning (i.e. coloring) for the Nauty/Traces sparsegraph.
-    /*
     NTPartition nauty_traces_coloring() const;
+    /*
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors) const;
     NTPartition nauty_traces_coloring(const Coloring<Edge> &edge_colors) const;
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors,
@@ -90,12 +100,12 @@ public:
                                             const Coloring<Edge> &edge_colors);
 
     void turn_off_featured_coloring();
-    */
 
     // If structure coloring is set, returns the structure coloring. 
     // If a change highlights coloring is set, returns that.
     // Otherwise, throws an error.
     NTPartition featured_coloring() const;
+    */
 
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
@@ -134,8 +144,9 @@ public:
     //  O(1) -- defined in sparse_graph.cpp
     // virtual const std::unordered_set<int> &in_neighbors(const int a) const;
 
-    // TODO: return to protected
-// protected: // temporarily made public so we can test the code
+#ifndef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+protected:
+#endif
 
     NTSparseGraph& copy_assignment(const Graph& g);
 
@@ -173,9 +184,10 @@ public:
     // We require that the nodes of the actual graph get the first n labels.
     //  Then the edge nodes get the remaining labels.
     std::vector<int> out_degrees;
-    std::vector<int> node_to_startpoint;
-    std::vector<int> node_to_endpoint;
+    std::vector<size_t> node_to_startpoint;
+    std::vector<size_t> node_to_endpoint;
 
+    size_t num_self_loops;
     std::vector<bool> has_self_loop;
 
     // Gives the two places in out_neighbors_vec where the internal node is
@@ -188,7 +200,7 @@ public:
     std::unordered_map<int, std::pair<size_t,size_t>> edge_node_to_places;
 
     // Used for regular and internal nodes.
-    std::unordered_map<int, int> endpoint_to_node;
+    std::unordered_map<size_t, int> endpoint_to_node;
 
 
     // Only real nodes have extra space. Edge nodes always have a fixed amount.

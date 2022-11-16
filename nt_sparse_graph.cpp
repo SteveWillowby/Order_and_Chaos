@@ -19,12 +19,13 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
     num_edge_nodes = 0;
 
     out_degrees = std::vector<int>(n, 0);
+    num_self_loops = 0;
     has_self_loop = std::vector<bool>(n, false);
 
     // Begin with MIN_EDGE_SPACE_PER_NODE edge slots per node.
-    node_to_startpoint = std::vector<int>();
-    node_to_endpoint = std::vector<int>();
-    endpoint_to_node = std::unordered_map<int, int>();
+    node_to_startpoint = std::vector<size_t>();
+    node_to_endpoint = std::vector<size_t>();
+    endpoint_to_node = std::unordered_map<size_t, int>();
     for (size_t i = 0; i < n; i++) {
         node_to_startpoint.push_back(MIN_EDGE_SPACE_PER_NODE * i);
         node_to_endpoint.push_back(MIN_EDGE_SPACE_PER_NODE * (i + 1));
@@ -47,6 +48,33 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
 //  call to copy_assignment(g) which in turn calls SparseGraph::operator=(g).
 NTSparseGraph::NTSparseGraph(const Graph &g) : SparseGraph(g.directed, 1) {
     copy_assignment(g);
+}
+
+const sparsegraph NTSparseGraph::as_nauty_traces_graph() {
+    sparsegraph g;
+    g.nv = internal_n;
+    if (directed) {
+        // For every 2 edge nodes there are 3 undirected edges,
+        //  which means that for every 2 edge nodes there are 6 directed edges.
+        g.nde = num_edge_nodes * 3;
+    } else {
+        // For every edge node there are 4 directed edges.
+        g.nde = num_edge_nodes * 4;
+    }
+
+    g.v = &(node_to_startpoint[0]);
+    g.vlen = internal_n;
+
+    g.d = &(out_degrees[0]);
+    g.dlen = internal_n;
+
+    g.e = &(out_neighbors_vec[0]);
+    g.elen = out_neighbors_vec.size();
+
+    g.w = NULL;
+    g.wlen = 0;
+
+    return g;
 }
 
 
@@ -93,9 +121,10 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
 
         // Add basic node info.
         out_degrees = std::vector<int>(internal_n, 0);
-        node_to_startpoint = std::vector<int>(internal_n, 0);
-        node_to_endpoint = std::vector<int>(internal_n, 0);
-        endpoint_to_node = std::unordered_map<int, int>();
+        node_to_startpoint = std::vector<size_t>(internal_n, 0);
+        node_to_endpoint = std::vector<size_t>(internal_n, 0);
+        endpoint_to_node = std::unordered_map<size_t, int>();
+        num_self_loops = 0;
         has_self_loop = std::vector<bool>(n, false);
 
         size_t total_space_needed = 0;
@@ -105,6 +134,7 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
             if (_neighbors[i].find(i) != _neighbors[i].end()) {
                 out_degrees[i]--;
                 has_self_loop[i] = true;
+                num_self_loops++;
             }
             node_to_startpoint[i] = total_space_needed;
             total_space_needed +=
@@ -135,7 +165,7 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
 
         // Add edge and edge node info.
 
-        std::vector<int> slots_used = std::vector<int>(n, 0);
+        std::vector<size_t> slots_used = std::vector<size_t>(n, 0);
         int next_edge_node = n;
         size_t loc_1, loc_2, en_loc_1, en_loc_2;
         int en_1, en_2;
@@ -195,9 +225,10 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
 
         // Add basic node info.
         out_degrees = std::vector<int>(internal_n, 0);
-        node_to_startpoint = std::vector<int>(internal_n, 0);
-        node_to_endpoint = std::vector<int>(internal_n, 0);
-        endpoint_to_node = std::unordered_map<int, int>();
+        node_to_startpoint = std::vector<size_t>(internal_n, 0);
+        node_to_endpoint = std::vector<size_t>(internal_n, 0);
+        endpoint_to_node = std::unordered_map<size_t, int>();
+        num_self_loops = 0;
         has_self_loop = std::vector<bool>(n, false);
 
         size_t total_space_needed = 0;
@@ -207,6 +238,7 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
             if (_neighbors[i].find(i) != _neighbors[i].end()) {
                 out_degrees[i]--;
                 has_self_loop[i] = true;
+                num_self_loops++;
             }
             node_to_startpoint[i] = total_space_needed;
             total_space_needed +=
@@ -237,7 +269,7 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
 
         // Add edge and edge node info.
 
-        std::vector<int> slots_used = std::vector<int>(n, 0);
+        std::vector<size_t> slots_used = std::vector<size_t>(n, 0);
         int next_edge_node = n;
         size_t loc_1, loc_2, en_loc;
         int en; // edge node
@@ -334,6 +366,7 @@ int NTSparseGraph::add_node() {
 //  The runtime stems from the fact that a's edges have to be deleted and
 //   node n-1's edges have to be relabeled to now refer to "a".
 int NTSparseGraph::delete_node(const int a) {
+
     // This info is about to be erased. Save it for now.
     std::vector<int> neighbors = std::vector<int>(_neighbors[a].begin(),
                                                   _neighbors[a].end());
@@ -346,8 +379,8 @@ int NTSparseGraph::delete_node(const int a) {
     }
 
     // Give away node a's extra space.
-    int a_startpoint = node_to_startpoint[a];
-    int a_endpoint = node_to_endpoint[a];
+    size_t a_startpoint = node_to_startpoint[a];
+    size_t a_endpoint = node_to_endpoint[a];
     size_t slot_size = a_endpoint - a_startpoint;
     // All of a's neighbors got deleted in the loop above. Thus we know that
     //  slot_size >= 4 * out_degree, so we only need the MIN_... condition.
@@ -368,14 +401,14 @@ int NTSparseGraph::delete_node(const int a) {
         int left_node = left_node_itr->second;
 
         // Hand over the space.
-        int ln_start = node_to_startpoint[left_node];
-        int ln_end_old = node_to_endpoint[left_node];
+        size_t ln_start = node_to_startpoint[left_node];
+        size_t ln_end_old = node_to_endpoint[left_node];
         node_to_endpoint[left_node] = a_endpoint;
         endpoint_to_node[a_endpoint] = left_node;
         endpoint_to_node.erase(a_startpoint);
 
         // Perform extra capacity updates.
-        int ln_end = a_endpoint;
+        size_t ln_end = a_endpoint;
         size_t old_size = ln_end_old - ln_start;
         size_t new_size = ln_end - ln_start;
         size_t degree = out_degrees[left_node];
@@ -509,6 +542,7 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
 
     if (a == b) {
         has_self_loop[a] = true;
+        num_self_loops++;
         return true;
     }
 
@@ -529,11 +563,13 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
             std::to_string(NAUTY_TRACES_MAXN));
     }
 
-    if (out_degrees[a] == (node_to_endpoint[a] - node_to_startpoint[a])) {
+    if (size_t(out_degrees[a]) ==
+            (node_to_endpoint[a] - node_to_startpoint[a])) {
         // Move node's edge info to a new place.
         move_node_to_more_space(a);
     }
-    if (out_degrees[b] == (node_to_endpoint[b] - node_to_startpoint[b])) {
+    if (size_t(out_degrees[b]) ==
+            (node_to_endpoint[b] - node_to_startpoint[b])) {
         // Move node's edge info to a new place.
         move_node_to_more_space(b);
     }
@@ -545,18 +581,22 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         int edge_node_A = allocate_edge_node();
         int edge_node_B = allocate_edge_node();
 
-        out_neighbors_vec[node_to_startpoint[a] + out_degrees[a]] = edge_node_A;
-        out_neighbors_vec[node_to_startpoint[b] + out_degrees[b]] = edge_node_B;
+        out_neighbors_vec[node_to_startpoint[a] +
+                          size_t(out_degrees[a])] = edge_node_A;
+        out_neighbors_vec[node_to_startpoint[b] +
+                          size_t(out_degrees[b])] = edge_node_B;
         out_neighbors_vec[node_to_startpoint[edge_node_A]] = a;
         out_neighbors_vec[node_to_startpoint[edge_node_A] + 1] = edge_node_B;
         out_neighbors_vec[node_to_startpoint[edge_node_B]] = b;
         out_neighbors_vec[node_to_startpoint[edge_node_B] + 1] = edge_node_A;
 
         edge_node_to_places[edge_node_A] =
-            std::pair<size_t, size_t>(node_to_startpoint[a] + out_degrees[a],
+            std::pair<size_t, size_t>(node_to_startpoint[a] +
+                                        size_t(out_degrees[a]),
                                       node_to_startpoint[edge_node_B] + 1);
         edge_node_to_places[edge_node_B] =
-            std::pair<size_t, size_t>(node_to_startpoint[b] + out_degrees[b],
+            std::pair<size_t, size_t>(node_to_startpoint[b] +
+                                        size_t(out_degrees[b]),
                                       node_to_startpoint[edge_node_A] + 1);
 
         edge_to_edge_node[EDGE(a, b, directed)] = edge_node_A;
@@ -572,8 +612,10 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         num_edge_nodes++;
 
         int edge_node = allocate_edge_node();
-        out_neighbors_vec[node_to_startpoint[a] + out_degrees[a]] = edge_node;
-        out_neighbors_vec[node_to_startpoint[b] + out_degrees[b]] = edge_node;
+        out_neighbors_vec[node_to_startpoint[a] +
+                          size_t(out_degrees[a])] = edge_node;
+        out_neighbors_vec[node_to_startpoint[b] +
+                          size_t(out_degrees[b])] = edge_node;
 
         // Put the smaller node ID first.
         out_neighbors_vec[node_to_startpoint[edge_node]] = (a < b ? a : b);
@@ -585,8 +627,8 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
         int min_node = (a < b ? a : b);
         int max_node = (a < b ? b : a);
         edge_node_to_places[edge_node] = std::pair<size_t, size_t>(
-                    node_to_startpoint[min_node] + out_degrees[min_node],
-                    node_to_startpoint[max_node] + out_degrees[max_node]);
+                  node_to_startpoint[min_node] + size_t(out_degrees[min_node]),
+                  node_to_startpoint[max_node] + size_t(out_degrees[max_node]));
 
         endpoint_to_node[node_to_endpoint[edge_node]] = edge_node;
     }
@@ -639,6 +681,7 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
 void NTSparseGraph::delete_edge_node_or_nodes(const int a, const int b) {
     if (a == b) {
         has_self_loop[a] = false;
+        num_self_loops--;
         return;
     }
 
@@ -721,14 +764,14 @@ void NTSparseGraph::delete_edge_node_or_nodes(const int a, const int b) {
     size_t extra_capacity;
     if (size_t(out_degrees[a]) * 4 <= capacity_A &&
             size_t(out_degrees[a] + 1) * 4 > capacity_A &&
-                size_t(capacity_A) >= MIN_EDGE_SPACE_PER_NODE * 2) {
+                capacity_A >= MIN_EDGE_SPACE_PER_NODE * 2) {
         // Just acquired enough extra space.
         extra_capacity = capacity_A / 2;
         extra_space_and_node.insert(extra_capacity, a);
     }
     if (size_t(out_degrees[b]) * 4 <= capacity_B &&
             size_t(out_degrees[b] + 1) * 4 > capacity_B &&
-                size_t(capacity_B) >= MIN_EDGE_SPACE_PER_NODE * 2) {
+                capacity_B >= MIN_EDGE_SPACE_PER_NODE * 2) {
         // Just acquired enough extra space.
         extra_capacity = capacity_B / 2;
         extra_space_and_node.insert(extra_capacity, b);
@@ -839,16 +882,16 @@ void NTSparseGraph::slide_first_edge_node_to_back() {
 }
 
 void NTSparseGraph::slide_back_edge_node_to_slot(int edge_node_of_slot) {
-    int new_startpoint = node_to_startpoint[edge_node_of_slot];
+    size_t new_startpoint = node_to_startpoint[edge_node_of_slot];
 
-    int old_endpoint = out_neighbors_vec.size();
-    int old_startpoint = old_endpoint - 2;
+    size_t old_endpoint = out_neighbors_vec.size();
+    size_t old_startpoint = old_endpoint - 2;
 
     int moving_node = endpoint_to_node[old_endpoint];
 
     int largest_node = out_degrees.size() - 1;
-    int largest_node_startpoint = node_to_startpoint[largest_node];
-    int largest_node_endpoint = largest_node_startpoint + 2;
+    size_t largest_node_startpoint = node_to_startpoint[largest_node];
+    size_t largest_node_endpoint = largest_node_startpoint + 2;
 
 
     out_neighbors_vec[new_startpoint] = out_neighbors_vec[old_startpoint];
@@ -901,8 +944,8 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
         required_capacity = MIN_EDGE_SPACE_PER_NODE;
     }
 
-    int old_startpoint = node_to_startpoint[a];
-    int old_endpoint = node_to_endpoint[a];
+    size_t old_startpoint = node_to_startpoint[a];
+    size_t old_endpoint = node_to_endpoint[a];
 
     // Check if such space is available.
     const auto &space = extra_space_and_node.lower_bound(required_capacity);
@@ -954,7 +997,7 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
 
 
         // Update the extra capacity information.
-        int capacity;
+        size_t capacity;
 
         // Moving Node
         if (capacity_for_new_node >= 2 * MIN_EDGE_SPACE_PER_NODE &&
@@ -977,7 +1020,7 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
     endpoint_to_node[node_to_endpoint[a]] = a;
 
     // Now that space has been found, copy the edge info over.
-    for (int i = 0; i < out_degrees[a]; i++) {
+    for (size_t i = 0; i < size_t(out_degrees[a]); i++) {
         move_edge_node_reference(old_startpoint + i, node_to_startpoint[a] + i);
     }
 
@@ -1008,9 +1051,9 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
 
             // Patch in space.
             size_t ln_deg = out_degrees[left_node];
-            int ln_start = node_to_startpoint[left_node];
-            int ln_end = node_to_endpoint[left_node];
-            int ln_old_end = old_startpoint; // Old startpoint of a.
+            size_t ln_start = node_to_startpoint[left_node];
+            size_t ln_end = node_to_endpoint[left_node];
+            size_t ln_old_end = old_startpoint; // Old startpoint of a.
 
             size_t ln_size = ln_end - ln_start;
             size_t ln_old_size = ln_old_end - ln_start;
@@ -1018,12 +1061,12 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
             // Determine whether left_node USED to have extra capacity.
             if (ln_old_size >= 2 * MIN_EDGE_SPACE_PER_NODE &&
                     ln_old_size >= 4 * ln_deg) {
-                int ln_old_capacity = ln_old_size / 2;
+                size_t ln_old_capacity = ln_old_size / 2;
                 extra_space_and_node.erase(ln_old_capacity, left_node);
             }
             if (ln_size >= 2 * MIN_EDGE_SPACE_PER_NODE &&
                     ln_size >= 4 * ln_deg) {
-                int ln_capacity = ln_size / 2;
+                size_t ln_capacity = ln_size / 2;
                 extra_space_and_node.insert(ln_capacity, left_node);
             }
         }
@@ -1034,9 +1077,82 @@ void NTSparseGraph::move_node_to_more_space(const int a) {
 void NTSparseGraph::remove_edge_node_ref(const int main_node,
                                          const size_t ref_loc) {
     size_t last_local_edge_node_loc = node_to_startpoint[main_node] +
-                                      out_degrees[main_node] - 1;
+                                      size_t(out_degrees[main_node] - 1);
     if (ref_loc < last_local_edge_node_loc) {
         move_edge_node_reference(last_local_edge_node_loc, ref_loc);
     }
     out_degrees[main_node]--;
 }
+
+NTPartition NTSparseGraph::nauty_traces_coloring() const {
+    NTPartition part = NTPartition(internal_n);
+
+    // Has nodes 0 through internal_n in numeric order
+    int* node_ids_ptr = part.get_node_ids();
+
+    // All 1's except for the last entry
+    int* partition_ints_ptr = part.get_partition_ints();
+
+    // Separate the regular nodes from the edge nodes.
+    partition_ints_ptr[n - 1] = 0;
+
+    // Separate out the nodes with self-loops from the others.
+    // Put the nodes without self-loops first.
+    if (num_self_loops > 0) {
+        size_t normal_idx = 0;
+        size_t self_loop_idx = n - num_self_loops;
+        partition_ints_ptr[self_loop_idx - 1] = 0;
+        for (int i = 0; i < int(n); i++) {
+            if (has_self_loop[i]) {
+                node_ids_ptr[self_loop_idx] = i;
+                self_loop_idx++;
+            } else {
+                node_ids_ptr[normal_idx] = i;
+                normal_idx++;
+            }
+        }
+    }
+
+    if (!directed) {
+        return part;
+    }
+
+    // Remember that when a connects to b, then under the hood there are two
+    //  edge nodes in an undirected chain linking a -- x -- y -- b.
+    // We need to distinguish between two kinds of edge nodes:
+    // those that correspond to the head of a directed edge and those that don't
+    size_t front_idx = n;
+    size_t back_idx = internal_n - 1;
+    for (int edge_node = n; edge_node < int(internal_n); edge_node++) {
+        const Edge& e = edge_node_to_edge.find(edge_node)->second;
+        if (_out_neighbors[e.first].find(e.second) ==
+                                            _out_neighbors[e.first].end()) {
+            // Edge (first, second) is not in the graph.
+            node_ids_ptr[back_idx] = edge_node;
+            back_idx--;
+        } else {
+            node_ids_ptr[front_idx] = edge_node;
+            front_idx++;
+        }
+    }
+    partition_ints_ptr[front_idx - 1] = 0;
+
+    return part;
+}
+
+/*
+NTPartition NTSparseGraph::nauty_traces_coloring(
+                                    const Coloring<int> &node_colors) const {
+}
+
+NTPartition NTSparseGraph::nauty_traces_coloring(
+                                    const Coloring<Edge> &edge_colors) const {
+
+}
+
+NTPartition NTSparseGraph::nauty_traces_coloring(
+                                    const Coloring<int> &node_colors,
+                                    const Coloring<Edge> &edge_colors) const {
+
+}
+*/

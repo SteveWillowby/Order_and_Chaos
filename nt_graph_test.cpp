@@ -6,17 +6,25 @@
 #include<algorithm>
 #include<iostream>
 #include<random>
+#include<string>
 
-#include "sparse_graph.h"
+#include "nt_partition.h"
 #include "nt_sparse_graph.h"
+#include "traces.h"
 
+
+#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 bool consistency_check(const NTSparseGraph &g) {
     // First, check the SparseGraph code for consistency.
+    size_t num_self_loops = 0;
     size_t num_edges_found = 0;
     size_t num_nodes = g.num_nodes();
     if (g.directed) {
         for (int i = 0; i < int(num_nodes); i++) {
             num_edges_found += g.out_neighbors(i).size();
+            if (g.neighbors(i).find(i) != g.neighbors(i).end()) {
+                num_self_loops++;
+            }
         }
         if (num_edges_found != g.num_edges()) {
             std::cout<<"SUM of out_neighbors() sizes != g.num_edges()"
@@ -24,7 +32,6 @@ bool consistency_check(const NTSparseGraph &g) {
             return false;
         }
     } else {
-        size_t num_self_loops = 0;
         for (int i = 0; i < int(num_nodes); i++) {
             num_edges_found += g.neighbors(i).size();
             if (g.neighbors(i).find(i) != g.neighbors(i).end()) {
@@ -36,6 +43,11 @@ bool consistency_check(const NTSparseGraph &g) {
             std::cout<<"SUM of neighbors() sizes != g.num_edges()"<<std::endl;
             return false;
         }
+    }
+
+    if (num_self_loops != g.num_self_loops) {
+        std::cout<<"Num Self Loops Found != g.num_self_loops"<<std::endl;
+        return false;
     }
 
     if (g.directed) {
@@ -161,7 +173,7 @@ bool consistency_check(const NTSparseGraph &g) {
     size_t space_accounted_for = 0;
     for (size_t i = 0; i < g.node_to_startpoint.size(); i++) {
         space_accounted_for += g.node_to_endpoint[i] - g.node_to_startpoint[i];
-        if (g.node_to_endpoint[i] > int(g.out_neighbors_vec.size())) {
+        if (g.node_to_endpoint[i] > g.out_neighbors_vec.size()) {
             std::cout<<"g.node_to_endpoint["<<i<<"] > g.out_neighbors_vec.size()"
                      <<std::endl;
             return false;
@@ -266,7 +278,7 @@ bool consistency_check(const NTSparseGraph &g) {
             }
         }
     }
-    std::vector<int> startpoints = std::vector<int>(g.node_to_startpoint);
+    std::vector<size_t> startpoints = std::vector<size_t>(g.node_to_startpoint);
     std::sort(startpoints.begin(), startpoints.end());
     if (startpoints[0] > 0) {
         bool found = false;
@@ -276,7 +288,7 @@ bool consistency_check(const NTSparseGraph &g) {
 
             if (node == -1) {
                 found = true;
-                if (int(size) != startpoints[0]) {
+                if (size != startpoints[0]) {
                     std::cout<<"The extra space associated with node '-1' shoul"
                              <<"d be "<<startpoints[0]<<" but it is "<<size
                              <<std::endl;
@@ -298,7 +310,7 @@ bool consistency_check(const NTSparseGraph &g) {
     //  the domain of an actual node (between startpoint & startpoint + degree).
     for (size_t i = 0; i < g.internal_n; i++) {
         for (size_t idx = g.node_to_startpoint[i];
-                int(idx) < g.node_to_startpoint[i] + g.out_degrees[i]; idx++) {
+              idx < g.node_to_startpoint[i] + size_t(g.out_degrees[i]); idx++) {
             int node = g.out_neighbors_vec[idx];
             if (node < 0 || (node < int(g.num_nodes()) && i < g.num_nodes())) {
                 std::cout<<"g.out_neighbors_vec["<<idx<<"] < 0 or it is"
@@ -413,31 +425,31 @@ bool consistency_check(const NTSparseGraph &g) {
                 const auto &en_B_places =
                     g.edge_node_to_places.find(edge_node_B)->second;
 
-                if (int(en_A_places.first) < g.node_to_startpoint[a] ||
-                        int(en_A_places.first) >= g.node_to_startpoint[a] +
-                                                  g.out_degrees[a]) {
+                if (en_A_places.first < g.node_to_startpoint[a] ||
+                        en_A_places.first >= g.node_to_startpoint[a] +
+                                                  size_t(g.out_degrees[a])) {
                     std::cout<<"The place where edge_node "<<edge_node_A
                              <<" is referenced is not in "<<a<<"'s range."
                              <<std::endl;
                     return false;
                 }
-                if (int(en_B_places.first) < g.node_to_startpoint[*b] ||
-                        int(en_B_places.first) >= g.node_to_startpoint[*b] +
-                                                  g.out_degrees[*b]) {
+                if (en_B_places.first < g.node_to_startpoint[*b] ||
+                        en_B_places.first >= g.node_to_startpoint[*b] +
+                                                  size_t(g.out_degrees[*b])) {
                     std::cout<<"The place where edge_node "<<edge_node_B
                              <<" is referenced is not in "<<*b<<"'s range."
                              <<std::endl;
                     return false;
                 }
 
-                if (int(en_A_places.second) !=
+                if (en_A_places.second !=
                         g.node_to_startpoint[edge_node_B] + 1) {
                     std::cout<<"edge_node_to_places[edge_to_edge_node[(a, b)]]"
                              <<".second != node_to_startpoint[edge_to_edge_node"
                              <<"[(b, a)]] + 1 (directed graph)"<<std::endl;
                     return false;
                 }
-                if (int(en_B_places.second) !=
+                if (en_B_places.second !=
                         g.node_to_startpoint[edge_node_A] + 1) {
                     std::cout<<"edge_node_to_places[edge_to_edge_node[(b, a)]]"
                              <<".second != node_to_startpoint[edge_to_edge_node"
@@ -478,17 +490,17 @@ bool consistency_check(const NTSparseGraph &g) {
                 }
 
                 auto &en_places = g.edge_node_to_places.find(edge_node)->second;
-                if (int(en_places.first) < g.node_to_startpoint[a] ||
-                            int(en_places.first) >= g.node_to_startpoint[a] +
-                                                    g.out_degrees[a]) {
+                if (en_places.first < g.node_to_startpoint[a] ||
+                            en_places.first >= g.node_to_startpoint[a] +
+                                                    size_t(g.out_degrees[a])) {
                     std::cout<<"g.edge_node_to_places[g.edge_to_edge_node[(a, b"
                              <<")]].first not in a's range (undirected graph)"
                              <<" | value: "<<en_places.first<<std::endl;
                     return false;
                 }
-                if (int(en_places.second) < g.node_to_startpoint[*b] ||
-                            int(en_places.second) >= g.node_to_startpoint[*b] +
-                                                     g.out_degrees[*b]) {
+                if (en_places.second < g.node_to_startpoint[*b] ||
+                            en_places.second >= g.node_to_startpoint[*b] +
+                                                     size_t(g.out_degrees[*b])) {
                     std::cout<<"g.edge_node_to_places[g.edge_to_edge_node[(a, b"
                              <<")]].second not in b's range (undirected graph)"
                              <<" | value: "<<en_places.second<<std::endl;
@@ -501,19 +513,22 @@ bool consistency_check(const NTSparseGraph &g) {
     // All tests are passed. Graph is fully consistent.
     return true;
 }
+#endif
 
+#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 std::vector<int> cleaned_out_N_vec(const NTSparseGraph &g) {
     std::vector<int> result = std::vector<int>(g.out_neighbors_vec.size(), 0);
 
     for (int i = 0; i < int(g.internal_n); i++) {
-        for (int j = g.node_to_startpoint[i];
-                    j < g.node_to_startpoint[i] + g.out_degrees[i]; j++) {
+        for (size_t j = g.node_to_startpoint[i];
+                  j < g.node_to_startpoint[i] + size_t(g.out_degrees[i]); j++) {
             result[j] = g.out_neighbors_vec[j];
         }
     }
 
     return result;
 }
+#endif
 
 std::string vec_as_string(const std::vector<int> &v) {
     std::string s = "";
@@ -523,11 +538,12 @@ std::string vec_as_string(const std::vector<int> &v) {
     return s;
 }
 
+#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 std::string nt_graph_as_string(const NTSparseGraph &g) {
     std::string s = "";
 
-    std::vector<int> startpoints = std::vector<int>(g.node_to_startpoint);
-    std::vector<int> endpoints = std::vector<int>(g.node_to_endpoint);
+    std::vector<size_t> startpoints = std::vector<size_t>(g.node_to_startpoint);
+    std::vector<size_t> endpoints = std::vector<size_t>(g.node_to_endpoint);
 
     std::sort(startpoints.begin(), startpoints.end());
     std::sort(endpoints.begin(), endpoints.end());
@@ -544,24 +560,27 @@ std::string nt_graph_as_string(const NTSparseGraph &g) {
         }
         int node = node_itr->second;
 
-        int endpoint = g.node_to_endpoint[node];
+        size_t endpoint = g.node_to_endpoint[node];
         if (endpoint != endpoints[idx]) {
             std::cout<<"Error in nt_graph_as_string: node_to_endpoint[endpoint_to_node[ep]] != ep"<<std::endl;
         }
-        int startpoint = g.node_to_startpoint[node];
+        size_t startpoint = g.node_to_startpoint[node];
         if (startpoint != startpoints[idx]) {
             std::cout<<"Error in nt_graph_as_string: startpoint mis-match"<<std::endl;
         }
 
         s += std::to_string(node) + " @ " + std::to_string(startpoint) + ": ";
-        for (int i = startpoint; i < startpoint + g.out_degrees[node]; i++) {
+        for (size_t i = startpoint;
+                    i < startpoint + size_t(g.out_degrees[node]); i++) {
             s += std::to_string(g.out_neighbors_vec[i]) + ", ";
         }
         s += "| ";
     }
     return s;
 }
+#endif
 
+#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 void print_graph(const NTSparseGraph &g) {
     std::cout<<"A Graph:"<<std::endl;
     std::cout<<"n: "<<g.num_nodes()<<"  m: "<<g.num_edges()
@@ -570,215 +589,10 @@ void print_graph(const NTSparseGraph &g) {
     std::cout<<vec_as_string(cleaned_out_N_vec(g))<<std::endl;
     std::cout<<nt_graph_as_string(g)<<std::endl;
 }
+#endif
 
-void trace_test_1() {
 
-    std::cout<<"All Printed Numbers Should be 1 Unless the Line Specifies Otherwise."<<std::endl<<std::endl;
-
-    NTSparseGraph g1 = NTSparseGraph(true);
-
-    g1.add_node();
-    g1.add_node();
-    std::cout<<(g1.out_neighbors_vec == std::vector<int>({0,0,0,0, 0,0,0,0, 0,0,0,0}))<<std::endl;
-    g1.add_edge(0, 1);
-    std::cout<<(g1.out_neighbors_vec == std::vector<int>({3,0,0,0, 4,0,0,0, 0,0,0,0, 0,4, 1,3}))<<std::endl;
-    g1.add_edge(2, 0);
-    std::cout<<(g1.out_neighbors_vec == std::vector<int>({3,6,0,0, 4,0,0,0, 5,0,0,0, 0,4, 1,3, 2,6, 0,5}))<<std::endl;
-    g1.add_edge(0, 2);
-    std::cout<<(g1.out_neighbors_vec == std::vector<int>({3,6,0,0, 4,0,0,0, 5,0,0,0, 0,4, 1,3, 2,6, 0,5}))<<std::endl;
-    g1.add_node();
-    std::vector<int> expected = std::vector<int>({7,6,0,0, 4,0,0,0, 5,0,0,0, 0,0,0,0, 2,6, 0,5, 0,4, 1,7});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    g1.add_node();
-    // Nodes                     0        1        2        3        4        7    8    5    6
-    expected = std::vector<int>({7,6,0,0, 8,0,0,0, 5,0,0,0, 0,0,0,0, 0,0,0,0, 0,8, 1,7, 2,6, 0,5});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    g1.add_edge(3, 0);
-    // Nodes                     0         1        2        3        4        7    8    5    6    9     10
-    expected = std::vector<int>({7,6,10,0, 8,0,0,0, 5,0,0,0, 9,0,0,0, 0,0,0,0, 0,8, 1,7, 2,6, 0,5, 3,10, 0,9});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    g1.add_edge(0, 4);
-    // Nodes                     0          1        2        3        4         7    8    5    6    9     10   11    12
-    expected = std::vector<int>({7,6,10,11, 8,0,0,0, 5,0,0,0, 9,0,0,0, 12,0,0,0, 0,8, 1,7, 2,6, 0,5, 3,10, 0,9, 0,12, 4,11});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    g1.add_node();
-    // Nodes                     0          1        2         3        4         5        13   6     9     10   11    12    7    8
-    expected = std::vector<int>({7,6,10,11, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 2,6, 0,13, 3,10, 0,9, 0,12, 4,11, 0,8, 1,7});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    g1.add_edge(5, 0);
-    expected = std::vector<int>(
-    // Nodes -1       1        2         3        4         5         0                   11    12    7    8    13   6     9     10   14    15
-            {0,0,0,0, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 14,0,0,0, 7,6,10,11,15,0,0,0, 0,12, 4,11, 0,8, 1,7, 2,6, 0,13, 3,10, 0,9, 5,15, 0,14});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    g1.add_node();
-    expected = std::vector<int>(
-// Nodes 6        1        2         3        4         5         0                    11    12    7    8    13    16    9     10   14    15
-        {0,0,0,0, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 14,0,0,0, 7,16,10,11,15,0,0,0, 0,12, 4,11, 0,8, 1,7, 2,16, 0,13, 3,10, 0,9, 5,15, 0,14});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    // Now testing edge deletion.
-
-    g1.delete_edge(5, 0);
-    expected = std::vector<int>(
-// Nodes 6        1        2         3        4         5        0                   11    12    7    8    13    14    9     10
-        {0,0,0,0, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 7,14,10,11,0,0,0,0, 0,12, 4,11, 0,8, 1,7, 2,14, 0,13, 3,10, 0,9});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.delete_edge(1, 0); // The edge does not exist - expect unchanged vector.
-    expected = std::vector<int>(
-// Nodes 6        1        2         3        4         5        0                   11    12    7    8    13    14    9     10
-        {0,0,0,0, 8,0,0,0, 13,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 7,14,10,11,0,0,0,0, 0,12, 4,11, 0,8, 1,7, 2,14, 0,13, 3,10, 0,9});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.delete_edge(0, 1);
-    expected = std::vector<int>(
-// Nodes 6        1        2        3        4         5        0                  11    12    10   9     8    7
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 11,7,10,0,0,0,0,0, 0,12, 4,11, 0,9, 3,10, 2,7, 0,8});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    /*
-    // A check to ensure that a node isn't added into empty space too soon.
-    //  This check does not fit within the main test sequence thread --
-    //  hence the return 0;
-    g1.add_node();
-    expected = std::vector<int>(
-// Nodes 6        1        2        3        4         5        0                   7        10   9     8     13   11    12
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 12,0,0,0, 0,0,0,0, 11,13,10,0,0,0,0,0, 0,0,0,0, 0,9, 3,10, 2,13, 0,8, 0,12, 4,11});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    return 0;
-    */
-
-    g1.delete_edge(0, 4);
-    expected = std::vector<int>(
-// Nodes 6        1        2        3        4        5        0                 7    8    10   9
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 0,0,0,0, 0,0,0,0, 10,7,0,0,0,0,0,0, 0,8, 2,7, 0,9, 3,10});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.add_node();
-    expected = std::vector<int>(
-// Nodes 6        1        2        3        4        5        0          7        11   8     10   9
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 0,0,0,0, 0,0,0,0, 10,11,0,0, 0,0,0,0, 0,8, 2,11, 0,9, 3,10});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.add_edge(2, 7);
-    expected = std::vector<int>(
-// Nodes 6        1        2         3        4        5        0          7         11   8     10   9     12    13
-        {0,0,0,0, 0,0,0,0, 8,12,0,0, 9,0,0,0, 0,0,0,0, 0,0,0,0, 10,11,0,0, 13,0,0,0, 0,8, 2,11, 0,9, 3,10, 2,13, 7,12});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.delete_edge(2, 7);
-    expected = std::vector<int>(
-// Nodes 6        1        2        3        4        5        0          7        11   8     10   9
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 9,0,0,0, 0,0,0,0, 0,0,0,0, 10,11,0,0, 0,0,0,0, 0,8, 2,11, 0,9, 3,10});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.delete_edge(3, 0);
-    expected = std::vector<int>(
-// Nodes 6        1        2        3        4        5        0        7        9    8
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 9,0,0,0, 0,0,0,0, 0,8, 2,9});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.add_edge(3, 0);
-    expected = std::vector<int>(
-// Nodes 6        1        2        3         4        5        0         7        9    8    10    11
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 0,0,0,0, 0,0,0,0, 9,11,0,0, 0,0,0,0, 0,8, 2,9, 3,11, 0,10});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.add_edge(0, 7);
-    expected = std::vector<int>(
-// Nodes 6        1        2        3         4        5        0          7         9    8    10    11    12    13
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 0,0,0,0, 0,0,0,0, 9,11,12,0, 13,0,0,0, 0,8, 2,9, 3,11, 0,10, 0,13, 7,12});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.add_edge(5, 0);
-    expected = std::vector<int>(
-// Nodes 6        1        2        3         4        5         0           7         9    8    10    11    12    13    14    15
-        {0,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 0,0,0,0, 14,0,0,0, 9,11,12,15, 13,0,0,0, 0,8, 2,9, 3,11, 0,10, 0,13, 7,12, 5,15, 0,14});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.add_edge(6, 0);
-    expected = std::vector<int>(
-// Nodes 6         1        2        3         4        5                 7         0                   
-        {16,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 0,0,0,0, 14,0,0,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
-
-//ENodes 12    13    14    15    9    8    10    11    16    17
-         0,13, 7,12, 5,15, 0,14, 0,8, 2,9, 3,11, 0,10, 6,17, 0,16});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    /*
-    //  This check does not fit within the main test sequence thread --
-    //  hence the return 0;
-    g1.add_node();
-    expected = std::vector<int>(
-// Nodes 6         1        2         3         4        5         8        7         0                   
-        {16,0,0,0, 0,0,0,0, 18,0,0,0, 10,0,0,0, 0,0,0,0, 14,0,0,0, 0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
-
-//ENodes 12    13    14    15    9     18   10    11    16    17
-         0,13, 7,12, 5,15, 0,14, 0,18, 2,9, 3,11, 0,10, 6,17, 0,16});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    return 0;
-    */
-
-    g1.add_edge(5, 4);
-    expected = std::vector<int>(
-// Nodes 6         1        2        3         4         5                  7         0                   
-        {16,0,0,0, 0,0,0,0, 8,0,0,0, 10,0,0,0, 19,0,0,0, 14,18,0,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
-
-//ENodes 12    13    14    15    9    8    10    11    16    17    18    19
-         0,13, 7,12, 5,15, 0,14, 0,8, 2,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.add_edge(5, 3);
-    expected = std::vector<int>(
-// Nodes 6         1        2        3          4         5                   7         0                   
-        {16,0,0,0, 0,0,0,0, 8,0,0,0, 10,21,0,0, 19,0,0,0, 14,18,20,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
-
-//ENodes 12    13    14    15    9    8    10    11    16    17    18    19    20    21
-         0,13, 7,12, 5,15, 0,14, 0,8, 2,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18, 5,21, 3,20});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    /*
-    //  This check does not fit within the main test sequence thread --
-    //  hence the return 0;
-    g1.add_node();
-    expected = std::vector<int>(
-// Nodes 6         1        2         3          4         5                   7         0                    8
-        {16,0,0,0, 0,0,0,0, 22,0,0,0, 10,21,0,0, 19,0,0,0, 14,18,20,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0, 0,0,0,0,
-
-//ENodes 14    15    9     22   10    11    16    17    18    19    20    21    12    13
-         5,15, 0,14, 0,22, 2,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18, 5,21, 3,20, 0,13, 7,12});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-    return 0;
-    */
-
-    // Both edges (2, 0) and (0, 2) are currently present.
-    g1.delete_edge(2, 0);
-    expected = std::vector<int>(
-// Nodes 6         1        2        3          4         5                   7         0                   
-        {16,0,0,0, 0,0,0,0, 8,0,0,0, 10,21,0,0, 19,0,0,0, 14,18,20,0,0,0,0,0, 13,0,0,0, 9,11,12,15,17,0,0,0,
-
-//ENodes 12    13    14    15    9    8    10    11    16    17    18    19    20    21
-         0,13, 7,12, 5,15, 0,14, 0,8, 2,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18, 5,21, 3,20});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    g1.delete_edge(0, 2);
-    expected = std::vector<int>(
-// Nodes 6         1        2        3         4         5                  7         0                   
-        {16,0,0,0, 0,0,0,0, 0,0,0,0, 10,9,0,0, 19,0,0,0, 14,18,8,0,0,0,0,0, 13,0,0,0, 17,11,12,15,0,0,0,0,
-
-//ENodes 12    13    14    15    9    8    10    11    16    17    18    19
-         0,13, 7,12, 5,15, 0,14, 3,8, 5,9, 3,11, 0,10, 6,17, 0,16, 5,19, 4,18});
-    std::cout<<(cleaned_out_N_vec(g1) == expected)<<std::endl;
-
-    // std::cout<<vec_as_string(expected)<<std::endl;
-    // std::cout<<vec_as_string(cleaned_out_N_vec(g1))<<std::endl;
-    // std::cout<<std::endl<<std::endl;
-    // std::cout<<nt_graph_as_string(g1)<<std::endl;
-
-    consistency_check(g1);
-
-}
-
+#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 // If reconstruct_frequency is greater than 0, then every
 //  reconstruct_frequency iterations, the code will replace the graph with a
 //  new version of it made with a constructor.
@@ -1033,133 +847,46 @@ void rand_test(float add_node_prob, float delete_node_prob,
                                                 (1 + int(!after.directed))))
              <<" percent of all possible edges on that many nodes."<<std::endl;
 }
+#endif
 
 int main(void) {
 
-    // trace_test_1(); -- currently outdated
+#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+    std::cout<<"###################################################"<<std::endl
+             <<"Checking internal consistency of NT representation."<<std::endl
+             <<"###################################################"<<std::endl
+             <<std::endl;
 
-    const bool directed = true;
+    for (bool directed : {false, true}) {
+        std::cout<<"Directed: "<<directed<<std::endl<<std::endl;
+        rand_test(0.02, 0.01,
+                  0.57, 0.4,
+                  directed, 8555, 2000);
 
-    rand_test(0.02, 0.01,
-              0.57, 0.4,
-              directed, 8555, 2000);
+        // This means that once we hit a stable state I expect there to be 0
+        //  edges roughly ((.57 - .41)/.98) / (1 + ((.57 - .41)/.98)) ~= 13% of
+        //  the time.
+        rand_test(0.02, 0.0,
+                  0.41, 0.57,
+                  directed, 8555, 2000);
 
-    // This means that once we hit a stable state I expect there to be 0 edges
-    //  roughly ((.57 - .41)/.98) / (1 + ((.57 - .41)/.98)) ~= 13% of the time.
-    //  However, I have not observed it this way.
-    rand_test(0.02, 0.0,
-              0.41, 0.57,
-              directed, 8555, 2000);
-
-    rand_test(0.005, 0.0,
-              0.695, 0.3,
-              directed, 8555, 2000);
-
-    return 0;
-
-    /*
-    NTSparseGraph g2 = NTSparseGraph(directed);
-
-    std::cout<<(g2.num_nodes() == 1)<<std::endl;
-    std::cout<<(g2.add_node() == 1)<<std::endl;
-    std::cout<<(g2.num_nodes() == 2)<<std::endl;
-    g2.add_node();
-    g2.add_edge(0, 1);
-    g2.add_edge(1, 2);
-    std::cout<<(g2.neighbors(1) == std::unordered_set<int>({0, 2}))<<std::endl;
-    g2.add_node();
-    g2.add_edge(2, 3);
-    std::cout<<(g2.delete_node(1) == 3)<<std::endl;
-    std::cout<<(g2.neighbors(0) == std::unordered_set<int>())<<std::endl;
-    std::cout<<(g2.neighbors(1) == std::unordered_set<int>({2}))<<std::endl;
-    std::cout<<(g2.neighbors(2) == std::unordered_set<int>({1}))<<std::endl;
-
-    if (directed) {
-        std::cout<<(g2.out_neighbors(0) == std::unordered_set<int>())<<std::endl;
-        std::cout<<(g2.in_neighbors(0) == std::unordered_set<int>())<<std::endl;
-        std::cout<<(g2.out_neighbors(1) == std::unordered_set<int>({}))<<std::endl;
-        std::cout<<(g2.in_neighbors(1) == std::unordered_set<int>({2}))<<std::endl;
-        std::cout<<(g2.out_neighbors(2) == std::unordered_set<int>({1}))<<std::endl;
-        std::cout<<(g2.in_neighbors(2) == std::unordered_set<int>({}))<<std::endl;
-    } else {
-        std::cout<<(g2.out_neighbors(0) == std::unordered_set<int>())<<std::endl;
-        std::cout<<(g2.in_neighbors(0) == std::unordered_set<int>())<<std::endl;
-        std::cout<<(g2.out_neighbors(1) == std::unordered_set<int>({2}))<<std::endl;
-        std::cout<<(g2.in_neighbors(1) == std::unordered_set<int>({2}))<<std::endl;
-        std::cout<<(g2.out_neighbors(2) == std::unordered_set<int>({1}))<<std::endl;
-        std::cout<<(g2.in_neighbors(2) == std::unordered_set<int>({1}))<<std::endl;
+        rand_test(0.005, 0.0,
+                  0.695, 0.3,
+                  directed, 8555, 2000);
     }
+#endif
 
-    g2.flip_edge(1, 0);
+    std::cout<<std::endl<<std::endl
+             <<"###################################################"<<std::endl
+             <<"Checking basic Traces correctness"<<std::endl
+             <<"###################################################"<<std::endl
+             <<std::endl;
 
-    g2.flip_edge(2, 2);
+    NTSparseGraph g = NTSparseGraph(false, 7);
+    g.add_edge(0, 1);
+    g.add_edge(2, 1);
 
-    std::cout<<(g2.neighbors(0) == std::unordered_set<int>({1}))<<std::endl;
-    std::cout<<(g2.neighbors(1) == std::unordered_set<int>({0, 2}))<<std::endl;
-    std::cout<<(g2.neighbors(2) == std::unordered_set<int>({1, 2}))<<std::endl;
 
-    if (directed) {
-        std::cout<<(g2.out_neighbors(0) == std::unordered_set<int>())<<std::endl;
-        std::cout<<(g2.in_neighbors(0) == std::unordered_set<int>({1}))<<std::endl;
-        std::cout<<(g2.out_neighbors(1) == std::unordered_set<int>({0}))<<std::endl;
-        std::cout<<(g2.in_neighbors(1) == std::unordered_set<int>({2}))<<std::endl;
-        std::cout<<(g2.out_neighbors(2) == std::unordered_set<int>({1, 2}))<<std::endl;
-        std::cout<<(g2.in_neighbors(2) == std::unordered_set<int>({2}))<<std::endl;
-    }
-
-    if (directed) {
-        std::cout<<!g2.has_edge(0, 0)<<std::endl;
-        std::cout<<!g2.has_edge(0, 1)<<std::endl;
-        std::cout<<!g2.has_edge(0, 2)<<std::endl;
-        std::cout<< g2.has_edge(1, 0)<<std::endl;
-        std::cout<<!g2.has_edge(1, 1)<<std::endl;
-        std::cout<<!g2.has_edge(1, 2)<<std::endl;
-        std::cout<<!g2.has_edge(2, 0)<<std::endl;
-        std::cout<< g2.has_edge(2, 1)<<std::endl;
-        std::cout<< g2.has_edge(2, 2)<<std::endl;
-    } else {
-        std::cout<<!g2.has_edge(0, 0)<<std::endl;
-        std::cout<< g2.has_edge(0, 1)<<std::endl;
-        std::cout<<!g2.has_edge(0, 2)<<std::endl;
-        std::cout<<!g2.has_edge(1, 1)<<std::endl;
-        std::cout<< g2.has_edge(1, 2)<<std::endl;
-        std::cout<< g2.has_edge(2, 2)<<std::endl;
-    }
-    std::cout<<(g2.num_edges() == 3)<<std::endl;
-
-    SparseGraph g3 = SparseGraph(directed, 5);
-    std::cout<<(g3.num_nodes() == 5)<<std::endl;
-    std::cout<<(g3.num_edges() == 0)<<std::endl;
-
-    SparseGraph g4 = SparseGraph(g2);
-    if (directed) {
-        std::cout<<!g4.has_edge(0, 0)<<std::endl;
-        std::cout<<!g4.has_edge(0, 1)<<std::endl;
-        std::cout<<!g4.has_edge(0, 2)<<std::endl;
-        std::cout<< g4.has_edge(1, 0)<<std::endl;
-        std::cout<<!g4.has_edge(1, 1)<<std::endl;
-        std::cout<<!g4.has_edge(1, 2)<<std::endl;
-        std::cout<<!g4.has_edge(2, 0)<<std::endl;
-        std::cout<< g4.has_edge(2, 1)<<std::endl;
-        std::cout<< g4.has_edge(2, 2)<<std::endl;
-    } else {
-        std::cout<<!g4.has_edge(0, 0)<<std::endl;
-        std::cout<< g4.has_edge(0, 1)<<std::endl;
-        std::cout<<!g4.has_edge(0, 2)<<std::endl;
-        std::cout<<!g4.has_edge(1, 1)<<std::endl;
-        std::cout<< g4.has_edge(1, 2)<<std::endl;
-        std::cout<< g4.has_edge(2, 2)<<std::endl;
-    }
-    std::cout<<(g4.num_nodes() == 3)<<std::endl;
-    std::cout<<(g4.num_edges() == 3)<<std::endl;
-
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
-    std::cout<<"The next thing you should see is a custom error message."<<std::endl;
-    #else
-    std::cout<<"The next thing you should see is a generic error message."<<std::endl;
-    #endif
-    g4.add_edge(0, 3);
-    */
 
     return 0;
 };
