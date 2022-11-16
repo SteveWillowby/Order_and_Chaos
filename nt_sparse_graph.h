@@ -60,19 +60,42 @@ public:
     // returns a `sparsegraph` struct that can be passed into nauty or traces
     // virtual const sparsegraph as_nauty_traces_graph() const;
 
-    // Returns a partitioning (i.e. coloring) for the Nauty/Traces sparsegraph
-    NTPartition
-        nauty_traces_coloring(const Coloring<int> &node_coloring) const;
-    NTPartition
-        nauty_traces_coloring(const Coloring<Edge> &edge_coloring) const;
-    NTPartition
-        nauty_traces_coloring(const Coloring<int> &node_coloring,
-                              const Coloring<Edge> &edge_coloring) const;
+    // Returns a partitioning (i.e. coloring) for the Nauty/Traces sparsegraph.
+    /*
+    NTPartition nauty_traces_coloring() const;
+    NTPartition nauty_traces_coloring(const Coloring<int> &node_colors) const;
+    NTPartition nauty_traces_coloring(const Coloring<Edge> &edge_colors) const;
+    NTPartition nauty_traces_coloring(const Coloring<int> &node_colors,
+                                      const Coloring<Edge> &edge_colors) const;
 
-    // When on, this class keeps info ready to more quickly make an NTPartition.
+
+    // Featured colorings:
+
+    // When on, this class keeps info ready to more quickly make an NTPartition
+    //  that separates out edge nodes from regular nodes.
+    //
+    // NOTE: Can only be turned on if there is not already a featured coloring.
     void turn_on_structure_coloring();
-    void turn_off_structure_coloring();
-    NTPartition structure_coloring() const;
+    // When on, this class keeps info ready to more quickly make an NTPartition
+    //  that highlights any edges (or non-edges) which have been changed.
+    //
+    // NOTE: when a change highlights coloring is set, the graph cannot add or
+    //  remove any nodes. Only edges may be changed.
+    //
+    // NOTE: Can only be turned on if there is not already a featured coloring.
+    void turn_on_change_highlights_coloring();
+    void turn_on_change_highlights_coloring(const Coloring<int> &node_colors);
+    void turn_on_change_highlights_coloring(const Coloring<Edge> &edge_colors);
+    void turn_on_change_highlights_coloring(const Coloring<int> &node_colors,
+                                            const Coloring<Edge> &edge_colors);
+
+    void turn_off_featured_coloring();
+    */
+
+    // If structure coloring is set, returns the structure coloring. 
+    // If a change highlights coloring is set, returns that.
+    // Otherwise, throws an error.
+    NTPartition featured_coloring() const;
 
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
@@ -224,6 +247,21 @@ public:
     // ADDITIONALLY, this function must change the ID of the edge node with the
     //  highest ID to now have the ID of the destroyed node.
     void slide_back_edge_node_to_slot(int edge_node_of_slot);
+
+
+    /////////////////////// Code/Vars for Colorings ////////////////////////
+
+    /*
+    bool structure_coloring;
+    bool change_highlights_coloring;
+
+    std::vector<int> node_ids;
+    std::vector<int> partition_ints;
+    std::vector<int> node_to_partition_loc;
+    std::vector<int> node_to_cell;
+    std::unordered_map<int, int> cell_starts;
+    std::unordered_map<int, int> cell_ends;
+    */
 };
 
 #endif

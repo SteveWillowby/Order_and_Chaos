@@ -93,11 +93,11 @@ std::vector<int> NTPartition::get_cell_list() const {
     int node;
     for (size_t i = 0; i < _size; i++) {
         node = node_ids[i];
+        cell_list[node] = cell;
+
         if (partition_ints[i] == 0) {
             cell++;
         }
-
-        cell_list[node] = cell;
     }
     return cell_list;
 }

@@ -1,7 +1,8 @@
 #include "augmented_multimap.h"
-// #include "coloring.h"
+#include "coloring.h"
 #include "edge.h"
 #include "sparse_graph.h"
+#include "nt_partition.h"
 #include "nt_sparse_graph.h"
 
 #include<stdexcept>

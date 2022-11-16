@@ -9,9 +9,9 @@ template<class T> class Coloring {
 public:
     Coloring();
 
-    volatile void set(const T& elt, int color);
-    volatile void erase(const T& elt);
-    volatile int operator[](const T& elt) const;
+    virtual void set(const T& elt, int color);
+    virtual void erase(const T& elt);
+    virtual int operator[](const T& elt) const;
 
 protected:
     std::unordered_map<T, int> coloring;
