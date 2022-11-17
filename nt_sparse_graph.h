@@ -144,6 +144,11 @@ public:
     //  O(1) -- defined in sparse_graph.cpp
     // virtual const std::unordered_set<int> &in_neighbors(const int a) const;
 
+    // Returns the internal label of the node used to represent edge (a, b).
+    //
+    // NOTE: This label is subject to change if the graph is modified.
+    virtual int edge_node(const int a, const int b) const;
+
 #ifndef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 protected:
 #endif

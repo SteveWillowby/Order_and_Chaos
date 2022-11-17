@@ -785,6 +785,15 @@ void NTSparseGraph::flip_edge(const int a, const int b) {
     SparseGraph::flip_edge(a, b);
 }
 
+int NTSparseGraph::edge_node(const int a, const int b) const {
+    const auto& itr = edge_to_edge_node.find(EDGE(a, b, directed));
+    if (itr == edge_to_edge_node.end()) {
+        throw std::range_error(std::string("Error in call to edge_node()!")
+                               + "Edge (" + std::to_string(a) + ", "
+                               + std::to_string(b) + ") does not exist.");
+    }
+    return itr->second;
+}
 
 // Returns the new internal label for the new edge node.
 int NTSparseGraph::allocate_edge_node() {

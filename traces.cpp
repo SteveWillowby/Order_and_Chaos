@@ -5,6 +5,7 @@
 #include "traces.h"
 #include "nauty27r4/traces.h"
 
+#include<iostream> // TODO: Remove this and the cout statements.
 #include<set>
 #include<unordered_map>
 #include<vector>
@@ -77,19 +78,32 @@ TracesOptions default_traces_options() {
 }
 
 SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
+    std::cout<<"Y"<<std::endl;
+
     SYMTracesResults results;
 
+    std::cout<<"Z"<<std::endl;
+
     sparsegraph g_traces = g.as_nauty_traces_graph();
+
+    std::cout<<"A"<<std::endl;
+
     int* orbits = new int[g_traces.nv];
     NTPartition partition = g.nauty_traces_coloring();
+
+    std::cout<<"B"<<std::endl;
 
     TracesOptions to = default_traces_options();
     to.getcanon = o.get_canonical_node_order;
 
     TracesStats ts;
 
+    std::cout<<"C"<<std::endl;
+
     Traces(&g_traces, partition.get_node_ids(), partition.get_partition_ints(),
            orbits, &to, &ts, NULL);
+
+    std::cout<<"D"<<std::endl;
 
     results.error_status = ts.errstatus;
     results.num_aut_base = ts.grpsize1;
@@ -97,24 +111,78 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
     results.num_node_orbits = 0;
     results.num_edge_orbits = 0;
 
+    int largest_orbit_id = 0;
+
     if (o.get_node_orbits) {
-        std::set<int> orbit_ids = std::set<int>();
         results.node_orbits = std::vector<int>(orbits, orbits + g.num_nodes());
+        std::unordered_set<int> orbit_ids = std::unordered_set<int>();
         for (size_t i = 0; i < g.num_nodes(); i++) {
             orbit_ids.insert(orbits[i]);
         }
         results.num_node_orbits = orbit_ids.size();
+
+        // We will need the largest orbit id to label the orbits of self-loops.
+        if (o.get_edge_orbits) {
+            for (auto id = orbit_ids.begin(); id != orbit_ids.end(); id++) {
+                if (*id > largest_orbit_id) {
+                    largest_orbit_id = *id;
+                }
+            }
+        }
     }
     if (o.get_edge_orbits) {
-        std::set<int> orbit_ids = std::set<int>();
-        for (size_t i = g.num_nodes(); i < size_t(g_traces.nv); i++) {
-            // TODO: Implement.
+        results.edge_orbits = std::unordered_map<Edge, int, EdgeHash>();
+        std::unordered_set<int> orbit_ids = std::unordered_set<int>();
+        if (g.directed) {
+            // Some edge nodes do not actually correspond to edges. So we look
+            //  at the edges themselves and then look up the edge node ids.
+            int edge_node;
+            for (size_t a = 0; a < g.num_nodes(); a++) {
+                for (auto b_itr = g.out_neighbors(a).begin();
+                            b_itr != g.out_neighbors(a).end(); b_itr++) {
+                    edge_node = g.edge_node(a, *b_itr);
+                    results.edge_orbits[EDGE(a, *b_itr, true)] =
+                                                            orbits[edge_node];
+                }
+            }
+        } else {
+            // Undirected. All edge nodes correspond to actual edges.
+            for (size_t i = g.num_nodes(); i < size_t(g_traces.nv); i++) {
+                // Use details of the NTSparseGraph representation to speed
+                //  things up.
+                size_t loc = g_traces.v[i];
+                results.edge_orbits[EDGE(g_traces.e[loc],
+                                         g_traces.e[loc+1], false)] = orbits[i];
+                orbit_ids.insert(orbits[i]);
+            }
         }
+
+        // Add self-loops.
+
+        // We will need the largest orbit id to label the orbits of self-loops.
+        for (auto id = orbit_ids.begin(); id != orbit_ids.end(); id++) {
+            if (*id > largest_orbit_id) {
+                largest_orbit_id = *id;
+            }
+        }
+        largest_orbit_id++; // Now strictly larger than any non-self-loop ids.
+
+        for (size_t i = 0; i < g.num_nodes(); i++) {
+            if (g.has_edge(i, i)) {
+                results.edge_orbits[EDGE(i, i, g.directed)] =
+                                                  largest_orbit_id + orbits[i];
+                orbit_ids.insert(largest_orbit_id + orbits[i]);
+            }
+        }
+        results.num_edge_orbits = orbit_ids.size();
     }
     delete orbits;
 
     if (o.get_canonical_node_order) {
-        // TODO: Implement
+        // TODO: Verify whether the regular nodes are always listed first.
+        results.canonical_node_order =
+            std::vector<int>(partition.get_node_ids(),
+                             partition.get_node_ids() + g.num_nodes());
     }
 
     return results;
