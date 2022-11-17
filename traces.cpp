@@ -5,6 +5,7 @@
 #include "traces.h"
 #include "nauty27r4/traces.h"
 
+#include<set>
 #include<unordered_map>
 #include<vector>
 
@@ -91,16 +92,24 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
            orbits, &to, &ts, NULL);
 
     results.error_status = ts.errstatus;
-    // TODO: num_orbits currently counts edge node orbits as well.
-    results.num_orbits = ts.numorbits;
     results.num_aut_base = ts.grpsize1;
     results.num_aut_exponent = ts.grpsize2;
+    results.num_node_orbits = 0;
+    results.num_edge_orbits = 0;
 
     if (o.get_node_orbits) {
-        // TODO: Implement
+        std::set<int> orbit_ids = std::set<int>();
+        results.node_orbits = std::vector<int>(orbits, orbits + g.num_nodes());
+        for (size_t i = 0; i < g.num_nodes(); i++) {
+            orbit_ids.insert(orbits[i]);
+        }
+        results.num_node_orbits = orbit_ids.size();
     }
     if (o.get_edge_orbits) {
-        // TODO: Implement
+        std::set<int> orbit_ids = std::set<int>();
+        for (size_t i = g.num_nodes(); i < size_t(g_traces.nv); i++) {
+            // TODO: Implement.
+        }
     }
     delete orbits;
 
