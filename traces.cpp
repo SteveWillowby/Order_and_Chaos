@@ -5,7 +5,8 @@
 #include "traces.h"
 #include "nauty27r4/traces.h"
 
-#include<iostream> // TODO: Remove this and the cout statements.
+#include "debugging.h" // TODO: Remove this and the cout statements.
+
 #include<set>
 #include<unordered_map>
 #include<vector>
@@ -36,7 +37,7 @@ TracesOptions default_traces_options() {
     //
     // [NOTE: In *this* repository, Traces *CAN* handle digraphs
     //  due to the use of nodes hidden from the user that are given colors.
-    //  Regardless, this flag must always be false.]
+    //  Regardless, this flag MUST always be false.]
     to.digraph = false;
     // If this is TRUE, it is assumed that all vertices of the graph have the
     //  same colour (so the initial values of the parameters lab and ptn are
@@ -59,7 +60,7 @@ TracesOptions default_traces_options() {
     //  written if the writeautoms option requests them). Larger values produce
     //  greater information about the execution, though its interpretation
     //  requires some knowledge of the algorithm. Default 0.
-    to.verbosity = 0;
+    to.verbosity = 10;
     // This can be used to provide known automorphisms to Traces and receive the
     //  automorphisms from Traces when it is finished. If it is NULL when Traces
     //  is called, Traces does not change it. If it is non-NULL, it is expected
@@ -77,33 +78,64 @@ TracesOptions default_traces_options() {
     return to;
 }
 
-SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
-    std::cout<<"Y"<<std::endl;
+sparsegraph* space_for_canon_graph(const sparsegraph& sg,
+                                   const NTSparseGraph& g) {
+    sparsegraph* space = new sparsegraph;
+    space->nv = sg.nv;
+    space->nde = sg.nde;
+    space->dlen = sg.nv;
+    space->vlen = sg.nv;
+    if (g.directed) {
+        space->elen = g.num_edges() * 6;
+    } else {
+        space->elen = g.num_edges() * 4;
+    }
+    space->d = new int[space->dlen];
+    space->v = new size_t[space->vlen];
+    space->e = new int[space->elen];
 
+    space->wlen = 0;
+    space->w = NULL;
+
+    return space;
+}
+
+void free_canon_sparsegraph(sparsegraph* sg) {
+    delete sg->d;
+    delete sg->v;
+    delete sg->e;
+    delete sg;
+}
+
+SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
     SYMTracesResults results;
 
-    std::cout<<"Z"<<std::endl;
-
     sparsegraph g_traces = g.as_nauty_traces_graph();
-
-    std::cout<<"A"<<std::endl;
 
     int* orbits = new int[g_traces.nv];
     NTPartition partition = g.nauty_traces_coloring();
 
-    std::cout<<"B"<<std::endl;
-
     TracesOptions to = default_traces_options();
-    to.getcanon = o.get_canonical_node_order;
+    sparsegraph* canon_rep = NULL;
+    if (o.get_canonical_node_order) {
+        to.getcanon = true;
+        canon_rep = space_for_canon_graph(g_traces, g);
+    }
 
     TracesStats ts;
 
-    std::cout<<"C"<<std::endl;
+    std::cout<<"About to call Traces()"<<std::endl;
+    std::cout<<"Num Internal Nodes: "<<g_traces.nv<<std::endl;
+    std::cout<<"The Partition:"<<std::endl;
+    // std::cout<<"Node IDs:  "<<vec_as_string(std::vector<int>(partition.get_node_ids(), partition.get_node_ids() + g_traces.nv))<<std::endl;
+    // std::cout<<"Part ints: "<<vec_as_string(std::vector<int>(partition.get_partition_ints(), partition.get_partition_ints() + g_traces.nv))<<std::endl;
+    // std::cout<<"Is the graph consistent? "<<(consistency_check(g) ? "Yes." : "No.")<<std::endl;
+    std::cout<<"Moving to call."<<std::endl;
 
     Traces(&g_traces, partition.get_node_ids(), partition.get_partition_ints(),
-           orbits, &to, &ts, NULL);
+           orbits, &to, &ts, canon_rep);
 
-    std::cout<<"D"<<std::endl;
+    std::cout<<"Traces() finished."<<std::endl;
 
     results.error_status = ts.errstatus;
     results.num_aut_base = ts.grpsize1;
@@ -114,9 +146,11 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
     int largest_orbit_id = 0;
 
     if (o.get_node_orbits) {
-        results.node_orbits = std::vector<int>(orbits, orbits + g.num_nodes());
+        results.node_orbits = std::vector<int>(g.num_nodes(), 0);
+
         std::unordered_set<int> orbit_ids = std::unordered_set<int>();
         for (size_t i = 0; i < g.num_nodes(); i++) {
+            results.node_orbits[i] = orbits[i];
             orbit_ids.insert(orbits[i]);
         }
         results.num_node_orbits = orbit_ids.size();
@@ -180,9 +214,13 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
 
     if (o.get_canonical_node_order) {
         // TODO: Verify whether the regular nodes are always listed first.
-        results.canonical_node_order =
-            std::vector<int>(partition.get_node_ids(),
-                             partition.get_node_ids() + g.num_nodes());
+        results.canonical_node_order = std::vector<int>(g.num_nodes(), 0);
+        int *canon = partition.get_node_ids();
+        for (size_t i = 0; i < g.num_nodes(); i++) {
+            results.canonical_node_order[i] = canon[i];
+        }
+
+        free_canon_sparsegraph(canon_rep);
     }
 
     return results;

@@ -11,7 +11,10 @@ struct SYMTracesOptions {
     // Set to true to collect the orbits of the nodes and the number of distinct
     //  (node) orbits.
     bool get_node_orbits;
+    // Set to true to collect the orbits of the edges and the number of distinct
+    //  (edge) orbits.
     bool get_edge_orbits;
+    // Set to true to get the canonical node order.
     bool get_canonical_node_order;
 };
 

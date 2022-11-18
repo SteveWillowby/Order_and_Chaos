@@ -68,9 +68,20 @@ public:
     //  struct type requires non-const pointers to the data. However, Nauty and
     //  Traces do not modify the graph structure, so as long as you also do not
     //  use this info to modify the graph, then this function is safe.
+    //
+    // NOTE: traces.cpp assumes details about this class's output for this
+    //  function. If the details of this output change, traces.cpp must change
+    //  too.
+    //  In particular, traces.cpp assumes the following:
+    //      * The first n nodes in v are the regular nodes.
+    //      * There are at most 3 nt edges per edge in the graph when the graph
+    //          is directed and at most 2 nt edges per edge when the undirected.
     const sparsegraph as_nauty_traces_graph();
 
     // Returns a partitioning (i.e. coloring) for the Nauty/Traces sparsegraph.
+    //
+    // NOTE: traces.cpp assumes the following about all partition outputs:
+    //      * The real nodes are the first n nodes in the node_ids list.
     NTPartition nauty_traces_coloring() const;
     /*
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors) const;
