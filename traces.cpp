@@ -1,18 +1,19 @@
 #include "edge.h"
 #include "nauty27r4/nauty.h"
 #include "nauty27r4/nausparse.h"
+#include "nauty27r4/traces.h"
 #include "nt_sparse_graph.h"
 #include "traces.h"
-#include "nauty27r4/traces.h"
-
-#include "debugging.h" // TODO: Remove this and the cout statements.
 
 #include<set>
 #include<unordered_map>
 #include<vector>
 
 TracesOptions default_traces_options() {
-    TracesOptions to;
+    // This line declares a TracesOptions object `to` with default settings.
+    //  Apparently it sets something not mentioned in the manual.
+    DEFAULTOPTIONS_TRACES(to);
+
     // NOTE: These comments are copied from the Nauty/Traces user guide v27,
     //  pages 21 and 22. The full pdf can be found in this repository at
     //  nauty27r4/nug27.pdf
@@ -23,44 +24,53 @@ TracesOptions default_traces_options() {
     //  the automorphism group. Otherwise, only the automorphism group is
     //  determined.
     to.getcanon = false;
+
     // If this is TRUE, generators of the automorphism group will be written to
     //  the file outfile (see below). The format will depend on the settings of
     //  options cartesian and linelength (see below, again).
-    to.writeautoms = false;
+    // to.writeautoms = false;
+
     // If writeautoms = TRUE, the value of this option effects the format
     //  in which automorphisms are written. If cartesian = FALSE, the output is
     //  the usual cyclic representation of y, for example "(2 5 6)(3 4)". If
     //  cartesian = TRUE, the output for an automorphism L is the sequence of
     //  numbers "1y 2y . . . (n−1)y", for example "1 5 4 3 6 2".
-    to.cartesian = false;
+    //to.cartesian = false;
+
     // Unused, must be FALSE. This release of Traces cannot handle di-graphs.
     //
     // [NOTE: In *this* repository, Traces *CAN* handle digraphs
     //  due to the use of nodes hidden from the user that are given colors.
     //  Regardless, this flag MUST always be false.]
-    to.digraph = false;
+    // to.digraph = false;
+
     // If this is TRUE, it is assumed that all vertices of the graph have the
     //  same colour (so the initial values of the parameters lab and ptn are
     //  ignored). If it is FALSE, the initial colouring of the vertices is
     //  determined by lab and ptn as described above [in the manual].
     to.defaultptn = false;
+
     // The value of this variable specifies the maximum number of characters
     //  per line (excluding end-of-line characters) which may be written to the
     //  file outfile (see below). Default 0.
-    to.linelength = 0;
+    // to.linelength = 0;
+
     // This is the file to which the output selected by the options writeautoms
     //  and verbosity is sent. It must be already open and writable. The null
     //  pointer NULL is equivalent to stdout (the standard output).
     //  Default NULL.
-    to.outfile = NULL;
+    // to.outfile = NULL;
+
     // Must be 0 in this version.
-    to.strategy = 0;
+    // to.strategy = 0;
+
     // A level of verbosity of messages while Traces is running. A value of
     //  0 means that no output will be written (except that automorphisms are
     //  written if the writeautoms option requests them). Larger values produce
     //  greater information about the execution, though its interpretation
     //  requires some knowledge of the algorithm. Default 0.
-    to.verbosity = 10;
+    to.verbosity = 0;
+
     // This can be used to provide known automorphisms to Traces and receive the
     //  automorphisms from Traces when it is finished. If it is NULL when Traces
     //  is called, Traces does not change it. If it is non-NULL, it is expected
@@ -69,11 +79,12 @@ TracesOptions default_traces_options() {
     //  input coloured graph.) In this case, Traces will add automorphisms to
     //  the list so that the whole automorphism group is generated. See Section
     //  18 for detailed instructions and examples. Default NULL.
-    to.generators = NULL;
+    // to.generators = NULL;
+
     // This is a pointer to a user-defined procedure which is to be called for
     //  each generator. Section 9 has details. No calls will be made if the
     //  value is NULL. Default NULL.
-    to.userautomproc = NULL;
+    // to.userautomproc = NULL;
 
     return to;
 }
@@ -124,18 +135,8 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
 
     TracesStats ts;
 
-    std::cout<<"About to call Traces()"<<std::endl;
-    std::cout<<"Num Internal Nodes: "<<g_traces.nv<<std::endl;
-    std::cout<<"The Partition:"<<std::endl;
-    // std::cout<<"Node IDs:  "<<vec_as_string(std::vector<int>(partition.get_node_ids(), partition.get_node_ids() + g_traces.nv))<<std::endl;
-    // std::cout<<"Part ints: "<<vec_as_string(std::vector<int>(partition.get_partition_ints(), partition.get_partition_ints() + g_traces.nv))<<std::endl;
-    // std::cout<<"Is the graph consistent? "<<(consistency_check(g) ? "Yes." : "No.")<<std::endl;
-    std::cout<<"Moving to call."<<std::endl;
-
     Traces(&g_traces, partition.get_node_ids(), partition.get_partition_ints(),
            orbits, &to, &ts, canon_rep);
-
-    std::cout<<"Traces() finished."<<std::endl;
 
     results.error_status = ts.errstatus;
     results.num_aut_base = ts.grpsize1;

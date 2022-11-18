@@ -36,16 +36,22 @@ struct SYMTracesResults {
     //  true.
     std::vector<int> canonical_node_order;
 
-    // Maps nodes to their canonical automorphism orbit ID. Used iff
+    // Maps nodes to their automorphism orbit ID. Used iff
     //  get_node_orbits is true.
+    //
+    // NOTE: The orbit ids are not canonical. To make them canonical, you must
+    //  use the canonical node order to relabel these orbits.
     //
     // NOTE: The orbit ids are not forced to be 0 through num-orbits-minus-1.
     //  Rather, they can be anything. However, they will not overlap with edge
     //  orbit ids.
     std::vector<int> node_orbits;
 
-    // Maps edges to their canonical automorphism orbit ID. Used iff
+    // Maps edges to their automorphism orbit ID. Used iff
     //  get_edge_orbits is true.
+    //
+    // NOTE: The orbit ids are not canonical. To make them canonical, you must
+    //  use the canonical node order to relabel these orbits.
     //
     // NOTE: The orbit ids are not forced to be 0 through num-orbits-minus-1.
     //  Rather, they can be anything. However, they will not overlap with node

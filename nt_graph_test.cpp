@@ -63,7 +63,6 @@ int main(void) {
 
     NTSparseGraph g_dir = NTSparseGraph(true, 7);
     g_dir.add_edge(0, 1);
-    /*
     g_dir.add_edge(2, 1);
     result = traces(g_dir, options);
     std::cout<<std::endl;
@@ -75,12 +74,8 @@ int main(void) {
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir.delete_edge(2, 1);
-    */
     g_dir.add_edge(1, 2);
-    g_dir.add_edge(2, 3);
-    std::cout<<"\nWhy does this next line cause a crash???"<<std::endl;
     result = traces(g_dir, options);
-    std::cout<<"It doesn't cause a crash. Wat are you talkin about?"<<std::endl;
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 7 nodes with edge (0, 1), (1, 2)"<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
