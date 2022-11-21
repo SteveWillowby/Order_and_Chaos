@@ -1,7 +1,8 @@
-#include "edge.h"
 #include "nauty27r4/nauty.h"
 #include "nauty27r4/nausparse.h"
 #include "nauty27r4/traces.h"
+
+#include "edge.h"
 #include "nt_sparse_graph.h"
 #include "traces.h"
 
