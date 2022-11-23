@@ -1,0 +1,325 @@
+Only in nauty27r4_modified: common_strings.h
+diff nauty27r4/dreadnaut.c nauty27r4_modified/dreadnaut.c
+108a109,110
+> #include "common_strings.h"
+> 
+243c245,246
+< #define INVARPROCNAME "none"
+---
+> // "none"
+> #define INVARPROCNAME str_none
+251c254,255
+< #define INVARPROCNAME_SG "none"
+---
+> // "none"
+> #define INVARPROCNAME_SG str_none
+265,281c269,285
+<        {NULL,        "none",        NULL,           "none"},
+<        {twopaths,    "twopaths",    NULL,           "unavailable"},
+<        {adjtriang,   "adjtriang",   NULL,           "unavailable"},
+<        {triples,     "triples",     NULL,           "unavailable"},
+<        {quadruples,  "quadruples",  NULL,           "unavailable"},
+<        {celltrips,   "celltrips",   NULL,           "unavailable"},
+<        {cellquads,   "cellquads",   NULL,           "unavailable"},
+<        {cellquins,   "cellquins",   NULL,           "unavailable"},
+<        {distances,   "distances",   distances_sg,   "distances_sg"},
+<        {indsets,     "indsets",     NULL,           "unavailable"},
+<        {cliques,     "cliques",     NULL,           "unavailable"},
+<        {cellcliq,    "cellcliq",    NULL,           "unavailable"},
+<        {cellind,     "cellind",     NULL,           "unavailable"},
+<        {adjacencies, "adjacencies", adjacencies_sg, "adjacencies_sg"},
+<        {cellfano,    "cellfano",    NULL,           "unavailable"},
+<        {cellfano2,   "cellfano2",   NULL,           "unavailable"},
+<        {refinvar,    "refinvar",    NULL,           "unavailable"}
+---
+>        {NULL,        str_none /* "none" */,        NULL,           str_none},
+>        {twopaths,    str_twopaths /* "twopaths" */,    NULL,           str_unavailable},
+>        {adjtriang,   str_adjtriang /* "adjtriang" */,   NULL,           str_unavailable},
+>        {triples,     str_triples /* you get the idea */,     NULL,           str_unavailable},
+>        {quadruples,  str_quadruples,  NULL,           str_unavailable},
+>        {celltrips,   str_celltrips,   NULL,           str_unavailable},
+>        {cellquads,   str_cellquads,   NULL,           str_unavailable},
+>        {cellquins,   str_cellquins,   NULL,           str_unavailable},
+>        {distances,   str_distances,   distances_sg,   str_distances_sg},
+>        {indsets,     str_indsets,     NULL,           str_unavailable},
+>        {cliques,     str_cliques,     NULL,           str_unavailable},
+>        {cellcliq,    str_cellcliq,    NULL,           str_unavailable},
+>        {cellind,     str_cellind,     NULL,           str_unavailable},
+>        {adjacencies, str_adjacencies, adjacencies_sg, str_adjacencies_sg},
+>        {cellfano,    str_cellfano,    NULL,           str_unavailable},
+>        {cellfano2,   str_cellfano2,   NULL,           str_unavailable},
+>        {refinvar,    str_refinvar,    NULL,           str_unavailable}
+402a407,408
+>     char blank_string[1] = "";
+> 
+411c417
+< 	parameters = "";
+---
+> 	parameters = &(blank_string[0]);
+549c555
+<             arg_int(&ap,&worksize,"w");
+---
+>             arg_int(&ap,&worksize,str_w); // "w"
+570c576
+<                 arg_int(&ap,&i,"V");
+---
+>                 arg_int(&ap,&i,str_V); // "V"
+586c592
+<                 arg_int(&ap,&i,"S");
+---
+>                 arg_int(&ap,&i,str_S); // "S"
+605c611
+<                 arg_int(&ap,&i,"G");
+---
+>                 arg_int(&ap,&i,str_G); // "G"
+618c624
+<             arg_int(&ap,&options_tc_level,"y");
+---
+>             arg_int(&ap,&options_tc_level,str_y); // "y"
+624c630
+<             arg_int(&ap,&labelorg,"$");
+---
+>             arg_int(&ap,&labelorg,str_dollar); // "$"
+639c645
+<                 arg_int(&ap,&multiplicity,"M");
+---
+>                 arg_int(&ap,&multiplicity,str_M); // "M"
+643c649
+< 		    arg_int(&ap,&actmult,"M/");
+---
+> 		    arg_int(&ap,&actmult,str_Mslash); // "M/"
+654c660
+<             arg_int(&ap,&options_linelength,"l");
+---
+>             arg_int(&ap,&options_linelength,str_l); // "l"
+diff nauty27r4/gtools.h nauty27r4_modified/gtools.h
+32,33d31
+< #define HAVE_PTHREADS 0   /* Posix threads exist */
+< #define HAVE_PTHREAD_H  1      /* <pthread.h> exists */
+304a303,304
+> #ifndef ALREADY_DEFINED_TIMEBUFFER_FROM_CPUDEFS
+> #define ALREADY_DEFINED_TIMEBUFFER_FROM_CPUDEFS
+305a306
+> #endif
+diff nauty27r4/gtools-h.in nauty27r4_modified/gtools-h.in
+302a303,304
+> #ifndef ALREADY_DEFINED_TIMEBUFFER_FROM_CPUDEFS
+> #define ALREADY_DEFINED_TIMEBUFFER_FROM_CPUDEFS
+303a306
+> #endif
+diff nauty27r4/nausparse.c nauty27r4_modified/nausparse.c
+29a30,31
+> #include "common_strings.h"
+> 
+1343c1345
+<         putstring(f," :");
+---
+>         putstring(f,str__colon); // " :"
+1352c1354
+<                 putstring(f,"\n ");
+---
+>                 putstring(f, str_endl_); // "\n "
+diff nauty27r4/nautil.c nauty27r4_modified/nautil.c
+63a64,65
+> #include "common_strings.h"
+> 
+316c318
+<               {putstring(f,"\n   ");curlen=3;}
+---
+>               {putstring(f,str_endl___);curlen=3;}
+363c365
+<         if (curlen == 0) putstring(f,"(1)\n");
+---
+>         if (curlen == 0) putstring(f,str_lpar1rparendl); // "(1)\n"
+diff nauty27r4/naututil.c nauty27r4_modified/naututil.c
+82a83,84
+> #include "common_strings.h"
+> 
+1249c1251
+<                 putstring(f,"\n  ");
+---
+>                 putstring(f, str_endl__); // "\n  "
+1256c1258
+<         putstring(f,";\n");
+---
+>         putstring(f, str_semiendl); // ";\n"
+1293c1295
+<             putstring(f,"\n  ");
+---
+>             putstring(f, str_endl__); // "\n  "
+diff nauty27r4/naututil.h nauty27r4_modified/naututil.h
+234a235
+> #define NAUTY_OPEN_DEFINED
+240a242
+> #define NAUTY_CPU_DEFINED
+diff nauty27r4/naututil-h.in nauty27r4_modified/naututil-h.in
+234a235
+> #define NAUTY_OPEN_DEFINED
+240a242
+> #define NAUTY_CPU_DEFINED
+diff nauty27r4/nauty.c nauty27r4_modified/nauty.c
+71a72,73
+> #include "common_strings.h"
+> 
+1118c1120
+<     PUTSTR("level ");
+---
+>     PUTSTR(str_level_); // "level "
+1120c1122
+<     PUTSTR(":  ");
+---
+>     PUTSTR(str_colon__); // ":  "
+1124,1126c1126,1128
+<         PUTSTR(" cell");
+<         if (numcells == 1) PUTSTR("; ");
+<         else               PUTSTR("s; ");
+---
+>         PUTSTR(str__cell); // " cell"
+>         if (numcells == 1) PUTSTR(str_semi_); // "; "
+>         else               PUTSTR(str_ssemi_); // "s; "
+1129,1131c1131,1133
+<     PUTSTR(" orbit");
+<     if (numorbits == 1) PUTSTR("; ");
+<     else                PUTSTR("s; ");
+---
+>     PUTSTR(str__orbit); // " orbit"
+>     if (numorbits == 1) PUTSTR(str_semi_); // "; "
+>     else                PUTSTR(str_ssemi_); // "s; "
+1133c1135
+<     PUTSTR(" fixed; index ");
+---
+>     PUTSTR(str__fixedsemi_index_); // " fixed; index "
+1137c1139
+<         PUTSTR("/");
+---
+>         PUTSTR(str_slash); // "/"
+1140c1142
+<     PUTSTR("\n");
+---
+>     PUTSTR(str_endl); // "\n"
+diff nauty27r4/nauty.h nauty27r4_modified/nauty.h
+29c29
+< #define DEFAULT_WORDSIZE 32
+---
+> #define DEFAULT_WORDSIZE 0
+41c41
+< 
+---
+> #define USE_TLS
+47c47
+< #define TLS_ATTR _Thread_local
+---
+> #define TLS_ATTR thread_local
+57c57
+< #define FLEX_ARRAY_OK 0
+---
+> #define FLEX_ARRAY_OK 1
+69c69
+< #define HAVE_HWLZCNT 0
+---
+> #define HAVE_HWLZCNT 1
+71,73c71,73
+< #define HAVE_CLZ 0
+< #define HAVE_CLZL 0
+< #define HAVE_CLZLL 0
+---
+> #define HAVE_CLZ 1
+> #define HAVE_CLZL 1
+> #define HAVE_CLZLL 1
+84c84
+< #define HAVE_HWPOPCNT 0
+---
+> #define HAVE_HWPOPCNT 1
+86,88c86,88
+< #define HAVE_POPCNT 0
+< #define HAVE_POPCNTL 0
+< #define HAVE_POPCNTLL 0
+---
+> #define HAVE_POPCNT 1
+> #define HAVE_POPCNTL 1
+> #define HAVE_POPCNTLL 1
+diff nauty27r4/traces.c nauty27r4_modified/traces.c
+27a28,29
+> #include "common_strings.h"
+> 
+691a694,695
+> #ifndef ALREADY_DEFINED_TIMEBUFFER_FROM_CPUDEFS
+> #define ALREADY_DEFINED_TIMEBUFFER_FROM_CPUDEFS
+693a698
+> #endif
+860c865
+<     struct TracesVars *tv = malloc(sizeof(struct TracesVars));
+---
+>     struct TracesVars *tv = (TracesVars*)(malloc(sizeof(struct TracesVars)));
+865c870
+<     struct TracesInfo *ti = malloc(sizeof(struct TracesInfo));
+---
+>     struct TracesInfo *ti = (TracesInfo*)(malloc(sizeof(struct TracesInfo)));
+4607c4612
+<         tv->graph->w = malloc(tv->graph->wlen*sizeof(int));
+---
+>         tv->graph->w = (sg_weight*)(malloc(tv->graph->wlen*sizeof(int)));
+5426c5431
+<         Cand = malloc(sizeof(*Cand));
+---
+>         Cand = (Candidate*)(malloc(sizeof(*Cand)));
+5431c5436
+<         Cand->lab = malloc(n*sizeof(*Cand->lab));
+---
+>         Cand->lab = (int*)(malloc(n*sizeof(*Cand->lab)));
+5436c5441
+<         Cand->invlab = malloc(n*sizeof(*Cand->invlab));
+---
+>         Cand->invlab = (int*)(malloc(n*sizeof(*Cand->invlab)));
+8897c8902
+<     P = malloc(sizeof(*(P)));
+---
+>     P = (Partition*)(malloc(sizeof(*(P))));
+8902c8907
+<     P->cls = malloc(n*sizeof(int));
+---
+>     P->cls = (int*)(malloc(n*sizeof(int)));
+8907c8912
+<     P->inv = malloc(n*sizeof(int));
+---
+>     P->inv = (int*)(malloc(n*sizeof(int)));
+8920c8925
+<         Spine[Lev].part = malloc(sizeof(*(Spine[Lev].part)));
+---
+>         Spine[Lev].part = (Partition*)(malloc(sizeof(*(Spine[Lev].part))));
+9303c9308
+<                         putstring(f,"\n  ");
+---
+>                         putstring(f, str_endl__);  // "\n  "
+9316c9321
+<                 putstring(f,"\n  ");
+---
+>                 putstring(f, str_endl__);  // "\n  "
+9323c9328
+<         putstring(f,";\n");
+---
+>         putstring(f, str_semiendl);  // ";\n"
+9400c9405
+<         tv->strielist->next = malloc(sizeof(struct trielist));
+---
+>         tv->strielist->next = (trielist*)(malloc(sizeof(struct trielist)));
+9408c9413
+<         tv->strielist->triearray = malloc(n*sizeof(searchtrie));
+---
+>         tv->strielist->triearray = (searchtrie*)(malloc(n*sizeof(searchtrie)));
+9444c9449
+<     tv->strielist = malloc(sizeof(struct trielist));
+---
+>     tv->strielist = (trielist*)(malloc(sizeof(struct trielist)));
+9450c9455
+<     tv->strielist->triearray = malloc(n*sizeof(searchtrie));
+---
+>     tv->strielist->triearray = (searchtrie*)(malloc(n*sizeof(searchtrie)));
+10046c10051
+<         TrieArray[tv->triepos] = malloc(n*sizeof(trie));
+---
+>         TrieArray[tv->triepos] = (trie*)(malloc(n*sizeof(trie)));
+10090c10095
+<     TrieArray[0] = malloc(n*sizeof(trie));
+---
+>     TrieArray[0] = (trie*)(malloc(n*sizeof(trie)));

@@ -25,8 +25,8 @@
  *      functions with "nauty_traces" in their name.
  */
 
-#include "nauty27r4/nauty.h"
-#include "nauty27r4/nausparse.h"
+#include "nauty27r4_modified/nauty.h"
+#include "nauty27r4_modified/nausparse.h"
 
 #include "augmented_multimap.h"
 #include "coloring.h"

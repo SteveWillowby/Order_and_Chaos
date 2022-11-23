@@ -1,6 +1,6 @@
-#include "nauty27r4/nauty.h"
-#include "nauty27r4/nausparse.h"
-#include "nauty27r4/traces.h"
+#include "nauty27r4_modified/nauty.h"
+#include "nauty27r4_modified/nausparse.h"
+#include "nauty27r4_modified/traces.h"
 
 #include "edge.h"
 #include "nt_sparse_graph.h"
@@ -17,7 +17,7 @@ TracesOptions default_traces_options() {
 
     // NOTE: These comments are copied from the Nauty/Traces user guide v27,
     //  pages 21 and 22. The full pdf can be found in this repository at
-    //  nauty27r4/nug27.pdf
+    //  nauty27r4_modified/nug27.pdf
     //
     // Any modifications to the comments are in square brackets [].
 
