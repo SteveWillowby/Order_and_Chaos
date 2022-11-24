@@ -1149,11 +1149,80 @@ NTPartition NTSparseGraph::nauty_traces_coloring() const {
     return part;
 }
 
-/*
 NTPartition NTSparseGraph::nauty_traces_coloring(
                                     const Coloring<int> &node_colors) const {
+    NTPartition part = NTPartition(internal_n);
+
+    // Has nodes 0 through internal_n in numeric order
+    int* node_ids_ptr = part.get_node_ids();
+
+    // All 1's except for the last entry
+    int* partition_ints_ptr = part.get_partition_ints();
+
+    // Separate the regular nodes from the edge nodes.
+    partition_ints_ptr[n - 1] = 0;
+
+    // Within the regular nodes, list them in order by color, and within a
+    //  given color, list the nodes with self-loops first.
+    size_t num_nodes_listed = 0;
+    size_t cell_start;
+    size_t next_self_loop_node_idx;
+    for (auto color_itr = node_colors.colors().begin();
+              color_itr != node_colors.colors().end(); color_itr++) {
+
+        cell_start = num_nodes_listed;
+        next_self_loop_node_idx = num_nodes_listed;
+
+        for (auto node_itr = node_colors.cell(*color_itr).begin();
+                  node_itr != node_colors.cell(*color_itr).end(); node_itr++) {
+            if (has_self_loop[*node_itr]) {
+                if (next_self_loop_node_idx < num_nodes_listed) {
+                    node_ids_ptr[num_nodes_listed] =
+                                    node_ids_ptr[next_self_loop_node_idx];
+                    node_ids_ptr[next_self_loop_node_idx] = *node_itr;
+                } else {
+                    node_ids_ptr[next_self_loop_node_idx] = *node_itr;
+                }
+                next_self_loop_node_idx++;
+            } else {
+                node_ids_ptr[num_nodes_listed] = *node_itr;
+            }
+            num_nodes_listed++;
+        }
+        partition_ints_ptr[num_nodes_listed - 1] = 0;
+        if (next_self_loop_node_idx > cell_start) {
+            partition_ints_ptr[next_self_loop_node_idx - 1] = 0;
+        }
+    }
+
+    if (!directed) {
+        return part;
+    }
+
+    // Remember that when a connects to b, then under the hood there are two
+    //  edge nodes in an undirected chain linking a -- x -- y -- b.
+    // We need to distinguish between two kinds of edge nodes:
+    // those that correspond to the head of a directed edge and those that don't
+    size_t front_idx = n;
+    size_t back_idx = internal_n - 1;
+    for (int edge_node = n; edge_node < int(internal_n); edge_node++) {
+        const Edge& e = edge_node_to_edge.find(edge_node)->second;
+        if (_out_neighbors[e.first].find(e.second) ==
+                                            _out_neighbors[e.first].end()) {
+            // Edge (first, second) is not in the graph.
+            node_ids_ptr[back_idx] = edge_node;
+            back_idx--;
+        } else {
+            node_ids_ptr[front_idx] = edge_node;
+            front_idx++;
+        }
+    }
+    partition_ints_ptr[front_idx - 1] = 0;
+
+    return part;
 }
 
+/*
 NTPartition NTSparseGraph::nauty_traces_coloring(
                             const Coloring<Edge, EdgeHash> &edge_colors) const {
 }

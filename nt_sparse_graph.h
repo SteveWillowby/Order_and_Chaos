@@ -83,8 +83,8 @@ public:
     // NOTE: traces.cpp assumes the following about all partition outputs:
     //      * The real nodes are the first n nodes in the node_ids list.
     NTPartition nauty_traces_coloring() const;
-    /*
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors) const;
+    /*
     NTPartition nauty_traces_coloring(const Coloring<Edge, EdgeHash>
                                                             &edge_colors) const;
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors,
