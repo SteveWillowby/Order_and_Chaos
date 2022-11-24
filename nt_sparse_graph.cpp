@@ -1155,13 +1155,13 @@ NTPartition NTSparseGraph::nauty_traces_coloring(
 }
 
 NTPartition NTSparseGraph::nauty_traces_coloring(
-                                    const Coloring<Edge> &edge_colors) const {
-
+                            const Coloring<Edge, EdgeHash> &edge_colors) const {
 }
 
 NTPartition NTSparseGraph::nauty_traces_coloring(
                                     const Coloring<int> &node_colors,
-                                    const Coloring<Edge> &edge_colors) const {
+                                    const Coloring<Edge, EdgeHash>
+                                                        &edge_colors) const {
 
 }
 */

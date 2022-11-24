@@ -85,9 +85,11 @@ public:
     NTPartition nauty_traces_coloring() const;
     /*
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors) const;
-    NTPartition nauty_traces_coloring(const Coloring<Edge> &edge_colors) const;
+    NTPartition nauty_traces_coloring(const Coloring<Edge, EdgeHash>
+                                                            &edge_colors) const;
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors,
-                                      const Coloring<Edge> &edge_colors) const;
+                                      const Coloring<Edge, EdgeHash>
+                                                            &edge_colors) const;
 
 
     // Featured colorings:
@@ -106,9 +108,11 @@ public:
     // NOTE: Can only be turned on if there is not already a featured coloring.
     void turn_on_change_highlights_coloring();
     void turn_on_change_highlights_coloring(const Coloring<int> &node_colors);
-    void turn_on_change_highlights_coloring(const Coloring<Edge> &edge_colors);
+    void turn_on_change_highlights_coloring(const Coloring<Edge, EdgeHash>
+                                                                &edge_colors);
     void turn_on_change_highlights_coloring(const Coloring<int> &node_colors,
-                                            const Coloring<Edge> &edge_colors);
+                                            const Coloring<Edge, EdgeHash>
+                                                                &edge_colors);
 
     void turn_off_featured_coloring();
 

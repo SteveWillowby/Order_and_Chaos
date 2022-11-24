@@ -7,8 +7,7 @@
 #ifndef SYM__COLORING_H
 #define SYM__COLORING_H
 
-// TODO: Add support for custom T hash function
-template<class T> class Coloring {
+template<class T, class THash=std::hash<T>> class Coloring {
 public:
     Coloring();
 
@@ -17,23 +16,24 @@ public:
     virtual int operator[](const T& elt) const;
 
     virtual const std::set<int>& colors() const;
-    virtual const std::unordered_set<T>& cell(int color) const;
+    virtual const std::unordered_set<T, THash>& cell(int color) const;
 
 protected:
-    std::unordered_map<T, int> coloring;
-    std::unordered_map<int, std::unordered_set<T>> cells;
+    std::unordered_map<T, int, THash> coloring;
+    std::unordered_map<int, std::unordered_set<T, THash>> cells;
     std::set<int> _colors;
 };
 
-template<class T> Coloring<T>::Coloring() : Coloring() {
-    cells = std::unordered_map<int, std::unordered_set<T>>();
+template<class T, class THash> Coloring<T, THash>::Coloring() {
+    cells = std::unordered_map<int, std::unordered_set<T, THash>>();
     _colors = std::set<int>();
 }
 
-template<class T> void Coloring<T>::set(const T& elt, int color) {
+template<class T, class THash>
+                       void Coloring<T, THash>::set(const T& elt, int color) {
     auto cell_itr = cells.find(color);
     if (cell_itr == cells.end()) {
-        cells[color] = std::unordered_set<T>(elt);
+        cells[color] = std::unordered_set<T, THash>({elt});
         _colors.insert(color);
     } else {
         cell_itr->second.insert(elt);
@@ -55,7 +55,8 @@ template<class T> void Coloring<T>::set(const T& elt, int color) {
 }
 
 
-template<class T> void Coloring<T>::erase(const T& elt) {
+template<class T, class THash>
+                       void Coloring<T, THash>::erase(const T& elt) {
     auto itr = coloring.find(elt);
     if (itr == coloring.end()) {
         return;
@@ -70,20 +71,22 @@ template<class T> void Coloring<T>::erase(const T& elt) {
     }
 }
 
-template<class T> int Coloring<T>::operator[](const T& elt) const {
+template<class T, class THash>
+                        int Coloring<T, THash>::operator[](const T& elt) const {
     auto itr = coloring.find(elt);
     if (itr == coloring.end()) {
         throw std::range_error("Error. Element not in coloring.");
     }
-    return *itr;
+    return itr->second;
 }
 
-template<class T> const std::set<int>& Coloring<T>::colors() const {
+template<class T, class THash> const std::set<int>&
+                            Coloring<T, THash>::colors() const {
     return _colors;
 }
 
-template<class T> const std::unordered_set<T>&
-                            Coloring<T>::cell(int color) const {
+template<class T, class THash> const std::unordered_set<T, THash>&
+                            Coloring<T, THash>::cell(int color) const {
     auto cell_itr = cells.find(color);
     if (cell_itr == cells.end()) {
         throw std::range_error("Error. Color " + std::to_string(color) +
