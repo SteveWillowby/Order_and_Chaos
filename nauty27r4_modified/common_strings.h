@@ -1,6 +1,31 @@
-#ifndef COMMON_STRINGS
-#define COMMON_STRINGS
+// #define COMMON_STRINGS_FOR_UTILS
 
+#ifndef COMMON_STRINGS_H
+#define COMMON_STRINGS_H
+
+static char char_slash[2] = "/";
+static char *str_slash = &(char_slash[0]);
+
+static char char_semi_[3] = "; ";
+static char *str_semi_ = &(char_semi_[0]);
+
+static char char__orbit[7] = " orbit";
+static char *str__orbit = &(char__orbit[0]);
+
+static char char_level_[7] = "level ";
+static char *str_level_ = &(char_level_[0]);
+
+static char char_colon__[4] = ":  ";
+static char *str_colon__ = &(char_colon__[0]);
+
+static char char__cell[6] = " cell";
+static char *str__cell = &(char__cell[0]);
+
+static char char_ssemi_[4] = "s; ";
+static char *str_ssemi_ = &(char_ssemi_[0]);
+
+static char char__fixedsemi_index_[15] = " fixed; index ";
+static char *str__fixedsemi_index_ = &(char__fixedsemi_index_[0]);
 
 static char char_endl[2] = "\n";
 static char *str_endl = &(char_endl[0]);
@@ -17,35 +42,14 @@ static char *str_endl___ = &(char_endl___[0]);
 static char char_semiendl[3] = ";\n";
 static char *str_semiendl = &(char_semiendl[0]);
 
-static char char_semi_[3] = "; ";
-static char *str_semi_ = &(char_semi_[0]);
-
-static char char_level_[7] = "level ";
-static char *str_level_ = &(char_level_[0]);
-
-static char char_colon__[4] = ":  ";
-static char *str_colon__ = &(char_colon__[0]);
+static char char_lpar1rparendl[5] = "(1)\n";
+static char *str_lpar1rparendl = &(char_lpar1rparendl[0]);
 
 static char char__colon[3] = " :";
 static char *str__colon = &(char__colon[0]);
 
-static char char__cell[6] = " cell";
-static char *str__cell = &(char__cell[0]);
 
-static char char_ssemi_[4] = "s; ";
-static char *str_ssemi_ = &(char_ssemi_[0]);
-
-static char char__orbit[7] = " orbit";
-static char *str__orbit = &(char__orbit[0]);
-
-static char char__fixedsemi_index_[15] = " fixed; index ";
-static char *str__fixedsemi_index_ = &(char__fixedsemi_index_[0]);
-
-static char char_slash[2] = "/";
-static char *str_slash = &(char_slash[0]);
-
-static char char_lpar1rparendl[5] = "(1)\n";
-static char *str_lpar1rparendl = &(char_lpar1rparendl[0]);
+#ifdef COMMON_STRINGS_FOR_UTILS
 
 static char char_none[5] = "none";
 static char *str_none = &(char_none[0]);
@@ -229,5 +233,7 @@ static char *str_geng_dashx = &(char_geng_dashx[0]);
 
 static char char_geng_dashX[8] = "geng -X";
 static char *str_geng_dashX = &(char_geng_dashX[0]);
+
+#endif
 
 #endif

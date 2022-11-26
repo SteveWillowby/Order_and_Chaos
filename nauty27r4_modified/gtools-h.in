@@ -9,7 +9,7 @@ creating gtools.h out of gtools-h.in.  If configure is not being
 used, it is necessary to check they are correct.
 ====================================================================*/
 
-#include "common_strings.h"
+// #include "common_strings.h"
 
 #ifndef  _GTOOLS_H_    /* only process this file once */
 #define  _GTOOLS_H_
@@ -137,7 +137,7 @@ int setenv(const char*,const char*,int);
 // ">>planar_code<<"
 #define PLANARCODE_HEADER std_planar_code
 // ">>planar_code le<<"
-#define PLANARCODELE_HEADER std_planar_code_le
+#define PLANARCODELE_HEADER str_planar_code_le
 // ">>planar_code be<<"
 #define PLANARCODEBE_HEADER str_planar_code_be
 // ">>edge_code<<"
