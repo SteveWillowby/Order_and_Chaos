@@ -120,12 +120,17 @@ void free_canon_sparsegraph(sparsegraph* sg) {
 }
 
 SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
+    NTPartition partition = g.nauty_traces_coloring();
+    return traces(g, o, partition);
+}
+
+SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o,
+                        NTPartition& p) {
     SYMTracesResults results;
 
     sparsegraph g_traces = g.as_nauty_traces_graph();
 
     int* orbits = new int[g_traces.nv];
-    NTPartition partition = g.nauty_traces_coloring();
 
     TracesOptions to = default_traces_options();
     sparsegraph* canon_rep = NULL;
@@ -136,7 +141,7 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
 
     TracesStats ts;
 
-    Traces(&g_traces, partition.get_node_ids(), partition.get_partition_ints(),
+    Traces(&g_traces, p.get_node_ids(), p.get_partition_ints(),
            orbits, &to, &ts, canon_rep);
 
     results.error_status = ts.errstatus;
@@ -217,7 +222,7 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
     if (o.get_canonical_node_order) {
         // TODO: Verify whether the regular nodes are always listed first.
         results.canonical_node_order = std::vector<int>(g.num_nodes(), 0);
-        int *canon = partition.get_node_ids();
+        int *canon = p.get_node_ids();
         for (size_t i = 0; i < g.num_nodes(); i++) {
             results.canonical_node_order[i] = canon[i];
         }

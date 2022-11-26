@@ -64,4 +64,9 @@ struct SYMTracesResults {
 // Even though g is not passed as a const, it is left un-modified.
 SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o);
 
+// Even though g is not passed as a const, it is left un-modified.
+//  However, p might be modified.
+SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o,
+                        NTPartition& p);
+
 #endif
