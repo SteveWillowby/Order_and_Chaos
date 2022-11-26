@@ -137,4 +137,97 @@ static char *str_Mslash = &(char_Mslash[0]);
 static char char_l[2] = "l";
 static char *str_l = &(char_l[0]);
 
+static char char_copyg_dashI[9] = "copyg -I";
+static char *str_copyg_dashI = &(char_copyg_dashI[0]);
+
+static char char_copyg_dashp[9] = "copyg -p";
+static char *str_copyg_dashp = &(char_copyg_dashp[0]);
+
+static char char_listg_dashI[9] = "listg -I";
+static char *str_listg_dashI = &(char_listg_dashI[0]);
+
+static char char_listg_dashp[9] = "listg -p";
+static char *str_listg_dashp = &(char_listg_dashp[0]);
+
+static char char_listg_dasho[9] = "listg -o";
+static char *str_listg_dasho = &(char_listg_dasho[0]);
+
+static char char_listg_dashl[9] = "listg -l";
+static char *str_listg_dashl = &(char_listg_dashl[0]);
+
+static char char_colondash[3] = ":-";
+static char *str_colondash = &(char_colondash[0]);
+
+static char char_stdin[6] = "stdin";
+static char *str_stdin = &(char_stdin[0]);
+
+static char char_stdout[7] = "stdout";
+static char *str_stdout = &(char_stdout[0]);
+
+static char char_sparse6[12] = ">>sparse6<<";
+static char *str_sparse6 = &(char_sparse6[0]);
+
+static char char_digraph6[13] = ">>digraph6<<";
+static char *str_digraph6 = &(char_digraph6[0]);
+
+static char char_graph6[11] = ">>graph6<<";
+static char *str_graph6 = &(char_graph6[0]);
+
+static char char_planar_code[16] = ">>planar_code<<";
+static char *str_planar_code = &(char_planar_code[0]);
+
+static char char_planar_code_le[19] = ">>planar_code le<<";
+static char *str_planar_code_le = &(char_planar_code_le[0]);
+
+static char char_planar_code_be[19] = ">>planar_code be<<";
+static char *str_planar_code_be = &(char_planar_code_be[0]);
+
+static char char_edge_code[14] = ">>edge_code<<";
+static char *str_edge_code = &(char_edge_code[0]);
+
+static char char_labelg_dashC[10] = "labelg -C";
+static char *str_labelg_dashC = &(char_labelg_dashC[0]);
+
+static char char_labelg_dashW[10] = "labelg -W";
+static char *str_labelg_dashW = &(char_labelg_dashW[0]);
+
+static char char_labelg_dashI[10] = "labelg -I";
+static char *str_labelg_dashI = &(char_labelg_dashI[0]);
+
+static char char_labelg_dashi[10] = "labelg -i";
+static char *str_labelg_dashi = &(char_labelg_dashi[0]);
+
+static char char_labelg_dashK[10] = "labelg -K";
+static char *str_labelg_dashK = &(char_labelg_dashK[0]);
+
+static char char_labelg_dashk[10] = "labelg -k";
+static char *str_labelg_dashk = &(char_labelg_dashk[0]);
+
+static char char_labelg_dashM[10] = "labelg -M";
+static char *str_labelg_dashM = &(char_labelg_dashM[0]);
+
+static char char_E_dretog_dasho[13] = ">E dretog -o";
+static char *str_E_dretog_dasho = &(char_E_dretog_dasho[0]);
+
+static char char_E_dretog_dashn[13] = ">E dretog -n";
+static char *str_E_dretog_dashn = &(char_E_dretog_dashn[0]);
+
+static char char_E_amtog_dasho[12] = ">E amtog -o";
+static char *str_E_amtog_dasho = &(char_E_amtog_dasho[0]);
+
+static char char_E_amtog_dashn[12] = ">E amtog -n";
+static char *str_E_amtog_dashn = &(char_E_amtog_dashn[0]);
+
+static char char_geng_dashd[8] = "geng -d";
+static char *str_geng_dashd = &(char_geng_dashd[0]);
+
+static char char_geng_dashD[8] = "geng -D";
+static char *str_geng_dashD = &(char_geng_dashD[0]);
+
+static char char_geng_dashx[8] = "geng -x";
+static char *str_geng_dashx = &(char_geng_dashx[0]);
+
+static char char_geng_dashX[8] = "geng -X";
+static char *str_geng_dashX = &(char_geng_dashX[0]);
+
 #endif

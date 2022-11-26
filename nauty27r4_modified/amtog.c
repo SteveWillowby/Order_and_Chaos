@@ -46,7 +46,7 @@ main(int argc, char *argv[])
     char *arg,sw,ochar;
     boolean badargs;
     boolean nswitch,sswitch,gswitch,hswitch,qswitch;
-    boolean warn,loop,unsymm,compl,triangle,tournament;
+    boolean warn,loop,unsymm,compl_,triangle,tournament;
     boolean zswitch,oswitch,nowarn;
     char *infilename,*outfilename;
     FILE *infile,*outfile;
@@ -82,8 +82,8 @@ main(int argc, char *argv[])
                 else SWBOOLEAN('h',hswitch)
                 else SWBOOLEAN('w',nowarn)
                 else SWBOOLEAN('q',qswitch)
-                else SWINT('n',nswitch,n,">E amtog -n")
-                else SWINT('o',oswitch,outdigit,">E amtog -o")
+                else SWINT('n',nswitch,n,str_E_amtog_dashn) // ">E amtog -n"
+                else SWINT('o',oswitch,outdigit,str_E_amtog_dasho) // ">E amtog -o"
                 else badargs = TRUE;
             }
         }
@@ -114,7 +114,7 @@ main(int argc, char *argv[])
 
     if (!infilename || infilename[0] == '-')
     {
-        infilename = "stdin";
+        infilename = str_stdin;
         infile = stdin;
     }
     else if ((infile = fopen(infilename,"r")) == NULL)
@@ -125,7 +125,7 @@ main(int argc, char *argv[])
 
     if (!outfilename || outfilename[0] == '-')
     {
-        outfilename = "stdout";
+        outfilename = str_stdout;
         outfile = stdout;
     }
     else if ((outfile = fopen(outfilename,"w")) == NULL)
@@ -198,7 +198,7 @@ main(int argc, char *argv[])
             loop = unsymm = tournament = FALSE;
             triangle = (s[0] == 't') || (s[0] == 'T') || (s[0] == 's');
 	    tournament = s[0] == 's';
-            compl = (s[0] == 'M') || (s[0] == 'T');
+            compl_ = (s[0] == 'M') || (s[0] == 'T');
 
             ++nin;
             for (i = 0; i < n; ++i)
@@ -212,7 +212,7 @@ main(int argc, char *argv[])
                 if (s[0] == '0' || s[0] == '1'
                       || (oswitch && isdigit(s[0])))
                 {
-                    val = ((i != j) & compl) ^ (s[0] == ochar);
+                    val = ((i != j) & compl_) ^ (s[0] == ochar);
                     if (val == 1)
                     {
 			if (tournament)

@@ -1,5 +1,7 @@
 /* labelg.c version 2.0; B D McKay, Jun 2015 */
 
+#include "common_strings.h"
+
 #define USAGE "labelg [-q] [-sgz | -C#W#] [-fxxx] [-S|-t] \n\
                           [-i# -I#:# -K#] [infile [outfile]]"
 
@@ -66,23 +68,23 @@ static struct invarrec
                       int,boolean,int,int);
     char *name;
 } invarproc[]
-    = {{NULL, NULL, "none"},
-       {twopaths,   NULL, "twopaths"},
-       {adjtriang,  NULL, "adjtriang"},
-       {triples,    NULL, "triples"},
-       {quadruples, NULL, "quadruples"},
-       {celltrips,  NULL, "celltrips"},
-       {cellquads,  NULL, "cellquads"},
-       {cellquins,  NULL, "cellquins"},
-       {distances, distances_sg, "distances"},
-       {indsets,    NULL, "indsets"},
-       {cliques,    NULL, "cliques"},
-       {cellcliq,   NULL, "cellcliq"},
-       {cellind,    NULL, "cellind"},
-       {adjacencies, adjacencies_sg, "adjacencies"},
-       {cellfano,   NULL, "cellfano"},
-       {cellfano2,  NULL, "cellfano2"},
-       {refinvar,   NULL, "refinvar"}
+    = {{NULL, NULL, str_none},
+       {twopaths,   NULL, str_twopaths},
+       {adjtriang,  NULL, str_adjtriang},
+       {triples,    NULL, str_triples},
+       {quadruples, NULL, str_quadruples},
+       {celltrips,  NULL, str_celltrips},
+       {cellquads,  NULL, str_cellquads},
+       {cellquins,  NULL, str_cellquins},
+       {distances, distances_sg, str_distances},
+       {indsets,    NULL, str_indsets},
+       {cliques,    NULL, str_cliques},
+       {cellcliq,   NULL, str_cellcliq},
+       {cellind,    NULL, str_cellind},
+       {adjacencies, adjacencies_sg, str_adjacencies},
+       {cellfano,   NULL, str_cellfano},
+       {cellfano2,  NULL, str_cellfano2},
+       {refinvar,   NULL, str_refinvar}
       };
 
 #define NUMINVARS ((int)(sizeof(invarproc)/sizeof(struct invarrec)))
@@ -158,19 +160,19 @@ main(int argc, char *argv[])
 		    else SWBOOLEAN('O',Oswitch)
 		    else SWBOOLEAN('S',Sswitch)
 		    else SWBOOLEAN('t',tswitch)
-		    else SWINT('C',Cswitch,tabsize,"labelg -C")
-		    else SWINT('W',Wswitch,outinvar,"labelg -W")
-		    else SWINT('i',iswitch,inv,"labelg -i")
-		    else SWINT('K',Kswitch,invararg,"labelg -K")
-		    else SWRANGE('k',":-",Iswitch,minil,maxil,"labelg -k")
-		    else SWRANGE('I',":-",Iswitch,minil,maxil,"labelg -I")
+		    else SWINT('C',Cswitch,tabsize,str_labelg_dashC) // "labelg -C"
+		    else SWINT('W',Wswitch,outinvar,str_labelg_dashW) // "labelg -W"
+		    else SWINT('i',iswitch,inv,str_labelg_dashi) // "labelg -i"
+		    else SWINT('K',Kswitch,invararg,str_labelg_dashK) // "labelg -K"
+		    else SWRANGE('k',str_colondash,Iswitch,minil,maxil,str_labelg_dashk) // "labelg -k"
+		    else SWRANGE('I',str_colondash,Iswitch,minil,maxil,str_labelg_dashI) // "labelg -I"
 		    else if (sw == 'f')
 		    {
 			fswitch = TRUE;
 			fmt = arg;
 			break;
 		    }
-		    else SWINT('M',Mswitch,secret,"labelg -M")
+		    else SWINT('M',Mswitch,secret,str_labelg_dashM) // "labelg -M"
 		    else badargs = TRUE;
 		}
 	    }
@@ -260,11 +262,11 @@ main(int argc, char *argv[])
 	infile = opengraphfile(infilename,&codetype,FALSE,1);
 
 	if (!infile) exit(1);
-	if (!infilename) infilename = "stdin";
+	if (!infilename) infilename = str_stdin;
 
 	if (!outfilename || outfilename[0] == '-')
 	{
-	    outfilename = "stdout";
+	    outfilename = str_stdout;
 	    outfile = stdout;
 	}
 	else if ((outfile = fopen(outfilename,"w")) == NULL)

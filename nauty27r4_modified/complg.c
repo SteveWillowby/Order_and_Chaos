@@ -1,5 +1,7 @@
 /* complg.c  version 2.0; B D McKay, Jun 2015. */
 
+#include "common_strings.h"
+
 #define USAGE "complg [-lq] [-a] [-L] [-r|-R] [infile [outfile]]"
 
 #define HELPTEXT \
@@ -24,7 +26,7 @@
 /**************************************************************************/
 
 static void
-compl(graph *g, int m, int n, graph *h, boolean comploops)
+compl_(graph *g, int m, int n, graph *h, boolean comploops)
 /* h := complement of g */
 {
     int i,j;
@@ -193,7 +195,7 @@ main(int argc, char *argv[])
 
             if (ned > nedc || (ned == nedc && !Restricted))
             {
-                compl(g,m,n,gc,Lswitch);
+                compl_(g,m,n,gc,Lswitch);
                 if (dolabel)
                 {
 #if !MAXN
@@ -220,7 +222,7 @@ main(int argc, char *argv[])
             }
             else 
             {
-                compl(g,m,n,gc,Lswitch);
+                compl_(g,m,n,gc,Lswitch);
 #if !MAXN
                 DYNALLOC2(graph,h,h_sz,n,m,"complg");
                 DYNALLOC2(graph,hc,hc_sz,n,m,"complg");
@@ -241,7 +243,7 @@ main(int argc, char *argv[])
         }
         else   /* Not restricted */
         {		
-            compl(g,m,n,gc,Lswitch);
+            compl_(g,m,n,gc,Lswitch);
             if (dolabel)
             {
 #if !MAXN

@@ -1,5 +1,7 @@
 /* dretog.c  version 1.1; B D McKay, Jan 2013. */
 
+#include "common_strings.h"
+
 #define USAGE "dretog [-n#o#sghq] [infile [outfile]]"
 
 #define HELPTEXT \
@@ -77,8 +79,8 @@ main(int argc, char *argv[])
 		    else SWBOOLEAN('z',zswitch)
 		    else SWBOOLEAN('h',hswitch)
 		    else SWBOOLEAN('q',qswitch)
-		    else SWINT('o',oswitch,initorg,">E dretog -o")
-		    else SWINT('n',nswitch,n,">E dretog -n")
+		    else SWINT('o',oswitch,initorg,str_E_dretog_dasho) // ">E dretog -o"
+		    else SWINT('n',nswitch,n,str_E_dretog_dashn) // ">E dretog -n"
 		    else badargs = TRUE;
 		}
 	    }
@@ -105,7 +107,7 @@ main(int argc, char *argv[])
 
 	if (!infilename || infilename[0] == '-')
 	{
-	    infilename = "stdin";
+	    infilename = str_stdin;
 	    infile = stdin;
 	}
 	else if ((infile = fopen(infilename,"r")) == NULL)
@@ -116,7 +118,7 @@ main(int argc, char *argv[])
 
 	if (!outfilename || outfilename[0] == '-')
 	{
-	    outfilename = "stdout";
+	    outfilename = str_stdout;
 	    outfile = stdout;
 	}
 	else if ((outfile = fopen(outfilename,"w")) == NULL)

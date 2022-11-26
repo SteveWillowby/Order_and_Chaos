@@ -1,5 +1,7 @@
 /* listg.c  version 2.3; B D McKay, Sep 2018 */
 
+#include "common_strings.h"
+
 #define USAGE \
  "listg [-fp#:#l#o#Ftq] [-a|-A|-c|-d|-e|-H|-M|-W|-L|-s|-b|-G|-y|-Yxxx]" \
        " [infile [outfile]]"
@@ -566,9 +568,9 @@ main(int argc, char *argv[])
                 else SWBOOLEAN('L',Lswitch)
                 else SWBOOLEAN('s',sswitch)
                 else SWBOOLEAN('y',yswitch)
-                else SWRANGE('p',":-",pswitch,pval1,pval2,"listg -p")
-                else SWINT('l',lswitch,linelength,"listg -l")
-                else SWINT('o',oswitch,labelorg,"listg -o")
+                else SWRANGE('p',str_colondash,pswitch,pval1,pval2,str_listg_dashp) // "listg -p"
+                else SWINT('l',lswitch,linelength,str_listg_dashl) // "listg -l"
+                else SWINT('o',oswitch,labelorg,str_listg_dasho) // "listg -o"
 		else if (sw == 'Y')
 		{
 		    Yswitch = TRUE;
@@ -613,11 +615,11 @@ main(int argc, char *argv[])
     infile = opengraphfile(infilename,&codetype,fswitch,
                            pswitch ? pval1 : 1);
     if (!infile) exit(1);
-    if (!infilename) infilename = "stdin";
+    if (!infilename) infilename = str_stdin;
 
     if (!outfilename || outfilename[0] == '-')
     {
-        outfilename = "stdout";
+        outfilename = str_stdout;
         outfile = stdout;
     }
     else if ((outfile = fopen(outfilename,"w")) == NULL)

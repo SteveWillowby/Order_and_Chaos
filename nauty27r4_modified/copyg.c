@@ -1,5 +1,7 @@
 /* copyg.c version 2.4; B D McKay, May 2020 */
 
+#include "common_strings.h"
+
 #ifdef FILTER
 #define HELPUSECMD
 #define USAGE "[-v] [-gszfp#:#qhx] [infile [outfile]]"
@@ -141,8 +143,8 @@ main(int argc, char *argv[])
                 else SWBOOLEAN('v',vswitch)
 		else SWRANGE('Q',":-",Qswitch,Qlo,Qhi,"filter -Q")
 #endif
-                else SWLONG('I',Iswitch,refresh,"copyg -I")
-                else SWRANGE('p',":-",pswitch,pval1,pval2,"copyg -p")
+                else SWLONG('I',Iswitch,refresh,str_copyg_dashI) // "copyg -I"
+                else SWRANGE('p',str_colondash,pswitch,pval1,pval2,str_copyg_dashp) // "copyg -p"
                 else badargs = TRUE;
             }
         }
@@ -195,11 +197,11 @@ main(int argc, char *argv[])
     infile = opengraphfile(infilename,&codetype,fswitch,
                                         pswitch ? pval1 : 1);
     if (!infile) exit(1);
-    if (!infilename) infilename = "stdin";
+    if (!infilename) infilename = str_stdin;
 
     if (!outfilename || outfilename[0] == '-')
     {
-        outfilename = "stdout";
+        outfilename = str_stdout;
         outfile = stdout;
     }
     else if ((outfile = fopen(outfilename,"w")) == NULL)

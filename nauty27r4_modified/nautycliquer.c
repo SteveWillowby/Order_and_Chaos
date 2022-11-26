@@ -186,7 +186,7 @@ static int unweighted_clique_search_single(int *table, int min_size,
 		temp_count--;
 		newtable=temp_list[temp_count];
 	} else {
-		newtable=malloc(g->n * sizeof(int));
+		newtable=(int*)(malloc(g->n * sizeof(int)));
 	}
 	for (i=1; i < g->n; i++) {
 		w=v;
@@ -292,7 +292,7 @@ static boolean sub_unweighted_single(int *table, int size, int min_size,
 		temp_count--;
 		newtable=temp_list[temp_count];
 	} else {
-		newtable=malloc(g->n * sizeof(int));
+		newtable=(int*)(malloc(g->n * sizeof(int)));
 	}
 
 	for (i = size-1; i >= 0; i--) {
@@ -380,7 +380,7 @@ static int unweighted_clique_search_all(int *table, int start,
 		temp_count--;
 		newtable=temp_list[temp_count];
 	} else {
-		newtable=malloc(g->n * sizeof(int));
+		newtable=(int*)(malloc(g->n * sizeof(int)));
 	}
 
 	clique_list_count=0;
@@ -491,7 +491,7 @@ static int sub_unweighted_all(int *table, int size, int min_size, int max_size,
 		temp_count--;
 		newtable=temp_list[temp_count];
 	} else {
-		newtable=malloc(g->n * sizeof(int));
+		newtable=(int*)(malloc(g->n * sizeof(int)));
 	}
 
 	for (i=size-1; i>=0; i--) {
@@ -634,7 +634,7 @@ static int weighted_clique_search_single(int *table, int min_weight,
 		temp_count--;
 		newtable=temp_list[temp_count];
 	} else {
-		newtable=malloc(g->n * sizeof(int));
+		newtable=(int*)(malloc(g->n * sizeof(int)));
 	}
 
 	for (i = 1; i < g->n; i++) {
@@ -740,7 +740,7 @@ static int weighted_clique_search_all(int *table, int start,
 		temp_count--;
 		newtable=temp_list[temp_count];
 	} else {
-		newtable=malloc(g->n * sizeof(int));
+		newtable=(int*)(malloc(g->n * sizeof(int)));
 	}
 
 	clique_list_count=0;
@@ -880,7 +880,7 @@ static int sub_weighted_all(int *table, int size, int weight,
 		temp_count--;
 		newtable=temp_list[temp_count];
 	} else {
-		newtable=malloc(g->n * sizeof(int));
+		newtable=(int*)(malloc(g->n * sizeof(int)));
 	}
 
 	for (i = size-1; i >= 0; i--) {
@@ -1032,7 +1032,7 @@ static boolean is_maximal(set_t clique, graph_t *g) {
 		temp_count--;
 		table=temp_list[temp_count];
 	} else {
-		table=malloc(g->n * sizeof(int));
+		table=(int*)(malloc(g->n * sizeof(int)));
 	}
 
 	len=0;
@@ -1158,9 +1158,9 @@ set_t clique_unweighted_find_single(graph_t *g,int min_size,int max_size,
 
 	/* Dynamic allocation */
 	current_clique=set_new(g->n);
-	clique_size=malloc(g->n * sizeof(int));
+	clique_size=(int*)(malloc(g->n * sizeof(int)));
 	/* table allocated later */
-	temp_list=malloc((g->n+2)*sizeof(int *));
+	temp_list=(int**)(malloc((g->n+2)*sizeof(int *)));
 	temp_count=0;
 
 #if 0
@@ -1286,9 +1286,9 @@ int clique_unweighted_find_all(graph_t *g, int min_size, int max_size,
 
 	/* Dynamic allocation */
 	current_clique=set_new(g->n);
-	clique_size=malloc(g->n * sizeof(int));
+	clique_size=(int*)(malloc(g->n * sizeof(int)));
 	/* table allocated later */
-	temp_list=malloc((g->n+2)*sizeof(int *));
+	temp_list=(int**)(malloc((g->n+2)*sizeof(int *)));
 	temp_count=0;
 
 	clique_list_count=0;
@@ -1461,10 +1461,10 @@ set_t clique_find_single(graph_t *g,int min_weight,int max_weight,
 	/* Dynamic allocation */
 	current_clique=set_new(g->n);
 	best_clique=set_new(g->n);
-	clique_size=malloc(g->n * sizeof(int));
+	clique_size=(int*)(malloc(g->n * sizeof(int)));
 	memset(clique_size, 0, g->n * sizeof(int));
 	/* table allocated later */
-	temp_list=malloc((g->n+2)*sizeof(int *));
+	temp_list=(int**)(malloc((g->n+2)*sizeof(int *)));
 	temp_count=0;
 
 	clique_list_count=0;
@@ -1623,10 +1623,10 @@ int clique_find_all(graph_t *g, int min_weight, int max_weight,
 	/* Dynamic allocation */
 	current_clique=set_new(g->n);
 	best_clique=set_new(g->n);
-	clique_size=malloc(g->n * sizeof(int));
+	clique_size=(int*)(malloc(g->n * sizeof(int)));
 	memset(clique_size, 0, g->n * sizeof(int));
 	/* table allocated later */
-	temp_list=malloc((g->n+2)*sizeof(int *));
+	temp_list=(int**)(malloc((g->n+2)*sizeof(int *)));
 	temp_count=0;
 
 #if 0
@@ -1821,10 +1821,10 @@ graph_t *graph_new(int n) {
 	ASSERT((sizeof(setelement)*8)==ELEMENTSIZE);
 	ASSERT(n>0);
 
-	g=malloc(sizeof(graph_t));
+	g=(graph_t*)(malloc(sizeof(graph_t)));
 	g->n=n;
-	g->edges=malloc(g->n * sizeof(set_t));
-	g->weights=malloc(g->n * sizeof(int));
+	g->edges=(setelement**)(malloc(g->n * sizeof(set_t)));
+	g->weights=(int*)(malloc(g->n * sizeof(int)));
 	for (i=0; i < g->n; i++) {
 		g->edges[i]=set_new(n);
 		g->weights[i]=1;
@@ -1874,7 +1874,7 @@ void graph_resize(graph_t *g, int size) {
 	/* Free/alloc extra edge-sets */
 	for (i=size; i < g->n; i++)
 		set_free(g->edges[i]);
-	g->edges=realloc(g->edges, size * sizeof(set_t));
+	g->edges=(setelement**)(realloc(g->edges, size * sizeof(set_t)));
 	for (i=g->n; i < size; i++)
 		g->edges[i]=set_new(size);
 
@@ -1884,7 +1884,7 @@ void graph_resize(graph_t *g, int size) {
 	}
 
 	/* Weights */
-	g->weights=realloc(g->weights,size * sizeof(int));
+	g->weights=(int*)(realloc(g->weights,size * sizeof(int)));
 	for (i=g->n; i<size; i++)
 		g->weights[i]=1;
 	
@@ -2231,8 +2231,8 @@ void reorder_graph(graph_t *g, int *order) {
 
         ASSERT(reorder_is_bijection(order,g->n));
 
-        tmp_e=malloc(g->n * sizeof(set_t));
-        tmp_w=malloc(g->n * sizeof(int));
+        tmp_e=(setelement**)(malloc(g->n * sizeof(set_t)));
+        tmp_w=(int*)(malloc(g->n * sizeof(int)));
         for (i=0; i<g->n; i++) {
                 reorder_set(g->edges[i],order);
                 tmp_e[order[i]]=g->edges[i];
@@ -2255,11 +2255,11 @@ void reorder_graph(graph_t *g, int *order) {
  * Returns a newly allocated duplicate of the given ordering.
  */
 int *reorder_duplicate(int *order,int n) {
-	int *new;
+	int *new_i;
 
-	new=malloc(n*sizeof(int));
-	memcpy(new,order,n*sizeof(int));
-	return new;
+	new_i=(int*)(malloc(n*sizeof(int)));
+	memcpy(new_i,order,n*sizeof(int));
+	return new_i;
 }
 
 /*
@@ -2270,17 +2270,17 @@ int *reorder_duplicate(int *order,int n) {
  * Note: Asserts that order is a bijection.
  */
 void reorder_invert(int *order,int n) {
-	int *new;
+	int *new_i;
 	int i;
 
 	ASSERT(reorder_is_bijection(order,n));
 
-	new=malloc(n*sizeof(int));
+	new_i=(int*)(malloc(n*sizeof(int)));
 	for (i=0; i<n; i++)
-		new[order[i]]=i;
+		new_i[order[i]]=i;
 	for (i=0; i<n; i++)
-		order[i]=new[i];
-	free(new);
+		order[i]=new_i[i];
+	free(new_i);
 	return;
 }
 
@@ -2308,7 +2308,7 @@ boolean reorder_is_bijection(int *order,int n) {
 	boolean *used;
 	int i;
 
-	used=calloc(n,sizeof(boolean));
+	used=(boolean*)(calloc(n,sizeof(boolean)));
 	for (i=0; i<n; i++) {
 		if (order[i]<0 || order[i]>=n) {
 			free(used);
@@ -2339,7 +2339,7 @@ int *reorder_ident(int n) {
 	int i;
 	int *order;
 
-	order=malloc(n*sizeof(int));
+	order=(int*)(malloc(n*sizeof(int)));
 	for (i=0; i<n; i++)
 		order[i]=i;
 	return order;
@@ -2367,7 +2367,7 @@ int *reorder_by_reverse(graph_t *g,boolean weighted) {
 	int i;
 	int *order;
 
-	order=malloc(g->n * sizeof(int));
+	order=(int*)(malloc(g->n * sizeof(int)));
 	for (i=0; i < g->n; i++)
 		order[i]=g->n-i-1;
 	return order;
@@ -2404,9 +2404,9 @@ int *reorder_by_unweighted_greedy_coloring(graph_t *g,boolean weighted) {
 	int maxdegree,maxvertex=0;
 	boolean samecolor;
 
-	tmp_used=calloc(g->n,sizeof(boolean));
-	degree=calloc(g->n,sizeof(int));
-	order=calloc(g->n,sizeof(int));
+	tmp_used=(boolean*)(calloc(g->n,sizeof(boolean)));
+	degree=(int*)(calloc(g->n,sizeof(int)));
+	order=(int*)(calloc(g->n,sizeof(int)));
 
 	for (i=0; i < g->n; i++) {
 		for (j=0; j < g->n; j++) {
@@ -2472,9 +2472,9 @@ int *reorder_by_weighted_greedy_coloring(graph_t *g, boolean weighted) {
 	boolean *used;
 	int *order;
 	
-	nwt=malloc(g->n * sizeof(int));
-	order=malloc(g->n * sizeof(int));
-	used=calloc(g->n,sizeof(boolean));
+	nwt=(int*)(malloc(g->n * sizeof(int)));
+	order=(int*)(malloc(g->n * sizeof(int)));
+	used=(boolean*)(calloc(g->n,sizeof(boolean)));
 	
 	for (i=0; i < g->n; i++) {
 		nwt[i]=0;
@@ -2524,8 +2524,8 @@ int *reorder_by_degree(graph_t *g, boolean weighted) {
 	int *order;
 	int maxdegree,maxvertex=0;
 
-	degree=calloc(g->n,sizeof(int));
-	order=calloc(g->n,sizeof(int));
+	degree=(int*)(calloc(g->n,sizeof(int)));
+	order=(int*)(calloc(g->n,sizeof(int)));
 
 	for (i=0; i < g->n; i++) {
 		for (j=0; j < g->n; j++) {
@@ -2568,7 +2568,7 @@ int *reorder_by_degree(graph_t *g, boolean weighted) {
 int *reorder_by_random(graph_t *g, boolean weighted) {
 	/* struct tms t; */
 	int i,r;
-	int *new;
+	int *new_i;
 	boolean *used;
 
 /*
@@ -2576,17 +2576,17 @@ int *reorder_by_random(graph_t *g, boolean weighted) {
 */
 	INITRANBYTIME;
 
-	new=calloc(g->n, sizeof(int));
-	used=calloc(g->n, sizeof(boolean));
+	new_i=(int*)(calloc(g->n, sizeof(int)));
+	used=(boolean*)(calloc(g->n, sizeof(boolean)));
 	for (i=0; i < g->n; i++) {
 		do {
 			r=NEXTRAN % g->n;
 		} while (used[r]);
-		new[i]=r;
+		new_i[i]=r;
 		used[r]=TRUE;
 	}
 	free(used);
-	return new;
+	return new_i;
 }
 
 /************************************************************************/

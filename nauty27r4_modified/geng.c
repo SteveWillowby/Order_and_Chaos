@@ -5,6 +5,8 @@
 
 /* geng.c  version 3.1; B D McKay, Jan 2019. */
 
+#include "common_strings.h"
+
 #define USAGE \
 "geng [-cCmtfbd#D#] [-uygsnh] [-lvq] \n\
               [-x#X#] n [mine[:maxe]] [res/mod] [file]"
@@ -2100,10 +2102,10 @@ main(int argc, char *argv[])
                 else SWBOOLEAN('q',quiet)
                 else SWBOOLEAN('$',secret)
                 else SWBOOLEAN('S',safe)
-                else SWINT('d',gotd,mindeg,"geng -d")
-                else SWINT('D',gotD,maxdeg,"geng -D")
-                else SWINT('x',gotx,multiplicity,"geng -x")
-                else SWINT('X',gotX,splitlevinc,"geng -X")
+                else SWINT('d',gotd,mindeg,str_geng_dashd) // "geng -d"
+                else SWINT('D',gotD,maxdeg,str_geng_dashD) // "geng -D"
+                else SWINT('x',gotx,multiplicity,str_geng_dashX) // "geng -x"
+                else SWINT('X',gotX,splitlevinc,str_geng_dashX) // "geng -X"
 #ifdef PLUGIN_SWITCHES
 PLUGIN_SWITCHES
 #endif
@@ -2244,7 +2246,7 @@ PLUGIN_INIT
         outfile = stdout;
     else if (!gotf || outfilename == NULL)
     {
-        outfilename = "stdout";
+        outfilename = str_stdout;
         outfile = stdout;
     }
     else if ((outfile = fopen(outfilename,

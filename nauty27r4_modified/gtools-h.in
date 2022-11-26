@@ -9,6 +9,8 @@ creating gtools.h out of gtools-h.in.  If configure is not being
 used, it is necessary to check they are correct.
 ====================================================================*/
 
+#include "common_strings.h"
+
 #ifndef  _GTOOLS_H_    /* only process this file once */
 #define  _GTOOLS_H_
 
@@ -126,13 +128,20 @@ int setenv(const char*,const char*,int);
 #define TOPBIT6 32
 #define C6MASK 63
 
-#define GRAPH6_HEADER ">>graph6<<"
-#define SPARSE6_HEADER ">>sparse6<<"
-#define DIGRAPH6_HEADER ">>digraph6<<"
-#define PLANARCODE_HEADER ">>planar_code<<"
-#define PLANARCODELE_HEADER ">>planar_code le<<"
-#define PLANARCODEBE_HEADER ">>planar_code be<<"
-#define EDGECODE_HEADER ">>edge_code<<"
+// ">>graph6<<"
+#define GRAPH6_HEADER str_graph6
+// ">>sparse6<<"
+#define SPARSE6_HEADER str_sparse6
+// ">>digraph6<<"
+#define DIGRAPH6_HEADER str_digraph6
+// ">>planar_code<<"
+#define PLANARCODE_HEADER std_planar_code
+// ">>planar_code le<<"
+#define PLANARCODELE_HEADER std_planar_code_le
+// ">>planar_code be<<"
+#define PLANARCODEBE_HEADER str_planar_code_be
+// ">>edge_code<<"
+#define EDGECODE_HEADER str_edge_code
 
 #define GRAPH6         1
 #define SPARSE6        2
