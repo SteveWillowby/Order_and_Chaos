@@ -35,20 +35,21 @@ CCOBJ=${CC} -c ${CFLAGS} -o $@
 GTOOLSH=gtools.h nauty.h naututil.h nausparse.h naurng.h gutils.h \
   naugroup.h nautinv.h schreier.h nautycliquer.h traces.h \
   naugstrings.h planarity.h quarticirred28.h
-GTOOLS=copyg listg labelg dretog dreadnaut amtog geng complg showg NRswitchg \
+GTOOLS=copyg listg labelg dretog amtog geng complg showg NRswitchg \
   biplabg addedgeg deledgeg countg pickg genrang newedgeg catg genbg \
   directg gentreeg genquarticg underlyingg assembleg gengL \
   ranlabg multig planarg gentourng linegraphg watercluster2 dretodot \
   subdivideg vcolg delptg cubhamg twohamg hamheuristic converseg \
-  nbrhoodg genspecialg edgetransg genbgL @shortg_or_null@
+  nbrhoodg genspecialg edgetransg genbgL dreadnaut @shortg_or_null@
 GLIBS=nauty.a nauty1.a nautyW.a nautyW1.a nautyL.a nautyL1.a
 PCFILE=nauty.pc
 
 # @edit_msg@
 
-# all used to also have gtools
+# removed gtools
 all : nauty ;
 
+# removed dreadnaut
 nauty : ${GLIBS} ;
 
 gtools : ${GTOOLS} ;
@@ -67,7 +68,7 @@ UTILO=naututil.o naututil1.o naututilS.o naututilS1.o naututilW.o \
      naututilW1.o naututilL.o naututilL1.o
 GUTILO=gutil1.o gutil1W.o gutil1W1.o gutil1L.o gutil1L1.o \
      gutil2.o gutil2W.o gutil2W1.o gutil2L.o gutil2L1.o
-OTHERO=nautycliquer.o nautycliquerW.o nautycliquerL.o \
+OTHERO=dreadnaut.o nautycliquer.o nautycliquerW.o nautycliquerL.o \
      traces.o gtools.o gtoolsW.o gtoolsL.o \
      gtnauty.o gtnautyL.o gtnautyL1.o gtnautyW.o gtnautyW1.o naugroup.o \
      naugroup.o naugroupW.o naugroupL.o
@@ -221,6 +222,20 @@ naurng.o: naurng.c nauty.h
 	${CCOBJ} naurng.c
 rng.o: rng.c nauty.h
 	${CCOBJ} rng.c
+
+dreadnaut: dreadnaut.c naututil.o nautinv.o traces.o gtools.o ${NAUTYO}
+	${CC} -o dreadnaut ${SAFECFLAGS} dreadnaut.c naututil.o \
+		nautinv.o gtools.o traces.o ${NAUTYO} ${LDFLAGS}
+dreadnautL: dreadnaut.c naututilL.o nautyL.o nautilL.o nautinvL.o \
+	     nausparseL.o naugraphL.o naurng.o schreierL.o tracesL.o gtoolsL.o
+	${CC} -o dreadnautL ${SAFECFLAGS} ${L} dreadnaut.c naututilL.o \
+	     nautyL.o nautilL.o nautinvL.o naugraphL.o naurng.o gtoolsL.o \
+	     nausparseL.o schreierL.o tracesL.o ${LDFLAGS}
+dreadnaut1: dreadnaut.c naututil1.o nauty1.o nautil1.o nautinv1.o \
+	     nausparse.o naugraph1.o naurng.o schreier.o traces.o gtools.o
+	${CC} -o dreadnaut1 ${SAFECFLAGS} ${SMALL} dreadnaut.c naututil1.o \
+	     nauty1.o nautil1.o nautinv1.o naugraph1.o naurng.o gtools.o \
+	     nausparse.o schreier.o traces.o ${LDFLAGS}
 
 nauty.a: ${NAUTYO} traces.o gtools.o naututil.o nautinv.o \
 			gutil1.o gutil2.o gtnauty.o naugroup.o nautycliquer.o
@@ -553,12 +568,46 @@ nautestW : nauty.h naututil.h nautest.c
 nautestL : nauty.h naututil.h nautest.c
 	${CC} -o nautestL ${CFLAGS} ${L} nautest.c ${LDFLAGS}
 
+dreadtest: dreadnaut.c nautinv.o ${NAUTYO} naututil.o traces.o gtools.o 
+	${CC} -o dreadtest ${SAFECFLAGS} -DDREADTEST dreadnaut.c \
+	    nautinv.o naututil.o traces.o gtools.o ${NAUTYO} ${LDFLAGS}
+dreadtest1: dreadnaut.c nautinv1.o ${NAUTY1O} naututil1.o traces.o gtools.o 
+	${CC} -o dreadtest1 ${SAFECFLAGS} ${SMALL} -DDREADTEST dreadnaut.c \
+	    nautinv1.o naututil1.o traces.o gtools.o ${NAUTY1O} ${LDFLAGS}
+dreadtestS: dreadnaut.c nautinvS.o ${NAUTYSO} naututilS.o tracesS.o gtoolsS.o 
+	${CC} -o dreadtestS ${SAFECFLAGS} ${S} -DDREADTEST dreadnaut.c \
+	    nautinvS.o naututilS.o tracesS.o gtoolsS.o ${NAUTYSO} ${LDFLAGS}
+dreadtestS1: dreadnaut.c nautinvS1.o ${NAUTYS1O} naututilS1.o \
+		tracesS.o gtoolsS.o 
+	${CC} -o dreadtestS1 ${SAFECFLAGS} ${S1} -DDREADTEST dreadnaut.c \
+	    nautinvS1.o naututilS1.o tracesS.o gtoolsS.o ${NAUTYS1O} ${LDFLAGS}
+dreadtestW: dreadnaut.c nautinvW.o ${NAUTYWO} naututilW.o tracesW.o gtoolsW.o 
+	${CC} -o dreadtestW ${SAFECFLAGS} ${W} -DDREADTEST dreadnaut.c \
+	    nautinvW.o naututilW.o tracesW.o gtoolsW.o ${NAUTYWO} ${LDFLAGS}
+dreadtestW1: dreadnaut.c nautinvW1.o ${NAUTYW1O} naututilW1.o \
+		tracesW.o gtoolsW.o 
+	${CC} -o dreadtestW1 ${SAFECFLAGS} ${W1} -DDREADTEST dreadnaut.c \
+	    nautinvW1.o naututilW1.o tracesW.o gtoolsW.o ${NAUTYW1O} ${LDFLAGS}
+dreadtestL: dreadnaut.c nautinvL.o ${NAUTYLO} naututilL.o tracesL.o gtoolsL.o 
+	${CC} -o dreadtestL ${SAFECFLAGS} ${L} -DDREADTEST dreadnaut.c \
+	    nautinvL.o naututilL.o tracesL.o gtoolsL.o ${NAUTYLO} ${LDFLAGS}
+dreadtestL1: dreadnaut.c nautinvL1.o ${NAUTYL1O} naututilL1.o \
+		tracesL.o gtoolsL.o 
+	${CC} -o dreadtestL1 ${SAFECFLAGS} ${L1} -DDREADTEST dreadnaut.c \
+	    nautinvL1.o naututilL1.o tracesL.o gtoolsL.o ${NAUTYL1O} ${LDFLAGS}
+dreadtest4K: dreadnaut.c nausparse.c schreier.c naututil.c nauty.c \
+	    nautil.c nautinv.c naugraph.c naurng.o gtools.c traces.c
+	${CC} -o dreadtest4K ${SAFECFLAGS} -DMAXN=4096 -DDREADTEST \
+	    dreadnaut.c naututil.c nauty.c nautil.c nautinv.c \
+	    naugraph.c nausparse.c naurng.o schreier.c gtools.c \
+	    traces.c ${LDFLAGS}
+
 checks6: checks6.c ${GTOOLSH} gtools.o
 	${CC} -o checks6 ${SAFECFLAGS} checks6.c gtools.o
 
 install:
 	${MKDIR_P} ${DESTDIR}${bindir} ${DESTDIR}${includedir} ${DESTDIR}${libdir} ${DESTDIR}${pkgconfigexecdir}
-	# ${INSTALL} ${GTOOLS} ${DESTDIR}${bindir}
+	${INSTALL} ${GTOOLS} ${DESTDIR}${bindir}
 	${INSTALL_DATA} ${GTOOLSH} ${DESTDIR}${includedir}
 	${INSTALL} ${GLIBS} ${DESTDIR}${libdir}
 	for lib in ${GLIBS} ; do \
