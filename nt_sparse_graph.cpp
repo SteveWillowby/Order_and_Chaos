@@ -786,9 +786,13 @@ void NTSparseGraph::flip_edge(const int a, const int b) {
 }
 
 int NTSparseGraph::edge_node(const int a, const int b) const {
+    if (a == b) {
+        throw std::logic_error(std::string("Error in call to edge_node()! ")
+                               + "Self-loops do not have edge nodes.");
+    }
     const auto& itr = edge_to_edge_node.find(EDGE(a, b, directed));
     if (itr == edge_to_edge_node.end()) {
-        throw std::range_error(std::string("Error in call to edge_node()!")
+        throw std::range_error(std::string("Error in call to edge_node()! ")
                                + "Edge (" + std::to_string(a) + ", "
                                + std::to_string(b) + ") does not exist.");
     }

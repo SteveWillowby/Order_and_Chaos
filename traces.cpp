@@ -181,9 +181,13 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o,
             for (size_t a = 0; a < g.num_nodes(); a++) {
                 for (auto b_itr = g.out_neighbors(a).begin();
                             b_itr != g.out_neighbors(a).end(); b_itr++) {
+                    if (int(a) == *b_itr) {
+                        continue;
+                    }
                     edge_node = g.edge_node(a, *b_itr);
                     results.edge_orbits[EDGE(a, *b_itr, true)] =
-                                                            orbits[edge_node];
+                                                          orbits[edge_node];
+                    orbit_ids.insert(orbits[edge_node]);
                 }
             }
         } else {
