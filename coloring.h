@@ -11,6 +11,8 @@ template<class T, class THash=std::hash<T>> class Coloring {
 public:
     Coloring();
 
+    virtual size_t size() const;
+
     virtual void set(const T& elt, int color);
     virtual void erase(const T& elt);
     virtual int operator[](const T& elt) const;
@@ -27,6 +29,10 @@ protected:
 template<class T, class THash> Coloring<T, THash>::Coloring() {
     cells = std::unordered_map<int, std::unordered_set<T, THash>>();
     _colors = std::set<int>();
+}
+
+template<class T, class THash> size_t Coloring<T, THash>::size() const {
+    return coloring.size();
 }
 
 template<class T, class THash>

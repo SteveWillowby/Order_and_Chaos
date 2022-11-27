@@ -111,7 +111,7 @@ int main(void) {
     g_dir.flip_edge(1, 2);
     g_dir.flip_edge(2, 1);
     node_coloring.set(0, 1);
-    node_coloring.set(1, 0);
+    node_coloring.set(1, 1);
     node_coloring.set(2, 0);
     node_coloring.set(3, 0);
     node_coloring.set(4, 0);
@@ -121,7 +121,7 @@ int main(void) {
     result = traces(g_dir, options, partition);
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 7 nodes with edges (0, 1), (2, 1)"<<std::endl;
-    std::cout<<"// Node 0 has been given a unique color."<<std::endl;
+    std::cout<<"// Nodes 0 and 1 have been given color 1 while all else is 0."<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
@@ -138,9 +138,6 @@ int main(void) {
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
     std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
-
-    // TODO: Test more coloring options, and test how the default partition handles
-    //  self-loops.
 
     return 0;
 };
