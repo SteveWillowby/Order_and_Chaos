@@ -173,6 +173,8 @@ int main(void) {
 
     partition = g_dir.nauty_traces_coloring(edge_coloring);
     std::cout<<"\n\nStarting Partition: "<<vec_as_string(partition.get_cell_list())<<std::endl;
+    std::cout<<vec_as_string(std::vector<int>(partition.get_node_ids(), partition.get_node_ids() + partition.size()))<<std::endl;
+    std::cout<<vec_as_string(std::vector<int>(partition.get_partition_ints(), partition.get_partition_ints() + partition.size()))<<std::endl;
     result = traces(g_dir, options, partition);
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 4 nodes with ALL possible edges on the first "<<std::endl
