@@ -202,5 +202,68 @@ int main(void) {
     std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
+    g_dir = NTSparseGraph(true, 8);
+    g_dir.add_edge(0, 0);
+    g_dir.add_edge(1, 1);
+    g_dir.add_edge(2, 2);
+    g_dir.add_edge(3, 3);
+    g_dir.add_edge(4, 4);
+    g_dir.add_edge(5, 5);
+    g_dir.add_edge(6, 6);
+    g_dir.add_edge(7, 7);
+    node_coloring = Coloring<int>();
+    edge_coloring = Coloring<Edge, EdgeHash>();
+
+    node_coloring.set(0, 0);
+    node_coloring.set(1, 0);
+    node_coloring.set(2, 1);
+    node_coloring.set(3, 1);
+    node_coloring.set(4, 1);
+    node_coloring.set(5, 1);
+    node_coloring.set(6, 1);
+    node_coloring.set(7, 2);
+
+    edge_coloring.set(EDGE(0,0,true), 0);
+    edge_coloring.set(EDGE(1,1,true), 1);
+    edge_coloring.set(EDGE(2,2,true), 1);
+    edge_coloring.set(EDGE(3,3,true), 1);
+    edge_coloring.set(EDGE(4,4,true), 2);
+    edge_coloring.set(EDGE(5,5,true), 2);
+    edge_coloring.set(EDGE(6,6,true), 3);
+    edge_coloring.set(EDGE(7,7,true), 3);
+
+    partition = g_dir.nauty_traces_coloring(node_coloring, edge_coloring);
+
+    result = traces(g_dir, options, partition);
+    std::cout<<std::endl;
+    std::cout<<"// Directed Graph on 8 nodes with self loops only "<<std::endl;
+    std::cout<<"//  Node Partition:      0, 1 | 2, 3, 4, 5, 6 | 7"<<std::endl;
+    std::cout<<"//  Self-Loop Partition: 0 | 1, 2, 3 | 4, 5 | 6, 7"<<std::endl;
+    std::cout<<"// Thus resultant partition should be 0 | 1 | 2, 3 | 4, 5 | 6 | 7"<<std::endl;
+    std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
+    std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
+    std::cout<<"Error Status: "<<result.error_status<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
+
+    g_dir.add_edge(2, 3);
+    g_dir.add_edge(3, 2);
+    g_dir.add_edge(4, 5);
+    g_dir.add_edge(5, 4);
+    edge_coloring.set(EDGE(2,3,true), 0);
+    edge_coloring.set(EDGE(3,2,true), 0);
+    edge_coloring.set(EDGE(4,5,true), 1);
+    edge_coloring.set(EDGE(5,4,true), 1);
+
+    partition = g_dir.nauty_traces_coloring(node_coloring, edge_coloring);
+    result = traces(g_dir, options, partition);
+    std::cout<<std::endl;
+    std::cout<<"// Adding directed edges between the nodes that share initial orbits."<<std::endl;
+    std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
+    std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
+    std::cout<<"Error Status: "<<result.error_status<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
+
     return 0;
 };

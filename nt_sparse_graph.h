@@ -86,11 +86,11 @@ public:
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors) const;
     NTPartition nauty_traces_coloring(const Coloring<Edge, EdgeHash>
                                                             &edge_colors) const;
-    /*
     NTPartition nauty_traces_coloring(const Coloring<int> &node_colors,
                                       const Coloring<Edge, EdgeHash>
                                                             &edge_colors) const;
 
+    /*
 
     // Featured colorings:
 

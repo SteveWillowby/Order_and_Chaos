@@ -7,6 +7,7 @@
 
 #include<stdexcept>
 #include<unordered_map>
+#include<unordered_set>
 #include<utility>
 #include<vector>
 
@@ -1158,8 +1159,8 @@ NTPartition NTSparseGraph::nauty_traces_coloring(
     if (node_colors.size() != n) {
         throw std::range_error(std::string("Error! `node_colors` has ")
                                + std::to_string(node_colors.size())
-                               + " whereas the graph has "
-                               + std::to_string(n) + " edges.");
+                               + " nodes whereas the graph has "
+                               + std::to_string(n) + " nodes.");
     }
 
     NTPartition part = NTPartition(internal_n);
@@ -1196,10 +1197,8 @@ NTPartition NTSparseGraph::nauty_traces_coloring(
                 if (next_self_loop_node_idx < num_nodes_listed) {
                     node_ids_ptr[num_nodes_listed] =
                                     node_ids_ptr[next_self_loop_node_idx];
-                    node_ids_ptr[next_self_loop_node_idx] = *node_itr;
-                } else {
-                    node_ids_ptr[next_self_loop_node_idx] = *node_itr;
                 }
+                node_ids_ptr[next_self_loop_node_idx] = *node_itr;
                 next_self_loop_node_idx++;
             } else {
                 node_ids_ptr[num_nodes_listed] = *node_itr;
@@ -1244,7 +1243,7 @@ NTPartition NTSparseGraph::nauty_traces_coloring(
     if (edge_colors.size() != m) {
         throw std::range_error(std::string("Error! `edge_colors` has ")
                                + std::to_string(edge_colors.size())
-                               + " whereas the graph has "
+                               + " edges whereas the graph has "
                                + std::to_string(m) + " edges.");
     }
 
@@ -1376,11 +1375,211 @@ NTPartition NTSparseGraph::nauty_traces_coloring(
     return part;
 }
 
-/*
 NTPartition NTSparseGraph::nauty_traces_coloring(
                                     const Coloring<int> &node_colors,
                                     const Coloring<Edge, EdgeHash>
                                                         &edge_colors) const {
+    if (node_colors.size() != n) {
+        throw std::range_error(std::string("Error! `node_colors` has ")
+                               + std::to_string(node_colors.size())
+                               + " nodes whereas the graph has "
+                               + std::to_string(n) + " nodes.");
+    }
+    if (edge_colors.size() != m) {
+        throw std::range_error(std::string("Error! `edge_colors` has ")
+                               + std::to_string(edge_colors.size())
+                               + " edges whereas the graph has "
+                               + std::to_string(m) + " edges.");
+    }
 
+    NTPartition part = NTPartition(internal_n);
+
+    // Has nodes 0 through internal_n in numeric order
+    int* node_ids_ptr = part.get_node_ids();
+
+    // All 1's except for the last entry
+    int* partition_ints_ptr = part.get_partition_ints();
+
+    // Separate the regular nodes from the edge nodes.
+    partition_ints_ptr[n - 1] = 0;
+
+    // Keep track of where we put nodes with self-loops so that they can be
+    //  further refined when we get to the self-loop edge colors.
+    //
+    // Maps a node with a self-loop to the start of the partition containing
+    //  that node.
+    std::unordered_map<int, size_t> self_loop_node_to_slot_start =
+                                        std::unordered_map<int, size_t>();
+
+    // Within the regular nodes, list them in order by color, and within a
+    //  given color, list the nodes with self-loops first.
+    size_t num_nodes_listed = 0;
+    size_t cell_start;
+    size_t next_self_loop_node_idx;
+    size_t self_loop_slot_start;
+    for (auto color_itr = node_colors.colors().begin();
+              color_itr != node_colors.colors().end(); color_itr++) {
+
+        cell_start = num_nodes_listed;
+        self_loop_slot_start = num_nodes_listed;
+        next_self_loop_node_idx = self_loop_slot_start;
+
+        for (auto node_itr = node_colors.cell(*color_itr).begin();
+                  node_itr != node_colors.cell(*color_itr).end(); node_itr++) {
+            if (*node_itr < 0 || *node_itr >= int(n)) {
+                throw std::range_error(
+                        std::string("Error! Element of `node_colors` "
+                                    + std::to_string(*node_itr)
+                                    + " is not one of the graph's nodes."));
+            }
+            if (has_self_loop[*node_itr]) {
+                if (next_self_loop_node_idx < num_nodes_listed) {
+                    node_ids_ptr[num_nodes_listed] =
+                                    node_ids_ptr[next_self_loop_node_idx];
+                }
+                node_ids_ptr[next_self_loop_node_idx] = *node_itr;
+                self_loop_node_to_slot_start[*node_itr] = self_loop_slot_start;
+                next_self_loop_node_idx++;
+            } else {
+                node_ids_ptr[num_nodes_listed] = *node_itr;
+            }
+            num_nodes_listed++;
+        }
+        partition_ints_ptr[num_nodes_listed - 1] = 0;
+        if (next_self_loop_node_idx > cell_start) {
+            partition_ints_ptr[next_self_loop_node_idx - 1] = 0;
+        }
+    }
+
+    ////////////// Now Edge Colors //////////////
+
+    // For a given collection of nodes that have the same node color and all
+    //  have self-loops, we have recorded their "self loop start idx," which is
+    //  the idx of the first node in that collection.
+    //
+    // Now, as we go through edge colors on those 
+    std::unordered_map<size_t, size_t> sl_start_to_curr_idx =
+                                           std::unordered_map<size_t, size_t>();
+    std::unordered_set<size_t> referenced_sl_start_locs;
+    if (!directed) {
+        size_t next_idx = n;
+        size_t self_loop_cell_curr_idx;
+        size_t self_loop_start_idx;
+        int edge_node;
+        int a, b;
+        for (auto color_itr = edge_colors.colors().begin();
+                    color_itr != edge_colors.colors().end(); color_itr++) {
+            referenced_sl_start_locs = std::unordered_set<size_t>();
+            for (auto edge_itr = edge_colors.cell(*color_itr).begin();
+                   edge_itr != edge_colors.cell(*color_itr).end(); edge_itr++) {
+                a = edge_itr->first;
+                b = edge_itr->second;
+                if (a == b) {
+                    // A self-loop
+                    if (!has_self_loop[a]) {
+                        throw std::range_error(std::string("Error! Node ")
+                                               + std::to_string(a)
+                                               + " does not have a self-loop.");
+                    }
+                    self_loop_start_idx = self_loop_node_to_slot_start[a];
+                    self_loop_cell_curr_idx =
+                        sl_start_to_curr_idx[self_loop_start_idx];
+                    node_ids_ptr[self_loop_cell_curr_idx] = a;
+                    sl_start_to_curr_idx[self_loop_start_idx]++;
+                    referenced_sl_start_locs.insert(self_loop_start_idx);
+                    continue;
+                }
+                // A regular edge
+                auto en_itr = edge_to_edge_node.find(*edge_itr);
+                if (en_itr == edge_to_edge_node.end()) {
+                    throw std::range_error(
+                            std::string("Error! Edge (")
+                            + std::to_string(edge_itr->first) + ", "
+                            + std::to_string(edge_itr->second)
+                            + ") is in the coloring but not the graph.");
+                }
+                edge_node = en_itr->second;
+                node_ids_ptr[next_idx] = edge_node;
+                next_idx++;
+            }
+            if (next_idx > 0) {
+                partition_ints_ptr[next_idx - 1] = 0;
+            }
+            for (auto idx_itr = referenced_sl_start_locs.begin();
+                      idx_itr != referenced_sl_start_locs.end(); idx_itr++) {
+                self_loop_cell_curr_idx = sl_start_to_curr_idx[*idx_itr];
+                // We know self_loop_cell_curr_idx > 0 bec. it was incremented
+                partition_ints_ptr[self_loop_cell_curr_idx - 1] = 0;
+            }
+        }
+        return part;
+    }
+
+    // directed
+    size_t next_edge_idx = n;
+    size_t next_non_edge_idx =
+                internal_n - (num_edge_nodes - (m - num_self_loops));
+    size_t self_loop_cell_curr_idx;
+    size_t self_loop_start_idx;
+
+    int edge_node;
+    int a, b;
+    for (auto color_itr = edge_colors.colors().begin();
+             color_itr != edge_colors.colors().end(); color_itr++) {
+        referenced_sl_start_locs = std::unordered_set<size_t>();
+        for (auto edge_itr = edge_colors.cell(*color_itr).begin();
+                 edge_itr != edge_colors.cell(*color_itr).end(); edge_itr++) {
+            a = edge_itr->first;
+            b = edge_itr->second;
+            if (a == b) {
+                // A self-loop
+                if (!has_self_loop[a]) {
+                    throw std::range_error(std::string("Error! Node ")
+                                           + std::to_string(a)
+                                           + " does not have a self-loop.");
+                }
+                self_loop_start_idx = self_loop_node_to_slot_start[a];
+                self_loop_cell_curr_idx =
+                    sl_start_to_curr_idx[self_loop_start_idx];
+                node_ids_ptr[self_loop_cell_curr_idx] = a;
+                sl_start_to_curr_idx[self_loop_start_idx]++;
+                referenced_sl_start_locs.insert(self_loop_start_idx);
+                continue;
+            }
+            // A regular edge
+            auto en_itr = edge_to_edge_node.find(*edge_itr);
+            if (en_itr == edge_to_edge_node.end() ||
+                    (_out_neighbors[edge_itr->first].find(edge_itr->second) ==
+                     _out_neighbors[edge_itr->first].end())) {
+                throw std::range_error(
+                        std::string("Error! Edge (")
+                        + std::to_string(edge_itr->first) + ", "
+                        + std::to_string(edge_itr->second)
+                        + ") is in the coloring but not the graph.");
+            }
+            edge_node = en_itr->second;
+            node_ids_ptr[next_edge_idx] = edge_node;
+            next_edge_idx++;
+
+            if (_out_neighbors[edge_itr->second].find(edge_itr->first) ==
+                    _out_neighbors[edge_itr->second].end()) {
+                // The reverse edge is not in the graph. Put the
+                //  corresponding edge node at the end.
+                edge_node = out_neighbors_vec[node_to_startpoint[edge_node]+1];
+                node_ids_ptr[next_non_edge_idx] = edge_node;
+                next_non_edge_idx++;
+            }
+        }
+        if (next_edge_idx > 0) {
+            partition_ints_ptr[next_edge_idx - 1] = 0;
+        }
+        for (auto idx_itr = referenced_sl_start_locs.begin();
+                  idx_itr != referenced_sl_start_locs.end(); idx_itr++) {
+            self_loop_cell_curr_idx = sl_start_to_curr_idx[*idx_itr];
+            // We know self_loop_cell_curr_idx > 0 bec. it was incremented
+            partition_ints_ptr[self_loop_cell_curr_idx - 1] = 0;
+        }
+    }
+
+    return part;
 }
-*/
