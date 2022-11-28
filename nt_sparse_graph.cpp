@@ -1293,6 +1293,7 @@ NTPartition NTSparseGraph::nauty_traces_coloring(
                                                + " does not have a self-loop.");
                     }
                     node_ids_ptr[self_loop_idx] = edge_itr->first;
+                    self_loop_idx++;
                     continue;
                 }
                 // A regular edge
@@ -1320,7 +1321,8 @@ NTPartition NTSparseGraph::nauty_traces_coloring(
 
     // directed
     size_t next_edge_idx = n;
-    size_t next_non_edge_idx = internal_n - (num_edge_nodes - m);
+    size_t next_non_edge_idx =
+                internal_n - (num_edge_nodes - (m - num_self_loops));
     size_t self_loop_idx = n - num_self_loops;
 
     int edge_node;
@@ -1336,6 +1338,7 @@ NTPartition NTSparseGraph::nauty_traces_coloring(
                                            + " does not have a self-loop.");
                 }
                 node_ids_ptr[self_loop_idx] = edge_itr->first;
+                self_loop_idx++;
                 continue;
             }
             // A regular edge

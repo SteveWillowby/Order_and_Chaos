@@ -15,6 +15,10 @@ public:
 
     NTPartition(const NTPartition& ntp);
 
+    // Unless the compiler performs some sort of fancy trick, this copies all
+    //  the data from `ntp`, which may be inefficient.
+    NTPartition& operator=(const NTPartition& ntp);
+
     ~NTPartition();
 
     // This is perhaps a deceptive use of `const`, in the sense that someone
@@ -27,6 +31,9 @@ public:
 
     size_t size() const;
 
+    int get_node_id(size_t i) const;
+    int get_partition_int(size_t i) const;
+
     // Returns a list where the i'th entry is the color of node i.
     // O(n)
     virtual std::vector<int> get_cell_list() const;
@@ -34,7 +41,7 @@ public:
 protected:
     int* node_ids;
     int* partition_ints;
-    const size_t _size;
+    size_t _size;
     // A partition int at location i should be 0 iff i is the last listed node
     //  in the cell.
 

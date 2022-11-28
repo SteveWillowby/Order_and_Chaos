@@ -2,6 +2,8 @@
 
 #include<cstddef>
 #include<map>
+#include<stdexcept>
+#include<string>
 #include<unordered_map>
 #include<vector>
 
@@ -74,6 +76,27 @@ NTPartition::~NTPartition() {
     delete partition_ints;
 }
 
+NTPartition& NTPartition::operator=(const NTPartition& ntp) {
+    if (this == &ntp) {
+        return *this;
+    }
+
+    if (_size != ntp.size()) {
+        _size = ntp.size();
+        delete node_ids;
+        delete partition_ints;
+        node_ids = new int[_size];
+        partition_ints = new int[_size];
+    }
+
+    for (size_t i = 0; i < _size; i++) {
+        node_ids[i] = ntp.get_node_id(i);
+        partition_ints[i] = ntp.get_partition_int(i);
+    }
+
+    return *this;
+}
+
 int* NTPartition::get_node_ids() const {
     return node_ids;
 }
@@ -84,6 +107,26 @@ int* NTPartition::get_partition_ints() const {
 
 size_t NTPartition::size() const {
     return _size;
+}
+
+int NTPartition::get_node_id(size_t i) const {
+    if (i >= _size) {
+        throw std::range_error(std::string("Error! Index ")
+                               + std::to_string(i)
+                               + " outside the range of partition of size "
+                               + std::to_string(_size));
+    }
+    return node_ids[i];
+}
+
+int NTPartition::get_partition_int(size_t i) const {
+    if (i >= _size) {
+        throw std::range_error(std::string("Error! Index ")
+                               + std::to_string(i)
+                               + " outside the range of partition of size "
+                               + std::to_string(_size));
+    }
+    return partition_ints[i];
 }
 
 std::vector<int> NTPartition::get_cell_list() const {
