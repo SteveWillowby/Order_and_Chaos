@@ -186,5 +186,21 @@ int main(void) {
     std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
+    edge_coloring.set(EDGE(2, 2, true), 7);
+    edge_coloring.set(EDGE(0, 1, true), 7);
+    edge_coloring.set(EDGE(1, 2, true), 7);
+    edge_coloring.set(EDGE(2, 0, true), 7);
+    partition = g_dir.nauty_traces_coloring(edge_coloring);
+    result = traces(g_dir, options, partition);
+    std::cout<<std::endl;
+    std::cout<<"// Directed Graph on 4 nodes with ALL possible edges on the first "<<std::endl
+             <<"    three (including self-loops) and the first 3 pointing to the 4th"<<std::endl;
+    std::cout<<"//  Edges (0, 0), (1, 1), (2, 2), (0, 1), (1, 2), and (2, 0) have been highlighted."<<std::endl;
+    std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
+    std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
+    std::cout<<"Error Status: "<<result.error_status<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
+
     return 0;
 };
