@@ -1,2 +1,0 @@
-#!/bin/sh
-awk '{line[NR]=$0}END{for(i=NR;i>=1;i--)print line[i]}' "$@"
