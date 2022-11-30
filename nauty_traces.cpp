@@ -6,8 +6,6 @@
 #include "nt_sparse_graph.h"
 #include "nauty_traces.h"
 
-#include<iostream> // TODO: Remove
-
 #include<set>
 #include<unordered_map>
 #include<vector>
@@ -154,16 +152,8 @@ SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o,
 
     statsblk ns;
 
-    int m = 0;
-    for (int i = 0; i < g_nauty.nv; i++) {
-        m += g_nauty.d[i];
-    }
-    nauty_check(WORDSIZE, g_nauty.nv, m, NAUTYVERSIONID);
-
-    std::cout<<"Starting. There are "<<g_nauty.nv<<" total internal nodes."<<std::endl;
     sparsenauty(&g_nauty, p.get_node_ids(), p.get_partition_ints(),
                 orbits, &no, &ns, canon_rep);
-    std::cout<<"Finished."<<std::endl;
 
     results.error_status = ns.errstatus;
     results.num_aut_base = ns.grpsize1;
@@ -280,16 +270,8 @@ SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o,
 
     TracesStats ts;
 
-    int m = 0;
-    for (int i = 0; i < g_traces.nv; i++) {
-        m += g_traces.d[i];
-    }
-    nauty_check(WORDSIZE, g_traces.nv, m, NAUTYVERSIONID);
-
-    std::cout<<"Starting. There are "<<g_traces.nv<<" total internal nodes."<<std::endl;
     Traces(&g_traces, p.get_node_ids(), p.get_partition_ints(),
            orbits, &to, &ts, canon_rep);
-    std::cout<<"Finished."<<std::endl;
 
     results.error_status = ts.errstatus;
     results.num_aut_base = ts.grpsize1;

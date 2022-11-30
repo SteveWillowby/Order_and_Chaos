@@ -277,7 +277,7 @@ int main(void) {
     options.get_canonical_node_order = false;
 
     NTSparseGraph real_graph(true);
-    std::vector<std::string> graph_names = {"karate.g", "convote.g", "cora.g"};
+    std::vector<std::string> graph_names = {"not_real.g", "karate.g", "convote.g", "cora.g"};
     std::string graph_name;
     
     for (auto gn_itr = graph_names.begin(); gn_itr != graph_names.end(); gn_itr++) {

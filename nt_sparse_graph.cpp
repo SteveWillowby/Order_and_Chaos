@@ -122,7 +122,7 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
         }
 
         // Add basic node info.
-        out_degrees = std::vector<int>(internal_n, 0);
+        out_degrees = std::vector<int>(internal_n, 2);
         node_to_startpoint = std::vector<size_t>(internal_n, 0);
         node_to_endpoint = std::vector<size_t>(internal_n, 0);
         endpoint_to_node = std::unordered_map<size_t, int>();
@@ -226,7 +226,7 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
         }
 
         // Add basic node info.
-        out_degrees = std::vector<int>(internal_n, 0);
+        out_degrees = std::vector<int>(internal_n, 2);
         node_to_startpoint = std::vector<size_t>(internal_n, 0);
         node_to_endpoint = std::vector<size_t>(internal_n, 0);
         endpoint_to_node = std::unordered_map<size_t, int>();

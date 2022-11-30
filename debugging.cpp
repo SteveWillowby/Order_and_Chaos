@@ -142,7 +142,6 @@ bool consistency_check(const NTSparseGraph &g) {
             return false;
         }
     }
-    
 
     // Verify that out_degrees is correct. Account for self-loops not being
     //  referenced by g.out_degrees but in a different vector.
@@ -156,6 +155,13 @@ bool consistency_check(const NTSparseGraph &g) {
         if (g.out_degrees[i] + g.node_to_startpoint[i] > g.node_to_endpoint[i]){
             std::cout<<"g.out_degrees["<<i<<"] + g.node_to_startpoint["<<i
                      <<"] > g.node_to_endpoint["<<i<<"]"<<std::endl;
+            return false;
+        }
+    }
+    for (size_t i = g.num_nodes(); i < g.internal_n; i++) {
+        if (g.out_degrees[i] != 2) {
+            std::cout<<"g.out_degrees["<<i<<"] != 2, but rather equals "
+                     <<g.out_degrees[i]<<std::endl;
             return false;
         }
     }

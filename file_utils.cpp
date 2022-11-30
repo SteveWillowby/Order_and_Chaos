@@ -9,8 +9,6 @@
 #include<unordered_map>
 #include<vector>
 
-#include<iostream> // TODO: Remove
-
 std::vector<std::pair<int, int>> _read_edgelist(const std::string& filename);
 SparseGraph _construct_graph(const bool directed,
                              const std::vector<std::pair<int, int>>& edgelist,
