@@ -8,6 +8,9 @@ if __name__ == "__main__":
         exit(1)
 
     directed = True
+    if (len(sys.argv) >= 3):
+        if (sys.argv[2] == "false" or sys.argv[2] == "False"):
+            directed = False
 
     graph = read_graph("../real_world_graphs/" + sys.argv[1], directed=directed)
     edges = graph[0][3]

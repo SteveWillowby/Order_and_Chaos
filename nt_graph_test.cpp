@@ -276,13 +276,15 @@ int main(void) {
     options.get_edge_orbits = false;
     options.get_canonical_node_order = false;
 
-    NTSparseGraph real_graph(true);
+    bool directed = false;
+
+    NTSparseGraph real_graph(directed);
     std::vector<std::string> graph_names = {"not_real.g", "karate.g", "convote.g", "cora.g"};
     std::string graph_name;
     
     for (auto gn_itr = graph_names.begin(); gn_itr != graph_names.end(); gn_itr++) {
         graph_name = *gn_itr;
-        real_graph = read_graph(true, "real_world_graphs/" + graph_name);
+        real_graph = read_graph(directed, "real_world_graphs/" + graph_name);
         #ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
         consistency_check(real_graph);
         #endif
