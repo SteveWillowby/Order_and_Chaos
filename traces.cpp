@@ -6,6 +6,8 @@
 #include "nt_sparse_graph.h"
 #include "traces.h"
 
+#include<iostream> // TODO: Remove
+
 #include<set>
 #include<unordered_map>
 #include<vector>
@@ -70,7 +72,7 @@ TracesOptions default_traces_options() {
     //  written if the writeautoms option requests them). Larger values produce
     //  greater information about the execution, though its interpretation
     //  requires some knowledge of the algorithm. Default 0.
-    to.verbosity = 0;
+    to.verbosity = 1;
 
     // This can be used to provide known automorphisms to Traces and receive the
     //  automorphisms from Traces when it is finished. If it is NULL when Traces
@@ -141,8 +143,10 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o,
 
     TracesStats ts;
 
+    std::cout<<"Starting."<<std::endl;
     Traces(&g_traces, p.get_node_ids(), p.get_partition_ints(),
            orbits, &to, &ts, canon_rep);
+    std::cout<<"Finished."<<std::endl;
 
     results.error_status = ts.errstatus;
     results.num_aut_base = ts.grpsize1;

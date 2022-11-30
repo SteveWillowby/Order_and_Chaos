@@ -7,6 +7,7 @@
 #include<string>
 
 #include "debugging.h"
+#include "file_utils.h"
 #include "nt_sparse_graph.h"
 #include "traces.h"
 
@@ -264,6 +265,29 @@ int main(void) {
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
     std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
+
+    std::cout<<std::endl<<std::endl
+             <<"###################################################"<<std::endl
+             <<"Checking Traces on Real-World Graphs"<<std::endl
+             <<"###################################################"<<std::endl
+             <<std::endl;
+
+    NTSparseGraph cora_g = read_graph(true, "real_world_graphs/cora.g");
+
+    options.get_node_orbits = false;
+    options.get_edge_orbits = false;
+    options.get_canonical_node_order = false;
+
+    partition = cora_g.nauty_traces_coloring();
+    result = traces(cora_g, options, partition);
+    std::cout<<std::endl;
+    std::cout<<"// Running on cora.g as a directed graph."<<std::endl;
+    std::cout<<"// Num Nodes: "<<cora_g.num_nodes()<<"   Num Edges: "<<cora_g.num_edges()<<std::endl;
+    std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
+    std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
+    std::cout<<"Error Status: "<<result.error_status<<std::endl;
+    // std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    // std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     return 0;
 };
