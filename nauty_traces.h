@@ -7,7 +7,7 @@
 #ifndef SYM__TRACES_H
 #define SYM__TRACES_H
 
-struct SYMTracesOptions {
+struct SYMNautyTracesOptions {
     // Set to true to collect the orbits of the nodes and the number of distinct
     //  (node) orbits.
     bool get_node_orbits;
@@ -20,7 +20,7 @@ struct SYMTracesOptions {
     bool get_canonical_node_order;
 };
 
-struct SYMTracesResults {
+struct SYMNautyTracesResults {
     // Will be non-zero if Traces encountered an error
     int error_status;
 
@@ -62,11 +62,19 @@ struct SYMTracesResults {
 };
 
 // Even though g is not passed as a const, it is left un-modified.
-SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o);
+SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o);
 
 // Even though g is not passed as a const, it is left un-modified.
 //  However, p might be modified.
-SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o,
-                        NTPartition& p);
+SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o,
+                            NTPartition& p);
+
+// Even though g is not passed as a const, it is left un-modified.
+SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o);
+
+// Even though g is not passed as a const, it is left un-modified.
+//  However, p might be modified.
+SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o,
+                             NTPartition& p);
 
 #endif

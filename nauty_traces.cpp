@@ -4,13 +4,23 @@
 
 #include "edge.h"
 #include "nt_sparse_graph.h"
-#include "traces.h"
+#include "nauty_traces.h"
 
 #include<iostream> // TODO: Remove
 
 #include<set>
 #include<unordered_map>
 #include<vector>
+
+optionblk default_nauty_options() {
+    DEFAULTOPTIONS_SPARSEGRAPH(no);
+
+    no.getcanon = false;
+    no.defaultptn = false;
+    no.digraph = false;
+
+    return no;
+}
 
 TracesOptions default_traces_options() {
     // This line declares a TracesOptions object `to` with default settings.
@@ -72,7 +82,7 @@ TracesOptions default_traces_options() {
     //  written if the writeautoms option requests them). Larger values produce
     //  greater information about the execution, though its interpretation
     //  requires some knowledge of the algorithm. Default 0.
-    to.verbosity = 1;
+    to.verbosity = 0;
 
     // This can be used to provide known automorphisms to Traces and receive the
     //  automorphisms from Traces when it is finished. If it is NULL when Traces
@@ -95,6 +105,7 @@ TracesOptions default_traces_options() {
 sparsegraph* space_for_canon_graph(const sparsegraph& sg,
                                    const NTSparseGraph& g) {
     sparsegraph* space = new sparsegraph;
+    SG_INIT(*space);
     space->nv = sg.nv;
     space->nde = sg.nde;
     space->dlen = sg.nv;
@@ -121,14 +132,140 @@ void free_canon_sparsegraph(sparsegraph* sg) {
     delete sg;
 }
 
-SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o) {
+SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o) {
+    NTPartition partition = g.nauty_traces_coloring();
+    return nauty(g, o, partition);
+}
+
+SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o,
+                            NTPartition& p) {
+    SYMNautyTracesResults results;
+
+    sparsegraph g_nauty = g.as_nauty_traces_graph();
+
+    int* orbits = new int[g_nauty.nv];
+
+    optionblk no = default_nauty_options();
+    sparsegraph* canon_rep = NULL;
+    if (o.get_canonical_node_order) {
+        no.getcanon = true;
+        canon_rep = space_for_canon_graph(g_nauty, g);
+    }
+
+    statsblk ns;
+
+    int m = 0;
+    for (int i = 0; i < g_nauty.nv; i++) {
+        m += g_nauty.d[i];
+    }
+    nauty_check(WORDSIZE, g_nauty.nv, m, NAUTYVERSIONID);
+
+    std::cout<<"Starting. There are "<<g_nauty.nv<<" total internal nodes."<<std::endl;
+    sparsenauty(&g_nauty, p.get_node_ids(), p.get_partition_ints(),
+                orbits, &no, &ns, canon_rep);
+    std::cout<<"Finished."<<std::endl;
+
+    results.error_status = ns.errstatus;
+    results.num_aut_base = ns.grpsize1;
+    results.num_aut_exponent = ns.grpsize2;
+    results.num_node_orbits = 0;
+    results.num_edge_orbits = 0;
+
+    int largest_orbit_id = 0;
+
+    if (o.get_node_orbits) {
+        results.node_orbits = std::vector<int>(g.num_nodes(), 0);
+
+        std::unordered_set<int> orbit_ids = std::unordered_set<int>();
+        for (size_t i = 0; i < g.num_nodes(); i++) {
+            results.node_orbits[i] = orbits[i];
+            orbit_ids.insert(orbits[i]);
+        }
+        results.num_node_orbits = orbit_ids.size();
+
+        // We will need the largest orbit id to label the orbits of self-loops.
+        if (o.get_edge_orbits) {
+            for (auto id = orbit_ids.begin(); id != orbit_ids.end(); id++) {
+                if (*id > largest_orbit_id) {
+                    largest_orbit_id = *id;
+                }
+            }
+        }
+    }
+    if (o.get_edge_orbits) {
+        results.edge_orbits = std::unordered_map<Edge, int, EdgeHash>();
+        std::unordered_set<int> orbit_ids = std::unordered_set<int>();
+        if (g.directed) {
+            // Some edge nodes do not actually correspond to edges. So we look
+            //  at the edges themselves and then look up the edge node ids.
+            int edge_node;
+            for (size_t a = 0; a < g.num_nodes(); a++) {
+                for (auto b_itr = g.out_neighbors(a).begin();
+                            b_itr != g.out_neighbors(a).end(); b_itr++) {
+                    if (int(a) == *b_itr) {
+                        continue;
+                    }
+                    edge_node = g.edge_node(a, *b_itr);
+                    results.edge_orbits[EDGE(a, *b_itr, true)] =
+                                                          orbits[edge_node];
+                    orbit_ids.insert(orbits[edge_node]);
+                }
+            }
+        } else {
+            // Undirected. All edge nodes correspond to actual edges.
+            for (size_t i = g.num_nodes(); i < size_t(g_nauty.nv); i++) {
+                // Use details of the NTSparseGraph representation to speed
+                //  things up.
+                size_t loc = g_nauty.v[i];
+                results.edge_orbits[EDGE(g_nauty.e[loc],
+                                         g_nauty.e[loc+1], false)] = orbits[i];
+                orbit_ids.insert(orbits[i]);
+            }
+        }
+
+        // Add self-loops.
+
+        // We will need the largest orbit id to label the orbits of self-loops.
+        for (auto id = orbit_ids.begin(); id != orbit_ids.end(); id++) {
+            if (*id > largest_orbit_id) {
+                largest_orbit_id = *id;
+            }
+        }
+        largest_orbit_id++; // Now strictly larger than any non-self-loop ids.
+
+        for (size_t i = 0; i < g.num_nodes(); i++) {
+            if (g.has_edge(i, i)) {
+                results.edge_orbits[EDGE(i, i, g.directed)] =
+                                                  largest_orbit_id + orbits[i];
+                orbit_ids.insert(largest_orbit_id + orbits[i]);
+            }
+        }
+        results.num_edge_orbits = orbit_ids.size();
+    }
+    delete orbits;
+
+    if (o.get_canonical_node_order) {
+        // TODO: Verify whether the regular nodes are always listed first.
+        results.canonical_node_order = std::vector<int>(g.num_nodes(), 0);
+        int *canon = p.get_node_ids();
+        for (size_t i = 0; i < g.num_nodes(); i++) {
+            results.canonical_node_order[i] = canon[i];
+        }
+
+        free_canon_sparsegraph(canon_rep);
+    }
+
+    return results;
+}
+
+SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o) {
     NTPartition partition = g.nauty_traces_coloring();
     return traces(g, o, partition);
 }
 
-SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o,
-                        NTPartition& p) {
-    SYMTracesResults results;
+SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o,
+                             NTPartition& p) {
+    SYMNautyTracesResults results;
 
     sparsegraph g_traces = g.as_nauty_traces_graph();
 
@@ -143,7 +280,13 @@ SYMTracesResults traces(NTSparseGraph& g, const SYMTracesOptions& o,
 
     TracesStats ts;
 
-    std::cout<<"Starting."<<std::endl;
+    int m = 0;
+    for (int i = 0; i < g_traces.nv; i++) {
+        m += g_traces.d[i];
+    }
+    nauty_check(WORDSIZE, g_traces.nv, m, NAUTYVERSIONID);
+
+    std::cout<<"Starting. There are "<<g_traces.nv<<" total internal nodes."<<std::endl;
     Traces(&g_traces, p.get_node_ids(), p.get_partition_ints(),
            orbits, &to, &ts, canon_rep);
     std::cout<<"Finished."<<std::endl;

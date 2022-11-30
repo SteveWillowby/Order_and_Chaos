@@ -888,6 +888,7 @@ class RAMFriendlyNTSession:
             pass
 
         total_n = self.__n__ + self.__extra_n__
+        print("There are a total of %d internal nodes" % total_n)
         if total_n > 2000000000:
             self.__input_file__.close()
             if self.__only_one_call__:

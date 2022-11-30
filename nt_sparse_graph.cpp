@@ -53,6 +53,7 @@ NTSparseGraph::NTSparseGraph(const Graph &g) : SparseGraph(g.directed, 1) {
 
 const sparsegraph NTSparseGraph::as_nauty_traces_graph() {
     sparsegraph g;
+    SG_INIT(g);
     g.nv = internal_n;
     if (directed) {
         // For every 2 edge nodes there are 3 undirected edges,
