@@ -273,10 +273,10 @@ int main(void) {
              <<std::endl;
 
     options.get_node_orbits = true;
-    options.get_edge_orbits = false;
-    options.get_canonical_node_order = false;
+    options.get_edge_orbits = true;
+    options.get_canonical_node_order = true;
 
-    bool directed = false;
+    bool directed = true;
 
     NTSparseGraph real_graph(directed);
     std::vector<std::string> graph_names = {"not_real.g", "karate.g", "convote.g", "cora.g"};
@@ -291,7 +291,7 @@ int main(void) {
         std::cout<<std::endl;
         std::cout<<"// Running on "<<graph_name<<" as a directed graph."<<std::endl;
         std::cout<<"// Num Nodes: "<<real_graph.num_nodes()<<"   Num Edges: "<<real_graph.num_edges()<<std::endl;
-        result = nauty(real_graph, options);
+        result = traces(real_graph, options);
         std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
         std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
         std::cout<<"Error Status: "<<result.error_status<<std::endl;
