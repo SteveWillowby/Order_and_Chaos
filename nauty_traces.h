@@ -77,4 +77,27 @@ SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o);
 SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o,
                              NTPartition& p);
 
+
+////////////////// These Variables are for Internal Use Only ///////////////////
+
+// This class is used to prevent unnecessary de- and re-allocation of space.
+//
+// It manages the space for where Nauty and Traces write out the canonical
+//  sparsegraph and the node orbits.
+class __NTRunSpace {
+public:
+    __NTRunSpace();
+    ~__NTRunSpace();
+
+    void set_size(size_t n, size_t nde);
+    sparsegraph g;
+    int *orbits;
+
+protected:
+    size_t actual_n;
+    size_t actual_elen;
+};
+
+static thread_local __NTRunSpace __nt_run_space;
+
 #endif
