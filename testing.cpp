@@ -279,7 +279,12 @@ int main(void) {
     bool directed = true;
 
     NTSparseGraph real_graph(directed);
-    std::vector<std::string> graph_names = {"not_real.g", "karate.g", "convote.g", "cora.g"};
+    // not_real_01 is a (directed) 6-cycle
+    // not_real_02 is just 101 nodes where 1 has a self-loop
+    // not_real_03 is 101 nodes where all nodes connect to a hub node
+    // not_real_04 is 100 nodes which all have self-loops
+    std::vector<std::string> graph_names = {"not_real_01.g", "karate.g", "convote.g", "cora.g",
+                                            "not_real_03.g", "not_real_04.g", "not_real_02.g"};
     std::string graph_name;
     
     for (auto gn_itr = graph_names.begin(); gn_itr != graph_names.end(); gn_itr++) {
@@ -291,7 +296,7 @@ int main(void) {
         std::cout<<std::endl;
         std::cout<<"// Running on "<<graph_name<<" as a directed graph."<<std::endl;
         std::cout<<"// Num Nodes: "<<real_graph.num_nodes()<<"   Num Edges: "<<real_graph.num_edges()<<std::endl;
-        result = traces(real_graph, options);
+        result = nauty(real_graph, options);
         std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
         std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
         std::cout<<"Error Status: "<<result.error_status<<std::endl;
