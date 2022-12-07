@@ -101,35 +101,35 @@ optionblk default_nauty_options() {
 }
 
 // If true is passed, runs traces. Otherwise, runs nauty.
-SYMNautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
-                                        const SYMNautyTracesOptions& o,
-                                        NTPartition& p);
+NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
+                                     const NautyTracesOptions& o,
+                                     NTPartition& p);
 
-SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o) {
+NautyTracesResults nauty(NTSparseGraph& g, const NautyTracesOptions& o) {
     NTPartition partition = g.nauty_traces_coloring();
     return __traces_or_nauty(false, g, o, partition);
 }
 
-SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o,
-                            NTPartition& p) {
+NautyTracesResults nauty(NTSparseGraph& g, const NautyTracesOptions& o,
+                         NTPartition& p) {
     return __traces_or_nauty(false, g, o, p);
 }
 
-SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o) {
+NautyTracesResults traces(NTSparseGraph& g, const NautyTracesOptions& o) {
     NTPartition partition = g.nauty_traces_coloring();
     return __traces_or_nauty(true, g, o, partition);
 }
 
-SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o,
-                             NTPartition& p) {
+NautyTracesResults traces(NTSparseGraph& g, const NautyTracesOptions& o,
+                          NTPartition& p) {
     return __traces_or_nauty(true, g, o, p);
 }
 
 // If true is passed, runs traces. Otherwise, runs nauty.
-SYMNautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
-                                        const SYMNautyTracesOptions& o,
-                                        NTPartition& p) {
-    SYMNautyTracesResults results;
+NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
+                                     const NautyTracesOptions& o,
+                                     NTPartition& p) {
+    NautyTracesResults results;
 
     sparsegraph g_nt = g.as_nauty_traces_graph();
 

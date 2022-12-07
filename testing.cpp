@@ -44,7 +44,7 @@ int main(void) {
              <<"###################################################"<<std::endl
              <<std::endl;
 
-    SYMNautyTracesOptions options;
+    NautyTracesOptions options;
     options.get_node_orbits = true;
     options.get_edge_orbits = true;
     options.get_canonical_node_order = true;
@@ -53,7 +53,7 @@ int main(void) {
 
     NTSparseGraph g_undir = NTSparseGraph(false, 7);
 
-    SYMNautyTracesResults result = traces(g_undir, options);
+    NautyTracesResults result = traces(g_undir, options);
     std::cout<<std::endl;
     std::cout<<"// Undirected Graph on 7 nodes with no edges"<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;

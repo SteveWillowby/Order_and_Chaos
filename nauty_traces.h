@@ -7,7 +7,7 @@
 #ifndef SYM__TRACES_H
 #define SYM__TRACES_H
 
-struct SYMNautyTracesOptions {
+struct NautyTracesOptions {
     // Set to true to collect the orbits of the nodes and the number of distinct
     //  (node) orbits.
     bool get_node_orbits;
@@ -20,7 +20,7 @@ struct SYMNautyTracesOptions {
     bool get_canonical_node_order;
 };
 
-struct SYMNautyTracesResults {
+struct NautyTracesResults {
     // Will be non-zero if Traces encountered an error
     int error_status;
 
@@ -62,20 +62,20 @@ struct SYMNautyTracesResults {
 };
 
 // Even though g is not passed as a const, it is left un-modified.
-SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o);
+NautyTracesResults nauty(NTSparseGraph& g, const NautyTracesOptions& o);
 
 // Even though g is not passed as a const, it is left un-modified.
 //  However, p might be modified.
-SYMNautyTracesResults nauty(NTSparseGraph& g, const SYMNautyTracesOptions& o,
-                            NTPartition& p);
+NautyTracesResults nauty(NTSparseGraph& g, const NautyTracesOptions& o,
+                         NTPartition& p);
 
 // Even though g is not passed as a const, it is left un-modified.
-SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o);
+NautyTracesResults traces(NTSparseGraph& g, const NautyTracesOptions& o);
 
 // Even though g is not passed as a const, it is left un-modified.
 //  However, p might be modified.
-SYMNautyTracesResults traces(NTSparseGraph& g, const SYMNautyTracesOptions& o,
-                             NTPartition& p);
+NautyTracesResults traces(NTSparseGraph& g, const NautyTracesOptions& o,
+                          NTPartition& p);
 
 
 ////////////////// These Variables are for Internal Use Only ///////////////////
@@ -98,6 +98,6 @@ protected:
     size_t actual_elen;
 };
 
-static thread_local __NTRunSpace __nt_run_space;
+static thread_local __NTRunSpace __nt_run_space = __NTRunSpace();
 
 #endif
