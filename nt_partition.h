@@ -17,6 +17,9 @@ public:
 
     // Unless the compiler performs some sort of fancy trick, this copies all
     //  the data from `ntp`, which may be inefficient.
+    //
+    // TODO: Define move assignment operator or verify that it's implicitly
+    //  defined already. Could add a bool `moved_or_deleted` (??)
     NTPartition& operator=(const NTPartition& ntp);
 
     ~NTPartition();

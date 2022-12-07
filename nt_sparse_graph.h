@@ -99,6 +99,7 @@ public:
     //
     // NOTE: Can only be turned on if there is not already a featured coloring.
     void turn_on_structure_coloring();
+
     // When on, this class keeps info ready to more quickly make an NTPartition
     //  that highlights any edges (or non-edges) which have been changed.
     //
@@ -119,6 +120,9 @@ public:
     // If structure coloring is set, returns the structure coloring. 
     // If a change highlights coloring is set, returns that.
     // Otherwise, throws an error.
+    //
+    // Note that this still requires a memcopy of O(n + m) values. However, it
+    //  does not need to *calculate* the coloring; that has already been done.
     NTPartition featured_coloring() const;
     */
 
