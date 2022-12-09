@@ -9,8 +9,7 @@
 #include<unordered_set>
 #include<vector>
 
-long double score(long double log2_g_aut,
-                  NTSparseGraph& g,
+long double score(NTSparseGraph& g,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,

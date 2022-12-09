@@ -34,15 +34,12 @@
 //      externally speaking (i.e. the internal details might change, but the
 //      graph it represents will be the same).
 //
-// Requires that `log2_g_aut` = log2(|Aut(G)|)
-//
 // `node_orbit_coloring` should describe the automorphism orbits of `g`'s nodes.
 // `edge_orbit_coloring` should describe the automorphism orbits of `g`'s edges.
 // `editable_edge_orbit_coloring` should be identical to `edge_orbit_coloring`.
 //      note that though `editable_edge_orbit_coloring` will be temporarily
 //      modified, it will represent the same coloring when the function is done.
-long double score(long double log2_g_aut,
-                  NTSparseGraph& g,
+long double score(NTSparseGraph& g,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
@@ -61,10 +58,7 @@ long double score(long double log2_g_aut,
 //      highlights coloring turned on.
 //  For an extra speedup, `g_edge_tracker` can have its reference coloring set
 //      to the automorphism orbits; this is not required however.
-//
-// Requires that `log2_g_aut` = log2(|Aut(G)|)
-long double score(long double log2_g_aut,
-                  NTSparseGraph& g,
+long double score(NTSparseGraph& g,
                   NTSparseGraph& g_edge_tracker,
                   const std::unordered_set<Edge,EdgeHash>& edge_additions,
                   const std::unordered_set<Edge,EdgeHash>& edge_removals);
