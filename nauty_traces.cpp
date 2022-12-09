@@ -177,27 +177,18 @@ NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
     int largest_orbit_id = 0;
 
     if (o.get_node_orbits) {
-        results.node_orbits = std::vector<int>(g.num_nodes(), 0);
-
-        std::unordered_set<int> orbit_ids = std::unordered_set<int>();
+        results.node_orbits = Coloring<int>();
         for (size_t i = 0; i < g.num_nodes(); i++) {
-            results.node_orbits[i] = orbits[i];
-            orbit_ids.insert(orbits[i]);
+            results.node_orbits.set(i, orbits[i]);
         }
-        results.num_node_orbits = orbit_ids.size();
-
-        // We will need the largest orbit id to label the orbits of self-loops.
+        results.num_node_orbits = results.node_orbits.colors().size();
         if (o.get_edge_orbits) {
-            for (auto id = orbit_ids.begin(); id != orbit_ids.end(); id++) {
-                if (*id > largest_orbit_id) {
-                    largest_orbit_id = *id;
-                }
-            }
+            largest_orbit_id = *(results.node_orbits.colors().rbegin());
         }
     }
     if (o.get_edge_orbits) {
-        results.edge_orbits = std::unordered_map<Edge, int, EdgeHash>();
-        std::unordered_set<int> orbit_ids = std::unordered_set<int>();
+        results.edge_orbits = Coloring<Edge, EdgeHash>();
+
         if (g.directed) {
             // Some edge nodes do not actually correspond to edges. So we look
             //  at the edges themselves and then look up the edge node ids.
@@ -209,9 +200,8 @@ NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
                         continue;
                     }
                     edge_node = g.edge_node(a, *b_itr);
-                    results.edge_orbits[EDGE(a, *b_itr, true)] =
-                                                          orbits[edge_node];
-                    orbit_ids.insert(orbits[edge_node]);
+                    results.edge_orbits.set(EDGE(a, *b_itr, true),
+                                            orbits[edge_node]);
                 }
             }
         } else {
@@ -220,30 +210,25 @@ NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
                 // Use details of the NTSparseGraph representation to speed
                 //  things up.
                 size_t loc = g_nt.v[i];
-                results.edge_orbits[EDGE(g_nt.e[loc],
-                                         g_nt.e[loc+1], false)] = orbits[i];
-                orbit_ids.insert(orbits[i]);
+                results.edge_orbits.set(EDGE(g_nt.e[loc], g_nt.e[loc+1], false),
+                                        orbits[i]);
             }
         }
 
-        // Add self-loops.
-
-        // We will need the largest orbit id to label the orbits of self-loops.
-        for (auto id = orbit_ids.begin(); id != orbit_ids.end(); id++) {
-            if (*id > largest_orbit_id) {
-                largest_orbit_id = *id;
-            }
+        if (results.edge_orbits.size() > 0) {
+            int c = *(results.edge_orbits.colors().rbegin());
+            largest_orbit_id = (c > largest_orbit_id ? c : largest_orbit_id);
         }
         largest_orbit_id++; // Now strictly larger than any non-self-loop ids.
 
         for (size_t i = 0; i < g.num_nodes(); i++) {
             if (g.has_edge(i, i)) {
-                results.edge_orbits[EDGE(i, i, g.directed)] =
-                                                  largest_orbit_id + orbits[i];
-                orbit_ids.insert(largest_orbit_id + orbits[i]);
+                results.edge_orbits.set(EDGE(i, i, g.directed),
+                                        largest_orbit_id + orbits[i]);
             }
         }
-        results.num_edge_orbits = orbit_ids.size();
+        results.num_edge_orbits = results.edge_orbits.colors().size();
+
     }
 
     if (o.get_canonical_node_order) {

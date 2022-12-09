@@ -1,3 +1,4 @@
+#include "coloring.h"
 #include "edge.h"
 #include "nt_sparse_graph.h"
 
@@ -47,7 +48,7 @@ struct NautyTracesResults {
     // NOTE: The orbit ids are not forced to be 0 through num-orbits-minus-1.
     //  Rather, they can be anything. However, they will not overlap with edge
     //  orbit ids.
-    std::vector<int> node_orbits;
+    Coloring<int> node_orbits;
 
     // Maps edges to their automorphism orbit ID. Used iff
     //  get_edge_orbits is true.
@@ -58,7 +59,7 @@ struct NautyTracesResults {
     // NOTE: The orbit ids are not forced to be 0 through num-orbits-minus-1.
     //  Rather, they can be anything. However, they will not overlap with node
     //  orbit ids.
-    std::unordered_map<Edge, int, EdgeHash> edge_orbits;
+    Coloring<Edge, EdgeHash> edge_orbits;
 };
 
 // Even though g is not passed as a const, it is left un-modified.

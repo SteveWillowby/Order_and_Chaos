@@ -49,63 +49,85 @@ int main(void) {
     options.get_edge_orbits = true;
     options.get_canonical_node_order = true;
 
+    std::vector<int> node_orbits = std::vector<int>();
+
     Coloring<int> node_coloring = Coloring<int>();
 
     NTSparseGraph g_undir = NTSparseGraph(false, 7);
 
     NautyTracesResults result = traces(g_undir, options);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_undir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Undirected Graph on 7 nodes with no edges"<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_undir.add_edge(0, 1);
     g_undir.add_edge(2, 1);
 
     result = traces(g_undir, options);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_undir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Undirected Graph on 7 nodes with edges (0, 1), (1, 2)"<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     NTSparseGraph g_dir = NTSparseGraph(true, 7);
     g_dir.add_edge(0, 1);
     g_dir.add_edge(2, 1);
     result = traces(g_dir, options);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 7 nodes with edges (0, 1), (2, 1)"<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir.add_edge(0, 0);
     result = traces(g_dir, options);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 7 nodes with edges (0, 1), (2, 1), (0, 0)"<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir.delete_edge(0, 0);
     g_dir.delete_edge(2, 1);
     g_dir.add_edge(1, 2);
     result = traces(g_dir, options);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 7 nodes with edges (0, 1), (1, 2)"<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir.flip_edge(1, 2);
@@ -119,24 +141,32 @@ int main(void) {
     node_coloring.set(6, 0);
     NTPartition partition = g_dir.nauty_traces_coloring(node_coloring);
     result = traces(g_dir, options, partition);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 7 nodes with edges (0, 1), (2, 1)"<<std::endl;
     std::cout<<"// Nodes 0 and 1 have been given color 1 while all else is 0."<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir.add_edge(0, 0);
     result = traces(g_dir, options, partition);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 7 nodes with edges (0, 1), (2, 1), (0, 0)"<<std::endl;
     std::cout<<"// Node 0 has been given a unique color -- (uniqueness overdetermined)"<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     // Edge colorings
@@ -177,6 +207,10 @@ int main(void) {
     std::cout<<vec_as_string(std::vector<int>(partition.get_node_ids(), partition.get_node_ids() + partition.size()))<<std::endl;
     std::cout<<vec_as_string(std::vector<int>(partition.get_partition_ints(), partition.get_partition_ints() + partition.size()))<<std::endl;
     result = traces(g_dir, options, partition);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 4 nodes with ALL possible edges on the first "<<std::endl
              <<"    three (including self-loops) and the first 3 pointing to the 4th"<<std::endl;
@@ -184,7 +218,7 @@ int main(void) {
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     edge_coloring.set(EDGE(2, 2, true), 7);
@@ -193,6 +227,10 @@ int main(void) {
     edge_coloring.set(EDGE(2, 0, true), 7);
     partition = g_dir.nauty_traces_coloring(edge_coloring);
     result = traces(g_dir, options, partition);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 4 nodes with ALL possible edges on the first "<<std::endl
              <<"    three (including self-loops) and the first 3 pointing to the 4th"<<std::endl;
@@ -200,7 +238,7 @@ int main(void) {
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir = NTSparseGraph(true, 8);
@@ -236,6 +274,10 @@ int main(void) {
     partition = g_dir.nauty_traces_coloring(node_coloring, edge_coloring);
 
     result = traces(g_dir, options, partition);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Directed Graph on 8 nodes with self loops only "<<std::endl;
     std::cout<<"//  Node Partition:      0, 1 | 2, 3, 4, 5, 6 | 7"<<std::endl;
@@ -244,7 +286,7 @@ int main(void) {
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir.add_edge(2, 3);
@@ -258,12 +300,16 @@ int main(void) {
 
     partition = g_dir.nauty_traces_coloring(node_coloring, edge_coloring);
     result = traces(g_dir, options, partition);
+    node_orbits.clear();
+    for (size_t i = 0; i < g_dir.num_nodes(); i++) {
+        node_orbits.push_back(result.node_orbits[i]);
+    }
     std::cout<<std::endl;
     std::cout<<"// Adding directed edges between the nodes that share initial orbits."<<std::endl;
     std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
     std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
     std::cout<<"Error Status: "<<result.error_status<<std::endl;
-    std::cout<<"Node Orbits: "<<vec_as_string(result.node_orbits)<<std::endl;
+    std::cout<<"Node Orbits: "<<vec_as_string(node_orbits)<<std::endl;
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     std::cout<<std::endl<<std::endl
