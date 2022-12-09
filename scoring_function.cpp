@@ -4,16 +4,18 @@
 #include "scoring_function.h"
 
 #include<cmath>
+#include<stdexcept>
+#include<string>
 #include<unordered_set>
 #include<vector>
 
-double score(double log2_g_aut,
-             NTSparseGraph& g,
-             const Coloring<int>& node_orbit_coloring,
-             const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
-             Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
-             const std::unordered_set<Edge,EdgeHash>& edge_additions,
-             const std::unordered_set<Edge,EdgeHash>& edge_removals) {
+long double score(long double log2_g_aut,
+                  NTSparseGraph& g,
+                  const Coloring<int>& node_orbit_coloring,
+                  const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
+                  Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
+                  const std::unordered_set<Edge,EdgeHash>& edge_additions,
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals) {
 
     NautyTracesOptions o;
     o.get_node_orbits = false;
@@ -24,14 +26,14 @@ double score(double log2_g_aut,
 
     size_t n = g.num_nodes();
     size_t m = g.num_edges();
-    size_t max_num_edges = (n * (n - 1)) / (int(!g.directed) + 1);
+    size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
 
     size_t num_additions = edge_additions.size();
     size_t num_removals = edge_removals.size();
 
     size_t m_prime = m + num_additions - num_removals;
 
-    double log2_stabilizer_size, log2_hypothesis_aut;
+    long double log2_stabilizer_size, log2_hypothesis_aut;
 
     // Edge additions will be colored with a new color (max prev color + 1).
     int addition_color = *(edge_orbit_coloring.colors.rend()) + 1;
@@ -61,8 +63,8 @@ double score(double log2_g_aut,
                     g.nauty_traces_coloring(node_orbit_coloring,
                                             editable_edge_orbit_coloring);
     nt_results = traces(g, o, stabilizer_coloring);
-    log2_stabilizer_size = std::log2(nt_results.num_aut_base) +
-                           double(nt_results.num_aut_exponent) +
+    log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
+                           (long double)(nt_results.num_aut_exponent) +
                            __combinatoric_utility.log2(10);
 
     // Perform the edge deletions in actuality.
@@ -73,8 +75,8 @@ double score(double log2_g_aut,
 
     // Get the raw auto orbit size for the hypothesis graph.
     nt_results = traces(g, o);
-    log2_hypothesis_aut = std::log2(nt_results.num_aut_base) +
-                          double(nt_results.num_aut_exponent) +
+    log2_hypothesis_aut = std::log2l(nt_results.num_aut_base) +
+                          (long double)(nt_results.num_aut_exponent) +
                           __combinatoric_utility.log2(10);
 
 
@@ -100,36 +102,122 @@ double score(double log2_g_aut,
                                                      num_removals));
 }
 
-
 __CombinatoricUtility::__CombinatoricUtility() {
     // For convenience we say that 0! = 1, and thus log2(0!) = 0.
-    log2_factorials = std::vector<double>(2, 0.0);
+    log2_factorials = std::vector<long double>(2, 0.0);
     // There is no log2 for 0, but oh well. Put a placeholder value.
-    log2_s = std::vector<double>(2, 0.0);
+    log2_s = std::vector<long double>(2, 0.0);
+    max_access = 1;
 }
 
-double __CombinatoricUtility::log2(size_t x) {
-    if (x >= log2_s.size()) {
-        for (size_t i = log2_s.size(); i <= x; i++) {
-            log2_s.push_back(std::log2(i));
+void __CombinatoricUtility::set_max_access(size_t max_e, size_t max_f) {
+    size_t edge_flip_end_1 = max_f + 1;
+    size_t edge_flip_start_2 = max_e + 1 - (max_f + 1);
+    size_t edge_flip_end_2 = max_e + 1;
+
+    log2_s[0] = std::vector<long double>(max_f + 1, 0.0);
+    log2_s[1] = std::vector<long double>(max_f + 1, 0.0);
+    log2_factorials[0] = std::vector<long double>(max_f + 1, 0.0);
+    log2_factorials[1] = std::vector<long double>(max_f + 1, 0.0);
+
+    for (size_t i = 2; i < edge_flip_end_1; i++) {
+        log2_s[0][i] = std::log2l(i);
+    }
+    for (size_t i = edge_flip_start_2; i < edge_flip_end_2; i++) {
+        log2_s[1][i - edge_flip_start_2] = std::log2l(i);
+    }
+
+    // This is the Kahan, Babushka, and Klein sum algorithm.
+    //  Copied from the pseudocode on Wikipedia (12/8/22).
+    //
+    // A., Klein (2006). "A generalized Kahan-Babuska-Summation-Algorithm"
+    //
+    //  The point of the algorithm is to do floating-point summation while
+    //   minimizing floating-point rounding errors.
+
+    long double sum = 0.0;
+    long double log_value;
+    long double cs = 0.0;
+    long double ccs = 0.0;
+    long double c = 0.0;
+    long double cc = 0.0;
+    volatile long double t = 0.0;  // volatile ensures that the compiler doesn't
+    volatile long double z = 0.0;  //   optimize these operation orders away
+
+    for (size_t i = 2; i < edge_flip_end_2; i++) {
+        // Access memoized versions if available.
+        if (i < edge_flip_end_1) {
+            log_value = log2_s[0][i];
+        } else if (i >= edge_flip_start_2) {
+            log_value = log2_s[1][i - edge_flip_start_2];
+        } else {
+            log_value = std::log2l(i);
+        }
+
+        t = sum + log_value;
+        // fabsl is just the long double abs() function
+        if (std::fabsl(sum) >= std::fabsl(log_value)) {
+            z = sum - t;
+            c = z + log_value;
+        } else {
+            z = log_value - t;
+            c = z + sum;
+        }
+        sum = t;
+        t = cs + c;
+        if (std::fabsl(cs) >= std::fabsl(c)) {
+            z = cs - t;
+            cc = z + c;
+        } else {
+            z = c - t;
+            cc = z + cs;
+        }
+        cs = t;
+        ccs = ccs + cc;
+
+        // Store memoized versions when relevant.
+        if (i < edge_flip_end_1) {
+            log2_factorials[0][i] = sum + cs + ccs;
+        } else if (i >= edge_flip_start_2) {
+            log2_factorials[1][i - edge_flip_start_2] = sum + cs + ccs;
         }
     }
-    return log2_s[x];
+
 }
 
-double __CombinatoricUtility::log2_factorial(size_t x) {
-    if (x < log2_factorials.size()) {
-        return log2_factorials[x];
+long double __CombinatoricUtility::log2(size_t x) {
+    if (x < edge_flip_end_1) {
+        return log2_s[0][x];
     }
-    double v = log2_factorials[log2_factorials.size() - 1];
-    while (x >= log2_factorials.size()) {
-        v += log2(log2_factorials.size());
-        log2_factorials.push_back(v);
+    if (x < edge_flip_start_2 || x >= edge_flip_end_2) {
+        throw std::range_error(
+                std::string("Error! Each thread must have called ")
+                + "__combinatoric_utility.set_max_access(max_e, max_f) with "
+                + "max_e and max_f chosen according to the criterion listed "
+                + "in scoring_function.h"
+                + "  NOTE: This will take O(max_e) time and O(max_f) space.");
     }
-    return log2_factorials[x];
+    return log2_s[1][x - edge_flip_start_2];
 }
 
-double __CombinatoricUtility::log2_a_choose_b(size_t a, size_t b) {
-    double v1 = log2_factorial(a);
-    return v1 - (log2_factorials[b] + log2_factorials[a - b]);
+long double __CombinatoricUtility::log2_factorial(size_t x) {
+    if (x < edge_flip_end_1) {
+        return log2_factorials[0][x];
+    }
+    if (x < edge_flip_start_2 || x >= edge_flip_end_2) {
+        throw std::range_error(
+                std::string("Error! Each thread must have called ")
+                + "__combinatoric_utility.set_max_access(max_e, max_f) with "
+                + "max_e and max_f chosen according to the criterion listed "
+                + "in scoring_function.h"
+                + "  NOTE: This will take O(max_e) time and O(max_f) space.");
+    }
+    return log2_factorials[1][x - edge_flip_start_2];
+}
+
+long double __CombinatoricUtility::log2_a_choose_b(size_t a, size_t b) {
+    if (b > a) {
+        throw std::invalid_argument("Error! Cannot do a-choose-b with b > a.");
+    }
+    return log2_factorial(a) - (log2_factorial(b) + log2_factorial(a - b));
 }
