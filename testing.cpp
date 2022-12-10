@@ -3,7 +3,6 @@
 //  "protected:" line in nt_sparse_graph.h
 
 #include<iostream>
-#include<random>
 #include<string>
 
 #include "debugging.h"
