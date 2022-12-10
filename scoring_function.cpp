@@ -102,22 +102,30 @@ long double score(NTSparseGraph& g,
 }
 
 __CombinatoricUtility::__CombinatoricUtility() {
-    // For convenience we say that 0! = 1, and thus log2(0!) = 0.
-    log2_factorials = std::vector<long double>(2, 0.0);
-    // There is no log2 for 0, but oh well. Put a placeholder value.
-    log2_s = std::vector<long double>(2, 0.0);
-    max_access = 1;
+    set_max_access(10, 10);
 }
 
 void __CombinatoricUtility::set_max_access(size_t max_e, size_t max_f) {
+    // Regular assignments.
     size_t edge_flip_end_1 = max_f + 1;
     size_t edge_flip_start_2 = max_e + 1 - (max_f + 1);
     size_t edge_flip_end_2 = max_e + 1;
 
-    log2_s[0] = std::vector<long double>(max_f + 1, 0.0);
-    log2_s[1] = std::vector<long double>(max_f + 1, 0.0);
-    log2_factorials[0] = std::vector<long double>(max_f + 1, 0.0);
-    log2_factorials[1] = std::vector<long double>(max_f + 1, 0.0);
+    if (max_f * 2 >= max_e) {
+        // All indices from 0 to max_e (inclusive) are to be used.
+        edge_flip_end_1 = max_e + 1;
+        edge_flip_start_2 = max_e + 1;
+        edge_flip_end_2 = max_e + 1;
+    }
+
+    size_t second_segment_size = edge_flip_end_2 - edge_flip_start_2;
+
+    log2_s[0] = std::vector<long double>(edge_flip_end_1, 0.0);
+    log2_factorials[0] = std::vector<long double>(edge_flip_end_1, 0.0);
+    if (second_segment_size > 0) {
+        log2_s[1] = std::vector<long double>(second_segment_size, 0.0);
+        log2_factorials[1] = std::vector<long double>(second_segment_size, 0.0);
+    }
 
     for (size_t i = 2; i < edge_flip_end_1; i++) {
         log2_s[0][i] = std::log2l(i);
