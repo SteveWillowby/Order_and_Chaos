@@ -128,6 +128,7 @@ public:
 
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
+    size_t num_loops() const;  // returns the number of self-loops
 
     // const bool directed; -- defined in graph.h
 

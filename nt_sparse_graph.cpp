@@ -51,6 +51,8 @@ NTSparseGraph::NTSparseGraph(const Graph &g) : SparseGraph(g.directed, 1) {
     copy_assignment(g);
 }
 
+size_t NTSparseGraph::num_loops() const { return num_self_loops; }
+
 const sparsegraph NTSparseGraph::as_nauty_traces_graph() {
     sparsegraph g;
     SG_INIT(g);
