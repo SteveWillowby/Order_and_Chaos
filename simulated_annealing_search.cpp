@@ -1,17 +1,28 @@
 #include "coloring.h"
 #include "edge.h"
+#include "edge_sampler.h"
 #include "nauty_traces.h"
 #include "nt_sparse_graph.h"
 #include "scoring_function.h"
-#include "sparse_graph.h"
+#include "graph.h"
 
 #include<cmath>
 #include<random>
+#include<tuple>
 #include<unordered_set>
 #include<vector>
 
-std::vector<std::pair<std::unordered_set<Edge, EdgeHash>, long double>>>
-                            simulated_annealing_search(const SparseGraph& g,
+size_t hash_edge_set(const std::unordered_set<Edge, EdgeHash>& edges);
+bool edge_set_eq(const std::unordered_set<Edge, EdgeHash>& A,
+                 const std::unordered_set<Edge, EdgeHash>& B);
+
+// TODO: Move the graph and edge-coloring maintenance out of scoring_function
+//  and into the simulated annealing search.
+// Better yet, make two different scoring functions. The current one may be
+//  useful for things like genetic algorithms, etc.
+
+std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>>
+                            simulated_annealing_search(const Graph& g,
                                                        size_t num_iterations,
                                                        size_t k) {
     NTSparseGraph g_main = g;
@@ -39,20 +50,31 @@ std::vector<std::pair<std::unordered_set<Edge, EdgeHash>, long double>>>
                                    candidate_additions, candidate_removals);
     long double curr_score;
 
-    std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
-                          long double>>> top_k_results =
-        std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
-                              long double>>>();
-    for (int i = 0; i < k; i++) {
+    std::vector<std::tuple<std::unordered_set<Edge, EdgeHash>,
+                           long double, size_t>>> top_k_results =
+        std::vector<std::tuple<std::unordered_set<Edge, EdgeHash>,
+                               long double, size_t>>>();
+    std::vector<std::pair<std::unordered_set<Edge, EdgeHash>>, long double>>
+        return_value =
+            std::vector<std::pair<std::unordered_set<Edge, EdgeHash>>,
+                                  long double>>();
+
+    for (size_t i = 0; i < k; i++) {
         // initialize top_k_results with empty edge-flip sets and their score
         top_k_results.push_back(
-            std::pair<std::unordered_set<Edge, EdgeHash>, long double>(
-                std::unordered_set<Edge, EdgeHash>(), prev_score));
+            std::make_tuple<std::unordered_set<Edge, EdgeHash>,
+                            long double, size_t>(
+                std::unordered_set<Edge, EdgeHash>(), prev_score, 0));
     }
 
     if (g.num_edges() == max_possible_edges || g.num_edges() == 0) {
         // It's a clique or an empty graph. There's nothing to look for.
-        return top_k_results;
+        for (size_t i = 0; i < k; i++) {
+            return_value.push_back(std::pair<std::unordered_set<Edge, EdgeHash>,
+                                             long double>(top_k_results[i][0],
+                                                          top_k_results[i][1]));
+        }
+        return return_value;
     }
 
     // Create an editable copy of the edge orbits.
@@ -72,7 +94,7 @@ std::vector<std::pair<std::unordered_set<Edge, EdgeHash>, long double>>>
 
     std::random_device rd;  // Will provide a seed for the random number engine
     std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<double> dist(0.0, 1.0);
+    std::uniform_real_distribution<float> dist(0.0, 1.0);
 
     // chance of adding a new (non-)edge to the candidate
     float prob_new = 0.5;
@@ -97,6 +119,8 @@ std::vector<std::pair<std::unordered_set<Edge, EdgeHash>, long double>>>
 
     std::unordered_set<Edge, EdgeHash> flips;
 
+    EdgeSampler sampler(g, gen);
+
     for (size_t itr = 0; itr < num_iterations + num_skipped_iterations; itr++) {
         // Main loop.
         add = dist(gen) < prob_new;
@@ -104,41 +128,57 @@ std::vector<std::pair<std::unordered_set<Edge, EdgeHash>, long double>>>
         if (add) {
             // Add an edge or a non-edge to the candidate set.
             if (is_edge) {
-                // Add an edge to the candidate set.
-
-                // TODO: Add the sampler code.
-                flipped = sampler.sample_edge();
-                g_main.add_edge(flipped->first, flipped->second);
-
-                if (g_main.num_edges() == 0) {
+                // Add an edge to the candidate removals set.
+                //  I.e. Remove the edge from the graph.
+                if (g.num_edges() == candidate_removals.size()) {
                     // No edges to remove from the graph.
                     num_skipped_iterations++;
                     continue;
                 }
+
+                flipped = sampler.sample_edge();
+                // g_main.delete_edge(flipped->first, flipped->second);
+                candidate_removals.insert(flipped);
             } else {
-                // Add a non-edge to the candidate set.
-                if (g_main.num_edges() == max_possible_edges) {
+                // Add a non-edge to the candidate additions set.
+                //  I.e. Add a (non-)edge to the graph as an edge.
+                if (max_possible_edges - g.num_edges() ==
+                                    candidate_additions.size()) {
                     // No edges to add to the graph.
                     num_skipped_iterations++;
                     continue;
                 }
+
+                flipped = sampler.sample_non_edge();
+                // g_main.add_edge(flipped->first, flipped->second);
+                candidate_additions.insert(flipped);
             }
         } else {
             // Remove an edge or a non-edge from the candidate set.
             if (is_edge) {
-                // Remove an edge from the candidate set.
+                // Remove an edge from the candidate removals set.
+                //  I.e. Put the edge back in the graph.
                 if (candidate_removals.size() == 0) {
                     // There is no edge in the candidate set.
                     num_skipped_iterations++;
                     continue;
                 }
+
+                flipped = sampler.un_sample_edge();
+                // g_main.add_edge(flipped->first, flipped->second);
+                candidate_removals.erase(flipped);
             } else {
-                // Remove a non-edge from the candidate set.
+                // Remove a non-edge from the candidate additions set.
+                //  I.e. Make it a non-edge again.
                 if (candidate_additions.size() == 0) {
                     // There is no non-edge in the candidate set.
                     num_skipped_iterations++;
                     continue;
                 }
+
+                flipped = sampler.un_sample_non_edge();
+                // g_main.delete_edge(flipped->first, flipped->second);
+                candidate_additions.erase(flipped);
             }
         }
 
@@ -154,13 +194,51 @@ std::vector<std::pair<std::unordered_set<Edge, EdgeHash>, long double>>>
             transition_prob = std::exp2((curr_score - prev_score) /temperature);
             if (dist(gen) >= transition_prob) {
                 // Reject the change.
-                // TODO: Undo the change.
+                if (add) {
+                    if (is_edge) {
+                        candidate_removals.erase(flipped);
+                    } else {
+                        candidate_additions.erase(flipped);
+                    }
+                } else {
+                    if (is_edge) {
+                        candidate_removals.insert(flipped);
+                    } else {
+                        candidate_additions.insert(flipped);
+                    }
+                }
+                sampler.undo();
                 continue;
             }
         }
 
         // See if this goes in the top-k score list.
         if (curr_score > top_k_results[0][1]) {
+
+            // Combine additions and removals.
+            flips = std::unordered_set<Edge, EdgeHash>(candidate_additions);
+            for (auto e_itr = candidate_removals.begin();
+                      e_itr != candidate_removals.end(); e_itr++) {
+                flips.insert(*e_itr);
+            }
+            size_t hash_value = hash_edge_set(flips);
+
+            // Verify that this edge set is not already in top_k_results.
+            bool is_new = true;
+            for (size_t i = 1; i < k; i++) {
+                if (top_k_results[i][2] == hash_value &&
+                        edge_set_eq(top_k_results[i][0], flips)) {
+                    is_new = false;
+                    break;
+                }
+            }
+            if (!is_new) {
+                // We still move to the `flips` edge set, but we do not update
+                //  top_k_results.
+                prev_score = curr_score;
+                continue;
+            }
+
             size_t i;
             for (i = 0; i < k; i++) {
                 if (curr_score < top_k_results[i][1]) {
@@ -171,18 +249,40 @@ std::vector<std::pair<std::unordered_set<Edge, EdgeHash>, long double>>>
             for (size_t j = 0; j < i; j++) {
                 top_k_results[j] = top_k_results[j + 1];
             }
-
-            // Combine additions and removals.
-            flips = std::unordered_set<Edge, EdgeHash>(candidate_additions);
-            for (auto e_itr = candidate_removals.begin();
-                      e_itr != candidate_removals.end(); e_itr++) {
-                flips.insert(*e_itr);
-            }
-            top_k_results[i] = std::pair<std::unordered_set<Edge, EdgeHash>,
-                                         long double>(flips, curr_score);
+            top_k_results[i] =
+                std::make_tuple<std::unordered_set<Edge, EdgeHash>, long double,
+                                size_t>(flips, curr_score, hash_value);
         }
         prev_score = curr_score;
     }
 
-    return top_k_results;
+    for (size_t i = 0; i < k; i++) {
+        return_value.push_back(std::pair<std::unordered_set<Edge, EdgeHash>,
+                                         long double>(top_k_results[i][0],
+                                                      top_k_results[i][1]));
+    }
+    return return_value;
+}
+
+
+size_t hash_edge_set(const std::unordered_set<Edge, EdgeHash>& edges) {
+    size_t h = 0;
+    // X-OR all the edge hashes.
+    for (auto e_itr = edges.begin(); e_itr != edges.end(); e_itr++) {
+        h ^= EdgeHash(*e_itr);
+    }
+    return h;
+}
+
+bool edge_set_eq(const std::unordered_set<Edge, EdgeHash>& A,
+                 const std::unordered_set<Edge, EdgeHash>& B) {
+    if (A.size() != B.size()) {
+        return false;
+    }
+    for (auto e_itr = A.begin(); e_itr != A.end(); e_itr++) {
+        if (B.find(*e_itr) == B.end()) {
+            return false;
+        }
+    }
+    return true;
 }

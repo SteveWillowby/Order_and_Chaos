@@ -39,6 +39,11 @@
 // `editable_edge_orbit_coloring` should be identical to `edge_orbit_coloring`.
 //      note that though `editable_edge_orbit_coloring` will be temporarily
 //      modified, it will represent the same coloring when the function is done.
+//
+// `edge_additions` are the edges added to `g`. Thus they are the edges deleted
+//      from the hypothesis graph.
+// `edge_removals` are the edges deleted from `g`. Thus they are the edges
+//      added to the hypothesis graph.
 long double score(NTSparseGraph& g,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,

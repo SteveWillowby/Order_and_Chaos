@@ -1,7 +1,3 @@
-// NOTE: To work, these tests require that the protected members of the
-//  NTSparseGraph class be made public. To test, just comment out the
-//  "protected:" line in nt_sparse_graph.h
-
 #include<iostream>
 #include<string>
 
