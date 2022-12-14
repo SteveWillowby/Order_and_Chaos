@@ -9,9 +9,9 @@
 
 int main( void ) {
     // These three variables determine which graph is run on.
-    const bool directed = true;
+    const bool directed = false;
     const bool use_real_graph = true;
-    const size_t graph_idx = 0;
+    const size_t graph_idx = 2;
 
     std::vector<std::string> fake_nodes_names =
         {"test_01_nodes.txt", "test_02_nodes.txt"
@@ -20,10 +20,12 @@ int main( void ) {
         {"test_01_edges.txt", "test_02_edges.txt"
         };
     std::vector<std::string> real_nodes_names =
-        {"",                     ""
+        {"",                     "",
+         "",
         };
     std::vector<std::string> real_edges_names =
-        {"celegans_metabolic.g", "species_brain_1.g"
+        {"celegans_metabolic.g", "species_brain_1.g",
+         "jazz_collaboration.g"
         };
 
     const std::string fake_prefix = "simple_test_graphs/";
