@@ -26,8 +26,10 @@ public:
     SparseGraph(const bool directed);
     SparseGraph(const bool directed, size_t n);
     SparseGraph(const Graph &g);
+    SparseGraph(const SparseGraph &g);
 
     SparseGraph& operator=(const Graph& g);
+    SparseGraph& operator=(const SparseGraph& g);
 
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
