@@ -60,7 +60,9 @@ SparseGraph read_graph(const bool directed,
 
     while (!file.bad() && !file.eof()) {
         std::getline(file, line);
-        line.pop_back();  // Remove the '\n'
+        if (line.empty()) {
+            break;
+        }
         node = std::stoi(line);
         if (node < 0) {
             throw std::invalid_argument("Error! Negative node ID in edgelist "
