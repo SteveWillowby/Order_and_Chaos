@@ -34,6 +34,12 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     size_t max_possible_edges = (size_t(use_self_loops) * g.num_nodes()) +
             (g.num_nodes() * (g.num_nodes() - 1)) / (size_t(!g.directed) + 1);
 
+    size_t num_non_edges = max_possible_edges - g_main.num_edges();
+    size_t max_flip_or_edge =
+            4 * (num_non_edges < g.num_edges() ? num_non_edges : g.num_edges());
+    // O(max_possible_edges)   ---- O(well)
+    CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
+
 
     NautyTracesOptions o;
     o.get_node_orbits = true;
@@ -60,7 +66,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     std::unordered_set<Edge, EdgeHash>();
 
     // Get a score for the initial candidate noise (i.e. no noise).
-    long double prev_score = score(g_main, orbits_info.node_orbits,
+    long double prev_score = score(g_main, comb_util, orbits_info.node_orbits,
                                    orbits_info.edge_orbits,
                                    editable_edge_orbits,
                                    candidate_additions, candidate_removals);
@@ -104,12 +110,6 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     // chance of choosing an edge vs. a non-edge in when adding or removing
     //  something from the candidate set.
     float prob_edge = float(g.num_edges()) / float(max_possible_edges);
-
-    size_t num_non_edges = max_possible_edges - g_main.num_edges();
-    size_t max_flip_or_edge =
-            4 * (num_non_edges < g.num_edges() ? num_non_edges : g.num_edges());
-    // O(max_possible_edges)   ---- O(well)
-    __combinatoric_utility.set_max_access(max_possible_edges, max_flip_or_edge);
 
     bool add, is_edge;
     Edge flipped;
@@ -187,7 +187,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
         temperature =
             1.0 - (double(itr + 1 - num_skipped_iterations) / num_iterations);
 
-        curr_score = score(g_main, orbits_info.node_orbits,
+        curr_score = score(g_main, comb_util, orbits_info.node_orbits,
                            orbits_info.edge_orbits,
                            editable_edge_orbits,
                            candidate_additions, candidate_removals);

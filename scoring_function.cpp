@@ -10,7 +10,7 @@
 #include<unordered_set>
 #include<vector>
 
-long double score(NTSparseGraph& g,
+long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
@@ -65,7 +65,7 @@ long double score(NTSparseGraph& g,
     nt_results = traces(g, o, stabilizer_coloring);
     log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
                            (long double)(nt_results.num_aut_exponent) +
-                           __combinatoric_utility.log2(10);
+                           comb_util.log2(10);
 
     // Perform the edge deletions in actuality.
     for (auto edge_itr = edge_removals.begin();
@@ -77,7 +77,7 @@ long double score(NTSparseGraph& g,
     nt_results = traces(g, o);
     log2_hypothesis_aut = std::log2l(nt_results.num_aut_base) +
                           (long double)(nt_results.num_aut_exponent) +
-                          __combinatoric_utility.log2(10);
+                          comb_util.log2(10);
 
 
     // Restore the deleted edges.
@@ -97,20 +97,28 @@ long double score(NTSparseGraph& g,
     // Perform the probability calculations.
     return  2.0 * log2_hypothesis_aut -
              (log2_stabilizer_size +
-              __combinatoric_utility.log2_a_choose_b(m_prime, num_additions) +
-              __combinatoric_utility.log2_a_choose_b(max_num_edges - m_prime,
-                                                     num_removals));
+              comb_util.log2_a_choose_b(m_prime, num_additions) +
+              comb_util.log2_a_choose_b(max_num_edges - m_prime,
+                                        num_removals));
 }
 
-__CombinatoricUtility::__CombinatoricUtility() {
-    set_max_access(10, 10);
+CombinatoricUtility::CombinatoricUtility(size_t max_e, size_t max_f) {
+    update_max_access(max_e, max_f);
 }
 
-void __CombinatoricUtility::set_max_access(size_t max_e, size_t max_f) {
+void CombinatoricUtility::update_max_access(size_t max_e, size_t max_f) {
+    // These checks are here because we access log2(10) regardless of graph size
+    if (max_e < 10) {
+        max_e = 10;
+    }
+    if (max_f < 10) {
+        max_f = 10;
+    }
+
     // Regular assignments.
-    size_t edge_flip_end_1 = max_f + 1;
-    size_t edge_flip_start_2 = max_e + 1 - (max_f + 1);
-    size_t edge_flip_end_2 = max_e + 1;
+    edge_flip_end_1 = max_f + 1;
+    edge_flip_start_2 = max_e + 1 - (max_f + 1);
+    edge_flip_end_2 = max_e + 1;
 
     if (max_f * 2 >= max_e) {
         // All indices from 0 to max_e (inclusive) are to be used.
@@ -192,37 +200,37 @@ void __CombinatoricUtility::set_max_access(size_t max_e, size_t max_f) {
 
 }
 
-long double __CombinatoricUtility::log2(size_t x) {
+long double CombinatoricUtility::log2(size_t x) const {
     if (x < edge_flip_end_1) {
         return log2_s[0][x];
     }
     if (x < edge_flip_start_2 || x >= edge_flip_end_2) {
         throw std::range_error(
-                std::string("Error! Each thread must have called ")
-                + "__combinatoric_utility.set_max_access(max_e, max_f) with "
-                + "max_e and max_f chosen according to the criterion listed "
-                + "in scoring_function.h"
+                std::string("Error! CombinatoricUtility object - You must ")
+                + "have initialized the object or subsequently called "
+                + "update_max_access() with max_e and max_f chosen according "
+                + "to the criterion listed in scoring_function.h"
                 + "  NOTE: This will take O(max_e) time and O(max_f) space.");
     }
     return log2_s[1][x - edge_flip_start_2];
 }
 
-long double __CombinatoricUtility::log2_factorial(size_t x) {
+long double CombinatoricUtility::log2_factorial(size_t x) const {
     if (x < edge_flip_end_1) {
         return log2_factorials[0][x];
     }
     if (x < edge_flip_start_2 || x >= edge_flip_end_2) {
         throw std::range_error(
-                std::string("Error! Each thread must have called ")
-                + "__combinatoric_utility.set_max_access(max_e, max_f) with "
-                + "max_e and max_f chosen according to the criterion listed "
-                + "in scoring_function.h"
+                std::string("Error! CombinatoricUtility object - You must ")
+                + "have initialized the object or subsequently called "
+                + "update_max_access() with max_e and max_f chosen according "
+                + "to the criterion listed in scoring_function.h"
                 + "  NOTE: This will take O(max_e) time and O(max_f) space.");
     }
     return log2_factorials[1][x - edge_flip_start_2];
 }
 
-long double __CombinatoricUtility::log2_a_choose_b(size_t a, size_t b) {
+long double CombinatoricUtility::log2_a_choose_b(size_t a, size_t b) const {
     if (b > a) {
         throw std::invalid_argument("Error! Cannot do a-choose-b with b > a.");
     }
