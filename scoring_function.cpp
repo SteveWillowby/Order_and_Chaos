@@ -64,8 +64,8 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                                             editable_edge_orbit_coloring);
     nt_results = traces(g, o, stabilizer_coloring);
     log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
-                           (long double)(nt_results.num_aut_exponent) +
-                           comb_util.log2(10);
+                           ((long double)(nt_results.num_aut_exponent)) *
+                                            comb_util.log2(10);
 
     // Perform the edge deletions in actuality.
     for (auto edge_itr = edge_removals.begin();
@@ -76,8 +76,8 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     // Get the raw auto orbit size for the hypothesis graph.
     nt_results = traces(g, o);
     log2_hypothesis_aut = std::log2l(nt_results.num_aut_base) +
-                          (long double)(nt_results.num_aut_exponent) +
-                          comb_util.log2(10);
+                          ((long double)(nt_results.num_aut_exponent)) *
+                                           comb_util.log2(10);
 
 
     // Restore the deleted edges.
