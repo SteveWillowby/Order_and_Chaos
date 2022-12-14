@@ -9,6 +9,7 @@
 SparseGraph::SparseGraph(const bool directed) : Graph(directed) {
     n = 1;
     m = 0;
+    num_self_loops = 0;
 
     _neighbors =
         std::vector<std::unordered_set<int>>(n, std::unordered_set<int>());
@@ -29,6 +30,7 @@ SparseGraph::SparseGraph(const bool directed, size_t n) : Graph(directed) {
     #endif
     this->n = n;
     m = 0;
+    num_self_loops = 0;
 
     _neighbors =
         std::vector<std::unordered_set<int>>(n, std::unordered_set<int>());
@@ -43,26 +45,6 @@ SparseGraph::SparseGraph(const bool directed, size_t n) : Graph(directed) {
 
 SparseGraph::SparseGraph(const Graph &g) : Graph(g.directed) {
     operator=(g);
-    
-    // TODO: Remove extra code.
-    /*
-    n = g.num_nodes();
-    m = g.num_edges();
-
-    _neighbors = std::vector<std::unordered_set<int>>(n);
-    for (size_t i = 0; i < n; i++) {
-        _neighbors[i] = std::unordered_set<int>(g.neighbors(i));
-    }
-
-    if (directed) {
-        _out_neighbors = std::vector<std::unordered_set<int>>(n);
-        _in_neighbors = std::vector<std::unordered_set<int>>(n);
-        for (size_t i = 0; i < n; i++) {
-            _out_neighbors[i] = std::unordered_set<int>(g.out_neighbors(i));
-            _in_neighbors[i] = std::unordered_set<int>(g.in_neighbors(i));
-        }
-    }
-    */
 }
 
 SparseGraph& SparseGraph::operator=(const Graph& g) {
@@ -78,6 +60,7 @@ SparseGraph& SparseGraph::operator=(const Graph& g) {
 
     n = g.num_nodes();
     m = g.num_edges();
+    num_self_loops = g.num_loops();
 
     _neighbors = std::vector<std::unordered_set<int>>(n);
     for (size_t i = 0; i < n; i++) {
@@ -95,7 +78,6 @@ SparseGraph& SparseGraph::operator=(const Graph& g) {
 
     return *this;
 }
-
 
 int SparseGraph::add_node() {
     n++;
@@ -126,9 +108,13 @@ int SparseGraph::delete_node(const int a) {
             // One of the edges deleted was a self-loop. This would have shown
             //  up twice in the above "m -= ..." line.
             m++;
+            num_self_loops--;
         }
     } else {
         m -= _neighbors[a].size();
+        if (_neighbors[a].find(a) != _neighbors[a].end()) {
+            num_self_loops--;
+        }
     }
 
     int last_node = n;
@@ -234,12 +220,20 @@ bool SparseGraph::add_edge(const int a, const int b) {
             if (_neighbors[a].insert(b).second) {
                 _neighbors[b].insert(a);
             }
+
+            if (a == b) {
+                num_self_loops++;
+            }
+
             return true;
         }
     } else {
         if (_neighbors[a].insert(b).second) {
             _neighbors[b].insert(a);
             m++;
+            if (a == b) {
+                num_self_loops++;
+            }
             return true;
         }
     }
@@ -260,12 +254,18 @@ bool SparseGraph::delete_edge(const int a, const int b) {
                 _neighbors[a].erase(b);
                 _neighbors[b].erase(a);
             }
+            if (a == b) {
+                num_self_loops--;
+            }
             return true;
         }
     } else {
         if (_neighbors[a].erase(b)) {
             _neighbors[b].erase(a);
             m--;
+            if (a == b) {
+                num_self_loops--;
+            }
             return true;
         }
     }
@@ -330,9 +330,11 @@ const std::unordered_set<int> &SparseGraph::in_neighbors(const int a) const {
     return _neighbors[a];
 }
 
+#ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
 void SparseGraph::range_check(const int a) const {
     if (a < 0 || size_t(a) >= n) {
         throw std::out_of_range("Error! Node " + std::to_string(a) +
                                 " out of range - does not exist.");
     }
 }
+#endif

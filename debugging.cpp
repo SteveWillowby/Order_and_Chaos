@@ -37,8 +37,8 @@ bool consistency_check(const NTSparseGraph &g) {
         }
     }
 
-    if (num_self_loops != g.num_self_loops) {
-        std::cout<<"Num Self Loops Found != g.num_self_loops"<<std::endl;
+    if (num_self_loops != g.num_loops()) {
+        std::cout<<"Num Self Loops Found != g.num_loops()"<<std::endl;
         return false;
     }
 

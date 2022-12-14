@@ -9,3 +9,7 @@ size_t Graph::num_nodes() const {
 size_t Graph::num_edges() const {
     return m;
 }
+
+size_t Graph::num_loops() const {
+    return num_self_loops;
+}

@@ -32,6 +32,9 @@ public:
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
 
+    // returns the number of self-loops
+    // size_t num_loops() const; -- defined in graph.cpp
+
     // const bool directed; -- defined in graph.h
 
     // Returns the id of the new node.
@@ -61,13 +64,16 @@ public:
 protected:
     // size_t n; -- defined in graph.h
     // size_t m; -- defined in graph.h
+    // size_t num_self_loops; -- defined in graph.h
 
     std::vector<std::unordered_set<int>> _neighbors;
     std::vector<std::unordered_set<int>> _out_neighbors;
     std::vector<std::unordered_set<int>> _in_neighbors;
 
+    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
 private:
     inline void range_check(const int a) const;
+    #endif
 };
 
 

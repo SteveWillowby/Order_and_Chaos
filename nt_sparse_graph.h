@@ -128,7 +128,9 @@ public:
 
     // size_t num_nodes() const; -- defined in graph.cpp
     // size_t num_edges() const; -- defined in graph.cpp
-    size_t num_loops() const;  // returns the number of self-loops
+
+    // returns the number of self-loops
+    // size_t num_loops() const; -- defined in sparse_graph.cpp
 
     // const bool directed; -- defined in graph.h
 
@@ -178,6 +180,7 @@ protected:
     // size_t n; -- defined in graph.h
     size_t internal_n;
     // size_t m; -- defined in graph.h
+    // size_t num_self_loops; -- defined in graph.h
     size_t num_edge_nodes;
 
     //  defined in sparse_graph.h
@@ -212,7 +215,6 @@ protected:
     std::vector<size_t> node_to_startpoint;
     std::vector<size_t> node_to_endpoint;
 
-    size_t num_self_loops;
     std::vector<bool> has_self_loop;
 
     // Gives the two places in out_neighbors_vec where the internal node is

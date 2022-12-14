@@ -20,7 +20,6 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
     num_edge_nodes = 0;
 
     out_degrees = std::vector<int>(n, 0);
-    num_self_loops = 0;
     has_self_loop = std::vector<bool>(n, false);
 
     // Begin with MIN_EDGE_SPACE_PER_NODE edge slots per node.
@@ -50,8 +49,6 @@ NTSparseGraph::NTSparseGraph(const bool directed, size_t n)
 NTSparseGraph::NTSparseGraph(const Graph &g) : SparseGraph(g.directed, 1) {
     copy_assignment(g);
 }
-
-size_t NTSparseGraph::num_loops() const { return num_self_loops; }
 
 const sparsegraph NTSparseGraph::as_nauty_traces_graph() {
     sparsegraph g;
@@ -128,7 +125,6 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
         node_to_startpoint = std::vector<size_t>(internal_n, 0);
         node_to_endpoint = std::vector<size_t>(internal_n, 0);
         endpoint_to_node = std::unordered_map<size_t, int>();
-        num_self_loops = 0;
         has_self_loop = std::vector<bool>(n, false);
 
         size_t total_space_needed = 0;
@@ -138,7 +134,6 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
             if (_neighbors[i].find(i) != _neighbors[i].end()) {
                 out_degrees[i]--;
                 has_self_loop[i] = true;
-                num_self_loops++;
             }
             node_to_startpoint[i] = total_space_needed;
             total_space_needed +=
@@ -232,7 +227,6 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
         node_to_startpoint = std::vector<size_t>(internal_n, 0);
         node_to_endpoint = std::vector<size_t>(internal_n, 0);
         endpoint_to_node = std::unordered_map<size_t, int>();
-        num_self_loops = 0;
         has_self_loop = std::vector<bool>(n, false);
 
         size_t total_space_needed = 0;
@@ -242,7 +236,6 @@ NTSparseGraph& NTSparseGraph::copy_assignment(const Graph& g) {
             if (_neighbors[i].find(i) != _neighbors[i].end()) {
                 out_degrees[i]--;
                 has_self_loop[i] = true;
-                num_self_loops++;
             }
             node_to_startpoint[i] = total_space_needed;
             total_space_needed +=
@@ -546,7 +539,6 @@ bool NTSparseGraph::add_edge(const int a, const int b) {
 
     if (a == b) {
         has_self_loop[a] = true;
-        num_self_loops++;
         return true;
     }
 
@@ -685,7 +677,6 @@ bool NTSparseGraph::delete_edge(const int a, const int b) {
 void NTSparseGraph::delete_edge_node_or_nodes(const int a, const int b) {
     if (a == b) {
         has_self_loop[a] = false;
-        num_self_loops--;
         return;
     }
 

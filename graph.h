@@ -19,6 +19,7 @@ public:
 
     size_t num_nodes() const;
     size_t num_edges() const;
+    size_t num_loops() const;  // returns the number of self-loops
 
     const bool directed;
 
@@ -47,6 +48,7 @@ public:
 protected:
     size_t n;
     size_t m;
+    size_t num_self_loops;
 
 };
 
