@@ -6,6 +6,8 @@
 #include "scoring_function.h"
 #include "graph.h"
 
+#include<iostream>
+
 #include<cmath>
 #include<random>
 #include<tuple>
@@ -122,7 +124,18 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     EdgeSampler sampler(g, gen);
 
+    double percent_done = 0;
+    double scratch;
+
     for (size_t itr = 0; itr < num_iterations + num_skipped_iterations; itr++) {
+        if (itr % 10000 == 0) {
+            scratch = double(100 * (itr - num_skipped_iterations)) /
+                      double(num_iterations);
+            if (scratch > percent_done + 0.5) {
+                percent_done = scratch;
+                std::cout<<percent_done<<" percent done."<<std::endl;
+            }
+        }
         // Main loop.
         add = dist(gen) < prob_new;
         is_edge = dist(gen) < prob_edge;
