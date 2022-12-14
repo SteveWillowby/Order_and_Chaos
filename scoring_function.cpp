@@ -92,6 +92,7 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     for (auto edge_itr = edge_additions.begin();
               edge_itr != edge_additions.end(); edge_itr++) {
         g.delete_edge(edge_itr->first, edge_itr->second);
+        editable_edge_orbit_coloring.erase(*edge_itr);
     }
 
     // Perform the probability calculations.
