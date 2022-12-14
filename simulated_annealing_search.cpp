@@ -51,6 +51,11 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     // Perform preliminary calculations to speed up the code.
     NautyTracesResults orbits_info = traces(g_main, o);
 
+    std::cout<<"The original graph has log2(|Aut(G)|) = "
+             <<(std::log2l(orbits_info.num_aut_base) +
+                (std::log2l(10) * orbits_info.num_aut_exponent))
+             <<"."<<std::endl;
+
     // Create an editable copy of the edge orbits.
     Coloring<Edge, EdgeHash> editable_edge_orbits = Coloring<Edge, EdgeHash>();
     for (auto c_itr = orbits_info.edge_orbits.colors().begin();
