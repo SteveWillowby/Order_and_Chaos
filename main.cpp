@@ -12,11 +12,15 @@ int main( void ) {
     const std::string edgelist_name = "simple_test_graphs/test_01_edges.txt";
     const std::string nodelist_name = "simple_test_graphs/test_01_nodes.txt";
 
+    std::cout<<"Loading graph from files:"<<std::endl
+             <<"    "<<nodelist_name<<std::endl
+             <<"    "<<edgelist_name<<std::endl;
     SparseGraph g = read_graph(directed, nodelist_name, edgelist_name);
 
     auto result = simulated_annealing_search(g, g.num_nodes() * g.num_nodes() *
                                                 g.num_nodes(),
                                              9);
+    std::cout<<"  ...graph loaded."<<std::endl<<std::endl;
 
     int i = 0;
     for (auto result_itr = result.rbegin();
