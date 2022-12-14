@@ -1,5 +1,6 @@
 #include "coloring.h"
 #include "edge.h"
+#include "nauty_traces.h"
 #include "nt_sparse_graph.h"
 #include "scoring_function.h"
 
@@ -35,7 +36,7 @@ long double score(NTSparseGraph& g,
     long double log2_stabilizer_size, log2_hypothesis_aut;
 
     // Edge additions will be colored with a new color (max prev color + 1).
-    int addition_color = *(edge_orbit_coloring.colors.rend()) + 1;
+    int addition_color = *(edge_orbit_coloring.colors().rend()) + 1;
     // Edge deletions will be colored with a color that preserves their orbit
     //  info: new color = old color + deletion_color_base.
     int deletion_color_base = addition_color + 1;
@@ -48,8 +49,8 @@ long double score(NTSparseGraph& g,
     }
 
     // Perform the edge deletions in color only.
-    for (auto edge_itr = edge_deletions.begin();
-              edge_itr != edge_deletions.end(); edge_itr++) {
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
         editable_edge_orbit_coloring.set(*edge_itr, deletion_color_base +
                                             edge_orbit_coloring[*edge_itr]);
     }
@@ -67,9 +68,9 @@ long double score(NTSparseGraph& g,
                            __combinatoric_utility.log2(10);
 
     // Perform the edge deletions in actuality.
-    for (auto edge_itr = edge_deletions.begin();
-              edge_itr != edge_deletions.end(); edge_itr++) {
-        g.remove_edge(edge_itr->first, edge_itr->second);
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
+        g.delete_edge(edge_itr->first, edge_itr->second);
     }
 
     // Get the raw auto orbit size for the hypothesis graph.
@@ -80,8 +81,8 @@ long double score(NTSparseGraph& g,
 
 
     // Restore the deleted edges.
-    for (auto edge_itr = edge_deletions.begin();
-              edge_itr != edge_deletions.end(); edge_itr++) {
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
         g.add_edge(edge_itr->first, edge_itr->second);
         editable_edge_orbit_coloring.set(*edge_itr,
                                          edge_orbit_coloring[*edge_itr]);
@@ -90,7 +91,7 @@ long double score(NTSparseGraph& g,
     // Un-color and un-add the added edges.
     for (auto edge_itr = edge_additions.begin();
               edge_itr != edge_additions.end(); edge_itr++) {
-        g.remove_edge(edge_itr->first, edge_itr->second);
+        g.delete_edge(edge_itr->first, edge_itr->second);
     }
 
     // Perform the probability calculations.
@@ -162,8 +163,7 @@ void __CombinatoricUtility::set_max_access(size_t max_e, size_t max_f) {
         }
 
         t = sum + log_value;
-        // fabsl is just the long double abs() function
-        if (std::fabsl(sum) >= std::fabsl(log_value)) {
+        if (std::fabs(sum) >= std::fabs(log_value)) {
             z = sum - t;
             c = z + log_value;
         } else {
@@ -172,7 +172,7 @@ void __CombinatoricUtility::set_max_access(size_t max_e, size_t max_f) {
         }
         sum = t;
         t = cs + c;
-        if (std::fabsl(cs) >= std::fabsl(c)) {
+        if (std::fabs(cs) >= std::fabs(c)) {
             z = cs - t;
             cc = z + c;
         } else {

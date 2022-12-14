@@ -14,7 +14,7 @@ typedef uint32_t SYM__edge_int_type;
 class EdgeSampler {
 public:
     // O(n^2) time and space
-    EdgeSampler(const SparseGraph& g, std::mt19937& gen);
+    EdgeSampler(const Graph& g, std::mt19937& gen);
 
     // Randomly selects an edge which has not yet been sampled.
     // O(1)

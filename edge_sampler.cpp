@@ -8,9 +8,10 @@
 #include<string>
 
 
-EdgeSampler::EdgeSampler(const SparseGraph& g, std::mt19937& gen) :
-                           generator(gen), directed(g.directed),
-                           has_self_loops(g.num_loops() > 0), n(g.num_nodes()) {
+EdgeSampler::EdgeSampler(const Graph& g, std::mt19937& gen) :
+                           directed(g.directed), n(g.num_nodes()),
+                           has_self_loops(g.num_loops() > 0),
+                           generator(gen) {
 
     dist = std::uniform_real_distribution<double>(0.0, 1.0);
 
@@ -74,7 +75,7 @@ Edge EdgeSampler::sample_edge() {
     return int_to_edge(e);
 }
 
-Edge sample_non_edge() {
+Edge EdgeSampler::sample_non_edge() {
     if (non_edges_un_sampled.size() == 0) {
         throw std::range_error(std::string("Error! EdgeSampler::sample_non_")
                                + "edge() -- All non-edges have already been "

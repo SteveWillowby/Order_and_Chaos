@@ -89,8 +89,8 @@ protected:
     size_t edge_flip_end_1;  // exclusive index
     size_t edge_flip_start_2;
     size_t edge_flip_end_2;  // exclusive index
-    std::vector<long double>[2] log2_factorials;
-    std::vector<long double>[2] log2_s;
+    std::vector<long double> log2_factorials[2];
+    std::vector<long double> log2_s[2];
 };
 
 static thread_local __CombinatoricUtility

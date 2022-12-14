@@ -10,7 +10,7 @@
 // Given a graph g, does a search to find good candidates for noise.
 //
 // Lists the top k candidates with their associated scores.
-std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>>
+std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                             simulated_annealing_search(const Graph& g,
                                                        size_t num_iterations,
                                                        size_t k);
