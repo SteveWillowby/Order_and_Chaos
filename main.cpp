@@ -12,6 +12,7 @@ int main( void ) {
     const bool directed = false;
     const bool use_real_graph = true;
     const size_t graph_idx = 2;
+    // Note: Took 252 minutes for jazz collab with n^3 iterations.
 
     std::vector<std::string> fake_nodes_names =
         {"test_01_nodes.txt", "test_02_nodes.txt"
@@ -66,7 +67,8 @@ int main( void ) {
              <<g.num_edges()<<" edges, "<<g.num_loops()<<" of which are "
              <<"self-loops."<<std::endl<<std::endl;
 
-    size_t num_iterations = g.num_nodes() * g.num_nodes() * g.num_nodes();
+    size_t num_iterations = g.num_nodes() * g.num_nodes() *
+                            g.num_nodes();
 
     std::cout<<"Running for "<<num_iterations<<" iterations..."<<std::endl;
     auto result = simulated_annealing_search(g, num_iterations, 9);
