@@ -27,7 +27,8 @@ bool edge_set_eq(const std::unordered_set<Edge, EdgeHash>& A,
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                             simulated_annealing_search(const Graph& g,
                                                        size_t num_iterations,
-                                                       size_t k) {
+                                                       size_t k,
+                                                       const std::unordered_set<Edge, EdgeHash>& REMOVE_THIS) {
     NTSparseGraph g_main = g;
     EdgeHash edge_hasher;
 
@@ -77,6 +78,11 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                    orbits_info.edge_orbits,
                                    editable_edge_orbits,
                                    candidate_additions, candidate_removals);
+    long double REMOVE_THIS_TOO = score(g_main, comb_util, orbits_info.node_orbits,
+                                        orbits_info.edge_orbits,
+                                        editable_edge_orbits,
+                                        candidate_additions, REMOVE_THIS);
+    std::cout<<"No changes: "<<prev_score<<"    | Custom changes: "<<REMOVE_THIS_TOO<<std::endl;
     long double curr_score;
 
     std::vector<std::tuple<std::unordered_set<Edge, EdgeHash>,

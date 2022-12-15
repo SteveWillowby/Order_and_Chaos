@@ -13,6 +13,7 @@
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                             simulated_annealing_search(const Graph& g,
                                                        size_t num_iterations,
-                                                       size_t k);
+                                                       size_t k,
+                                                       const std::unordered_set<Edge, EdgeHash>& REMOVE_THIS);
 
 #endif
