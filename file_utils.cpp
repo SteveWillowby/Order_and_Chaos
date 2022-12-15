@@ -51,7 +51,7 @@ SparseGraph read_graph(const bool directed,
     std::ifstream file = std::ifstream(nodelist_filename);
     if (!file) {
         throw std::invalid_argument("Error! Could not open file "
-                                    + edgelist_filename);
+                                    + nodelist_filename);
     }
 
     std::string line;
