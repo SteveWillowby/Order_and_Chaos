@@ -25,10 +25,12 @@ bool edge_set_eq(const std::unordered_set<Edge, EdgeHash>& A,
 //  useful for things like genetic algorithms, etc.
 
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
-                            simulated_annealing_search(const Graph& g,
-                                                       size_t num_iterations,
-                                                       size_t k,
-                                                       const std::unordered_set<Edge, EdgeHash>& REMOVE_THIS) {
+                         simulated_annealing_search(const Graph& g,
+                                                    size_t num_iterations,
+                                                    size_t k,
+                                                    size_t expected_additions,
+                                                    size_t expected_removals,
+                                                    const std::unordered_set<Edge, EdgeHash>& REMOVE_THIS) {
     NTSparseGraph g_main = g;
     EdgeHash edge_hasher;
 
@@ -43,6 +45,21 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     // O(max_possible_edges)   ---- O(well)
     CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
 
+    // Expected change to G_HYPOTHESIS.
+    double expected_edge_count_change =
+            double(expected_additions) - double(expected_removals);
+
+    // Probability a non-edge in G_HYPOTHESIS becomes an edge.
+    double p_plus = double(expected_additions) /
+                        (double(max_possible_edges - g.num_edges()) +
+                         expected_edge_count_change);
+    double p_minus = double(expected_removals) /
+                     (double(g.num_edges()) - expected_edge_count_change);
+
+    double log2_p_plus = std::log2l(p_plus);
+    double log2_p_minus = std::log2l(p_minus);
+    double log2_1_minus_p_plus = std::log2l(1.0 - p_plus);
+    double log2_1_minus_p_minus = std::log2l(1.0 - p_minus);
 
     NautyTracesOptions o;
     o.get_node_orbits = true;
@@ -77,11 +94,16 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     long double prev_score = score(g_main, comb_util, orbits_info.node_orbits,
                                    orbits_info.edge_orbits,
                                    editable_edge_orbits,
-                                   candidate_additions, candidate_removals);
+                                   candidate_additions, candidate_removals,
+                                   log2_p_plus, log2_p_minus,
+                                   log2_1_minus_p_plus, log2_1_minus_p_minus);
     long double REMOVE_THIS_TOO = score(g_main, comb_util, orbits_info.node_orbits,
                                         orbits_info.edge_orbits,
                                         editable_edge_orbits,
-                                        candidate_additions, REMOVE_THIS);
+                                        candidate_additions, REMOVE_THIS,
+                                        log2_p_plus, log2_p_minus,
+                                        log2_1_minus_p_plus, log2_1_minus_p_minus);
+
     std::cout<<"No changes: "<<prev_score<<"    | Custom changes: "<<REMOVE_THIS_TOO<<std::endl;
     long double curr_score;
 
@@ -214,7 +236,9 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
         curr_score = score(g_main, comb_util, orbits_info.node_orbits,
                            orbits_info.edge_orbits,
                            editable_edge_orbits,
-                           candidate_additions, candidate_removals);
+                           candidate_additions, candidate_removals,
+                           log2_p_plus, log2_p_minus,
+                           log2_1_minus_p_plus, log2_1_minus_p_minus);
         if (curr_score < prev_score) {
             // Consider rejecting the change.
             transition_prob = std::exp2((curr_score - prev_score) /temperature);

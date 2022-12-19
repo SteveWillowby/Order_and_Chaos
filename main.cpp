@@ -1,3 +1,4 @@
+#include<cmath>
 #include<iostream>
 #include<string>
 
@@ -15,6 +16,8 @@ int main( void ) {
     const bool directed = false;
     const bool use_real_graph = true;
     const size_t graph_idx = 2;
+    size_t expected_additions = 100; // TODO: Currently this cannot be zero - fix that.
+    size_t expected_removals = 100; // TODO: Currently this cannot be zero - fix that.
     // Note: Took 252 minutes for jazz collab with n^3 iterations.
 
     std::vector<std::string> fake_nodes_names =
@@ -85,7 +88,7 @@ int main( void ) {
     // TODO: Remove this code.
     SparseGraph candidate_changes(directed);
     candidate_changes = read_graph(directed, "real_world_graphs/jazz_collab_nodes.txt",
-                                             "real_world_graphs/jazz_collab_mod_10_changes.txt");
+                                             "real_world_graphs/jazz_collab_mod_1_changes.txt");
     std::unordered_set<Edge, EdgeHash> cc;
     for (size_t a = 0; a < candidate_changes.num_nodes(); a++) {
         for (size_t b = (!directed) * (a + 1); b < candidate_changes.num_nodes(); b++) {
@@ -97,35 +100,53 @@ int main( void ) {
             }
         }
     }
+    expected_removals = 1;
+    expected_additions = cc.size() + 1;
     // END TODO
 
     size_t num_iterations = g.num_nodes() * g.num_nodes() *
                             g.num_nodes();
 
     std::cout<<"Running for "<<num_iterations<<" iterations..."<<std::endl;
-    auto result = simulated_annealing_search(g, num_iterations, 9, cc);
+    auto result = simulated_annealing_search(g, num_iterations, 9,
+                                             expected_additions,
+                                             expected_removals,
+                                             cc);
+
+    NautyTracesOptions o;
+    o.get_node_orbits = false;
+    o.get_edge_orbits = false;
+    o.get_canonical_node_order = false;
+
+    NautyTracesResults nt_results;
+    NTSparseGraph reporter = NTSparseGraph(g);
 
     int i = 0;
     for (auto result_itr = result.rbegin();
               result_itr != result.rend(); result_itr++) {
-        std::cout<<"With a score of "<<result_itr->second<<" we have edges: ";
 
         // Make changes.
         for (auto edge_itr = result_itr->first.begin();
                   edge_itr != result_itr->first.end(); edge_itr++) {
-            // g.flip_edge(edge_itr->first, edge_itr->second);
+            reporter.flip_edge(edge_itr->first, edge_itr->second);
+        }
+
+        nt_results = traces(reporter, o);
+        double log2_aut = std::log2l(nt_results.num_aut_base) +
+                         ((long double)(nt_results.num_aut_exponent)) *
+                                          std::log2l(10);
+
+        std::cout<<"With a score of "<<result_itr->second<<" we have "
+                 <<"log2(|Aut(G_H)|) of "<<log2_aut<<std::endl;
+
+        std::cout<<"With edges: "<<std::endl;
+        // Flip back.
+        for (auto edge_itr = result_itr->first.begin();
+                  edge_itr != result_itr->first.end(); edge_itr++) {
+            reporter.flip_edge(edge_itr->first, edge_itr->second);
             std::cout<<"("<<edge_itr->first<<", "<<edge_itr->second<<"), ";
         }
         std::cout<<std::endl<<std::endl;
-
-
-        // Flip back.
-        /*
-        for (auto edge_itr = result_itr->first.begin();
-                  edge_itr != result_itr->first.end(); edge_itr++) {
-            g.flip_edge(edge_itr->first, edge_itr->second);
-        }
-        */
 
         i++;
     }

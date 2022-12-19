@@ -15,7 +15,10 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
                   const std::unordered_set<Edge,EdgeHash>& edge_additions,
-                  const std::unordered_set<Edge,EdgeHash>& edge_removals) {
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals,
+                  const double log2_p_plus, const double log2_p_minus,
+                  const double log2_1_minus_p_plus,
+                  const double log2_1_minus_p_minus) {
 
     NautyTracesOptions o;
     o.get_node_orbits = false;
@@ -95,12 +98,27 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
         editable_edge_orbit_coloring.erase(*edge_itr);
     }
 
+    // Calculate the probability that this exact noise set would be chosen.
+
+    // Note that we ultimately want to calculate the probability that a noise
+    //  set of this SIZE would be chosen. However, that includes some
+    //  (a choose b) terms that cancel out with other aspects of our scoring,
+    //  formula, so we can do this simpler calculation instead.
+    double log2_sequence = num_additions * log2_p_minus +
+                           (m_prime - num_additions) * log2_1_minus_p_minus +
+                           num_removals * log2_p_plus +
+               ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+
     // Perform the probability calculations.
+    return (2.0 * log2_hypothesis_aut - log2_stabilizer_size) + log2_sequence;
+
+    /*  Legacy calc from before we cared about p_plus and p_minus.
     return  2.0 * log2_hypothesis_aut -
              (log2_stabilizer_size +
               comb_util.log2_a_choose_b(m_prime, num_additions) +
               comb_util.log2_a_choose_b(max_num_edges - m_prime,
                                         num_removals));
+    */
 }
 
 CombinatoricUtility::CombinatoricUtility(size_t max_e, size_t max_f) {

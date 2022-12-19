@@ -45,12 +45,22 @@ class CombinatoricUtility;
 //      from the hypothesis graph.
 // `edge_removals` are the edges deleted from `g`. Thus they are the edges
 //      added to the hypothesis graph.
+//
+// Against what might be expected, `log2_p_plus` is NOT the log-probability that
+//  an edge is added to `g`. RATHER, `log2_p_plus` is the log of the probability
+//  that an edge in the hypothesis graph is removed.
+// The same (in reverse) is true for `log2_p_minus`.
+//
+// `log2_1_minus_p_plus` = log2(1 - p_plus)
 long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
                   const std::unordered_set<Edge,EdgeHash>& edge_additions,
-                  const std::unordered_set<Edge,EdgeHash>& edge_removals);
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals,
+                  const double log2_p_plus, const double log2_p_minus,
+                  const double log2_1_minus_p_plus,
+                  const double log2_1_minus_p_minus);
 
 
 /* TODO: Implement the NTSparseGraph features needed for this faster version.
@@ -64,10 +74,21 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
 //      highlights coloring turned on.
 //  For an extra speedup, `g_edge_tracker` can have its reference coloring set
 //      to the automorphism orbits; this is not required however.
+//
+// Against what might be expected, `log2_p_plus` is NOT the log-probability that
+//  an edge is added to `g`. RATHER, `log2_p_plus` is the log of the probability
+//  that an edge in the hypothesis graph is removed.
+// The same (in reverse) is true for `log2_p_minus`.
+//
+// `log2_1_minus_p_plus` = log2(1 - p_plus)
 long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   NTSparseGraph& g_edge_tracker,
                   const std::unordered_set<Edge,EdgeHash>& edge_additions,
-                  const std::unordered_set<Edge,EdgeHash>& edge_removals);
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals,
+                  const double log2_p_plus, const double log2_p_minus,
+                  const double log2_p_plus, const double log2_p_minus,
+                  const double log2_1_minus_p_plus,
+                  const double log2_1_minus_p_minus);
 */
 
 
