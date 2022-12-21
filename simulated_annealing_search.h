@@ -19,7 +19,5 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                                     size_t num_iterations,
                                                     size_t k,
                                                     size_t expected_additions,
-                                                    size_t expected_removals,
-                                                    const std::unordered_set<Edge, EdgeHash>& REMOVE_THIS);
-
+                                                    size_t expected_removals);
 #endif

@@ -29,6 +29,14 @@ public:
     // O(1)
     Edge un_sample_non_edge();
 
+    // Replaces a sampled edge with a different sampled edge.
+    //  returns <Newly Sampled, Newly Un-Sampled>
+    // O(1)
+    std::pair<Edge, Edge> swap_edge_samples();
+
+    // O(1)
+    std::pair<Edge, Edge> swap_non_edge_samples();
+
     // Un-does the last (and only the last) (un-)sample operation.
     // O(1)
     void undo();
@@ -45,6 +53,8 @@ protected:
     // 2 -- sampled non-edge
     // 3 -- un-sampled edge
     // 4 -- un-sampled non-edge
+    // 5 -- swap edge
+    // 6 -- swap non-edge
     uint8_t last_op;
 
     std::vector<SYM__edge_int_type> edges_un_sampled;

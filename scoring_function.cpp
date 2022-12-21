@@ -111,14 +111,98 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
 
     // Perform the probability calculations.
     return (2.0 * log2_hypothesis_aut - log2_stabilizer_size) + log2_sequence;
+}
 
-    /*  Legacy calc from before we cared about p_plus and p_minus.
+long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
+                  const Coloring<int>& node_orbit_coloring,
+                  const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
+                  Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
+                  const std::unordered_set<Edge,EdgeHash>& edge_additions,
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals) {
+
+    NautyTracesOptions o;
+    o.get_node_orbits = false;
+    o.get_edge_orbits = false;
+    o.get_canonical_node_order = false;
+
+    NautyTracesResults nt_results;
+
+    size_t n = g.num_nodes();
+    size_t m = g.num_edges();
+    size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
+
+    size_t num_additions = edge_additions.size();
+    size_t num_removals = edge_removals.size();
+
+    size_t m_prime = m + num_additions - num_removals;
+
+    long double log2_stabilizer_size, log2_hypothesis_aut;
+
+    // Edge additions will be colored with a new color (max prev color + 1).
+    int addition_color = *(edge_orbit_coloring.colors().rend()) + 1;
+    // Edge deletions will be colored with a color that preserves their orbit
+    //  info: new color = old color + deletion_color_base.
+    int deletion_color_base = addition_color + 1;
+
+    // Perform the edge additions in actuality.
+    for (auto edge_itr = edge_additions.begin();
+              edge_itr != edge_additions.end(); edge_itr++) {
+        g.add_edge(edge_itr->first, edge_itr->second);
+        editable_edge_orbit_coloring.set(*edge_itr, addition_color);
+    }
+
+    // Perform the edge deletions in color only.
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
+        editable_edge_orbit_coloring.set(*edge_itr, deletion_color_base +
+                                            edge_orbit_coloring[*edge_itr]);
+    }
+
+    // Get the size of the stabilizer set for the changes.
+    //
+    // Remember that the stabilizer size is the same both in g and in the
+    //  hypothesis graph.
+    NTPartition stabilizer_coloring =
+                    g.nauty_traces_coloring(node_orbit_coloring,
+                                            editable_edge_orbit_coloring);
+    nt_results = traces(g, o, stabilizer_coloring);
+    log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
+                           ((long double)(nt_results.num_aut_exponent)) *
+                                            comb_util.log2(10);
+
+    // Perform the edge deletions in actuality.
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
+        g.delete_edge(edge_itr->first, edge_itr->second);
+    }
+
+    // Get the raw auto orbit size for the hypothesis graph.
+    nt_results = traces(g, o);
+    log2_hypothesis_aut = std::log2l(nt_results.num_aut_base) +
+                          ((long double)(nt_results.num_aut_exponent)) *
+                                           comb_util.log2(10);
+
+
+    // Restore the deleted edges.
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
+        g.add_edge(edge_itr->first, edge_itr->second);
+        editable_edge_orbit_coloring.set(*edge_itr,
+                                         edge_orbit_coloring[*edge_itr]);
+    }
+
+    // Un-color and un-add the added edges.
+    for (auto edge_itr = edge_additions.begin();
+              edge_itr != edge_additions.end(); edge_itr++) {
+        g.delete_edge(edge_itr->first, edge_itr->second);
+        editable_edge_orbit_coloring.erase(*edge_itr);
+    }
+
     return  2.0 * log2_hypothesis_aut -
              (log2_stabilizer_size +
               comb_util.log2_a_choose_b(m_prime, num_additions) +
               comb_util.log2_a_choose_b(max_num_edges - m_prime,
                                         num_removals));
-    */
 }
 
 CombinatoricUtility::CombinatoricUtility(size_t max_e, size_t max_f) {

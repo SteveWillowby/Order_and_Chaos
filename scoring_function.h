@@ -62,6 +62,13 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const double log2_1_minus_p_plus,
                   const double log2_1_minus_p_minus);
 
+long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
+                  const Coloring<int>& node_orbit_coloring,
+                  const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
+                  Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
+                  const std::unordered_set<Edge,EdgeHash>& edge_additions,
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals);
+
 
 /* TODO: Implement the NTSparseGraph features needed for this faster version.
 

@@ -1,30 +1,44 @@
 #include<cmath>
 #include<iostream>
+#include<random>
 #include<string>
 
+#include "edge.h"
+#include "edge_sampler.h"
 #include "file_utils.h"
 #include "nt_sparse_graph.h"
 #include "nauty_traces.h"
 #include "simulated_annealing_search.h"
 #include "sparse_graph.h"
 
-#include "edge.h" // TODO: Remove
 #include<unordered_set>  // TODO: Remove
 
 int main( void ) {
     // These three variables determine which graph is run on.
     const bool directed = false;
-    const bool use_real_graph = true;
-    const size_t graph_idx = 2;
-    size_t expected_additions = 100; // TODO: Currently this cannot be zero - fix that.
-    size_t expected_removals = 100; // TODO: Currently this cannot be zero - fix that.
+    const bool use_real_graph = false;
+    const size_t graph_idx = 3;
+    size_t expected_additions = 0;
+    size_t expected_removals = 2;
     // Note: Took 252 minutes for jazz collab with n^3 iterations.
 
+    NautyTracesOptions o;
+    o.get_node_orbits = false;
+    o.get_edge_orbits = false;
+    o.get_canonical_node_order = false;
+
+    NautyTracesResults nt_results;
+
+    std::random_device rd;  // Will provide a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+
     std::vector<std::string> fake_nodes_names =
-        {"test_01_nodes.txt", "test_02_nodes.txt"
+        {"test_01_nodes.txt", "test_02_nodes.txt",
+         "test_03_nodes.txt", "test_04_nodes.txt"
         };
     std::vector<std::string> fake_edges_names =
-        {"test_01_edges.txt", "test_02_edges.txt"
+        {"test_01_edges.txt", "test_02_edges.txt",
+         "test_03_edges.txt", "test_04_edges.txt"
         };
     std::vector<std::string> real_nodes_names =
         {"",                               "",
@@ -84,8 +98,30 @@ int main( void ) {
     std::cout<<"  ...graph loaded. It has "<<g.num_nodes()<<" nodes and "
              <<g.num_edges()<<" edges, "<<g.num_loops()<<" of which are "
              <<"self-loops."<<std::endl<<std::endl;
+    NTSparseGraph g_info = NTSparseGraph(g);
+    nt_results = traces(g_info, o);
+    double log2_aut = std::log2l(nt_results.num_aut_base) +
+                     ((long double)(nt_results.num_aut_exponent)) *
+                                      std::log2l(10);
+    std::cout<<"The original graph has log2_aut = "<<log2_aut<<std::endl;
+
+    EdgeSampler sampler(g, gen);
+    std::cout<<"Removing: ";
+    for (size_t i = 0; i < expected_removals; i++) {
+        Edge e = sampler.sample_edge();
+        std::cout<<"("<<e.first<<", "<<e.second<<"), ";
+        g.delete_edge(e.first, e.second);
+    }
+    std::cout<<std::endl<<"Adding: ";
+    for (size_t i = 0; i < expected_additions; i++) {
+        Edge e = sampler.sample_non_edge();
+        std::cout<<"("<<e.first<<", "<<e.second<<"), ";
+        g.add_edge(e.first, e.second);
+    }
+    std::cout<<std::endl;
 
     // TODO: Remove this code.
+    /*
     SparseGraph candidate_changes(directed);
     candidate_changes = read_graph(directed, "real_world_graphs/jazz_collab_nodes.txt",
                                              "real_world_graphs/jazz_collab_mod_1_changes.txt");
@@ -102,6 +138,7 @@ int main( void ) {
     }
     expected_removals = 1;
     expected_additions = cc.size() + 1;
+    */
     // END TODO
 
     size_t num_iterations = g.num_nodes() * g.num_nodes() *
@@ -110,15 +147,9 @@ int main( void ) {
     std::cout<<"Running for "<<num_iterations<<" iterations..."<<std::endl;
     auto result = simulated_annealing_search(g, num_iterations, 9,
                                              expected_additions,
-                                             expected_removals,
-                                             cc);
+                                             expected_removals);
+                                             // cc);
 
-    NautyTracesOptions o;
-    o.get_node_orbits = false;
-    o.get_edge_orbits = false;
-    o.get_canonical_node_order = false;
-
-    NautyTracesResults nt_results;
     NTSparseGraph reporter = NTSparseGraph(g);
 
     int i = 0;

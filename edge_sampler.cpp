@@ -128,6 +128,59 @@ Edge EdgeSampler::un_sample_non_edge() {
     return int_to_edge(e);
 }
 
+std::pair<Edge, Edge> EdgeSampler::swap_edge_samples() {
+    if (edges_sampled.size() == 0) {
+        throw std::range_error(std::string("Error! EdgeSampler::swap_edge_")
+                               + "samples() -- No edges are sampled. "
+                               + "Sample an edge first.");
+    } else if (edges_un_sampled.size() == 0) {
+        throw std::range_error(std::string("Error! EdgeSampler::swap_edge_")
+                               + "samples() -- All edges are sampled. "
+                               + "Un-sample an edge first.");
+    }
+    last_op = 5;
+
+    size_t idx_old = dist(generator) * edges_sampled.size();
+    size_t idx_new = dist(generator) * edges_un_sampled.size();
+
+    SYM__edge_int_type old_edge = edges_sampled[idx_old];
+    SYM__edge_int_type new_edge = edges_un_sampled[idx_new];
+
+    edges_sampled[idx_old] = edges_sampled[edges_sampled.size() - 1];
+    edges_sampled[edges_sampled.size() - 1] = new_edge;
+    edges_un_sampled[idx_new] = edges_un_sampled[edges_un_sampled.size() - 1];
+    edges_un_sampled[edges_un_sampled.size() - 1] = old_edge;
+
+    return std::pair<Edge, Edge>(int_to_edge(new_edge), int_to_edge(old_edge));
+}
+
+std::pair<Edge, Edge> EdgeSampler::swap_non_edge_samples() {
+    if (non_edges_sampled.size() == 0) {
+        throw std::range_error(std::string("Error! EdgeSampler::swap_non_edge_")
+                               + "samples() -- No non-edges are sampled. "
+                               + "Sample a non-edge first.");
+    } else if (non_edges_un_sampled.size() == 0) {
+        throw std::range_error(std::string("Error! EdgeSampler::swap_non_edge_")
+                               + "samples() -- All non-edges are sampled. "
+                               + "Un-sample a non-edge first.");
+    }
+    last_op = 6;
+
+    size_t idx_old = dist(generator) * non_edges_sampled.size();
+    size_t idx_new = dist(generator) * non_edges_un_sampled.size();
+
+    SYM__edge_int_type old_edge = non_edges_sampled[idx_old];
+    SYM__edge_int_type new_edge = non_edges_un_sampled[idx_new];
+
+    non_edges_sampled[idx_old] = non_edges_sampled[non_edges_sampled.size()-1];
+    non_edges_sampled[non_edges_sampled.size() - 1] = new_edge;
+    non_edges_un_sampled[idx_new] =
+        non_edges_un_sampled[non_edges_un_sampled.size() - 1];
+    non_edges_un_sampled[non_edges_un_sampled.size() - 1] = old_edge;
+
+    return std::pair<Edge, Edge>(int_to_edge(new_edge), int_to_edge(old_edge));
+}
+
 void EdgeSampler::undo() {
     if (last_op == 0) {
         throw std::logic_error(std::string("Error! Cannot undo sampling from ")
@@ -143,9 +196,19 @@ void EdgeSampler::undo() {
     } else if (last_op == 3) {
         edges_sampled.push_back(*(edges_un_sampled.rbegin()));
         edges_un_sampled.pop_back();
-    } else {  // last_op == 4
+    } else if (last_op == 4) {
         non_edges_sampled.push_back(*(non_edges_un_sampled.rbegin()));
         non_edges_un_sampled.pop_back();
+    } else if (last_op == 5) {
+        SYM__edge_int_type temp = edges_sampled[edges_sampled.size() - 1];
+        edges_sampled[edges_sampled.size() - 1] =
+            edges_un_sampled[edges_un_sampled.size() - 1];
+        edges_un_sampled[edges_un_sampled.size() - 1] = temp;
+    } else {
+        SYM__edge_int_type temp = non_edges_sampled[non_edges_sampled.size()-1];
+        non_edges_sampled[non_edges_sampled.size() - 1] =
+            non_edges_un_sampled[non_edges_un_sampled.size() - 1];
+        non_edges_un_sampled[non_edges_un_sampled.size() - 1] = temp;
     }
 
     // Mark the undo as completed.
