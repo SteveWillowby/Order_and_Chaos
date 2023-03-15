@@ -11,15 +11,20 @@
 #include "simulated_annealing_search.h"
 #include "sparse_graph.h"
 
-#include<unordered_set>  // TODO: Remove
-
 int main( void ) {
     // These three variables determine which graph is run on.
     const bool directed = false;
-    const bool use_real_graph = false;
-    const size_t graph_idx = 3;
-    size_t expected_additions = 0;
-    size_t expected_removals = 2;
+    const bool use_real_graph = true;
+    const size_t graph_idx = 2;
+
+    const size_t top_k = 9;  // Number of candidate noise sets to keep.
+
+    const bool corrupt_original = false;
+    // Only used when corrupt_original is true.
+    const size_t expected_additions = 50;
+    // Only used when corrupt_original is true.
+    const size_t expected_removals = 50;
+
     // Note: Took 252 minutes for jazz collab with n^3 iterations.
 
     NautyTracesOptions o;
@@ -105,50 +110,31 @@ int main( void ) {
                                       std::log2l(10);
     std::cout<<"The original graph has log2_aut = "<<log2_aut<<std::endl;
 
-    EdgeSampler sampler(g, gen);
-    std::cout<<"Removing: ";
-    for (size_t i = 0; i < expected_removals; i++) {
-        Edge e = sampler.sample_edge();
-        std::cout<<"("<<e.first<<", "<<e.second<<"), ";
-        g.delete_edge(e.first, e.second);
-    }
-    std::cout<<std::endl<<"Adding: ";
-    for (size_t i = 0; i < expected_additions; i++) {
-        Edge e = sampler.sample_non_edge();
-        std::cout<<"("<<e.first<<", "<<e.second<<"), ";
-        g.add_edge(e.first, e.second);
-    }
-    std::cout<<std::endl;
-
-    // TODO: Remove this code.
-    /*
-    SparseGraph candidate_changes(directed);
-    candidate_changes = read_graph(directed, "real_world_graphs/jazz_collab_nodes.txt",
-                                             "real_world_graphs/jazz_collab_mod_1_changes.txt");
-    std::unordered_set<Edge, EdgeHash> cc;
-    for (size_t a = 0; a < candidate_changes.num_nodes(); a++) {
-        for (size_t b = (!directed) * (a + 1); b < candidate_changes.num_nodes(); b++) {
-            if (b == a) {
-                continue;
-            }
-            if (candidate_changes.has_edge(a, b)) {
-                cc.insert(EDGE(a, b, directed));
-            }
+    if (corrupt_original) {
+        EdgeSampler sampler(g, gen);
+        std::cout<<"Removing: ";
+        for (size_t i = 0; i < expected_removals; i++) {
+            Edge e = sampler.sample_edge();
+            std::cout<<"("<<e.first<<", "<<e.second<<"), ";
+            g.delete_edge(e.first, e.second);
         }
+        std::cout<<std::endl<<"Adding: ";
+        for (size_t i = 0; i < expected_additions; i++) {
+            Edge e = sampler.sample_non_edge();
+            std::cout<<"("<<e.first<<", "<<e.second<<"), ";
+            g.add_edge(e.first, e.second);
+        }
+        std::cout<<std::endl;
     }
-    expected_removals = 1;
-    expected_additions = cc.size() + 1;
-    */
-    // END TODO
+
 
     size_t num_iterations = g.num_nodes() * g.num_nodes() *
                             g.num_nodes();
 
     std::cout<<"Running for "<<num_iterations<<" iterations..."<<std::endl;
-    auto result = simulated_annealing_search(g, num_iterations, 9,
-                                             expected_additions,
-                                             expected_removals);
-                                             // cc);
+    auto result = simulated_annealing_search(g, num_iterations, top_k);
+    //                                         expected_additions,
+    //                                         expected_removals);
 
     NTSparseGraph reporter = NTSparseGraph(g);
 

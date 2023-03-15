@@ -27,9 +27,9 @@ bool edge_set_eq(const std::unordered_set<Edge, EdgeHash>& A,
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                          simulated_annealing_search(const Graph& g,
                                                     size_t num_iterations,
-                                                    size_t k,
-                                                    size_t expected_additions,
-                                                    size_t expected_removals) {
+                                                    size_t k) {
+//                                                     size_t expected_additions,
+//                                                     size_t expected_removals) {
     NTSparseGraph g_main = g;
     EdgeHash edge_hasher;
 
@@ -79,20 +79,42 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     EdgeSampler sampler(g, gen);
 
+    /*
     for (size_t i = 0; i < expected_additions; i++) {
         candidate_removals.insert(sampler.sample_edge());
     }
     for (size_t i = 0; i < expected_removals; i++) {
         candidate_additions.insert(sampler.sample_non_edge());
     }
+    */
+
+    // Calculate the noise probability at which the full graph is equally
+    //  likely to be the noise as it is to be the structure.
+    long double alpha =
+        std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
+                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
+                             comb_util.log2_factorial(g_main.num_nodes()))) /
+                                (long double)(g_main.num_edges()));
+    long double log2_p = std::log2l(alpha) - std::log2l(1.0 + alpha);
+    long double log2_1_minus_p = -std::log2l(1.0 + alpha);
+
+    std::cout<<"Alpha: "<<alpha<<std::endl;
+    std::cout<<"Log2 Noise Prob: "<<log2_p<<std::endl;
+    std::cout<<"Log2 1 - Noise Prob: "<<log2_1_minus_p<<std::endl;
 
     // Get a score for the initial candidate noise.
     long double prev_score = score(g_main, comb_util, orbits_info.node_orbits,
                                    orbits_info.edge_orbits,
                                    editable_edge_orbits,
-                                   candidate_additions, candidate_removals);
+                                   candidate_additions, candidate_removals,
+                                   log2_p, log2_p,
+                                   log2_1_minus_p, log2_1_minus_p);
+    long double no_noise_score = prev_score;
 
-    std::cout<<"Initial score for a random flips set: "<<prev_score<<std::endl;
+    // Stores the best score found so far minus no_noise_score
+    // long double improvement = 0;
+
+    std::cout<<"Score for no noise: "<<no_noise_score<<std::endl;
 
     long double curr_score;
 
@@ -127,22 +149,25 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     }
     */
 
-    /*
     // chance of adding a new (non-)edge to the candidate
     float prob_new = 0.5;
-    */
 
     // chance of choosing an edge vs. a non-edge in when adding or removing
     //  something from the candidate set.
     float prob_edge = float(g.num_edges()) / float(max_possible_edges);
-    float prob_non_edge = 1.0 - prob_edge;
+
+    /*
     // Re-weight prob_edge by the number of edges vs. non_edges to consider.
+    float prob_non_edge = 1.0 - prob_edge;
+
     prob_edge *= expected_additions;
     prob_non_edge *= expected_removals;
     prob_edge = prob_edge / (prob_edge + prob_non_edge);
+    */
 
-    bool is_edge;
-    std::pair<Edge, Edge> flipped;
+    bool add, is_edge;
+    // std::pair<Edge, Edge> flipped; TODO: remove this line
+    Edge flipped;
 
     size_t num_skipped_iterations = 0;
 
@@ -159,10 +184,14 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                       double(num_iterations);
             if (scratch > percent_done + 0.5) {
                 percent_done = scratch;
-                std::cout<<percent_done<<" percent done."<<std::endl;
+                std::cout<<percent_done<<" percent done."
+                         <<"\tTop Score: "<<std::get<1>(top_k_results[k - 1])
+                         <<"\t(currently added to G, removed) = ("
+                         <<candidate_additions.size()<<", "
+                         <<candidate_removals.size()<<")"<<std::endl;
             }
         }
-        // Main loop.
+        /* TODO: Remove -- code for fixed noise size
         is_edge = dist(gen) < prob_edge;
         if (is_edge) {
             flipped = sampler.swap_edge_samples();
@@ -173,6 +202,67 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
             candidate_additions.erase(flipped.second);
             candidate_additions.insert(flipped.first);
         }
+        */
+
+        // Main loop.
+        add = dist(gen) < prob_new;
+        is_edge = dist(gen) < prob_edge;
+        if (add) {
+            // Add an edge or a non-edge to the candidate set.
+            if (is_edge) {
+                // Add an edge to the candidate removals set.
+                //  I.e. Remove the edge from the graph.
+                if (g.num_edges() == candidate_removals.size()) {
+                    // No edges to remove from the graph.
+                    num_skipped_iterations++;
+                    continue;
+                }
+
+                flipped = sampler.sample_edge();
+                // g_main.delete_edge(flipped->first, flipped->second);
+                candidate_removals.insert(flipped);
+            } else {
+                // Add a non-edge to the candidate additions set.
+                //  I.e. Add a (non-)edge to the graph as an edge.
+                if (max_possible_edges - g.num_edges() ==
+                                    candidate_additions.size()) {
+                    // No edges to add to the graph.
+                    num_skipped_iterations++;
+                    continue;
+                }
+
+                flipped = sampler.sample_non_edge();
+                // g_main.add_edge(flipped->first, flipped->second);
+                candidate_additions.insert(flipped);
+            }
+        } else {
+            // Remove an edge or a non-edge from the candidate set.
+            if (is_edge) {
+                // Remove an edge from the candidate removals set.
+                //  I.e. Put the edge back in the graph.
+                if (candidate_removals.size() == 0) {
+                    // There is no edge in the candidate set.
+                    num_skipped_iterations++;
+                    continue;
+                }
+
+                flipped = sampler.un_sample_edge();
+                // g_main.add_edge(flipped->first, flipped->second);
+                candidate_removals.erase(flipped);
+            } else {
+                // Remove a non-edge from the candidate additions set.
+                //  I.e. Make it a non-edge again.
+                if (candidate_additions.size() == 0) {
+                    // There is no non-edge in the candidate set.
+                    num_skipped_iterations++;
+                    continue;
+                }
+
+                flipped = sampler.un_sample_non_edge();
+                // g_main.delete_edge(flipped->first, flipped->second);
+                candidate_additions.erase(flipped);
+            }
+        }
 
         // Currently the temperature decreases linearly.
         temperature =
@@ -181,10 +271,16 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
         curr_score = score(g_main, comb_util, orbits_info.node_orbits,
                            orbits_info.edge_orbits,
                            editable_edge_orbits,
-                           candidate_additions, candidate_removals);
+                           candidate_additions, candidate_removals,
+                           log2_p, log2_p,
+                           log2_1_minus_p, log2_1_minus_p);
         if (curr_score < prev_score) {
             // Consider rejecting the change.
-            transition_prob = std::exp2((curr_score - prev_score) /temperature);
+
+            transition_prob =
+                std::exp2((curr_score - prev_score) /
+                          (12.0 * temperature));
+            /* TODO: Remove -- this code is for fixed noise sizes
             if (dist(gen) >= transition_prob) {
                 if (is_edge) {
                     candidate_removals.erase(flipped.first);
@@ -192,6 +288,25 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                 } else {
                     candidate_additions.erase(flipped.first);
                     candidate_additions.insert(flipped.second);
+                }
+                sampler.undo();
+                continue;
+            }
+            */
+            if (dist(gen) >= transition_prob) {
+                // Reject the change.
+                if (add) {
+                    if (is_edge) {
+                        candidate_removals.erase(flipped);
+                    } else {
+                        candidate_additions.erase(flipped);
+                    }
+                } else {
+                    if (is_edge) {
+                        candidate_removals.insert(flipped);
+                    } else {
+                        candidate_additions.insert(flipped);
+                    }
                 }
                 sampler.undo();
                 continue;
@@ -240,6 +355,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                long double, size_t>(
                                  std::unordered_set<Edge, EdgeHash>(flips),
                                  (long double)(curr_score), size_t(hash_value));
+
+            // improvement = std::get<1>(top_k_results[k - 1]) - no_noise_score;
         }
         prev_score = curr_score;
     }

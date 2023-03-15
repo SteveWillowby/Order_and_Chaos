@@ -18,28 +18,28 @@ public:
 
     // Randomly selects an edge which has not yet been sampled.
     // O(1)
-    Edge sample_edge();
+    virtual Edge sample_edge();
     // Randomly selects a non-edge which has not yet been sampled.
     // O(1)
-    Edge sample_non_edge();
+    virtual Edge sample_non_edge();
     // Puts an edge into the list of edges that may be sampled.
     // O(1)
-    Edge un_sample_edge();
+    virtual Edge un_sample_edge();
     // Puts a non-edge into the list of non-edges that may be sampled.
     // O(1)
-    Edge un_sample_non_edge();
+    virtual Edge un_sample_non_edge();
 
     // Replaces a sampled edge with a different sampled edge.
     //  returns <Newly Sampled, Newly Un-Sampled>
     // O(1)
-    std::pair<Edge, Edge> swap_edge_samples();
+    virtual std::pair<Edge, Edge> swap_edge_samples();
 
     // O(1)
-    std::pair<Edge, Edge> swap_non_edge_samples();
+    virtual std::pair<Edge, Edge> swap_non_edge_samples();
 
     // Un-does the last (and only the last) (un-)sample operation.
     // O(1)
-    void undo();
+    virtual void undo();
 
 protected:
     const bool directed;

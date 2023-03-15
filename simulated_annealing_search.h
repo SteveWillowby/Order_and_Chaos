@@ -17,7 +17,7 @@
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                          simulated_annealing_search(const Graph& g,
                                                     size_t num_iterations,
-                                                    size_t k,
-                                                    size_t expected_additions,
-                                                    size_t expected_removals);
+                                                    size_t k);
+                                                    // size_t expected_additions,
+                                                    // size_t expected_removals);
 #endif
