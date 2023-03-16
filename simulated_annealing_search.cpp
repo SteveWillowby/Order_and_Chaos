@@ -278,8 +278,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
             // Consider rejecting the change.
 
             transition_prob =
-                std::exp2((curr_score - prev_score) /
-                          (12.0 * temperature));
+                std::exp2((curr_score - prev_score) / temperature);
             /* TODO: Remove -- this code is for fixed noise sizes
             if (dist(gen) >= transition_prob) {
                 if (is_edge) {
