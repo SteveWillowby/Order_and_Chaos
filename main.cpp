@@ -21,9 +21,9 @@ int main( void ) {
 
     const bool corrupt_original = false;
     // Only used when corrupt_original is true.
-    const size_t expected_additions = 50;
+    const size_t num_additions = 0;
     // Only used when corrupt_original is true.
-    const size_t expected_removals = 50;
+    const size_t num_removals = 0;
 
     // Note: Took 252 minutes for jazz collab with n^3 iterations.
 
@@ -37,13 +37,21 @@ int main( void ) {
     std::random_device rd;  // Will provide a seed for the random number engine
     std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
 
+    // test_01 -- a 5-chain
+    // test_02 -- a 10-chain
+    // test_03 -- a 15 node binary tree
+    // test_04 -- a 4x5 grid
+    // test_05 -- a 6x7 grid
+
     std::vector<std::string> fake_nodes_names =
         {"test_01_nodes.txt", "test_02_nodes.txt",
-         "test_03_nodes.txt", "test_04_nodes.txt"
+         "test_03_nodes.txt", "test_04_nodes.txt",
+         "test_05_nodes.txt"
         };
     std::vector<std::string> fake_edges_names =
         {"test_01_edges.txt", "test_02_edges.txt",
-         "test_03_edges.txt", "test_04_edges.txt"
+         "test_03_edges.txt", "test_04_edges.txt",
+         "test_05_edges.txt"
         };
     std::vector<std::string> real_nodes_names =
         {"",                               "",
@@ -113,13 +121,13 @@ int main( void ) {
     if (corrupt_original) {
         EdgeSampler sampler(g, gen);
         std::cout<<"Removing: ";
-        for (size_t i = 0; i < expected_removals; i++) {
+        for (size_t i = 0; i < num_removals; i++) {
             Edge e = sampler.sample_edge();
             std::cout<<"("<<e.first<<", "<<e.second<<"), ";
             g.delete_edge(e.first, e.second);
         }
         std::cout<<std::endl<<"Adding: ";
-        for (size_t i = 0; i < expected_additions; i++) {
+        for (size_t i = 0; i < num_additions; i++) {
             Edge e = sampler.sample_non_edge();
             std::cout<<"("<<e.first<<", "<<e.second<<"), ";
             g.add_edge(e.first, e.second);
@@ -130,11 +138,12 @@ int main( void ) {
 
     size_t num_iterations = g.num_nodes() * g.num_nodes() *
                             g.num_nodes();
+    num_iterations = (num_iterations < 1000000 ? 1000000 : num_iterations);
 
     std::cout<<"Running for "<<num_iterations<<" iterations..."<<std::endl;
     auto result = simulated_annealing_search(g, num_iterations, top_k);
-    //                                         expected_additions,
-    //                                         expected_removals);
+    //                                         num_additions,
+    //                                         num_removals);
 
     NTSparseGraph reporter = NTSparseGraph(g);
 

@@ -28,6 +28,9 @@
 //
 //  NOTE: This call will take O(max_e) time, and the data structure will use
 //   O(max_f) space.
+//
+//  NOTE: The CombinatoricUtility methods are thread-safe EXCEPT for
+//      update_max_access()
 
 class CombinatoricUtility;
 
@@ -109,6 +112,8 @@ public:
     long double log2_factorial(size_t x) const;
 
     // Documentation is at the top of this file.
+    //
+    // NOT thread-safe at present.
     void update_max_access(size_t max_e, size_t max_f);
 
     // Calling with b > a will cause an error.

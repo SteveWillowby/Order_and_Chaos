@@ -30,6 +30,15 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                                     size_t k) {
 //                                                     size_t expected_additions,
 //                                                     size_t expected_removals) {
+    // Given the probability x of ejecting an edge flip that benefits the score,
+    //  raises that probability to the power of PRESERVATION_FACTOR.
+    // Higher means more likely to keep.
+    const long double PRESERVATION_FACTOR = 8.0;
+    // Given the probability x of keeping an edge flip that does not benefit the
+    //  score, raises that probability to the power of EXPLORATION_FACTOR.
+    // Lower means more likely to keep.
+    const long double EXPLORATION_FACTOR = 0.125;
+
     NTSparseGraph g_main = g;
     EdgeHash edge_hasher;
 
@@ -90,25 +99,41 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Calculate the noise probability at which the full graph is equally
     //  likely to be the noise as it is to be the structure.
-    long double alpha =
+    long double alpha_plus =
         std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
                             (std::log2l(10) * orbits_info.num_aut_exponent)) -
                              comb_util.log2_factorial(g_main.num_nodes()))) /
                                 (long double)(g_main.num_edges()));
-    long double log2_p = std::log2l(alpha) - std::log2l(1.0 + alpha);
-    long double log2_1_minus_p = -std::log2l(1.0 + alpha);
+    long double log2_p_plus = std::log2l(alpha_plus) -
+                              std::log2l(1.0 + alpha_plus);
+    long double log2_1_minus_p_plus = -std::log2l(1.0 + alpha_plus);
 
-    std::cout<<"Alpha: "<<alpha<<std::endl;
-    std::cout<<"Log2 Noise Prob: "<<log2_p<<std::endl;
-    std::cout<<"Log2 1 - Noise Prob: "<<log2_1_minus_p<<std::endl;
+    long double alpha_minus =
+        std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
+                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
+                             comb_util.log2_factorial(g_main.num_nodes()))) /
+                        (long double)(max_possible_edges - g_main.num_edges()));
+    long double log2_p_minus = std::log2l(alpha_minus) -
+                               std::log2l(1.0 + alpha_minus);
+    long double log2_1_minus_p_minus = -std::log2l(1.0 + alpha_minus);
+
+    std::cout<<"Alpha+: "<<alpha_plus<<std::endl;
+    std::cout<<"Log2 P+: "<<log2_p_plus<<std::endl;
+    std::cout<<"Log2 (1 - P+): "<<log2_1_minus_p_plus<<std::endl;
+
+    std::cout<<std::endl<<"Alpha-: "<<alpha_minus<<std::endl;
+    std::cout<<"Log2 P-: "<<log2_p_minus<<std::endl;
+    std::cout<<"Log2 (1 - P-): "<<log2_1_minus_p_minus<<std::endl;
+
+    std::cout<<std::endl;
 
     // Get a score for the initial candidate noise.
     long double prev_score = score(g_main, comb_util, orbits_info.node_orbits,
                                    orbits_info.edge_orbits,
                                    editable_edge_orbits,
                                    candidate_additions, candidate_removals,
-                                   log2_p, log2_p,
-                                   log2_1_minus_p, log2_1_minus_p);
+                                   log2_p_plus, log2_p_minus,
+                                   log2_1_minus_p_plus, log2_1_minus_p_minus);
     long double no_noise_score = prev_score;
 
     // Stores the best score found so far minus no_noise_score
@@ -272,13 +297,39 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                            orbits_info.edge_orbits,
                            editable_edge_orbits,
                            candidate_additions, candidate_removals,
-                           log2_p, log2_p,
-                           log2_1_minus_p, log2_1_minus_p);
+                           log2_p_plus, log2_p_minus,
+                           log2_1_minus_p_plus, log2_1_minus_p_minus);
         if (curr_score < prev_score) {
             // Consider rejecting the change.
+            bool half_edges_deleted = candidate_removals.size() >
+                                                    g.num_edges() / 2;
+            bool half_non_edges_added = candidate_additions.size() >
+                                (max_possible_edges - g.num_edges()) / 2;
 
-            transition_prob =
-                std::exp2((curr_score - prev_score) / temperature);
+            if (add) {
+                // Added something new.
+                if ((is_edge && !half_edges_deleted) ||
+                        (!is_edge && !half_non_edges_added)) {
+
+                    transition_prob = std::exp2(EXPLORATION_FACTOR *
+                                (curr_score - prev_score) / temperature);
+                } else {
+                    transition_prob = std::exp2(PRESERVATION_FACTOR *
+                                (curr_score - prev_score) / temperature);
+                }
+            } else {
+                // Removing something found.
+                if ((is_edge && half_edges_deleted) ||
+                        (!is_edge && half_non_edges_added)) {
+
+                    transition_prob = std::exp2(EXPLORATION_FACTOR *
+                                (curr_score - prev_score) / temperature);
+                } else {
+                    transition_prob = std::exp2(PRESERVATION_FACTOR *
+                                (curr_score - prev_score) / temperature);
+                }
+            }
+
             /* TODO: Remove -- this code is for fixed noise sizes
             if (dist(gen) >= transition_prob) {
                 if (is_edge) {
