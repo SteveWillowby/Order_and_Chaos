@@ -16,9 +16,9 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
                   const std::unordered_set<Edge,EdgeHash>& edge_additions,
                   const std::unordered_set<Edge,EdgeHash>& edge_removals,
-                  const double log2_p_plus, const double log2_p_minus,
-                  const double log2_1_minus_p_plus,
-                  const double log2_1_minus_p_minus) {
+                  const long double log2_p_plus, const long double log2_p_minus,
+                  const long double log2_1_minus_p_plus,
+                  const long double log2_1_minus_p_minus) {
 
     NautyTracesOptions o;
     o.get_node_orbits = false;
@@ -104,9 +104,10 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     //  set of this SIZE would be chosen. However, that includes some
     //  (a choose b) terms that cancel out with other aspects of our scoring,
     //  formula, so we can do this simpler calculation instead.
-    double log2_sequence = num_additions * log2_p_minus +
-                           (m_prime - num_additions) * log2_1_minus_p_minus +
-                           num_removals * log2_p_plus +
+    long double log2_sequence =
+                    num_additions * log2_p_minus +
+                    (m_prime - num_additions) * log2_1_minus_p_minus +
+                    num_removals * log2_p_plus +
                ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
 
     // Perform the probability calculations.
