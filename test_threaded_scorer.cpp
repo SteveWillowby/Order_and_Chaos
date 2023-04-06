@@ -12,7 +12,8 @@
 #include "thread_pool_scorer.h"
 
 int main(void) {
-    const bool directed = false;
+    const bool directed = true;
+    std::cout<<"## Directed?   "<<(directed ? "Yes" : "No")<<std::endl;
     const size_t num_nodes = 5;
     const size_t num_edges = 5;
     const size_t num_additions = 1;

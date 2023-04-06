@@ -4,8 +4,6 @@
 #include "scoring_function.h"
 #include "thread_pool_scorer.h"
 
-#include<iostream>  // TODO: Remove this
-
 #include<condition_variable>
 #include<mutex>
 #include<thread>
@@ -107,7 +105,6 @@ void ThreadPoolScorer::terminate() {
 void ThreadPoolScorer::run() {
     std::unique_lock<std::mutex> launch_lock(m_launch);
     size_t thread_id = threads_launched;
-    std::cout<<"Thread "<<thread_id<<" launched."<<std::endl;
     threads_launched++;
     launch_lock.unlock();
     launch_wait_signal.notify_one();
@@ -136,7 +133,6 @@ void ThreadPoolScorer::run() {
             if (tasks_begun < num_tasks) {
                 task_id = tasks_begun;
                 tasks_begun++;
-                std::cout<<"Worker "<<thread_id<<" beginning task "<<task_id<<std::endl;
                 l.unlock();
             } else {
                 break;
@@ -155,7 +151,6 @@ void ThreadPoolScorer::run() {
 
             l.lock();
         }
-        std::cout<<"Worker "<<thread_id<<" quitting "<<std::endl;
         l.unlock();
 
         meta_lock.lock();
@@ -172,6 +167,5 @@ void ThreadPoolScorer::run() {
             worker_wait_signal.wait(meta_lock);
         }
     }
-    std::cout<<"Thread "<<thread_id<<" finished."<<std::endl;
     meta_lock.unlock();
 }
