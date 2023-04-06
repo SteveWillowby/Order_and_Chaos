@@ -14,7 +14,9 @@
 
 class ThreadPoolScorer {
 public:
-    ThreadPoolScorer(size_t num_threads, const Graph& base_graph,
+    // `nt` is the number of threads to use. If 0 is passed, the code will
+    //      use the default of std::thread::hardware_concurrency()
+    ThreadPoolScorer(size_t nt, const Graph& base_graph,
                      const CombinatoricUtility& comb_util,
                      const Coloring<int>& node_orbit_coloring,
                      const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
@@ -68,10 +70,14 @@ protected:
     std::mutex m_worker_meta;
     // Used by workers (and get_scores()) to say when all current tasks are done
     std::mutex m_tasks_done;
+    // Used to coordinate thread launches so that IDs are correct.
+    std::mutex m_launch;
     // Used in conjunction with m_worker_meta
     std::condition_variable worker_wait_signal;
     // Used in conjunction with m_tasks_done
     std::condition_variable done_wait_signal;
+    // Used in conjunction with m_launch
+    std::condition_variable launch_wait_signal;
 
     void run();
 };

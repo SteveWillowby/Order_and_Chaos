@@ -13,8 +13,12 @@
 
 int main(void) {
     const bool directed = false;
-    const size_t num_nodes = 7;
-    const size_t num_edges = 15;
+    const size_t num_nodes = 5;
+    const size_t num_edges = 5;
+    const size_t num_additions = 1;
+    const size_t num_deletions = 1;
+    const size_t num_noise_sets = 8;
+    const size_t num_rounds = 5;
     const size_t max_possible_edges =
             (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed));
     const size_t max_flip_or_edge = num_edges * 2;
@@ -25,11 +29,15 @@ int main(void) {
     std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
     std::uniform_real_distribution<float> dist(0.0, 1.0);
 
+    std::cout<<"The graph has "<<num_nodes<<" nodes and the following edges:"
+             <<std::endl;
     EdgeSampler creation_sampler(g, gen);
     for (size_t i = 0; i < num_edges; i++) {
         Edge e = creation_sampler.sample_non_edge();
+        std::cout<<" ("<<e.first<<", "<<e.second<<"),";
         g.add_edge(e.first, e.second);
     }
+    std::cout<<std::endl;
 
     EdgeSampler noise_sampler(g, gen);
 
@@ -64,15 +72,55 @@ int main(void) {
 
     std::cout<<"Creating Thread Pool Scorer..."<<std::endl;
 
-    // TODO: Passing 0 for num_threads does not work!
     ThreadPoolScorer TPS(2, g, comb_util,
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
                          log2_1_minus_p_plus, log2_1_minus_p_minus);
 
-    std::cout<<"Finished Creating Thread Pool Scorer..."<<std::endl;
-    TPS.terminate();
-    std::cout<<"Terminated."<<std::endl;
+    std::cout<<" ...Finished Creating Thread Pool Scorer"<<std::endl;
+    
+    std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
+                          std::unordered_set<Edge, EdgeHash>>> tasks =
+        std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
+                              std::unordered_set<Edge, EdgeHash>>>();
+
+    std::unordered_set<Edge, EdgeHash> edge_additions, edge_deletions;
+    for (size_t r = 0; r < num_rounds; r++) {
+        tasks.clear();
+        for (size_t i = 0; i < num_noise_sets; i++) {
+            edge_additions = std::unordered_set<Edge, EdgeHash>();
+            edge_deletions = std::unordered_set<Edge, EdgeHash>();
+            for (size_t j = 0; j < num_additions; j++) {
+                edge_additions.insert(noise_sampler.sample_non_edge());
+            }
+            for (size_t j = 0; j < num_additions; j++) {
+                noise_sampler.un_sample_non_edge();
+            }
+            for (size_t j = 0; j < num_deletions; j++) {
+                edge_deletions.insert(noise_sampler.sample_edge());
+            }
+            for (size_t j = 0; j < num_deletions; j++) {
+                noise_sampler.un_sample_edge();
+            }
+            tasks.push_back(std::pair<std::unordered_set<Edge, EdgeHash>,
+                                      std::unordered_set<Edge, EdgeHash>>(
+                                            edge_additions, edge_deletions));
+        }
+
+        const std::vector<long double>& scores = TPS.get_scores(&tasks);
+
+        for (size_t i = 0; i < num_noise_sets; i++) {
+            std::cout<<"- ";
+            for (auto e = tasks[i].first.begin(); e != tasks[i].first.end(); e++) {
+                std::cout<<"("<<e->first<<", "<<e->second<<"), ";
+            }
+            std::cout<<" \t + ";
+            for (auto e = tasks[i].second.begin(); e != tasks[i].second.end(); e++){
+                std::cout<<"("<<e->first<<", "<<e->second<<"), ";
+            }
+            std::cout<<" \t "<<scores[i]<<std::endl;
+        }
+    }
 
     return 0;
 }

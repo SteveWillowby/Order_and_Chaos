@@ -12,7 +12,7 @@
 #include<unordered_set>
 #include<vector>
 
-ThreadPoolScorer::ThreadPoolScorer(size_t num_threads, const Graph& base_graph,
+ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
                                    const CombinatoricUtility& comb_util,
                                    const Coloring<int>& node_orbit_coloring,
                                    const Coloring<Edge,EdgeHash>&
@@ -22,7 +22,7 @@ ThreadPoolScorer::ThreadPoolScorer(size_t num_threads, const Graph& base_graph,
                                    long double log2_1_minus_p_plus,
                                    long double log2_1_minus_p_minus) : 
                                       num_threads(
-       (num_threads == 0 ? std::thread::hardware_concurrency() : num_threads)),
+                         (nt == 0 ? std::thread::hardware_concurrency() : nt)),
                                       comb_util(comb_util),
                                       node_orbit_coloring(node_orbit_coloring),
                                       edge_orbit_coloring(edge_orbit_coloring),
@@ -31,8 +31,6 @@ ThreadPoolScorer::ThreadPoolScorer(size_t num_threads, const Graph& base_graph,
                                       log2_1_minus_p_plus(log2_1_minus_p_plus),
                                       log2_1_minus_p_minus(log2_1_minus_p_minus)
 {
-    std::cout<<"Num Threads: "<<num_threads<<std::endl;
-
     terminate_pool = false;
     tasks_begun = 0;
     num_tasks = 0;
@@ -54,9 +52,10 @@ ThreadPoolScorer::ThreadPoolScorer(size_t num_threads, const Graph& base_graph,
         }
     }
 
+    std::unique_lock<std::mutex> launch_lock(m_launch);
     for (size_t i = 0; i < num_threads; i++) {
         pool.push_back(std::thread(&ThreadPoolScorer::run, this));
-        while (threads_launched == i) {}
+        launch_wait_signal.wait(launch_lock);
     }
 }
 
@@ -69,7 +68,7 @@ const std::vector<long double>& ThreadPoolScorer::get_scores(
                                   std::unordered_set<Edge, EdgeHash>,
                                   std::unordered_set<Edge, EdgeHash>>> *tasks) {
 
-    std::unique_lock<std::mutex> launch_lock(m_worker_meta);
+    std::unique_lock<std::mutex> begin_lock(m_worker_meta);
     std::unique_lock<std::mutex> done_lock(m_tasks_done);
 
     // Prepare jobs.
@@ -82,7 +81,7 @@ const std::vector<long double>& ThreadPoolScorer::get_scores(
     threads_working = 0;
 
     // Awaken workers.
-    launch_lock.unlock();
+    begin_lock.unlock();
     worker_wait_signal.notify_all();
 
     // Wait for completion.
@@ -93,6 +92,10 @@ const std::vector<long double>& ThreadPoolScorer::get_scores(
 }
 
 void ThreadPoolScorer::terminate() {
+    if (terminate_pool) {
+        return;
+    }
+
     terminate_pool = true;
     worker_wait_signal.notify_all();
 
@@ -102,11 +105,17 @@ void ThreadPoolScorer::terminate() {
 }
 
 void ThreadPoolScorer::run() {
+    std::unique_lock<std::mutex> launch_lock(m_launch);
     size_t thread_id = threads_launched;
     std::cout<<"Thread "<<thread_id<<" launched."<<std::endl;
     threads_launched++;
+    launch_lock.unlock();
+    launch_wait_signal.notify_one();
 
     size_t task_id;
+
+    std::unique_lock<std::mutex> done_lock(m_tasks_done);
+    done_lock.unlock();
 
     std::unique_lock<std::mutex> meta_lock(m_worker_meta);
     while (!terminate_pool) {
@@ -127,6 +136,7 @@ void ThreadPoolScorer::run() {
             if (tasks_begun < num_tasks) {
                 task_id = tasks_begun;
                 tasks_begun++;
+                std::cout<<"Worker "<<thread_id<<" beginning task "<<task_id<<std::endl;
                 l.unlock();
             } else {
                 break;
@@ -145,16 +155,21 @@ void ThreadPoolScorer::run() {
 
             l.lock();
         }
+        std::cout<<"Worker "<<thread_id<<" quitting "<<std::endl;
         l.unlock();
 
         meta_lock.lock();
         threads_working--;
         if (threads_working == 0) {
-            // Let get_scores() know we're done.
-            std::unique_lock<std::mutex> done_lock(m_tasks_done);
+            // Let get_scores() and all other workers know we're done.
+            done_lock.lock();
             num_tasks = 0;
             done_lock.unlock();
-            done_wait_signal.notify_one();
+            worker_wait_signal.notify_all();
+            done_wait_signal.notify_all();
+        } else {
+            // Pause for everyone else to finish.
+            worker_wait_signal.wait(meta_lock);
         }
     }
     std::cout<<"Thread "<<thread_id<<" finished."<<std::endl;
