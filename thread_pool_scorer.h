@@ -4,6 +4,7 @@
 #include "scoring_function.h"
 
 #include<condition_variable>
+#include<memory>
 #include<mutex>
 #include<thread>
 #include<unordered_set>
@@ -32,9 +33,8 @@ public:
     //
     // The pairs should be (edge_additions, edge_removals) pairs.
     const std::vector<long double>& get_scores(
-            std::vector<std::pair<
-                     std::unordered_set<Edge, EdgeHash>,
-                     std::unordered_set<Edge, EdgeHash>>> *tasks);
+            std::vector<std::pair<std::unique_ptr<EdgeSet>,
+                                  std::unique_ptr<EdgeSet>>> *tasks);
 
     void terminate();
 
@@ -46,8 +46,8 @@ protected:
     // One editable coloring per thread.
     std::vector<Coloring<Edge, EdgeHash>> edge_colorings;
 
-    std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
-                          std::unordered_set<Edge, EdgeHash>>> *task_vec;
+    std::vector<std::pair<std::unique_ptr<EdgeSet>,
+                          std::unique_ptr<EdgeSet>>> *task_vec;
     std::vector<long double> score_vec;
 
     bool terminate_pool;

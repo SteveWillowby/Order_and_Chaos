@@ -5,6 +5,7 @@
 #include "thread_pool_scorer.h"
 
 #include<condition_variable>
+#include<memory>
 #include<mutex>
 #include<thread>
 #include<unordered_set>
@@ -62,9 +63,8 @@ ThreadPoolScorer::~ThreadPoolScorer() {
 }
 
 const std::vector<long double>& ThreadPoolScorer::get_scores(
-                                 std::vector<std::pair<
-                                  std::unordered_set<Edge, EdgeHash>,
-                                  std::unordered_set<Edge, EdgeHash>>> *tasks) {
+                    std::vector<std::pair<std::unique_ptr<EdgeSet>,
+                                          std::unique_ptr<EdgeSet>>> *tasks) {
 
     std::unique_lock<std::mutex> begin_lock(m_worker_meta);
     std::unique_lock<std::mutex> done_lock(m_tasks_done);
@@ -143,8 +143,8 @@ void ThreadPoolScorer::run() {
                                        node_orbit_coloring,
                                        edge_orbit_coloring,
                                        edge_colorings[thread_id],
-                                       (*task_vec)[task_id].first,
-                                       (*task_vec)[task_id].second,
+                                       (*task_vec)[task_id].first->edges(),
+                                       (*task_vec)[task_id].second->edges(),
                                        log2_p_plus, log2_p_minus,
                                        log2_1_minus_p_plus,
                                        log2_1_minus_p_minus);
