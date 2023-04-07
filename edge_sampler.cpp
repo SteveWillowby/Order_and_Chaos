@@ -26,7 +26,7 @@ EdgeSampler::EdgeSampler(const Graph& g, std::mt19937& gen) :
                                "graph with " + std::to_string(n) + " nodes " +
                                "requires a larger edge-int type. "
                                "Redefine SYM__edge_int_type " +
-                               "and SYM__MAX_EDGE_LABEL in edge_sampler.h.");
+                               "and SYM__MAX_EDGE_LABEL in edge.h.");
     }
 
     edges_un_sampled = std::vector<SYM__edge_int_type>(num_edges, 0);

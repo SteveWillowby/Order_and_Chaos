@@ -7,10 +7,6 @@
 #ifndef SYM__EDGE_SAMPLER_H
 #define SYM__EDGE_SAMPLER_H
 
-// Note: if 2^32 < n^2, increase this size and adjust max edge label
-typedef uint32_t SYM__edge_int_type;
-#define SYM__MAX_EDGE_LABEL 0xFFFFFFFF
-
 class EdgeSampler {
 public:
     // O(n^2) time and space
