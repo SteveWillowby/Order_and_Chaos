@@ -31,11 +31,14 @@ class GeneEdgeSet : public EdgeSet;
 class Gene {
 public:
     // Basic constructors
+
+    Gene(size_t depth);  // The empty gene
     Gene(SYM__edge_int_type elt);
     // Assumes elts is in sorted order
     Gene(const std::vector<SYM__edge_int_type>& elts);
     Gene(Gene* elt);
     // Assumes elts is in sorted order
+    // Assumes each elt is of the same depth
     Gene(const std::vector<Gene*>& elts);
 
     // 0 means it contains edge ints
@@ -55,8 +58,8 @@ public:
 
 protected:
     const size_t d;
-    const size_t w;
-    size_t hash;  // Never changes
+    size_t w;     // Never changes - not a const to make constructor code easier
+    size_t hash;  // Never changes - not a const to make constructor code easier
 
     // Keep in sorted order for efficiency
     std::vector<SYM__edge_int_type> e;
@@ -64,8 +67,13 @@ protected:
     //  Used only if d > 0
     std::vector<Gene*> sub_g;
 
-    std::vector<SYM__edge_int_type> merged(
-        const std::vector<std::vector<SYM__edge_int_type>>& lists);
+    // Note: modifies lists
+    static std::vector<SYM__edge_int_type> merged(
+        std::vector<std::vector<SYM__edge_int_type>>& lists);
+
+    static std::vector<SYM__edge_int_type> merged(
+            const std::vector<SYM__edge_int_type>& a,
+            const std::vector<SYM__edge_int_type>& b);
 };
 
 // Contains a record of each distinct gene and a hash ID for them
@@ -77,25 +85,26 @@ public:
     //
     // Creates an initial population by starting with a single gene and
     //  continuously mutating it until we get to pop size.
-    GenePool(size_t gene_depth, size_t pop_size, size_t k,
-             SYM__edge_int_type max_num_edges);
+    GenePool(size_t gene_depth, size_t pop_size, size_t k, size_t n);
 
     // Grows the population by 10x
     //  (creates 5x matings and 4x mutations)
     // Then scores the new entries
     // Lastly culls the pop back down to pop_size
-    void cycle(const IntToEdgeConverter& itec,
-               ThreadPoolScorer& tps);
+    void evolve(const IntEdgeConverterAndSampler& iecas,
+                ThreadPoolScorer& tps);
 
     const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
                                 long double>>& top_k_results() const;
+
+protected:
 
     // Mating "constructor"
     //  Returns pointer to a Gene allocated on the heap
     //  Keeps every sub-gene that's in both a and b
     //      Every sub-gene that's just in a or just in b is kept with prob 1/2
     //
-    // Required random generators (and dists) to be passed into it for
+    // Requires random generators (and dists) to be passed into it for
     //  thread-safety purposes
     // dist should a std::uniform_int_distribution<uint_8t>(0, 1)
     Gene* mated(const Gene& a, const Gene& b,
@@ -107,31 +116,47 @@ public:
     //  Creates a new gene identical to g but where a gene or sub-gene
     //      is added or removed.
     //
-    // Required random generators (and dists) to be passed into it for
+    // Requires random generators (and dists) to be passed into it for
     //  thread-safety purposes
     // disti should be
-    //  std::uniform_int_distribution<SYM__edge_int_type>(0, max_num_edges - 1)
+    //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
     // distl should be std::uniform_real_distribution<double>(0, 1)
     //
     // Note to self: make sure to not try to add something when nothing
     //  can be added or remove something when nothing can be removed.
     Gene* mutated(const Gene& g,
+                  const IntEdgeConverterAndSampler& iecas,
                   std::mt19937& gen,
                   std::uniform_real_distribution<SYM__edge_int_type>& disti,
                   std::uniform_real_distribution<double>& distl);
 
-protected:
+    // Adds the gene to the database
+    //
+    // Returns (a, b) where:
+    //  a is true iff gene is added
+    //  b is gene iff gene is added
+    //  b is a canonical Gene iff an identical version of gene already exists
+    //  b is NULL iff gene has a hash collision with a different Gene
+    std::pair<bool, Gene*> add(Gene* gene);
+
+    // Takes a gene and increments all counts of it's (sub-) occurrences.
+    void take_census(Gene*);
+    // Brings the top-level population down and then scans what remains with
+    //  census() in order to determine which sub-genes are actually used.
+    // Then goes through all sub-genes and removes all unused ones.
+    void cull();
+
     const size_t depth;
     // Number of elements to keep at the top level.
     const size_t pop_size;
-    const SYM__edge_int_type max_num_edges;
+    const size_t n;
+    const size_t k;
 
     // For each depth level (except 0, which will be empty),
     //  stores a list of each Gene
     std::vector<std::vector<std::unique_ptr<Gene>>> pool_vec;
-    // Stores how many times a gene is referenced
-    //  Used to know when to delete lower-level genes
-    std::vector<std::vector<size_t>> pool_counts;
+    // Used by cull() to know when to delete lower-level genes
+    std::vector<std::vector<bool>> used;
     // Scores for top-level genes
     std::vector<long double> scores;
     // For each depth level, maps a hash of a Gene to its index in pool_vec
@@ -141,13 +166,21 @@ protected:
     // A mutex for each depth level
     std::vector<std::mutex> pool_locks;
 
-    const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
-                                long double>> top_k;
+    // The indices of all top-level genes in pool_vec awaiting scores.
+    // std::vector<size_t> awaiting_scores; TODO: Remove
+
+    std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
+                          long double>> top_k;
 };
 
-class IntToEdgeConverter {
+class IntEdgeConverterAndSampler {
 public:
-    IntToEdgeConverter(const Graph& g);
+    IntEdgeConverterAndSampler(const Graph& g);
+
+    // dist should be
+    //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
+    SYM__edge_int_type sample(std::mt19937& gen,
+                std::uniform_int_distribution<SYM__edge_int_type>& dist) const;
 
     bool is_edge(SYM__edge_int_type e) const;
     Edge edge(SYM__edge_int_type e) const;
@@ -161,9 +194,10 @@ protected:
 #define GENE_MODE_EDGES 0
 #define GENE_MODE_NON_EDGES 1
 
+// We use this in order to save RAM
 class GeneEdgeSet : public EdgeSet {
 public:
-    GeneEdgeSet(const IntToEdgeConverter& itec,
+    GeneEdgeSet(const IntEdgeConverterAndSampler& iecas,
                 const Gene& g, bool mode);
 
     const std::unordered_set<Edge, EdgeHash>& edges();
@@ -171,7 +205,7 @@ public:
 protected:
     // mode determines whether this returns edges or non-edges
     bool mode;
-    const IntToEdgeConverter& itec;
+    const IntEdgeConverterAndSampler& iecas;
     const Gene& g;
 };
 
