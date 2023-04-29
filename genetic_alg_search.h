@@ -107,7 +107,11 @@ protected:
     // Requires random generators (and dists) to be passed into it for
     //  thread-safety purposes
     // dist should a std::uniform_int_distribution<uint_8t>(0, 1)
-    Gene* mated(const Gene& a, const Gene& b,
+    //
+    // Returns a pair (n, g). n is true iff g is a new gene.
+    //  If the operation fails entirely (new gene made but had hash collision)
+    //  then g will be NULL
+    std::pair<bool, Gene*> mated(const Gene& a, const Gene& b,
                 std::mt19937& gen,
                 std::uniform_int_distribution<uint8_t>& dist);
 
@@ -122,9 +126,13 @@ protected:
     //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
     // distl should be std::uniform_real_distribution<double>(0, 1)
     //
+    // Returns a pair (n, g). n is true iff g is a new gene.
+    //  If the operation fails entirely (new gene made but had hash collision)
+    //  then g will be NULL
+    //
     // Note to self: make sure to not try to add something when nothing
     //  can be added or remove something when nothing can be removed.
-    Gene* mutated(const Gene& g,
+    std::pair<bool, Gene*> mutated(const Gene& g,
                   const IntEdgeConverterAndSampler& iecas,
                   std::mt19937& gen,
                   std::uniform_real_distribution<SYM__edge_int_type>& disti,

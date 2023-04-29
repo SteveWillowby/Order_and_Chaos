@@ -288,9 +288,13 @@ const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
 // dist should a std::uniform_int_distribution<uint_8t>(0, 1)
 //
 // Requires that a or b is non-empty
-Gene* GenePool::mated(const Gene& a, const Gene& b,
-                      std::mt19937& gen,
-                      std::uniform_int_distribution<uint8_t>& dist) {
+//
+// Returns a pair (n, g). n is true iff g is a new gene.
+//  If the operation fails entirely (new gene made but had hash collision)
+//  then g will be NULL
+std::pair<bool, Gene*> GenePool::mated(const Gene& a, const Gene& b,
+                                       std::mt19937& gen,
+                            std::uniform_int_distribution<uint8_t>& dist) {
     // Assumes a.depth == b.depth and a.depth > 0
     std::vector<Gene*> sub_genes = std::vector<Gene*>();
     const std::vector<Gene*>& a_sub_g = a.sub_genes();
@@ -339,11 +343,13 @@ Gene* GenePool::mated(const Gene& a, const Gene& b,
     return add(made);
 }
 
+// Assumes that when add() is called, nothing is being deleted from the pool.
+//  This is an important assumption for locking choices.
 std::pair<bool, Gene*> GenePool::add(Gene* gene) {
     size_t hash = gene->hash_value();
     size_t d = gene->depth();
 
-    // std::unique_lock l(pool_locks[depth - 1]);
+    std::unique_lock<std::mutex> l(pool_locks[depth - 1]);
     auto exists = pool_map[d].find(hash);
 
     size_t new_idx;
@@ -357,11 +363,13 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
         //     awaiting_scores.push_back(new_idx);
         // }
         pool_map[d].insert(std::pair<size_t, size_t>(hash, new_idx));
+        l.unlock();
 
         return std::pair<bool, Gene*>(true, gene);
     }
 
     Gene* hash_match = pool_vec[d][*exists].get();
+    l.unlock();
 
     if (d == 0) {
         const std::vector<SYM__edge_int_type>& edge_ints = gene->edge_ints();
@@ -424,25 +432,170 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
 // distl should be std::uniform_real_distribution<double>(0, 1)
 //
+// Returns a pair (n, g). n is true iff g is a new gene.
+//  If the operation fails entirely (new gene made but had hash collision)
+//  then g will be NULL
+//
 // Note to self: make sure to not try to add something when nothing
 //  can be added or remove something when nothing can be removed.
-Gene* GenePool::mutated(const Gene& g,
-                        const IntEdgeConverterAndSampler& iecas,
-                        std::mt19937& gen,
-                      std::uniform_real_distribution<SYM__edge_int_type>& disti,
-                        std::uniform_real_distribution<double>& distl) {
+std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
+                    const IntEdgeConverterAndSampler& iecas,
+                    std::mt19937& gen,
+                    std::uniform_real_distribution<SYM__edge_int_type>& disti,
+                    std::uniform_real_distribution<double>& distl) {
 
     if (g.depth() == 0) {
-        std::vector<SYM__edge_int_type>
+        const std::vector<SYM__edge_int_type>& prev = g.edge_ints();
+        std::vector<SYM__edge_int_type> next;
         if (g.size() > 1 && distl(gen) < 0.5) {
             // Remove edge int
+            next.reserve(prev.size() - 1); // Prevent re-allocations for speed
+            size_t to_remove = distl(gen) * ((double) prev.size());
+            for (size_t i = 0; i < to_remove; i++) {
+                next.push_back(prev[i]);
+            }
+            for (size_t i = to_remove + 1; i < prev.size(); i++) {
+                next.push_back(prev[i]);
+            }
         } else {
             // Add edge int
+            next = std::vector<SYM__edge_int_type>(prev.size() + 1, 0);
+            SYM__edge_int_type addition;
+            bool done;  // Keep generating until it's new.
+            size_t spot;
+            while (true) {
+                done = true;
+                addition = iecas.sample(gen, disti);
+                for (spot = 0; spot < prev.size(); spot++) {
+                    if (addition > prev[spot]) {
+                        next[spot] = prev[spot];
+                    } else if (addition == prev[spot]) {
+                        done = false;
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+                if (!done) {
+                    continue;
+                }
+                next[spot] = addition;
+                for (; spot < prev.size(); spot++) {
+                    next[spot + 1] = prev[spot];
+                }
+                break;
+            }
         }
-        return // FILL IN
+        Gene* made = new Gene(next);
+        return add(made);
     }
 
-    double p_mutate_here = ((double) g.size()) / ((double) g.weight());
+    // Make 1 / (depth + 1)
+    double p_mutate_here = 1.0 / ((double) g.depth() + 1.0);
+
+    std::unique_lock<std::mutex> l(pool_locks[g.depth() - 1]);
+    size_t sub_options = pool_vec[g.depth() - 1].size();
+    l.unlock();
+
+    if (sub_options > 1 && distl(gen) < p_mutate_here) {
+        // Same idea as above, but with Gene* instead.
+
+        const std::vector<Gene*>& prev = g.sub_genes();
+        std::vector<Gene*> next;
+        if ((g.size() > 1 && distl(gen) < 0.5) || (g.size() == sub_options)) {
+            // Remove a sub-gene
+            next.reserve(prev.size() - 1); // Prevent re-allocations for speed
+            size_t to_remove = distl(gen) * ((double) prev.size());
+            for (size_t i = 0; i < to_remove; i++) {
+                next.push_back(prev[i]);
+            }
+            for (size_t i = to_remove + 1; i < prev.size(); i++) {
+                next.push_back(prev[i]);
+            }
+        } else {
+            // Add a sub-gene
+            next = std::vector<Gene*>(prev.size() + 1, 0);
+            Gene* addition;
+            bool done;  // Keep generating until it's new.
+            size_t spot, selection;
+            while (true) {
+                done = true;
+                // Need to lock the pool briefly
+                l.lock();
+                selection = distl(gen) * pool_vec[g.depth() - 1].size();
+                addition = pool_vec[g.depth() - 1][selection];
+                l.unlock();
+                for (spot = 0; spot < prev.size(); spot++) {
+                    if (addition > prev[spot]) {
+                        next[spot] = prev[spot];
+                    } else if (addition == prev[spot]) {
+                        done = false;
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+                if (!done) {
+                    continue;
+                }
+                next[spot] = addition;
+                for (; spot < prev.size(); spot++) {
+                    next[spot + 1] = prev[spot];
+                }
+                break;
+            }
+        }
+
+        Gene* made = new Gene(next);
+        return add(made);
+    }
+
+    // Figure out which sub-gene to mutate based on weight
+    double sub_weight = g.weight() - g.size();
+    double choice_weight = distl(gen) * sub_weight;
+    double cumulative_weight = 0;
+    const std::vector<Gene*>& sub_genes = g.sub_genes();
+    size_t choice_idx;
+    for (choice_idx = 0; choice_idx != sub_genes.size(); choice_idx++) {
+        cumulative_weight += sub_genes[choice_idx]->weight();
+        if (choice_weight < cumulative_weight) {
+            break;
+        }
+    }
+    if (choice_idx == sub_genes.size()) {  // This should never happen
+        choice_idx--;
+    }
+    Gene* old_sub_gene = sub_genes[choice_idx];
+    std::pair<bool, Gene*> x = mutated(*new_sub_gene, iecas, gen, disti, distl);
+    Gene* new_sub_gene = x.second;
+
+    if (new_sub_gene == NULL) {
+        // Failed to mutate (had a hash collision)
+        return x;
+    }
+
+    // The new sub-gene might be entirely new or might pre-exist.
+
+    // TODO: Double-check this loop logic
+    std::vector<Gene*> next = std::vector<Gene*>(sub_genes.size(), NULL);
+    size_t old_offset = 0;
+    bool added = false;
+    for (size_t i = 0; i < sub_genes.size(); next++) {
+        if (i == choice_idx) {
+            old_offset++;
+        }
+
+        if (!added && sub_genes[i + old_offset] > new_sub_gene) {
+            added = true;
+            next[i] = new_sub_gene;
+            old_offset--;
+        } else {
+            next[i] = sub_genes[i + old_offset];
+        }
+    }
+
+    Gene* made = new Gene(next);
+    return add(made);
 }
 
 IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g) :
