@@ -99,29 +99,34 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Calculate the noise probability at which the full graph is equally
     //  likely to be the noise as it is to be the structure.
-    long double alpha_plus =
-        std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
-                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
-                             comb_util.log2_factorial(g_main.num_nodes()))) /
-                                (long double)(g_main.num_edges()));
-    long double log2_p_plus = std::log2l(alpha_plus) -
-                              std::log2l(1.0 + alpha_plus);
-    long double log2_1_minus_p_plus = -std::log2l(1.0 + alpha_plus);
+    long double k1 =
+        std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
+                            (std::log2l(10) * nt_result.num_aut_exponent)) -
+                             comb_util.log2_factorial(num_nodes))) /
+                                (long double)(num_edges));
 
-    long double alpha_minus =
-        std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
-                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
-                             comb_util.log2_factorial(g_main.num_nodes()))) /
-                        (long double)(max_possible_edges - g_main.num_edges()));
-    long double log2_p_minus = std::log2l(alpha_minus) -
-                               std::log2l(1.0 + alpha_minus);
-    long double log2_1_minus_p_minus = -std::log2l(1.0 + alpha_minus);
+    long double k2 =
+        std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
+                            (std::log2l(10) * nt_result.num_aut_exponent)) -
+                             comb_util.log2_factorial(num_nodes))) /
+                        (long double)(max_possible_edges - num_edges));
 
-    std::cout<<"Alpha+: "<<alpha_plus<<std::endl;
+    // Here's hoping the decimal places work OK!
+    long double log2_p_plus = std::log2l(k1 - (k1 * k2)) -
+                              std::log2l(1.0 - (k1 * k2));
+    long double log2_1_minus_p_plus = std::log2l(1.0 - k1) -
+                                      std::log2l(1.0 - (k1 * k2));
+
+    long double log2_p_minus = std::log2l(k2 - (k1 * k2)) -
+                               std::log2l(1.0 - (k1 * k2));
+    long double log2_1_minus_p_minus = std::log2l(1.0 - k2) -
+                                       std::log2l(1.0 - (k1 * k2));
+
+    std::cout<<"k1: "<<k1<<std::endl;
     std::cout<<"Log2 P+: "<<log2_p_plus<<std::endl;
     std::cout<<"Log2 (1 - P+): "<<log2_1_minus_p_plus<<std::endl;
 
-    std::cout<<std::endl<<"Alpha-: "<<alpha_minus<<std::endl;
+    std::cout<<std::endl<<"k2: "<<k2<<std::endl;
     std::cout<<"Log2 P-: "<<log2_p_minus<<std::endl;
     std::cout<<"Log2 (1 - P-): "<<log2_1_minus_p_minus<<std::endl;
 
