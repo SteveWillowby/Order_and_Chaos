@@ -147,7 +147,7 @@ protected:
     //  b is NULL iff gene has a hash collision with a different Gene
     std::pair<bool, Gene*> add(Gene* gene);
 
-    // Takes a gene and increments all counts of it's (sub-) occurrences.
+    // Takes a gene and flags it's (sub-) occurrences in `used`.
     void take_census(Gene*);
     // Brings the top-level population down and then scans what remains with
     //  census() in order to determine which sub-genes are actually used.
@@ -160,8 +160,7 @@ protected:
     const size_t n;
     const size_t k;
 
-    // For each depth level (except 0, which will be empty),
-    //  stores a list of each Gene
+    // For each depth level, stores a list of each Gene
     std::vector<std::vector<std::unique_ptr<Gene>>> pool_vec;
     // Used by cull() to know when to delete lower-level genes
     std::vector<std::vector<bool>> used;
@@ -169,8 +168,10 @@ protected:
     std::vector<long double> scores;
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     std::vector<std::unordered_map<size_t, size_t>> pool_map;
+
     // For each depth level, the number of threads reading the pool map
-    std::vector<size_t> num_reading;
+    // std::vector<size_t> num_reading; // TODO: remove
+
     // A mutex for each depth level
     std::vector<std::mutex> pool_locks;
 

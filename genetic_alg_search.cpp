@@ -54,23 +54,29 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Calculate the noise probability at which the full graph is equally
     //  likely to be the noise as it is to be the structure.
-    long double alpha_plus =
+    long double k1 =
         std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
                             (std::log2l(10) * nt_result.num_aut_exponent)) -
                              comb_util.log2_factorial(num_nodes))) /
                                 (long double)(num_edges));
-    long double log2_p_plus = std::log2l(alpha_plus) -
-                              std::log2l(1.0 + alpha_plus);
-    long double log2_1_minus_p_plus = -std::log2l(1.0 + alpha_plus);
 
-    long double alpha_minus =
+    long double k2 =
         std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
                             (std::log2l(10) * nt_result.num_aut_exponent)) -
                              comb_util.log2_factorial(num_nodes))) /
                         (long double)(max_possible_edges - num_edges));
-    long double log2_p_minus = std::log2l(alpha_minus) -
-                               std::log2l(1.0 + alpha_minus);
-    long double log2_1_minus_p_minus = -std::log2l(1.0 + alpha_minus);
+
+    // Here's hoping the decimal places work OK!
+    //  TODO: Double-check the floating point math for safety
+    long double log2_p_plus = std::log2l(k1 - (k1 * k2)) -
+                              std::log2l(1.0 - (k1 * k2));
+    long double log2_1_minus_p_plus = std::log2l(1.0 - k1) -
+                                      std::log2l(1.0 - (k1 * k2));
+
+    long double log2_p_minus = std::log2l(k2 - (k1 * k2)) -
+                               std::log2l(1.0 - (k1 * k2));
+    long double log2_1_minus_p_minus = std::log2l(1.0 - k2) -
+                                       std::log2l(1.0 - (k1 * k2));
 
     ThreadPoolScorer TPS(nt, g_nt, comb_util,
                          nt_result.node_orbits, nt_result.edge_orbits,
@@ -82,16 +88,6 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     auto top_results =
        std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>();
-
-    // TODO: At lower levels, make edges represented as ints, and represent
-    //  genes as ints as well. That way we only need to convert to actual edges
-    //  at the top level.
-
-    // TODO: Keep track of when a gene or meta-gene first appears so that we can
-    //  give them unique numeric IDs. That way, we can convert the population to
-    //  an actual edge set only at the time of evaluation. (space savings)
-
-    // TODO: Make a recursive merge function that handles conflicts.
 }
 
 Gene::Gene(size_t depth) : d(depth) {
@@ -235,27 +231,42 @@ GenePool::GenePool(size_t gene_depth, size_t pop_size, size_t k, size_t n) :
         throw std::domain_error("Error! Cannot make gene pool with depth < 2");
     }
 
-    // For each depth level (except 0, which will be empty),
-    //  stores a list of each Gene
+    // For each depth level, stores a list of each Gene
     pool_vec = std::vector<std::vector<std::unique_ptr<Gene>>>();
+    
     // Stores how many times a gene is referenced
     //  Used to know when to delete lower-level genes
-    pool_counts = std::vector<std::vector<size_t>>();
+    // pool_counts = std::vector<std::vector<size_t>>(); // TODO: remove
+
+    used = std::vector<std::vector<bool>>();
+
     // Scores for top-level genes
     scores = std::vector<long double>();
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     pool_map = std::vector<std::unordered_map<size_t, size_t>>();
+
     // For each depth level, the number of threads reading the pool map
-    num_reading = std::vector<size_t>(depth, 0);
+    // num_reading = std::vector<size_t>(depth, 0); // TODO: remove
+
     // A mutex for each depth level
     pool_locks = std::vector<std::mutex>(depth);
 
+    Gene* g = NULL;
     for (size_t i = 0; i < depth; i++) {
         if (i < depth - 1) {
-            pool_counts.push_back(std::vector<size_t>());
+            // pool_counts.push_back(std::vector<size_t>()); // TODO: remove
+            used.push_back(std::vector<bool>());
         }
         pool_map.push_back(std::unordered_map<size_t, size_t>());
         pool_vec.push_back(std::vector<std::unique_ptr<Gene>>());
+
+        // Build the empty gene stack
+        if (i == 0) {
+            g = new Gene();
+        } else {
+            g = new Gene(g);
+        }
+        add(g);
     }
 
     top_k = std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
@@ -349,7 +360,7 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
     size_t hash = gene->hash_value();
     size_t d = gene->depth();
 
-    std::unique_lock<std::mutex> l(pool_locks[depth - 1]);
+    std::unique_lock<std::mutex> l(pool_locks[d]);
     auto exists = pool_map[d].find(hash);
 
     size_t new_idx;
@@ -576,11 +587,10 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
 
     // The new sub-gene might be entirely new or might pre-exist.
 
-    // TODO: Double-check this loop logic
     std::vector<Gene*> next = std::vector<Gene*>(sub_genes.size(), NULL);
     size_t old_offset = 0;
     bool added = false;
-    for (size_t i = 0; i < sub_genes.size(); next++) {
+    for (size_t i = 0; i < sub_genes.size(); i++) {
         if (i == choice_idx) {
             old_offset++;
         }
