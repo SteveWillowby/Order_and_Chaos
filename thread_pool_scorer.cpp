@@ -56,6 +56,7 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
         pool.push_back(std::thread(&ThreadPoolScorer::run, this));
         launch_wait_signal.wait(launch_lock);
     }
+    launch_lock.unlock();
 }
 
 ThreadPoolScorer::~ThreadPoolScorer() {
