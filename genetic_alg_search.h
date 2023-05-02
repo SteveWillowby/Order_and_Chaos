@@ -2,6 +2,7 @@
 #include "graph.h"
 #include "thread_pool_scorer.h"
 
+#include<map>
 #include<memory>
 #include<mutex>
 #include<random>
@@ -185,8 +186,10 @@ protected:
     std::vector<std::vector<std::unique_ptr<Gene>>> pool_vec;
     // Used by cull() to know when to delete lower-level genes
     std::vector<std::vector<bool>> used;
-    // Scores for top-level genes
-    std::vector<long double> scores;
+
+    // Scores for top-level genes - maps a score to a list of gene hashes.
+    std::map<long double, std::vector<size_t>> scores;
+
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     std::vector<std::unordered_map<size_t, size_t>> pool_map;
 

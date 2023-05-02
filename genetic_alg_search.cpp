@@ -5,6 +5,9 @@
 #include "thread_pool_scorer.h"
 
 #include<iostream>
+#include<map>
+#include<memory>
+#include<mutex>
 #include<random>
 #include<stdexcept>
 #include<unordered_set>
@@ -84,9 +87,12 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Initialization of Gene Population
 
-    GenePool gp(g, 2, 100, k);
+    size_t pop_size = g.num_nodes() * 100;
+    size_t depth = 2;
+    GenePool gp(g, depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
+        std::cout<<"Beginning Iteration "<<i<<"..."<<std::endl;
         gp.evolve(tps);
     }
 
@@ -256,8 +262,9 @@ GenePool::GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
 
     used = std::vector<std::vector<bool>>();
 
-    // Scores for top-level genes
-    scores = std::vector<long double>();
+    // Scores for top-level genes - maps a score to a list of gene hashes.
+    scores = std::map<long double, std::vector<size_t>>();
+
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     pool_map = std::vector<std::unordered_map<size_t, size_t>>();
 
@@ -296,7 +303,202 @@ GenePool::GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
 // Then scores the new entries
 // Lastly culls the pop back down to pop_size
 void GenePool::evolve(ThreadPoolScorer& tps) {
-    return;
+
+    // Figure out how many mutations to perform.
+    const size_t mutate_factor = 4;
+    size_t mutate_start_size = pool_vec[depth - 1].size();
+    size_t mutate_end_size = pop_size * (mutate_factor + 1);
+    if (mutate_start_size == 1) {
+        if (n > 16) {
+            mutate_end_size = (n * n) / 16;
+        } else {
+            mutate_end_size = (n * n) / 2;
+        }
+    } else if (mutate_start_size < pop_size) {
+        mutate_end_size = mutate_start_size * mutate_start_size;
+        if (mutate_end_size > pop_size * (mutate_factor + 1)) {
+            mutate_end_size = pop_size * (mutate_factor + 1);
+        }
+    }
+
+    // Figure out how many matings to perform.
+    const size_t mate_factor = 5;
+    size_t mate_start_size = mutate_end_size;
+    size_t mate_end_size = mate_start_size * (mate_factor + 1);
+    if (mate_start_size > pop_size) {
+        mate_start_size = pop_size;
+        mate_end_size = pop_size * (mate_factor + mutate_factor + 1);
+    }
+
+    // Useful variables
+    size_t i, j;
+    size_t quit_counter = 0;
+    size_t max_quit = 0;
+    // Quit early after quit_factor consecutive failed attempts.
+    const size_t quit_factor = 50;
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<SYM__edge_int_type> disti(0, n * n);
+    std::uniform_real_distribution<double> distl(0.0, 1.0);
+    std::uniform_int_distribution<uint8_t> distbool(0, 1);
+    std::pair<bool, Gene*> made;
+
+    // Perform mutations
+    while (pool_vec[depth - 1].size() < mutate_end_size) {
+        i = distl(gen) * mutate_start_size;
+        made = mutated(*pool_vec[depth - 1][i], gen, disti, distl);
+        if (!made.first || made.second == NULL) {
+            quit_counter++;
+            if (quit_counter > max_quit) {
+                max_quit++;
+                std::cout<<"Max quit now "<<max_quit<<" for mutation."
+                         <<std::endl;
+            }
+            if (quit_counter == quit_factor) {
+                break;
+            }
+        } else if (quit_counter > 0) {
+            quit_counter = 0;
+        }
+    }
+
+    // If we quit early, update mate_start_size
+    if (pool_vec[depth - 1].size() < mutate_end_size) {
+        mate_start_size = pool_vec[depth - 1].size();
+    }
+
+    // Perform matings
+    quit_counter = 0;
+    max_quit = 0;
+    while (pool_vec[depth - 1].size() < mate_end_size) {
+        i = distl(gen) * mate_start_size;
+        j = distl(gen) * mate_start_size;
+        if (i == j) {
+            continue;
+        }
+        made = mated(*pool_vec[depth - 1][i],
+                     *pool_vec[depth - 1][j], gen, distbool);
+
+        if (!made.first || made.second == NULL) {
+            quit_counter++;
+            if (quit_counter > max_quit) {
+                max_quit++;
+                std::cout<<"Max quit now "<<max_quit<<" for mating."
+                         <<std::endl;
+            }
+            if (quit_counter == quit_factor) {
+                break;
+            }
+        } else if (quit_counter > 0) {
+            quit_counter = 0;
+        }
+    }
+
+    // Score new genes.
+    size_t num_already_scored = scores.size();
+    std::vector<std::unique_ptr<EdgeSetPair>> tasks =
+                std::vector<std::unique_ptr<EdgeSetPair>>();
+
+    for (i = num_already_scored; i < pool_vec[depth - 1].size(); i++) {
+        tasks.push_back(std::unique_ptr<EdgeSetPair>(
+                        new GeneEdgeSetPair(iecas, *(pool_vec[depth - 1][i]))));
+    }
+
+    if (tasks.size() > 0) {
+        // Get scores for new members
+        std::cout<<"Scoring "<<tasks.size()<<" objects..."<<std::endl;
+        const std::vector<long double>& new_scores = tps.get_scores(&tasks);
+
+        // Use the score map like a min-heap to keep the top population members
+        long double score;
+        long double min_score = scores.begin()->first;
+        size_t num_scored = 0;
+        for (auto x = scores.begin(); x != scores.end(); x++) {
+            num_scored += x->second.size();
+        }
+        size_t hash_value;
+        for (i = 0; i < new_scores.size(); i++) {
+            score = new_scores[i];
+            hash_value =
+                    pool_vec[depth - 1][i + num_already_scored]->hash_value();
+            if (num_scored == pop_size && score < min_score) {
+                continue;  // New element not good enough to keep.
+            }
+            if (num_scored == pop_size) {
+                // Replace a smallest element.
+                auto smallest = scores.begin();
+                if (smallest->second.size() == 1) {
+                    scores.erase(smallest);
+                } else {
+                    // Randomly remove one element from the vector.
+                    smallest->second[smallest->second.size() * distl(gen)] =
+                            smallest->second[smallest->second.size() - 1];
+                    smallest->second.pop_back();
+                }
+            } else {
+                num_scored++;
+            }
+            auto x = scores.find(score);
+            if (x == scores.end()) {
+                // New score
+                scores.insert(std::pair<long double, std::vector<size_t>>(
+                              score, std::vector<size_t>(1, hash_value)));
+            } else {
+                x->second.push_back(hash_value);
+            }
+        }
+
+        // Now that we have hash values for the top `pop_size` members, keep
+        //  only those top-level genes.
+        j = 0;
+        size_t j_hash;
+        top_k.clear();
+        for (auto x = scores.rbegin(); x != scores.rend(); x++) {
+            const std::vector<size_t>& hash_values = x->second;
+            for (auto h = hash_values.begin(); h != hash_values.end(); h++) {
+                // Swap elements i and j
+                i = pool_map[depth - 1].find(*h)->second;
+                if (i != j) {
+                    j_hash = pool_vec[depth - 1][j]->hash_value();
+                    std::swap(pool_vec[depth - 1][i], pool_vec[depth - 1][j]);
+                    pool_map[depth - 1].erase(*h);
+                    pool_map[depth - 1].erase(j_hash);
+                    pool_map[depth - 1].insert(
+                                std::pair<size_t,size_t>(*h, j));
+                    pool_map[depth - 1].insert(
+                                std::pair<size_t,size_t>(j_hash, i));
+                }
+                if (j < k) {
+                    // Save one of the top k.
+                    GeneEdgeSetPair gesp(iecas, *pool_vec[depth - 1][j]);
+                    std::pair<std::unordered_set<Edge, EdgeHash>,
+                              std::unordered_set<Edge, EdgeHash>> e_ne =
+                                    gesp.edges_and_non_edges();
+                    for (auto e = e_ne.second.begin();
+                                  e != e_ne.second.end(); e++) {
+                        e_ne.first.insert(*e);
+                    }
+                    top_k.push_back(std::pair<std::unordered_set<Edge,EdgeHash>,
+                                            long double>(e_ne.first, x->first));
+                }
+                j++;
+            }
+        }
+        while (pool_vec[depth - 1].size() > num_scored) {
+            std::unique_ptr<Gene> to_del =
+                std::move(pool_vec[depth - 1][pool_vec[depth - 1].size() - 1]);
+            pool_vec[depth - 1].pop_back();
+            pool_map[depth - 1].erase(to_del->hash_value());
+        }
+        
+        // Take census and cull lower-level genes if necessary.
+        if (pool_vec[depth - 1].size() > pop_size) {
+            // Take census and cull.
+        }
+    } else {
+        std::cout<<"Unexpected! No new genes created by evolve()!"<<std::endl;
+    }
 }
 
 const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
@@ -384,9 +586,6 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
         // New
         new_idx = pool_vec[d].size();
         pool_vec[d].push_back(std::unique_ptr<Gene>(gene));
-        if (d == depth - 1) {
-            scores.push_back(0);
-        }
         // if (d == depth - 1) { TODO: remove
         //     awaiting_scores.push_back(new_idx);
         // }
@@ -401,9 +600,9 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 
     if (d == 0) {
         const std::vector<SYM__edge_int_type>& edge_ints =
-                gene->sub_edge_ints();
+                gene->edge_ints();
         const std::vector<SYM__edge_int_type>& hm_ei =
-                hash_match->sub_edge_ints();
+                hash_match->edge_ints();
         if (hm_ei.size() != edge_ints.size()) {
             // New but hash matches
             std::cout<<"Hash collision at depth "<<d<<" with hash value "<<hash
@@ -417,6 +616,10 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
                 // New but hash matches and of same size
                 std::cout<<"Hash collision at depth "<<d<<" with hash value "
                          <<hash<<std::endl;
+                for (size_t j = 0; j < edge_ints.size(); j++) {
+                    std::cout<<"("<<hm_ei[j]<<" vs. "<<edge_ints[j]<<"), ";
+                }
+                std::cout<<std::endl;
                 delete gene;
                 return std::pair<bool, Gene*>(false, NULL);
             }
@@ -613,7 +816,8 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             old_offset++;
         }
 
-        if (!added && sub_genes[i + old_offset] > new_sub_gene) {
+        if (!added && (i + old_offset == sub_genes.size() || 
+                       sub_genes[i + old_offset] > new_sub_gene)) {
             added = true;
             next[i] = new_sub_gene;
             old_offset--;
