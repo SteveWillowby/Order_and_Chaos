@@ -1,11 +1,14 @@
 #include "edge.h"
 #include "genetic_alg_search.h"
 #include "graph.h"
+#include "nauty_traces.h"
 #include "thread_pool_scorer.h"
 
-#include<rand>
+#include<iostream>
+#include<random>
 #include<stdexcept>
 #include<unordered_set>
+#include<utility>
 #include<vector>
 
 // Given a graph `g`, does a search to find good candidates for noise.
@@ -21,23 +24,9 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     // Initialize Basics
 
     NTSparseGraph g_nt(g);
-    bool directed = g_nt.directed();
+    bool directed = g.directed;
     size_t num_nodes = g_nt.num_nodes();
     size_t num_edges = g_nt.num_edges();
-
-    // Genetic Alg Variables
-
-    const size_t DEPTH = 2;  // How many layers of gene heirarchy are there?
-    size_t POP_SIZE = num_nodes * 10;
-    // The top TOP_POP_SIZE performers are guaranteed to be kept.
-    //  The remaining (POP_SIZE - TOP_POP_SIZE) are selected randomly from
-    //      the broad population.
-    size_t TOP_POP_SIZE = POP_SIZE / 2;
-
-    size_t MATE_SIZE_A = (POP_SIZE * POP_SIZE) / 1000;
-    size_t MATE_SIZE_B = POP_SIZE * 10;
-    size_t MATE_SIZE = (MATE_SIZE_A < MATE_SIZE_B ? MATE_SIZE_B : MATE_SIZE_A);
-    size_t MUTATE_SIZE = POP_SIZE / 10;
 
     // Initialization of Scoring Thread Pool
     size_t max_possible_edges =
@@ -88,26 +77,30 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     long double log2_1_minus_p_minus = std::log2l(1.0 - k2) -
                                        std::log2l(1.0 - (k1 * k2));
 
-    ThreadPoolScorer TPS(nt, g_nt, comb_util,
+    ThreadPoolScorer tps(nt, g_nt, comb_util,
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
                          log2_1_minus_p_plus, log2_1_minus_p_minus);
 
-
     // Initialization of Gene Population
 
-    auto top_results =
-       std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>();
+    GenePool gp(g, 2, 100, k);
+
+    for (size_t i = 0; i < num_iterations; i++) {
+        gp.evolve(tps);
+    }
+
+    return gp.top_k_results();
 }
 
-Gene::Gene(size_t depth) : d(depth) {
+Gene::Gene() : d(0) {
     w = 0;
     hash = 0;
 }
 
 Gene::Gene(SYM__edge_int_type elt) : d(0) {
     w = 1;
-    hash = std::hash<SYM__edge_int_type>(elt);
+    hash = std::hash<SYM__edge_int_type>{}(elt);
     e = std::vector<SYM__edge_int_type>(1, elt);
 }
 
@@ -116,14 +109,14 @@ Gene::Gene(const std::vector<SYM__edge_int_type>& elts) : d(0) {
     w = elts.size();
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
-        hash ^= std::hash<SYM__edge_int_type>(elts[i]);
+        hash ^= std::hash<SYM__edge_int_type>{}(elts[i]);
     }
     e = elts;
 }
 
 Gene::Gene(Gene* elt) : d(elt->depth() + 1) {
     w = elt->weight() + 1;
-    hash = std::hash<Gene*>(elt);
+    hash = std::hash<Gene*>{}(elt);
     sub_g = std::vector<Gene*>(1, elt);
 }
 
@@ -133,7 +126,7 @@ Gene::Gene(const std::vector<Gene*>& elts) : d(elts[0]->depth() + 1) {
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
         w += elts[i]->weight();
-        hash ^= std::hash<Gene*>(elts[i]);
+        hash ^= std::hash<Gene*>{}(elts[i]);
     }
     sub_g = elts;
 }
@@ -158,21 +151,32 @@ size_t Gene::weight() const {
     return w;
 }
 
-const Gene::std::vector<SYM__edge_int_type>& edge_ints() const {
+const std::vector<SYM__edge_int_type>& Gene::edge_ints() const {
+    if (d != 0) {
+        throw std::logic_error("Error! Call edge_ints() only when d = 0");
+    }
+    return e;
+}
+
+std::vector<SYM__edge_int_type> Gene::sub_edge_ints() const {
     if (d == 0) {
-        return e;
+        throw std::logic_error("Error! Call sub_edge_ints() only when d > 0");
     }
 
     auto sub_vecs = std::vector<std::vector<SYM__edge_int_type>>(sub_g.size());
     for (size_t i = 0; i < sub_g.size(); i++) {
-        sub_vecs[i] = sub_g[i]->edge_ints();
+        if (d == 1) {
+            sub_vecs[i] = sub_g[i]->edge_ints();
+        } else {
+            sub_vecs[i] = sub_g[i]->sub_edge_ints();
+        }
     }
 
     return merged(sub_vecs);
 }
 
 // Throws an error if d == 0
-const Gene::std::vector<Gene*>& sub_genes() const {
+const std::vector<Gene*>& Gene::sub_genes() const {
     if (d == 0) {
         throw std::domain_error("Error! No sub-genes on a gene of depth 0.");
     }
@@ -192,7 +196,7 @@ std::vector<SYM__edge_int_type> Gene::merged(
         for (size_t i = 0; i + step_size < lists.size(); i += (2 * step_size)) {
             lists[i] = merged(lists[i], lists[i + step_size]);
         }
-        step_size << 1;  // *= 2
+        step_size *= 2;
     }
     return lists[0];
 }
@@ -217,7 +221,7 @@ std::vector<SYM__edge_int_type> Gene::merged(
         }
     }
     if (i < a.size()) {
-        while (i < a.size) {
+        while (i < a.size()) {
             result.push_back(a[i]);
             i++;
         }
@@ -234,8 +238,10 @@ std::vector<SYM__edge_int_type> Gene::merged(
 //
 // Creates an initial population by starting with a single gene and
 //  continuously mutating it until we get to pop size.
-GenePool::GenePool(size_t gene_depth, size_t pop_size, size_t k, size_t n) :
-            depth(gene_depth), pop_size(pop_size), k(k), n(n) {
+GenePool::GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
+                   size_t num_results) :
+            iecas(g), depth(gene_depth), pop_size(pop_size), k(num_results),
+            n(g.num_nodes()) {
 
     if (depth < 2) {
         throw std::domain_error("Error! Cannot make gene pool with depth < 2");
@@ -243,7 +249,7 @@ GenePool::GenePool(size_t gene_depth, size_t pop_size, size_t k, size_t n) :
 
     // For each depth level, stores a list of each Gene
     pool_vec = std::vector<std::vector<std::unique_ptr<Gene>>>();
-    
+
     // Stores how many times a gene is referenced
     //  Used to know when to delete lower-level genes
     // pool_counts = std::vector<std::vector<size_t>>(); // TODO: remove
@@ -261,7 +267,7 @@ GenePool::GenePool(size_t gene_depth, size_t pop_size, size_t k, size_t n) :
     // A mutex for each depth level
     pool_locks = std::vector<std::mutex>(depth);
 
-    Gene* g = NULL;
+    Gene* gene = NULL;
     for (size_t i = 0; i < depth; i++) {
         if (i < depth - 1) {
             // pool_counts.push_back(std::vector<size_t>()); // TODO: remove
@@ -272,11 +278,11 @@ GenePool::GenePool(size_t gene_depth, size_t pop_size, size_t k, size_t n) :
 
         // Build the empty gene stack
         if (i == 0) {
-            g = new Gene();
+            gene = new Gene();
         } else {
-            g = new Gene(g);
+            gene = new Gene(gene);
         }
-        add(g);
+        add(gene);
     }
 
     top_k = std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
@@ -289,9 +295,8 @@ GenePool::GenePool(size_t gene_depth, size_t pop_size, size_t k, size_t n) :
 //  (creates 5x matings and 4x mutations)
 // Then scores the new entries
 // Lastly culls the pop back down to pop_size
-void GenePool::evolve(const IntEdgeConverterAndSampler& iecas,
-                      ThreadPoolScorer& tps) {
-
+void GenePool::evolve(ThreadPoolScorer& tps) {
+    return;
 }
 
 const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
@@ -379,7 +384,9 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
         // New
         new_idx = pool_vec[d].size();
         pool_vec[d].push_back(std::unique_ptr<Gene>(gene));
-        score_vec[d].push_back(0);
+        if (d == depth - 1) {
+            scores.push_back(0);
+        }
         // if (d == depth - 1) { TODO: remove
         //     awaiting_scores.push_back(new_idx);
         // }
@@ -389,12 +396,14 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
         return std::pair<bool, Gene*>(true, gene);
     }
 
-    Gene* hash_match = pool_vec[d][*exists].get();
+    Gene* hash_match = pool_vec[d][exists->second].get();
     l.unlock();
 
     if (d == 0) {
-        const std::vector<SYM__edge_int_type>& edge_ints = gene->edge_ints();
-        const std::vector<SYM__edge_int_type>& hm_ei = hash_match->edge_ints();
+        const std::vector<SYM__edge_int_type>& edge_ints =
+                gene->sub_edge_ints();
+        const std::vector<SYM__edge_int_type>& hm_ei =
+                hash_match->sub_edge_ints();
         if (hm_ei.size() != edge_ints.size()) {
             // New but hash matches
             std::cout<<"Hash collision at depth "<<d<<" with hash value "<<hash
@@ -460,9 +469,8 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 // Note to self: make sure to not try to add something when nothing
 //  can be added or remove something when nothing can be removed.
 std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
-                    const IntEdgeConverterAndSampler& iecas,
                     std::mt19937& gen,
-                    std::uniform_real_distribution<SYM__edge_int_type>& disti,
+                    std::uniform_int_distribution<SYM__edge_int_type>& disti,
                     std::uniform_real_distribution<double>& distl) {
 
     if (g.depth() == 0) {
@@ -544,7 +552,7 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
                 // Need to lock the pool briefly
                 l.lock();
                 selection = distl(gen) * pool_vec[g.depth() - 1].size();
-                addition = pool_vec[g.depth() - 1][selection];
+                addition = pool_vec[g.depth() - 1][selection].get();
                 l.unlock();
                 for (spot = 0; spot < prev.size(); spot++) {
                     if (addition > prev[spot]) {
@@ -587,7 +595,7 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
         choice_idx--;
     }
     Gene* old_sub_gene = sub_genes[choice_idx];
-    std::pair<bool, Gene*> x = mutated(*new_sub_gene, iecas, gen, disti, distl);
+    std::pair<bool, Gene*> x = mutated(*old_sub_gene, gen, disti, distl);
     Gene* new_sub_gene = x.second;
 
     if (new_sub_gene == NULL) {
@@ -619,16 +627,13 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
 }
 
 IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g) :
-        directed(g.directed), n(g.num_nodes()), self_loops(g.num_loops() > 0),
-        max_ne(((g.num_nodes() * (g.num_nodes() - 1)) / 
-                (1 + size_t(!g.directed()))) +
-               size_t(g.num_loops() > 0) * g.num_nodes()) {
+        directed(g.directed), n(g.num_nodes()), self_loops(g.num_loops() > 0) {
 
     edges = std::unordered_set<SYM__edge_int_type>();
     for (size_t a = 0; a < n; a++) {
         const auto& nbrs = g.out_neighbors(a);
         for (auto b = nbrs.begin(); b != nbrs.end(); b++) {
-            if (!directed && *b < a) {
+            if (!directed && ((size_t) *b) < a) {
                 continue;
             }
             edges.insert((a * n) + *b);
@@ -655,7 +660,7 @@ SYM__edge_int_type IntEdgeConverterAndSampler::sample(std::mt19937& gen,
         x = dist(gen);  // Decompose as x = a * n + b
         a = x / n;
         b = x % n;
-        if (a == b) {
+        if (a == b && !self_loops) {
             continue;
         }
         if (!directed && a > b) {
@@ -665,30 +670,29 @@ SYM__edge_int_type IntEdgeConverterAndSampler::sample(std::mt19937& gen,
     }
 }
 
-GeneEdgeSet::GeneEdgeSet(const IntEdgeConverterAndSampler& iecas,
-                         const Gene& g, bool mode) :
-                            g(g), mode(mode), iecas(iecas) {}
+GeneEdgeSetPair::GeneEdgeSetPair(const IntEdgeConverterAndSampler& iecas,
+                                 const Gene& g) :
+                                    iecas(iecas), g(g) {}
 
-const std::unordered_set<Edge, EdgeHash>& GeneEdgeSet::edges() {
-    result = std::unordered_set<Edge, EdgeHash>();
+std::pair<std::unordered_set<Edge, EdgeHash>,
+          std::unordered_set<Edge, EdgeHash>>
+                         GeneEdgeSetPair::edges_and_non_edges() const {
 
-    std::vector<SYM__edge_int_type> e_ints = g.edge_ints();
+    auto result = std::pair<std::unordered_set<Edge, EdgeHash>,
+                            std::unordered_set<Edge, EdgeHash>>(
+                            std::unordered_set<Edge, EdgeHash>(),
+                            std::unordered_set<Edge, EdgeHash>());
+
+    std::vector<SYM__edge_int_type> e_ints = g.sub_edge_ints();
     size_t s = e_ints.size();
     SYM__edge_int_type e;
 
-    if (mode == GENE_MODE_EDGES) {
-        for (size_t i = 0; i < s; i++) {
-            e = e_ints[i];
-            if (iecas.is_edge(e)) {
-                result.push_back(iecas.edge(e));
-            }
-        }
-    } else {
-        for (size_t i = 0; i < s; i++) {
-            e = e_ints[i];
-            if (!iecas.is_edge(e)) {
-                result.push_back(iecas.edge(e));
-            }
+    for (size_t i = 0; i < s; i++) {
+        e = e_ints[i];
+        if (iecas.is_edge(e)) {
+            result.first.insert(iecas.edge(e));
+        } else {
+            result.second.insert(iecas.edge(e));
         }
     }
 

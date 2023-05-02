@@ -64,8 +64,7 @@ ThreadPoolScorer::~ThreadPoolScorer() {
 }
 
 const std::vector<long double>& ThreadPoolScorer::get_scores(
-                    std::vector<std::pair<std::unique_ptr<EdgeSet>,
-                                          std::unique_ptr<EdgeSet>>> *tasks) {
+                    std::vector<std::unique_ptr<EdgeSetPair>> *tasks) {
 
     std::unique_lock<std::mutex> begin_lock(m_worker_meta);
     std::unique_lock<std::mutex> done_lock(m_tasks_done);
@@ -139,13 +138,17 @@ void ThreadPoolScorer::run() {
                 break;
             }
 
+            std::pair<std::unordered_set<Edge, EdgeHash>,
+                      std::unordered_set<Edge, EdgeHash>> e_ne =
+                            (*task_vec)[task_id]->edges_and_non_edges();
+
             // Do task # task_id
             score_vec[task_id] = score(graphs[thread_id], comb_util,
                                        node_orbit_coloring,
                                        edge_orbit_coloring,
                                        edge_colorings[thread_id],
-                                       (*task_vec)[task_id].first->edges(),
-                                       (*task_vec)[task_id].second->edges(),
+                                       e_ne.second,
+                                       e_ne.first,
                                        log2_p_plus, log2_p_minus,
                                        log2_1_minus_p_plus,
                                        log2_1_minus_p_minus);

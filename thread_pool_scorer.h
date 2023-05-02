@@ -30,11 +30,8 @@ public:
     // IMPORTANT: The vector returned may have extra elements at the end.
     //  Thus you must ignore get_scores(tasks).size().
     //  The score for (*tasks)[i] will be stored at get_scores(tasks)[i].
-    //
-    // The pairs should be (edge_additions, edge_removals) pairs.
     const std::vector<long double>& get_scores(
-            std::vector<std::pair<std::unique_ptr<EdgeSet>,
-                                  std::unique_ptr<EdgeSet>>> *tasks);
+            std::vector<std::unique_ptr<EdgeSetPair>> *tasks);
 
     void terminate();
 
@@ -46,8 +43,7 @@ protected:
     // One editable coloring per thread.
     std::vector<Coloring<Edge, EdgeHash>> edge_colorings;
 
-    std::vector<std::pair<std::unique_ptr<EdgeSet>,
-                          std::unique_ptr<EdgeSet>>> *task_vec;
+    std::vector<std::unique_ptr<EdgeSetPair>> *task_vec;
     std::vector<long double> score_vec;
 
     bool terminate_pool;

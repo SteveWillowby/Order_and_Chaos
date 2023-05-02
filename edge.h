@@ -28,11 +28,13 @@ struct EdgeHash {
 };
 
 // Virtual base class for a set of edges.
-class EdgeSet {
+class EdgeSetPair {
 public:
-    EdgeSet() {};
+    EdgeSetPair() {};
 
-    virtual const std::unordered_set<Edge, EdgeHash>& edges() = 0;
+    virtual std::pair<std::unordered_set<Edge, EdgeHash>,
+                      std::unordered_set<Edge, EdgeHash>>
+                                edges_and_non_edges() const =0;
 };
 
 #endif

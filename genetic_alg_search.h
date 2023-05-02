@@ -4,6 +4,7 @@
 
 #include<memory>
 #include<mutex>
+#include<random>
 #include<unordered_set>
 #include<utility>
 #include<vector>
@@ -24,15 +25,33 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                                     size_t nt);
 
 class GenePool;
-class IntToEdgeConverter;
-class GeneEdgeSet : public EdgeSet;
+class GeneEdgeSetPair;
+
+class IntEdgeConverterAndSampler {
+public:
+    IntEdgeConverterAndSampler(const Graph& g);
+
+    // dist should be
+    //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
+    SYM__edge_int_type sample(std::mt19937& gen,
+                std::uniform_int_distribution<SYM__edge_int_type>& dist) const;
+
+    bool is_edge(SYM__edge_int_type e) const;
+    Edge edge(SYM__edge_int_type e) const;
+
+protected:
+    const bool directed;
+    const size_t n;
+    const bool self_loops;
+    std::unordered_set<SYM__edge_int_type> edges;
+};
 
 // Immutable object -- all operations are const
 class Gene {
 public:
     // Basic constructors
 
-    Gene(size_t depth);  // The empty gene
+    Gene();  // The empty, depth-0 gene
     Gene(SYM__edge_int_type elt);
     // Assumes elts is in sorted order
     Gene(const std::vector<SYM__edge_int_type>& elts);
@@ -51,6 +70,7 @@ public:
     size_t weight() const;
 
     const std::vector<SYM__edge_int_type>& edge_ints() const;
+    std::vector<SYM__edge_int_type> sub_edge_ints() const;
     // Throws an error if d == 0
     const std::vector<Gene*>& sub_genes() const;
 
@@ -85,14 +105,14 @@ public:
     //
     // Creates an initial population by starting with a single gene and
     //  continuously mutating it until we get to pop size.
-    GenePool(size_t gene_depth, size_t pop_size, size_t k, size_t n);
+    GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
+             size_t num_results);
 
     // Grows the population by 10x
     //  (creates 5x matings and 4x mutations)
     // Then scores the new entries
     // Lastly culls the pop back down to pop_size
-    void evolve(const IntEdgeConverterAndSampler& iecas,
-                ThreadPoolScorer& tps);
+    void evolve(ThreadPoolScorer& tps);
 
     const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
                                 long double>>& top_k_results() const;
@@ -133,9 +153,8 @@ protected:
     // Note to self: make sure to not try to add something when nothing
     //  can be added or remove something when nothing can be removed.
     std::pair<bool, Gene*> mutated(const Gene& g,
-                  const IntEdgeConverterAndSampler& iecas,
                   std::mt19937& gen,
-                  std::uniform_real_distribution<SYM__edge_int_type>& disti,
+                  std::uniform_int_distribution<SYM__edge_int_type>& disti,
                   std::uniform_real_distribution<double>& distl);
 
     // Adds the gene to the database
@@ -154,11 +173,13 @@ protected:
     // Then goes through all sub-genes and removes all unused ones.
     void cull();
 
+    const IntEdgeConverterAndSampler iecas;
+
     const size_t depth;
     // Number of elements to keep at the top level.
     const size_t pop_size;
-    const size_t n;
     const size_t k;
+    const size_t n;
 
     // For each depth level, stores a list of each Gene
     std::vector<std::vector<std::unique_ptr<Gene>>> pool_vec;
@@ -182,38 +203,18 @@ protected:
                           long double>> top_k;
 };
 
-class IntEdgeConverterAndSampler {
-public:
-    IntEdgeConverterAndSampler(const Graph& g);
-
-    // dist should be
-    //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
-    SYM__edge_int_type sample(std::mt19937& gen,
-                std::uniform_int_distribution<SYM__edge_int_type>& dist) const;
-
-    bool is_edge(SYM__edge_int_type e) const;
-    Edge edge(SYM__edge_int_type e) const;
-
-protected:
-    const bool directed;
-    const size_t n;
-    std::unordered_set<SYM__edge_int_type> edges;
-};
-
-#define GENE_MODE_EDGES 0
-#define GENE_MODE_NON_EDGES 1
 
 // We use this in order to save RAM
-class GeneEdgeSet : public EdgeSet {
+class GeneEdgeSetPair : public EdgeSetPair {
 public:
-    GeneEdgeSet(const IntEdgeConverterAndSampler& iecas,
-                const Gene& g, bool mode);
+    GeneEdgeSetPair(const IntEdgeConverterAndSampler& iecas,
+                    const Gene& g);
 
-    const std::unordered_set<Edge, EdgeHash>& edges();
+    std::pair<std::unordered_set<Edge, EdgeHash>,
+              std::unordered_set<Edge, EdgeHash>>
+                                 edges_and_non_edges() const;
 
 protected:
-    // mode determines whether this returns edges or non-edges
-    bool mode;
     const IntEdgeConverterAndSampler& iecas;
     const Gene& g;
 };

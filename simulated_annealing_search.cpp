@@ -44,12 +44,15 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     bool use_self_loops = g.num_loops() > 0;
 
-    size_t max_possible_edges = (size_t(use_self_loops) * g.num_nodes()) +
-            (g.num_nodes() * (g.num_nodes() - 1)) / (size_t(!g.directed) + 1);
+    size_t num_nodes = g.num_nodes();
+    size_t num_edges = g.num_edges();
 
-    size_t num_non_edges = max_possible_edges - g_main.num_edges();
+    size_t max_possible_edges = (size_t(use_self_loops) * num_nodes) +
+            (num_nodes * (num_nodes - 1)) / (size_t(!g.directed) + 1);
+
+    size_t num_non_edges = max_possible_edges - num_edges;
     size_t max_flip_or_edge =
-            4 * (num_non_edges < g.num_edges() ? num_non_edges : g.num_edges());
+            4 * (num_non_edges < num_edges ? num_non_edges : num_edges);
     // O(max_possible_edges)   ---- O(well)
     CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
 
@@ -100,14 +103,14 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     // Calculate the noise probability at which the full graph is equally
     //  likely to be the noise as it is to be the structure.
     long double k1 =
-        std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
-                            (std::log2l(10) * nt_result.num_aut_exponent)) -
+        std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
+                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
                              comb_util.log2_factorial(num_nodes))) /
                                 (long double)(num_edges));
 
     long double k2 =
-        std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
-                            (std::log2l(10) * nt_result.num_aut_exponent)) -
+        std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
+                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
                              comb_util.log2_factorial(num_nodes))) /
                         (long double)(max_possible_edges - num_edges));
 

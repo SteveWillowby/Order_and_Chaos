@@ -6,6 +6,7 @@
 #include "edge.h"
 #include "edge_sampler.h"
 #include "file_utils.h"
+#include "genetic_alg_search.h"
 #include "nt_sparse_graph.h"
 #include "nauty_traces.h"
 #include "simulated_annealing_search.h"

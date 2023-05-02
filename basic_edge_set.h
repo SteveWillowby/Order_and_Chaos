@@ -8,14 +8,20 @@
 // This EdgeSet subclass is just a wrapper for unordered_set
 //
 // Note that it COPIES the unorderd_set
-class BasicEdgeSet : public EdgeSet {
+class BasicEdgeSetPair : public EdgeSetPair {
 public:
-    BasicEdgeSet(const std::unordered_set<Edge, EdgeHash>& e) : e_set(e) {}
+    BasicEdgeSetPair(const std::unordered_set<Edge, EdgeHash>& e,
+                     const std::unordered_set<Edge, EdgeHash>& ne) :
+            sets(std::pair<std::unordered_set<Edge, EdgeHash>,
+                           std::unordered_set<Edge, EdgeHash>>(e, ne)) {}
 
-    virtual const std::unordered_set<Edge, EdgeHash>& edges() { return e_set; }
+    virtual std::pair<std::unordered_set<Edge, EdgeHash>,
+                      std::unordered_set<Edge, EdgeHash>>
+                                edges_and_non_edges() const { return sets; }
 
 protected:
-    const std::unordered_set<Edge, EdgeHash> e_set;
+    std::pair<std::unordered_set<Edge, EdgeHash>,
+              std::unordered_set<Edge, EdgeHash>> sets;
 };
 
 #endif

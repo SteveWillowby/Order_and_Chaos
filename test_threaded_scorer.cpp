@@ -13,7 +13,8 @@
 #include "thread_pool_scorer.h"
 
 int main(void) {
-    const bool directed = true;
+
+    const bool directed = false;
     std::cout<<"## Directed?   "<<(directed ? "Yes" : "No")<<std::endl;
     const size_t num_nodes = 5;
     const size_t num_edges = 5;
@@ -81,10 +82,8 @@ int main(void) {
 
     std::cout<<" ...Finished Creating Thread Pool Scorer"<<std::endl;
     
-    std::vector<std::pair<std::unique_ptr<EdgeSet>,
-                          std::unique_ptr<EdgeSet>>> tasks =
-        std::vector<std::pair<std::unique_ptr<EdgeSet>,
-                              std::unique_ptr<EdgeSet>>>();
+    std::vector<std::unique_ptr<EdgeSetPair>> tasks =
+        std::vector<std::unique_ptr<EdgeSetPair>>();
 
     std::unordered_set<Edge, EdgeHash> edge_additions, edge_deletions;
     for (size_t r = 0; r < num_rounds; r++) {
@@ -104,23 +103,24 @@ int main(void) {
             for (size_t j = 0; j < num_deletions; j++) {
                 noise_sampler.un_sample_edge();
             }
-            tasks.push_back(std::pair<std::unique_ptr<EdgeSet>,
-                                      std::unique_ptr<EdgeSet>>(
-                   std::unique_ptr<EdgeSet>(new BasicEdgeSet(edge_additions)),
-                   std::unique_ptr<EdgeSet>(new BasicEdgeSet(edge_deletions))));
+            tasks.push_back(std::unique_ptr<EdgeSetPair>(
+                        new BasicEdgeSetPair(edge_deletions, edge_additions)));
         }
 
         const std::vector<long double>& scores = TPS.get_scores(&tasks);
 
         for (size_t i = 0; i < num_noise_sets; i++) {
             std::cout<<"- ";
-            for (auto e = tasks[i].first->edges().begin();
-                      e != tasks[i].first->edges().end(); e++) {
+            std::pair<std::unordered_set<Edge, EdgeHash>,
+                      std::unordered_set<Edge, EdgeHash>> r =
+                            tasks[i]->edges_and_non_edges();
+            for (auto e = r.first.begin();
+                      e != r.first.end(); e++) {
                 std::cout<<"("<<e->first<<", "<<e->second<<"), ";
             }
             std::cout<<" \t + ";
-            for (auto e = tasks[i].second->edges().begin();
-                      e != tasks[i].second->edges().end(); e++) {
+            for (auto e = r.second.begin();
+                      e != r.second.end(); e++) {
                 std::cout<<"("<<e->first<<", "<<e->second<<"), ";
             }
             std::cout<<" \t "<<scores[i]<<std::endl;
