@@ -42,7 +42,17 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     // Initialization of Scoring Thread Pool
     size_t max_possible_edges =
             (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed));
-    size_t max_flip_or_edge = num_edges * 5;
+
+    if (num_edges == 0) {
+        throw std::domain_error("Error! Cannot run on an empty graph.");
+    } else if (num_edges == max_possible_edges) {
+        throw std::domain_error("Error! Cannot run on a clique graph.");
+    }
+
+    size_t max_change_factor = 5;
+    size_t max_flip_or_edge = (num_edges < (max_possible_edges / 2) ?
+                               num_edges : (max_possible_edges - num_edges));
+    max_flip_or_edge *= max_change_factor;
 
     CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
 
