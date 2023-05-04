@@ -106,7 +106,9 @@ Gene::Gene() : d(0) {
 
 Gene::Gene(SYM__edge_int_type elt) : d(0) {
     w = 1;
-    hash = std::hash<SYM__edge_int_type>{}(elt);
+    // hash = std::hash<SYM__edge_int_type>{}(elt);
+    std::mt19937_64 hasher(elt);
+    hash = std::uniform_int_distribution<size_t>(0, ((size_t) -1) / 1024)(hasher);
     e = std::vector<SYM__edge_int_type>(1, elt);
 }
 
@@ -115,14 +117,18 @@ Gene::Gene(const std::vector<SYM__edge_int_type>& elts) : d(0) {
     w = elts.size();
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
-        hash ^= std::hash<SYM__edge_int_type>{}(elts[i]);
+        std::mt19937_64 hasher(elts[i]);
+        hash ^= std::uniform_int_distribution<size_t>(0, ((size_t) -1) / 1024)(hasher);
+        // hash ^= std::hash<SYM__edge_int_type>{}(elts[i]);
     }
     e = elts;
 }
 
 Gene::Gene(Gene* elt) : d(elt->depth() + 1) {
     w = elt->weight() + 1;
-    hash = std::hash<Gene*>{}(elt);
+    std::mt19937_64 hasher((size_t) elt);
+    hash = std::uniform_int_distribution<size_t>(0, ((size_t) -1) / 1024)(hasher);
+    // hash = std::hash<Gene*>{}(elt);
     sub_g = std::vector<Gene*>(1, elt);
 }
 
@@ -132,7 +138,9 @@ Gene::Gene(const std::vector<Gene*>& elts) : d(elts[0]->depth() + 1) {
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
         w += elts[i]->weight();
-        hash ^= std::hash<Gene*>{}(elts[i]);
+        std::mt19937_64 hasher((size_t) elts[i]);
+        hash ^= std::uniform_int_distribution<size_t>(0, ((size_t) -1) / 1024)(hasher);
+        // hash ^= std::hash<Gene*>{}(elts[i]);
     }
     sub_g = elts;
 }
@@ -616,9 +624,9 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
                 // New but hash matches and of same size
                 std::cout<<"Hash collision at depth "<<d<<" with hash value "
                          <<hash<<std::endl;
-                for (size_t j = 0; j < edge_ints.size(); j++) {
-                    std::cout<<"("<<hm_ei[j]<<" vs. "<<edge_ints[j]<<"), ";
-                }
+                // for (size_t j = 0; j < edge_ints.size(); j++) {
+                //     std::cout<<"("<<hm_ei[j]<<" vs. "<<edge_ints[j]<<"), ";
+                // }
                 std::cout<<std::endl;
                 delete gene;
                 return std::pair<bool, Gene*>(false, NULL);
@@ -635,7 +643,7 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
     if (hm_sg.size() != sub_genes.size()) {
         // New but hash matches
         std::cout<<"Hash collision at depth "<<d<<" with hash value "<<hash
-                 <<std::endl;
+                 <<" (case A)"<<std::endl;
 
         delete gene;
         return std::pair<bool, Gene*>(false, NULL);
@@ -644,7 +652,7 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
         if (hm_sg[i] != sub_genes[i]) {
             // New but hash matches and of same size
             std::cout<<"Hash collision at depth "<<d<<" with hash value "<<hash
-                     <<std::endl;
+                     <<" (case B)"<<std::endl;
             delete gene;
             return std::pair<bool, Gene*>(false, NULL);
         }

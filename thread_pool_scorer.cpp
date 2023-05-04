@@ -4,6 +4,8 @@
 #include "scoring_function.h"
 #include "thread_pool_scorer.h"
 
+#include<iostream>  // TODO: Remove this
+
 #include<condition_variable>
 #include<memory>
 #include<mutex>
@@ -166,8 +168,11 @@ void ThreadPoolScorer::run() {
             done_lock.unlock();
             worker_wait_signal.notify_all();
             done_wait_signal.notify_all();
+            std::cout<<"Worker "<<thread_id<<" finished."<<std::endl;
+            std::cout<<"All threads finished."<<std::endl;
         } else {
             // Pause for everyone else to finish.
+            std::cout<<"Worker "<<thread_id<<" finished."<<std::endl;
             worker_wait_signal.wait(meta_lock);
         }
     }
