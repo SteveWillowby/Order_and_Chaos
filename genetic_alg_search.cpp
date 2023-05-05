@@ -107,8 +107,7 @@ Gene::Gene() : d(0) {
 Gene::Gene(SYM__edge_int_type elt) : d(0) {
     w = 1;
     // hash = std::hash<SYM__edge_int_type>{}(elt);
-    std::mt19937_64 hasher(elt);
-    hash = std::uniform_int_distribution<size_t>(0, ((size_t) -1) / 1024)(hasher);
+    hash = elt % SYM__HASH_PRIME;
     e = std::vector<SYM__edge_int_type>(1, elt);
 }
 
@@ -117,8 +116,11 @@ Gene::Gene(const std::vector<SYM__edge_int_type>& elts) : d(0) {
     w = elts.size();
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
-        std::mt19937_64 hasher(elts[i]);
-        hash ^= std::uniform_int_distribution<size_t>(0, ((size_t) -1) / 1024)(hasher);
+        hash *= SYM__HASH_FACTOR;
+        hash += elts[i] % SYM__HASH_PRIME;
+        hash = hash % SYM__HASH_PRIME;
+        // std::mt19937_64 hasher(elts[i]);
+        // hash ^= std::uniform_int_distribution<size_t>(0, 0xFFFFFFFF)(hasher);
         // hash ^= std::hash<SYM__edge_int_type>{}(elts[i]);
     }
     e = elts;
@@ -126,9 +128,10 @@ Gene::Gene(const std::vector<SYM__edge_int_type>& elts) : d(0) {
 
 Gene::Gene(Gene* elt) : d(elt->depth() + 1) {
     w = elt->weight() + 1;
-    std::mt19937_64 hasher((size_t) elt);
-    hash = std::uniform_int_distribution<size_t>(0, ((size_t) -1) / 1024)(hasher);
+    // std::mt19937_64 hasher((size_t) elt);
+    // hash = std::uniform_int_distribution<size_t>(0, 0xFFFFFFFF)(hasher);
     // hash = std::hash<Gene*>{}(elt);
+    hash = (size_t) elt;
     sub_g = std::vector<Gene*>(1, elt);
 }
 
@@ -138,9 +141,12 @@ Gene::Gene(const std::vector<Gene*>& elts) : d(elts[0]->depth() + 1) {
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
         w += elts[i]->weight();
-        std::mt19937_64 hasher((size_t) elts[i]);
-        hash ^= std::uniform_int_distribution<size_t>(0, ((size_t) -1) / 1024)(hasher);
+        // std::mt19937_64 hasher((size_t) elts[i]);
+        // hash ^= std::uniform_int_distribution<size_t>(0, 0xFFFFFFFF)(hasher);
         // hash ^= std::hash<Gene*>{}(elts[i]);
+        hash *= SYM__HASH_FACTOR;
+        hash += ((size_t) elts[i]) % SYM__HASH_PRIME;
+        hash = hash % SYM__HASH_PRIME;
     }
     sub_g = elts;
 }
@@ -417,6 +423,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         // Get scores for new members
         std::cout<<"Scoring "<<tasks.size()<<" objects..."<<std::endl;
         const std::vector<long double>& new_scores = tps.get_scores(&tasks);
+        std::cout<<"...Got "<<new_scores.size()<<" scores."<<std::endl;
 
         // Use the score map like a min-heap to keep the top population members
         long double score;

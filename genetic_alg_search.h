@@ -206,6 +206,10 @@ protected:
                           long double>> top_k;
 };
 
+// Both of these are fibonacci numbers
+#define SYM__HASH_PRIME 0xB11924E1  // AKA 2971215073
+#define SYM__HASH_FACTOR 28657      // Also a prime
+// 233, 1597, 28657
 
 // We use this in order to save RAM
 class GeneEdgeSetPair : public EdgeSetPair {
