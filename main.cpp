@@ -143,7 +143,7 @@ int main( void ) {
 
     // For genetic alg
     num_iterations = 100;
-    size_t num_threads = 1;
+    size_t num_threads = 0;
 
     std::cout<<"Running for "<<num_iterations<<" iterations..."<<std::endl;
     // auto result = simulated_annealing_search(g, num_iterations, top_k);

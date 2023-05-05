@@ -361,8 +361,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
             quit_counter++;
             if (quit_counter > max_quit) {
                 max_quit++;
-                std::cout<<"Max quit now "<<max_quit<<" for mutation."
-                         <<std::endl;
+                // std::cout<<"Max quit now "<<max_quit<<" for mutation."
+                //          <<std::endl;
             }
             if (quit_counter == quit_factor) {
                 break;
@@ -393,8 +393,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
             quit_counter++;
             if (quit_counter > max_quit) {
                 max_quit++;
-                std::cout<<"Max quit now "<<max_quit<<" for mating."
-                         <<std::endl;
+                // std::cout<<"Max quit now "<<max_quit<<" for mating."
+                //          <<std::endl;
             }
             if (quit_counter == quit_factor) {
                 break;
@@ -416,9 +416,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
 
     if (tasks.size() > 0) {
         // Get scores for new members
-        std::cout<<"Scoring "<<tasks.size()<<" objects..."<<std::endl;
         const std::vector<long double>& new_scores = tps.get_scores(&tasks);
-        std::cout<<"...Got "<<new_scores.size()<<" scores."<<std::endl;
 
         // Use the score map like a min-heap to keep the top population members
         long double score;
@@ -428,7 +426,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
             num_scored += x->second.size();
         }
         size_t hash_value;
-        for (i = 0; i < new_scores.size(); i++) {
+        for (i = 0; i < tasks.size(); i++) {
             score = new_scores[i];
             hash_value =
                     pool_vec[depth - 1][i + num_already_scored]->hash_value();
