@@ -86,8 +86,9 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Initialization of Gene Population
 
-    size_t pop_size = g.num_nodes() * 100;
-    size_t depth = 2;
+    size_t pop_size = g.num_nodes() *
+                     (g.num_nodes() < 1000 ? 1000 : g.num_nodes());
+    size_t depth = 3;
     GenePool gp(g, depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
@@ -405,7 +406,11 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     }
 
     // Score new genes.
-    size_t num_already_scored = scores.size();
+    size_t num_already_scored = 0;
+    for (auto x = scores.begin(); x != scores.end(); x++) {
+        num_already_scored += x->second.size();
+    }
+
     std::vector<std::unique_ptr<EdgeSetPair>> tasks =
                 std::vector<std::unique_ptr<EdgeSetPair>>();
 
@@ -421,19 +426,29 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         // Use the score map like a min-heap to keep the top population members
         long double score;
         long double min_score = scores.begin()->first;
-        size_t num_scored = 0;
-        for (auto x = scores.begin(); x != scores.end(); x++) {
-            num_scored += x->second.size();
-        }
         size_t hash_value;
+        size_t orig_num_already_scored = num_already_scored;
         for (i = 0; i < tasks.size(); i++) {
             score = new_scores[i];
             hash_value =
-                    pool_vec[depth - 1][i + num_already_scored]->hash_value();
-            if (num_scored == pop_size && score < min_score) {
+                    pool_vec[depth - 1]
+                            [i + orig_num_already_scored]->hash_value();
+            if (num_already_scored == pop_size && score < min_score) {
                 continue;  // New element not good enough to keep.
             }
-            if (num_scored == pop_size) {
+
+            auto x = scores.find(score);
+            if (x == scores.end()) {
+                // New score
+                scores.insert(std::pair<long double, std::vector<size_t>>(
+                              score, std::vector<size_t>(1, hash_value)));
+            } else {
+                x->second.push_back(hash_value);
+            }
+            num_already_scored++;
+
+            if (num_already_scored > pop_size) {
+                num_already_scored--;
                 // Replace a smallest element.
                 auto smallest = scores.begin();
                 if (smallest->second.size() == 1) {
@@ -444,16 +459,6 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
                             smallest->second[smallest->second.size() - 1];
                     smallest->second.pop_back();
                 }
-            } else {
-                num_scored++;
-            }
-            auto x = scores.find(score);
-            if (x == scores.end()) {
-                // New score
-                scores.insert(std::pair<long double, std::vector<size_t>>(
-                              score, std::vector<size_t>(1, hash_value)));
-            } else {
-                x->second.push_back(hash_value);
             }
         }
 
@@ -493,7 +498,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
                 j++;
             }
         }
-        while (pool_vec[depth - 1].size() > num_scored) {
+        while (pool_vec[depth - 1].size() > num_already_scored) {
             std::unique_ptr<Gene> to_del =
                 std::move(pool_vec[depth - 1][pool_vec[depth - 1].size() - 1]);
             pool_vec[depth - 1].pop_back();

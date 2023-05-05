@@ -207,9 +207,10 @@ protected:
 };
 
 // Make sure that SYM__HASH_PRIME * SYM__HASH_FACTOR < 0xFFFFFFFFFFFFFFFF
-#define SYM__HASH_PRIME 0x303A548050B  // aka 3314192745739
-#define SYM__HASH_FACTOR 28657
-// More primes: 233, 1597, 28657, 514229, 2971215073, 3314192745739
+#define SYM__HASH_PRIME 87178291199
+#define SYM__HASH_FACTOR 700001
+// More primes: 233, 1597, 28657, 514229, 700001, 2971215073,
+//              87178291199, 3314192745739
 
 // We use this in order to save RAM
 class GeneEdgeSetPair : public EdgeSetPair {
