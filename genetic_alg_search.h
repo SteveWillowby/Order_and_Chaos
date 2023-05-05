@@ -144,7 +144,7 @@ protected:
     // Requires random generators (and dists) to be passed into it for
     //  thread-safety purposes
     // disti should be
-    //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
+    //  std::uniform_int_distribution<SYM__edge_int_type>(0, (n * n) - 1)
     // distl should be std::uniform_real_distribution<double>(0, 1)
     //
     // Returns a pair (n, g). n is true iff g is a new gene.
@@ -206,10 +206,10 @@ protected:
                           long double>> top_k;
 };
 
-// Both of these are fibonacci numbers
-#define SYM__HASH_PRIME 0xB11924E1  // AKA 2971215073
-#define SYM__HASH_FACTOR 28657      // Also a prime
-// 233, 1597, 28657
+// Make sure that SYM__HASH_PRIME * SYM__HASH_FACTOR < 0xFFFFFFFFFFFFFFFF
+#define SYM__HASH_PRIME 0x303A548050B  // aka 3314192745739
+#define SYM__HASH_FACTOR 28657
+// More primes: 233, 1597, 28657, 514229, 2971215073, 3314192745739
 
 // We use this in order to save RAM
 class GeneEdgeSetPair : public EdgeSetPair {

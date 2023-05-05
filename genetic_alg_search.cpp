@@ -8,7 +8,6 @@
 #include<map>
 #include<memory>
 #include<mutex>
-#include<random>
 #include<stdexcept>
 #include<unordered_set>
 #include<utility>
@@ -106,7 +105,6 @@ Gene::Gene() : d(0) {
 
 Gene::Gene(SYM__edge_int_type elt) : d(0) {
     w = 1;
-    // hash = std::hash<SYM__edge_int_type>{}(elt);
     hash = elt % SYM__HASH_PRIME;
     e = std::vector<SYM__edge_int_type>(1, elt);
 }
@@ -116,22 +114,19 @@ Gene::Gene(const std::vector<SYM__edge_int_type>& elts) : d(0) {
     w = elts.size();
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
+        // This works because the elts are in the same order each time
+        //  If they could come in a different order, the hash would be different
         hash *= SYM__HASH_FACTOR;
+        hash = hash % SYM__HASH_PRIME;
         hash += elts[i] % SYM__HASH_PRIME;
         hash = hash % SYM__HASH_PRIME;
-        // std::mt19937_64 hasher(elts[i]);
-        // hash ^= std::uniform_int_distribution<size_t>(0, 0xFFFFFFFF)(hasher);
-        // hash ^= std::hash<SYM__edge_int_type>{}(elts[i]);
     }
     e = elts;
 }
 
 Gene::Gene(Gene* elt) : d(elt->depth() + 1) {
     w = elt->weight() + 1;
-    // std::mt19937_64 hasher((size_t) elt);
-    // hash = std::uniform_int_distribution<size_t>(0, 0xFFFFFFFF)(hasher);
-    // hash = std::hash<Gene*>{}(elt);
-    hash = (size_t) elt;
+    hash = ((size_t) elt) % SYM__HASH_PRIME;
     sub_g = std::vector<Gene*>(1, elt);
 }
 
@@ -141,10 +136,10 @@ Gene::Gene(const std::vector<Gene*>& elts) : d(elts[0]->depth() + 1) {
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
         w += elts[i]->weight();
-        // std::mt19937_64 hasher((size_t) elts[i]);
-        // hash ^= std::uniform_int_distribution<size_t>(0, 0xFFFFFFFF)(hasher);
-        // hash ^= std::hash<Gene*>{}(elts[i]);
+        // This works because the elts are in the same order each time
+        //  If they could come in a different order, the hash would be different
         hash *= SYM__HASH_FACTOR;
+        hash = hash % SYM__HASH_PRIME;
         hash += ((size_t) elts[i]) % SYM__HASH_PRIME;
         hash = hash % SYM__HASH_PRIME;
     }
@@ -353,7 +348,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<SYM__edge_int_type> disti(0, n * n);
+    std::uniform_int_distribution<SYM__edge_int_type> disti(0, n * n - 1);
     std::uniform_real_distribution<double> distl(0.0, 1.0);
     std::uniform_int_distribution<uint8_t> distbool(0, 1);
     std::pair<bool, Gene*> made;
@@ -677,7 +672,7 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 // Requires random generators (and dists) to be passed into it for
 //  thread-safety purposes
 // disti should be
-//  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
+//  std::uniform_int_distribution<SYM__edge_int_type>(0, (n * n) - 1)
 // distl should be std::uniform_real_distribution<double>(0, 1)
 //
 // Returns a pair (n, g). n is true iff g is a new gene.
@@ -883,7 +878,7 @@ SYM__edge_int_type IntEdgeConverterAndSampler::sample(std::mt19937& gen,
             continue;
         }
         if (!directed && a > b) {
-            return b * n + a;
+            return (b * n) + a;
         }
         return x;
     }
@@ -903,6 +898,13 @@ std::pair<std::unordered_set<Edge, EdgeHash>,
                             std::unordered_set<Edge, EdgeHash>());
 
     std::vector<SYM__edge_int_type> e_ints = g.sub_edge_ints();
+    for (size_t i = 0; i < e_ints.size(); i++) { // TODO: Remove
+        for (size_t j = i + 1; j < e_ints.size(); j++) {
+            if (e_ints[i] == e_ints[j]) {
+                std::cout<<"Repeated edge!"<<std::endl;
+            }
+        }
+    }
     size_t s = e_ints.size();
     SYM__edge_int_type e;
 
