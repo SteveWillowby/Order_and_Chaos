@@ -40,7 +40,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
         throw std::domain_error("Error! Cannot run on a clique graph.");
     }
 
-    size_t max_change_factor = 5;
+    size_t max_change_factor = 7;
     size_t max_flip_or_edge = (num_edges < (max_possible_edges / 2) ?
                                num_edges : (max_possible_edges - num_edges));
     max_flip_or_edge *= max_change_factor;
@@ -55,6 +55,9 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Calculate the noise probability at which the full graph is equally
     //  likely to be the noise as it is to be the structure.
+
+    /*
+    // New Method
     long double k1 =
         std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
                             (std::log2l(10) * nt_result.num_aut_exponent)) -
@@ -78,6 +81,33 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                std::log2l(1.0 - (k1 * k2));
     long double log2_1_minus_p_minus = std::log2l(1.0 - k2) -
                                        std::log2l(1.0 - (k1 * k2));
+    */
+
+    // Old Method -- "alpha" is either k1 or k2
+    long double alpha;
+    if (num_edges < (max_possible_edges / 2)) {
+        alpha = std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
+                            (std::log2l(10) * nt_result.num_aut_exponent)) -
+                             comb_util.log2_factorial(num_nodes))) /
+                                (long double)(num_edges));
+    } else {
+        alpha = std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
+                            (std::log2l(10) * nt_result.num_aut_exponent)) -
+                             comb_util.log2_factorial(num_nodes))) /
+                                (long double)(max_possible_edges - num_edges));
+    }
+    long double log2_p_plus = std::log2l(alpha) - std::log2l(1 + alpha);
+    long double log2_1_minus_p_plus = -std::log2l(1 + alpha);
+    long double log2_p_minus = log2_p_plus;
+    long double log2_1_minus_p_minus = log2_1_minus_p_plus;
+
+    std::cout<<"log2_p_plus:          "<<log2_p_plus<<std::endl;
+    std::cout<<"log2_1_minus_p_plus:  "<<log2_1_minus_p_plus<<std::endl;
+    std::cout<<"log2_p_minus:         "<<log2_p_minus<<std::endl;
+    std::cout<<"log2_1_minus_p_minus: "<<log2_1_minus_p_minus<<std::endl;
+    std::cout<<"p_plus:  "<<std::exp2l(log2_p_plus)<<std::endl;
+    std::cout<<"p_minus: "<<std::exp2l(log2_p_minus)<<std::endl;
+    std::cout<<std::endl;
 
     ThreadPoolScorer tps(nt, g_nt, comb_util,
                          nt_result.node_orbits, nt_result.edge_orbits,
@@ -86,13 +116,17 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Initialization of Gene Population
 
-    size_t pop_size = g.num_nodes() *
-                     (g.num_nodes() < 1000 ? 1000 : g.num_nodes());
-    size_t depth = 3;
+    size_t pop_size = (g.num_nodes() / 10 + 1) *
+                      (g.num_nodes() < 200 ? 200 : g.num_nodes());
+    size_t depth = 2;
     GenePool gp(g, depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
-        std::cout<<"Beginning Iteration "<<i<<"..."<<std::endl;
+        if (i % 5 == 4) {
+            std::cout<<"Beginning Iteration "<<(i + 1)<<"..."<<std::endl;
+            std::cout<<"Best score is: "<<(gp.top_k_results()[0].second)<<std::endl;
+        }
+
         gp.evolve(tps);
     }
 

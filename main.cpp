@@ -15,7 +15,7 @@
 int main( void ) {
     // These three variables determine which graph is run on.
     const bool directed = false;
-    const bool use_real_graph = false;
+    const bool use_real_graph = true;
     const size_t graph_idx = 2;
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
@@ -142,14 +142,12 @@ int main( void ) {
     num_iterations = (num_iterations < 1000000 ? 1000000 : num_iterations);
 
     // For genetic alg
-    num_iterations = 100;
+    num_iterations = 30;
     size_t num_threads = 0;
 
     std::cout<<"Running for "<<num_iterations<<" iterations..."<<std::endl;
     // auto result = simulated_annealing_search(g, num_iterations, top_k);
     auto result = genetic_alg_search(g, num_iterations, top_k, num_threads);
-    //                                         num_additions,
-    //                                         num_removals);
 
     NTSparseGraph reporter = NTSparseGraph(g);
 

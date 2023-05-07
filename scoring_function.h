@@ -51,7 +51,8 @@ class CombinatoricUtility;
 //
 // Against what might be expected, `log2_p_plus` is NOT the log-probability that
 //  an edge is added to `g`. RATHER, `log2_p_plus` is the log of the probability
-//  that an edge in the hypothesis graph is removed.
+//  that any given noise edge is added to the hypothesis graph (i.e. removed
+//  from `g`).
 // The same (in reverse) is true for `log2_p_minus`.
 //
 // `log2_1_minus_p_plus` = log2(1 - p_plus)
