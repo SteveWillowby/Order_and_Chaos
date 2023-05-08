@@ -14,9 +14,9 @@
 
 int main( void ) {
     // These three variables determine which graph is run on.
-    const bool directed = false;
+    const bool directed = true;
     const bool use_real_graph = true;
-    const size_t graph_idx = 2;
+    const size_t graph_idx = 13;
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
 
@@ -25,8 +25,6 @@ int main( void ) {
     const size_t num_additions = 0;
     // Only used when corrupt_original is true.
     const size_t num_removals = 0;
-
-    // Note: Took 252 minutes for jazz collab with n^3 iterations.
 
     NautyTracesOptions o;
     o.get_node_orbits = false;
