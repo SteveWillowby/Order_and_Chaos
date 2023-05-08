@@ -118,7 +118,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     size_t pop_size = (g.num_nodes() / 10 + 1) *
                       (g.num_nodes() < 200 ? 200 : g.num_nodes());
-    size_t depth = 2;
+    size_t depth = 1;
     GenePool gp(g, depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {

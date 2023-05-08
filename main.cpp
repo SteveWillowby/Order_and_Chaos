@@ -60,7 +60,8 @@ int main( void ) {
          "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
          "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
          "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
-         "jazz_collab_nodes.txt"
+         "jazz_collab_nodes.txt",          "",
+         "",                               ""
         };
     // jazz_collab_mod_X.g are various man-made modifications to
     //  jazz_collaboration to try to increase the amount of symmetry and to see
@@ -72,7 +73,8 @@ int main( void ) {
          "jazz_collab_mod_2.g",            "jazz_collab_mod_4.g",
          "jazz_collab_mod_10.g",           "jazz_collab_mod_1_changes.txt",
          "jazz_collab_mod_2_changes.txt",  "jazz_collab_mod_4_changes.txt",
-         "jazz_collab_mod_10_changes.txt"
+         "jazz_collab_mod_10_changes.txt", "moreno_highschool_noweights.g",
+         "roget_thesaurus.g",              "pol_blogs.g"
         };
 
     const std::string fake_prefix = "simple_test_graphs/";
