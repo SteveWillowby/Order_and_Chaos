@@ -124,7 +124,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     for (size_t i = 0; i < num_iterations; i++) {
         if (i % 5 == 4) {
             std::cout<<"Beginning Iteration "<<(i + 1)<<"..."<<std::endl;
-            std::cout<<"Best score is: "<<(gp.top_k_results()[0].second)<<std::endl;
+            std::cout<<"Best score is: "<<(gp.top_k_results()[0].second)
+                     <<std::endl;
         }
 
         gp.evolve(tps);
@@ -293,8 +294,8 @@ GenePool::GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
             iecas(g), depth(gene_depth), pop_size(pop_size), k(num_results),
             n(g.num_nodes()) {
 
-    if (depth < 2) {
-        throw std::domain_error("Error! Cannot make gene pool with depth < 2");
+    if (depth < 1) {
+        throw std::domain_error("Error! Cannot make gene pool with depth < 1");
     }
 
     // For each depth level, stores a list of each Gene
@@ -570,6 +571,55 @@ const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
 std::pair<bool, Gene*> GenePool::mated(const Gene& a, const Gene& b,
                                        std::mt19937& gen,
                             std::uniform_int_distribution<uint8_t>& dist) {
+    if (a.depth() == 0) {
+        std::vector<SYM__edge_int_type> elts =
+            std::vector<SYM__edge_int_type>();
+        const std::vector<SYM__edge_int_type>& a_elts = a.edge_ints();
+        const std::vector<SYM__edge_int_type>& b_elts = b.edge_ints();
+
+        size_t i, j;
+        while (elts.size() == 0) {
+            i = 0;
+            j = 0;
+            while (i < a_elts.size() && j < b_elts.size()) {
+                if (a_elts[i] == b_elts[j]) {
+                    elts.push_back(a_elts[i]);
+                    i++;
+                    j++;
+                } else if (a_elts[i] < b_elts[j]) {
+                    if (dist(gen)) {
+                        elts.push_back(a_elts[i]);
+                    }
+                    i++;
+                } else {
+                    if (dist(gen)) {
+                        elts.push_back(b_elts[j]);
+                    }
+                    j++;
+                }
+            }
+            if (i < a_elts.size()) {
+                while (i < a_elts.size()) {
+                    if (dist(gen)) {
+                        elts.push_back(a_elts[i]);
+                    }
+                    i++;
+                }
+            } else {
+                while (j < b_elts.size()) {
+                    if (dist(gen)) {
+                        elts.push_back(b_elts[j]);
+                    }
+                    j++;
+                }
+            }
+        }
+        // We now have a new, non-empty vector of elements.
+
+        Gene* made = new Gene(elts);
+        return add(made);
+    }
+
     // Assumes a.depth == b.depth and a.depth > 0
     std::vector<Gene*> sub_genes = std::vector<Gene*>();
     const std::vector<Gene*>& a_sub_g = a.sub_genes();
@@ -584,7 +634,7 @@ std::pair<bool, Gene*> GenePool::mated(const Gene& a, const Gene& b,
                 sub_genes.push_back(a_sub_g[i]);
                 i++;
                 j++;
-            } else if (a_sub_g[i] < b_sub_g[i]) {
+            } else if (a_sub_g[i] < b_sub_g[j]) {
                 if (dist(gen)) {
                     sub_genes.push_back(a_sub_g[i]);
                 }
@@ -725,6 +775,8 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
 
     if (g.depth() == 0) {
         const std::vector<SYM__edge_int_type>& prev = g.edge_ints();
+
+        SYM__edge_int_type addition;
         std::vector<SYM__edge_int_type> next;
         if (g.size() > 1 && distl(gen) < 0.5) {
             // Remove edge int
@@ -739,10 +791,9 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
         } else {
             // Add edge int
             next = std::vector<SYM__edge_int_type>(prev.size() + 1, 0);
-            SYM__edge_int_type addition;
-            bool done;  // Keep generating until it's new.
+            bool done = false;  // Keep generating until it's new.
             size_t spot;
-            while (true) {
+            while (!done) {
                 done = true;
                 addition = iecas.sample(gen, disti);
                 for (spot = 0; spot < prev.size(); spot++) {
@@ -755,16 +806,13 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
                         break;
                     }
                 }
-                if (!done) {
-                    continue;
-                }
-                next[spot] = addition;
-                for (; spot < prev.size(); spot++) {
-                    next[spot + 1] = prev[spot];
-                }
-                break;
+            }
+            next[spot] = addition;
+            for (; spot < prev.size(); spot++) {
+                next[spot + 1] = prev[spot];
             }
         }
+
         Gene* made = new Gene(next);
         return add(made);
     }
@@ -934,14 +982,13 @@ std::pair<std::unordered_set<Edge, EdgeHash>,
                             std::unordered_set<Edge, EdgeHash>(),
                             std::unordered_set<Edge, EdgeHash>());
 
-    std::vector<SYM__edge_int_type> e_ints = g.sub_edge_ints();
-    for (size_t i = 0; i < e_ints.size(); i++) { // TODO: Remove
-        for (size_t j = i + 1; j < e_ints.size(); j++) {
-            if (e_ints[i] == e_ints[j]) {
-                std::cout<<"Repeated edge!"<<std::endl;
-            }
-        }
+    std::vector<SYM__edge_int_type> e_ints;
+    if (g.depth() == 0) {
+        e_ints = g.edge_ints();
+    } else {
+        e_ints = g.sub_edge_ints();
     }
+
     size_t s = e_ints.size();
     SYM__edge_int_type e;
 
