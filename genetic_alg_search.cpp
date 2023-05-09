@@ -118,7 +118,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     size_t pop_size = (g.num_nodes() / 10 + 1) *
                       (g.num_nodes() < 200 ? 200 : g.num_nodes());
-    size_t depth = 1;
+    size_t depth = 2;
     GenePool gp(g, depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
@@ -321,10 +321,10 @@ GenePool::GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
 
     Gene* gene = NULL;
     for (size_t i = 0; i < depth; i++) {
-        if (i < depth - 1) {
-            // pool_counts.push_back(std::vector<size_t>()); // TODO: remove
-            used.push_back(std::vector<bool>());
-        }
+        // if (i < depth - 1) {
+        //     pool_counts.push_back(std::vector<size_t>()); // TODO: remove
+        // }
+        used.push_back(std::vector<bool>());
         pool_map.push_back(std::unordered_map<size_t, size_t>());
         pool_vec.push_back(std::vector<std::unique_ptr<Gene>>());
 
@@ -539,13 +539,87 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
             pool_vec[depth - 1].pop_back();
             pool_map[depth - 1].erase(to_del->hash_value());
         }
-        
+
         // Take census and cull lower-level genes if necessary.
-        if (pool_vec[depth - 1].size() > pop_size) {
-            // Take census and cull.
-        }
+        cull();
     } else {
         std::cout<<"Unexpected! No new genes created by evolve()!"<<std::endl;
+    }
+}
+
+// Takes a gene and flags it's (sub-) occurrences in `used`.
+void GenePool::take_census(Gene* gene) {
+    size_t d = gene->depth();
+
+    // TODO: Add locks if this is to be made multi-threaded
+    size_t idx = pool_map[d][gene->hash_value()];
+
+    if (used[d][idx]) {
+        return;
+    }
+    used[d][idx] = true;
+    if (d == 0) {
+        return;
+    }
+
+    const std::vector<Gene*>& sub_genes = gene->sub_genes();
+    for (auto g_sub = sub_genes.begin(); g_sub != sub_genes.end(); g_sub++) {
+        take_census(*g_sub);
+    }
+}
+
+// Scans the top-level population with
+//  census() in order to determine which sub-genes are actually used.
+// Then goes through all sub-genes and removes all unused ones.
+void GenePool::cull() {
+    if (depth == 1) {
+        return;
+    }
+
+    // Prepare the `used` vectors
+    for (size_t i = 0; i < depth; i++) {
+        used[i] = std::vector<bool>(pool_vec[i].size(), false);
+    }
+
+    for (auto gene = pool_vec[depth - 1].begin();
+             gene != pool_vec[depth - 1].end(); gene++) {
+        take_census(gene->get());
+    }
+
+    size_t j;
+    size_t last;
+    for (size_t i = 0; i < depth - 1; i++) {
+        j = 0;
+        last = pool_vec[i].size() - 1;
+        while (j < pool_vec[i].size()) {
+            if (used[i][j]) {
+                j++;
+                continue;
+            }
+
+            while (!used[i][last]) {
+                // At least one value must be used, so there is no danger of
+                //  underflow.
+                pool_map[i].erase(pool_vec[i][last]->hash_value());
+                pool_vec[i].pop_back();
+                last--;
+            }
+            // since !used[i][j], we know that last will be > j or < j
+            if (last < j) {
+                break;
+            }
+
+            used[i][j] = used[i][last];
+            pool_map[i].erase(pool_vec[i][j]->hash_value());
+
+            if (j < last) {
+                pool_vec[i][j] =
+                    std::move(pool_vec[i][last]);
+                pool_map[i][pool_vec[i][j]->hash_value()] = j;
+            }
+            pool_vec[i].pop_back();
+            last--;
+        }
     }
 }
 
@@ -843,9 +917,9 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             // Add a sub-gene
             next = std::vector<Gene*>(prev.size() + 1, 0);
             Gene* addition;
-            bool done;  // Keep generating until it's new.
+            bool done = false;  // Keep generating until it's new.
             size_t spot, selection;
-            while (true) {
+            while (!done) {
                 done = true;
                 // Need to lock the pool briefly
                 l.lock();
@@ -862,14 +936,10 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
                         break;
                     }
                 }
-                if (!done) {
-                    continue;
-                }
-                next[spot] = addition;
-                for (; spot < prev.size(); spot++) {
-                    next[spot + 1] = prev[spot];
-                }
-                break;
+            }
+            next[spot] = addition;
+            for (; spot < prev.size(); spot++) {
+                next[spot + 1] = prev[spot];
             }
         }
 

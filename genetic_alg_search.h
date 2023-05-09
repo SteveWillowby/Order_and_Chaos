@@ -168,8 +168,8 @@ protected:
     std::pair<bool, Gene*> add(Gene* gene);
 
     // Takes a gene and flags it's (sub-) occurrences in `used`.
-    void take_census(Gene*);
-    // Brings the top-level population down and then scans what remains with
+    void take_census(Gene* gene);
+    // Scans the top-level population with
     //  census() in order to determine which sub-genes are actually used.
     // Then goes through all sub-genes and removes all unused ones.
     void cull();
