@@ -1,0 +1,254 @@
+Loading graph from files:
+    
+    real_world_graphs/roget_thesaurus.g
+  ...graph loaded. It has 1023 nodes and 5075 edges, 1 of which are self-loops.
+
+The original graph has log2_aut = 57.8351
+Running for 30 iterations...
+log2_p_plus:          -3.55712
+log2_1_minus_p_plus:  -0.128089
+log2_p_minus:         -3.55712
+log2_1_minus_p_minus: -0.128089
+p_plus:  0.0849571
+p_minus: 0.0849571
+
+Hash collision at depth 1 with hash value 21754083450 (case A)
+Hash collision at depth 1 with hash value 15095164619 (case B)
+Hash collision at depth 1 with hash value 21903487898 (case A)
+Hash collision at depth 1 with hash value 21761245386 (case A)
+Hash collision at depth 1 with hash value 63794665115 (case A)
+Hash collision at depth 1 with hash value 41910951680 (case B)
+Hash collision at depth 1 with hash value 32860348279 (case A)
+Hash collision at depth 1 with hash value 21855269946 (case A)
+Hash collision at depth 1 with hash value 21752909738 (case A)
+Hash collision at depth 1 with hash value 21757169034 (case A)
+Hash collision at depth 1 with hash value 52149042987 (case A)
+Hash collision at depth 1 with hash value 1363886897 (case A)
+Hash collision at depth 1 with hash value 21756601818 (case A)
+Hash collision at depth 0 with hash value 5280299067
+
+Hash collision at depth 1 with hash value 58322019506 (case A)
+Hash collision at depth 1 with hash value 16736938386 (case B)
+Hash collision at depth 1 with hash value 84273174053 (case B)
+Beginning Iteration 5...
+Best score is: -133849
+Hash collision at depth 1 with hash value 21901364442 (case A)
+Hash collision at depth 1 with hash value 14466604374 (case A)
+Hash collision at depth 1 with hash value 55889249646 (case A)
+Hash collision at depth 1 with hash value 18940618987 (case A)
+Hash collision at depth 1 with hash value 71024864978 (case B)
+Hash collision at depth 1 with hash value 52224245516 (case A)
+Hash collision at depth 0 with hash value 203141
+Hash collision at depth 1 with hash value 23867548033 (case A)
+Hash collision at depth 1 with hash value 57024708118 (case A)
+Hash collision at depth 1 with hash value 86525630723 (case B)
+Hash collision at depth 1 with hash value 23303602556 (case A)
+Hash collision at depth 1 with hash value 33275067850 (case B)
+Hash collision at depth 1 with hash value 64954253680 (case A)
+Hash collision at depth 0 with hash value 985308790
+
+Hash collision at depth 1 with hash value 4799194832 (case A)
+Hash collision at depth 1 with hash value 62425385445 (case A)
+Hash collision at depth 1 with hash value 32829433639 (case A)
+Hash collision at depth 1 with hash value 57164985142 (case A)
+Hash collision at depth 1 with hash value 65971266179 (case B)
+Hash collision at depth 1 with hash value 82649697111 (case B)
+Hash collision at depth 1 with hash value 25155447129 (case A)
+Hash collision at depth 1 with hash value 56244587601 (case B)
+Hash collision at depth 1 with hash value 76230112970 (case A)
+Hash collision at depth 1 with hash value 48317121552 (case B)
+Beginning Iteration 10...
+Best score is: -133832
+Hash collision at depth 1 with hash value 6369942247 (case A)
+Hash collision at depth 1 with hash value 18633726330 (case A)
+Hash collision at depth 1 with hash value 49674782134 (case A)
+Hash collision at depth 1 with hash value 1603903087 (case A)
+Hash collision at depth 1 with hash value 82395755938 (case A)
+Hash collision at depth 1 with hash value 26887705893 (case A)
+Hash collision at depth 1 with hash value 68399803973 (case A)
+Hash collision at depth 0 with hash value 125947
+Hash collision at depth 1 with hash value 42989741294 (case A)
+Hash collision at depth 1 with hash value 49125307335 (case A)
+Hash collision at depth 1 with hash value 47881899456 (case A)
+Hash collision at depth 1 with hash value 33056820554 (case A)
+Hash collision at depth 1 with hash value 52698109927 (case A)
+Hash collision at depth 0 with hash value 378881
+Hash collision at depth 1 with hash value 55479832770 (case A)
+Hash collision at depth 1 with hash value 23415594231 (case A)
+Hash collision at depth 1 with hash value 35063156821 (case A)
+Hash collision at depth 1 with hash value 35788912829 (case A)
+Hash collision at depth 1 with hash value 40964648407 (case A)
+Hash collision at depth 0 with hash value 35443140292
+Hash collision at depth 1 with hash value 30535202406 (case A)
+Hash collision at depth 1 with hash value 85186264284 (case A)
+Hash collision at depth 1 with hash value 874897546 (case A)
+Hash collision at depth 1 with hash value 21427350603 (case A)
+Hash collision at depth 1 with hash value 64703821017 (case A)
+Hash collision at depth 1 with hash value 17315423910 (case B)
+Hash collision at depth 1 with hash value 68007749442 (case A)
+Hash collision at depth 1 with hash value 15128574811 (case A)
+Hash collision at depth 1 with hash value 50817326216 (case A)
+Hash collision at depth 1 with hash value 23583639080 (case B)
+Hash collision at depth 1 with hash value 55731710923 (case B)
+Hash collision at depth 1 with hash value 18830245473 (case A)
+Hash collision at depth 1 with hash value 24509980772 (case A)
+Hash collision at depth 1 with hash value 23583639080 (case B)
+Beginning Iteration 15...
+Best score is: -133806
+Hash collision at depth 1 with hash value 31850568165 (case B)
+Hash collision at depth 1 with hash value 3200673646 (case A)
+Hash collision at depth 1 with hash value 52083765339 (case A)
+Hash collision at depth 1 with hash value 9957315465 (case A)
+Hash collision at depth 1 with hash value 69165862565 (case A)
+Hash collision at depth 1 with hash value 1573254465 (case A)
+Hash collision at depth 1 with hash value 84927704685 (case A)
+Hash collision at depth 1 with hash value 86039818562 (case A)
+Hash collision at depth 1 with hash value 27358358443 (case B)
+Hash collision at depth 1 with hash value 15071374383 (case A)
+Hash collision at depth 1 with hash value 48773803114 (case A)
+Hash collision at depth 1 with hash value 61638020081 (case A)
+Hash collision at depth 1 with hash value 22515922464 (case A)
+Hash collision at depth 1 with hash value 42130717124 (case A)
+Hash collision at depth 1 with hash value 35719262211 (case A)
+Hash collision at depth 1 with hash value 77567278103 (case A)
+Hash collision at depth 1 with hash value 49903831273 (case A)
+Hash collision at depth 1 with hash value 52598150615 (case A)
+Hash collision at depth 0 with hash value 65946520156
+Hash collision at depth 1 with hash value 34892451028 (case A)
+Hash collision at depth 1 with hash value 34724755093 (case A)
+Hash collision at depth 1 with hash value 72196195297 (case A)
+Hash collision at depth 1 with hash value 82531140716 (case A)
+Hash collision at depth 1 with hash value 56762106672 (case B)
+Hash collision at depth 1 with hash value 79798382380 (case A)
+Hash collision at depth 1 with hash value 24000850059 (case B)
+Hash collision at depth 1 with hash value 35932378307 (case A)
+Hash collision at depth 1 with hash value 27100545610 (case A)
+Hash collision at depth 1 with hash value 73279061544 (case A)
+Hash collision at depth 1 with hash value 73279061544 (case A)
+Hash collision at depth 1 with hash value 10902051020 (case A)
+Hash collision at depth 1 with hash value 27564598574 (case A)
+Beginning Iteration 20...
+Best score is: -133789
+Hash collision at depth 1 with hash value 77331270043 (case A)
+Hash collision at depth 1 with hash value 27643700931 (case A)
+Hash collision at depth 1 with hash value 4129697921 (case A)
+Hash collision at depth 1 with hash value 17600693451 (case A)
+Hash collision at depth 1 with hash value 59299818622 (case A)
+Hash collision at depth 1 with hash value 10667493817 (case B)
+Hash collision at depth 1 with hash value 79051652859 (case A)
+Hash collision at depth 1 with hash value 18270347486 (case A)
+Hash collision at depth 1 with hash value 68704638662 (case B)
+Hash collision at depth 1 with hash value 50142252276 (case B)
+Hash collision at depth 1 with hash value 83598121008 (case A)
+Hash collision at depth 1 with hash value 18741818763 (case A)
+Hash collision at depth 1 with hash value 60705034517 (case A)
+Hash collision at depth 1 with hash value 18089815276 (case A)
+Hash collision at depth 1 with hash value 4103707091 (case A)
+Hash collision at depth 1 with hash value 75814858644 (case B)
+Hash collision at depth 1 with hash value 79201132409 (case A)
+Hash collision at depth 1 with hash value 66309759106 (case A)
+Hash collision at depth 1 with hash value 73279061544 (case A)
+Hash collision at depth 1 with hash value 45189777025 (case A)
+Hash collision at depth 1 with hash value 78346591653 (case A)
+Hash collision at depth 1 with hash value 343926367 (case B)
+Hash collision at depth 1 with hash value 82584473882 (case A)
+Hash collision at depth 1 with hash value 77280694689 (case B)
+Hash collision at depth 1 with hash value 22893727527 (case A)
+Hash collision at depth 0 with hash value 894963
+Hash collision at depth 1 with hash value 64084637355 (case A)
+Hash collision at depth 1 with hash value 86661576159 (case A)
+Hash collision at depth 1 with hash value 46962787451 (case A)
+Hash collision at depth 1 with hash value 52701022502 (case A)
+Hash collision at depth 1 with hash value 75387648120 (case A)
+Hash collision at depth 1 with hash value 66528739757 (case B)
+Hash collision at depth 1 with hash value 56752102029 (case A)
+Hash collision at depth 1 with hash value 46382903256 (case A)
+Hash collision at depth 1 with hash value 83978204388 (case A)
+Hash collision at depth 1 with hash value 82948647476 (case A)
+Hash collision at depth 1 with hash value 64042233016 (case A)
+Hash collision at depth 1 with hash value 67813569483 (case A)
+Hash collision at depth 1 with hash value 52701022502 (case A)
+Hash collision at depth 1 with hash value 52550500861 (case A)
+Hash collision at depth 1 with hash value 18576247053 (case A)
+Hash collision at depth 1 with hash value 19601160536 (case B)
+Beginning Iteration 25...
+Best score is: -133771
+Hash collision at depth 0 with hash value 60015821202
+
+Hash collision at depth 1 with hash value 83978204388 (case A)
+Hash collision at depth 1 with hash value 86099383029 (case A)
+Hash collision at depth 1 with hash value 51979135270 (case A)
+Hash collision at depth 1 with hash value 13486033108 (case A)
+Hash collision at depth 1 with hash value 29088588265 (case A)
+Hash collision at depth 1 with hash value 4154705669 (case B)
+Hash collision at depth 1 with hash value 45077494848 (case A)
+Hash collision at depth 1 with hash value 5989982746 (case A)
+Hash collision at depth 1 with hash value 34049602532 (case B)
+Hash collision at depth 1 with hash value 1276347850 (case A)
+Hash collision at depth 1 with hash value 34049602532 (case B)
+Hash collision at depth 1 with hash value 25045298769 (case A)
+Hash collision at depth 1 with hash value 13966818504 (case B)
+Hash collision at depth 1 with hash value 54576529862 (case A)
+Hash collision at depth 1 with hash value 42225880910 (case A)
+Hash collision at depth 1 with hash value 78078787145 (case A)
+Hash collision at depth 1 with hash value 42225880910 (case A)
+Hash collision at depth 1 with hash value 6849860005 (case A)
+Hash collision at depth 1 with hash value 80638609324 (case A)
+Hash collision at depth 1 with hash value 78207880508 (case A)
+Hash collision at depth 1 with hash value 42225880910 (case A)
+Hash collision at depth 1 with hash value 12224936655 (case A)
+Hash collision at depth 1 with hash value 33014785126 (case A)
+Hash collision at depth 1 with hash value 19527517536 (case A)
+Hash collision at depth 1 with hash value 87172494804 (case A)
+Hash collision at depth 1 with hash value 65560394820 (case A)
+Hash collision at depth 1 with hash value 34049602532 (case B)
+Hash collision at depth 1 with hash value 37503019618 (case A)
+Hash collision at depth 1 with hash value 3765776293 (case B)
+Beginning Iteration 30...
+Best score is: -133766
+Hash collision at depth 1 with hash value 13092385985 (case A)
+Hash collision at depth 1 with hash value 13092385985 (case A)
+Hash collision at depth 1 with hash value 13092385985 (case A)
+Hash collision at depth 1 with hash value 82899101259 (case A)
+Hash collision at depth 1 with hash value 1185366501 (case B)
+Hash collision at depth 1 with hash value 18719391225 (case B)
+Hash collision at depth 1 with hash value 10460086666 (case A)
+Hash collision at depth 1 with hash value 62112014055 (case A)
+Hash collision at depth 1 with hash value 10460086666 (case A)
+Hash collision at depth 1 with hash value 10460086666 (case A)
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
+With a score of -133766 we have log2(|Aut(G_H)|) of 132.179
+With edges: 
+(999, 1001), (296, 283), (44, 449), (123, 118), (816, 651), (370, 371), (92, 93), (983, 982), (989, 988), (372, 164), (390, 397), (427, 416), (392, 394), (425, 426), (251, 264), (874, 861), (935, 1012), 
+
