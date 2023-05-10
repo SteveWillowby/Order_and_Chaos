@@ -14,9 +14,9 @@
 
 int main( void ) {
     // These three variables determine which graph is run on.
-    const bool directed = true;
-    const bool use_real_graph = true;
-    const size_t graph_idx = 13;
+    const bool directed = false;
+    const bool use_real_graph = false;
+    const size_t graph_idx = 2;
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
 
