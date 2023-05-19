@@ -2,6 +2,7 @@
 #include "genetic_alg_search.h"
 #include "graph.h"
 #include "nauty_traces.h"
+#include "noise_prob_choice.h"
 #include "thread_pool_scorer.h"
 
 #include<iostream>
@@ -53,53 +54,12 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     nt_options.get_canonical_node_order = false;
     NautyTracesResults nt_result = traces(g_nt, nt_options);
 
-    // Calculate the noise probability at which the full graph is equally
-    //  likely to be the noise as it is to be the structure.
-
-    /*
-    // New Method
-    long double k1 =
-        std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
-                            (std::log2l(10) * nt_result.num_aut_exponent)) -
-                             comb_util.log2_factorial(num_nodes))) /
-                                (long double)(num_edges));
-
-    long double k2 =
-        std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
-                            (std::log2l(10) * nt_result.num_aut_exponent)) -
-                             comb_util.log2_factorial(num_nodes))) /
-                        (long double)(max_possible_edges - num_edges));
-
-    // Here's hoping the decimal places work OK!
-    //  TODO: Double-check the floating point math for safety
-    long double log2_p_plus = std::log2l(k1 - (k1 * k2)) -
-                              std::log2l(1.0 - (k1 * k2));
-    long double log2_1_minus_p_plus = std::log2l(1.0 - k1) -
-                                      std::log2l(1.0 - (k1 * k2));
-
-    long double log2_p_minus = std::log2l(k2 - (k1 * k2)) -
-                               std::log2l(1.0 - (k1 * k2));
-    long double log2_1_minus_p_minus = std::log2l(1.0 - k2) -
-                                       std::log2l(1.0 - (k1 * k2));
-    */
-
-    // Old Method -- "alpha" is either k1 or k2
-    long double alpha;
-    if (num_edges < (max_possible_edges / 2)) {
-        alpha = std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
-                            (std::log2l(10) * nt_result.num_aut_exponent)) -
-                             comb_util.log2_factorial(num_nodes))) /
-                                (long double)(num_edges));
-    } else {
-        alpha = std::exp2l((2.0 * ((std::log2l(nt_result.num_aut_base) +
-                            (std::log2l(10) * nt_result.num_aut_exponent)) -
-                             comb_util.log2_factorial(num_nodes))) /
-                                (long double)(max_possible_edges - num_edges));
-    }
-    long double log2_p_plus = std::log2l(alpha) - std::log2l(1 + alpha);
-    long double log2_1_minus_p_plus = -std::log2l(1 + alpha);
-    long double log2_p_minus = log2_p_plus;
-    long double log2_1_minus_p_minus = log2_1_minus_p_plus;
+    std::vector<long double> log_probs = default_log2_noise_probs(g_nt,
+                                                                  comb_util);
+    long double log2_p_plus = log_probs[0];
+    long double log2_1_minus_p_plus = log_probs[1];
+    long double log2_p_minus = log_probs[2];
+    long double log2_1_minus_p_minus = log_probs[3];
 
     std::cout<<"log2_p_plus:          "<<log2_p_plus<<std::endl;
     std::cout<<"log2_1_minus_p_plus:  "<<log2_1_minus_p_plus<<std::endl;
@@ -118,11 +78,11 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     size_t pop_size = (g.num_nodes() / 10 + 1) *
                       (g.num_nodes() < 200 ? 200 : g.num_nodes());
-    size_t depth = 2;
+    size_t depth = 1;
     GenePool gp(g, depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
-        if (i % 5 == 4) {
+        if (i % 5 == 4 or i > 0) {
             std::cout<<"Beginning Iteration "<<(i + 1)<<"..."<<std::endl;
             std::cout<<"Best score is: "<<(gp.top_k_results()[0].second)
                      <<std::endl;
@@ -389,6 +349,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     std::uniform_int_distribution<uint8_t> distbool(0, 1);
     std::pair<bool, Gene*> made;
 
+    // std::cout<<"\tMutating"<<std::endl;
+
     // Perform mutations
     while (pool_vec[depth - 1].size() < mutate_end_size) {
         i = distl(gen) * mutate_start_size;
@@ -412,6 +374,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     if (pool_vec[depth - 1].size() < mutate_end_size) {
         mate_start_size = pool_vec[depth - 1].size();
     }
+
+    // std::cout<<"\tMating"<<std::endl;
 
     // Perform matings
     quit_counter = 0;
@@ -454,9 +418,13 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
                         new GeneEdgeSetPair(iecas, *(pool_vec[depth - 1][i]))));
     }
 
+    // std::cout<<"\tScoring"<<std::endl;
+
     if (tasks.size() > 0) {
         // Get scores for new members
         const std::vector<long double>& new_scores = tps.get_scores(&tasks);
+
+        // std::cout<<"\tPost-processing"<<std::endl;
 
         // Use the score map like a min-heap to keep the top population members
         long double score;

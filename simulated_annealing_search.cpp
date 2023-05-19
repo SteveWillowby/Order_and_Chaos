@@ -2,6 +2,7 @@
 #include "edge.h"
 #include "edge_sampler.h"
 #include "nauty_traces.h"
+#include "noise_prob_choice.h"
 #include "nt_sparse_graph.h"
 #include "scoring_function.h"
 #include "graph.h"
@@ -100,53 +101,12 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     }
     */
 
-    // Calculate the noise probability at which the full graph is equally
-    //  likely to be the noise as it is to be the structure.
-
-    /*
-    // New Method
-    long double k1 =
-        std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
-                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
-                             comb_util.log2_factorial(num_nodes))) /
-                                (long double)(num_edges));
-
-    long double k2 =
-        std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
-                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
-                             comb_util.log2_factorial(num_nodes))) /
-                        (long double)(max_possible_edges - num_edges));
-
-    // Here's hoping the decimal places work OK!
-    //  TODO: Double-check the floating point math for safety
-    long double log2_p_plus = std::log2l(k1 - (k1 * k2)) -
-                              std::log2l(1.0 - (k1 * k2));
-    long double log2_1_minus_p_plus = std::log2l(1.0 - k1) -
-                                      std::log2l(1.0 - (k1 * k2));
-
-    long double log2_p_minus = std::log2l(k2 - (k1 * k2)) -
-                               std::log2l(1.0 - (k1 * k2));
-    long double log2_1_minus_p_minus = std::log2l(1.0 - k2) -
-                                       std::log2l(1.0 - (k1 * k2));
-    */
-
-    // Old Method -- "alpha" is either k1 or k2
-    long double alpha;
-    if (num_edges < (max_possible_edges / 2)) {
-        alpha = std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
-                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
-                             comb_util.log2_factorial(num_nodes))) /
-                                (long double)(num_edges));
-    } else {
-        alpha = std::exp2l((2.0 * ((std::log2l(orbits_info.num_aut_base) +
-                            (std::log2l(10) * orbits_info.num_aut_exponent)) -
-                             comb_util.log2_factorial(num_nodes))) /
-                                (long double)(max_possible_edges - num_edges));
-    }
-    long double log2_p_plus = std::log2l(alpha) - std::log2l(1 + alpha);
-    long double log2_1_minus_p_plus = -std::log2l(1 + alpha);
-    long double log2_p_minus = log2_p_plus;
-    long double log2_1_minus_p_minus = log2_1_minus_p_plus;
+    std::vector<long double> log_probs = default_log2_noise_probs(g_main,
+                                                                  comb_util);
+    long double log2_p_plus = log_probs[0];
+    long double log2_1_minus_p_plus = log_probs[1];
+    long double log2_p_minus = log_probs[2];
+    long double log2_1_minus_p_minus = log_probs[3];
 
     std::cout<<"log2_p_plus:          "<<log2_p_plus<<std::endl;
     std::cout<<"log2_1_minus_p_plus:  "<<log2_1_minus_p_plus<<std::endl;
