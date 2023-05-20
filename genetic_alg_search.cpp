@@ -1,3 +1,4 @@
+#include "basic_edge_set.h"
 #include "edge.h"
 #include "genetic_alg_search.h"
 #include "graph.h"
@@ -23,7 +24,9 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                  genetic_alg_search(const Graph& g,
                                                     size_t num_iterations,
                                                     size_t k,
-                                                    size_t nt) {
+                                                    size_t nt,
+                                                    std::unordered_set<Edge, EdgeHash> add,
+                                                    std::unordered_set<Edge, EdgeHash> del) {
     // Initialize Basics
 
     NTSparseGraph g_nt(g);
@@ -74,9 +77,17 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                          log2_p_plus, log2_p_minus,
                          log2_1_minus_p_plus, log2_1_minus_p_minus);
 
+    std::vector<std::unique_ptr<EdgeSetPair>> start_task =
+        std::vector<std::unique_ptr<EdgeSetPair>>();
+    start_task.push_back(std::unique_ptr<EdgeSetPair>(
+                            new BasicEdgeSetPair(del, add)));
+    std::vector<long double> start_score = tps.get_scores(&start_task);
+    std::cout<<"The special edge set gets a score of "<<start_score[0]<<std::endl
+             <<std::endl;
+
     // Initialization of Gene Population
 
-    size_t pop_size = (g.num_nodes() / 10 + 1) *
+    size_t pop_size = (g.num_nodes() / 4 + 1) *
                       (g.num_nodes() < 200 ? 200 : g.num_nodes());
     size_t depth = 1;
     GenePool gp(g, depth, pop_size, k);

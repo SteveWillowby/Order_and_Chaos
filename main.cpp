@@ -1,3 +1,4 @@
+#include<algorithm>
 #include<cmath>
 #include<iostream>
 #include<random>
@@ -16,7 +17,7 @@ int main( void ) {
     // These three variables determine which graph is run on.
     const bool DIRECTED = false;
     const bool use_real_graph = false;
-    const size_t graph_idx = 5;
+    const size_t graph_idx = 9;  // football seasons start at 14
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
     const size_t ITERS_PER_FLIP_PROB = 5;
@@ -28,6 +29,7 @@ int main( void ) {
     // const size_t num_removals = 0;
 
     const std::vector<float> FLIP_PROBS = {0.0, 0.005, 0.01, 0.025, 0.05};
+    // const std::vector<float> FLIP_PROBS = {0.0};
 
     NautyTracesOptions o;
     o.get_node_orbits = false;
@@ -41,22 +43,30 @@ int main( void ) {
 
     std::uniform_real_distribution<float> dist(0, 1);
 
-    // test_01 -- a 5-chain
-    // test_02 -- a 10-chain
-    // test_03 -- a 15 node binary tree
-    // test_04 -- a 4x5 grid
-    // test_05 -- a 6x7 grid
-    // test_06 -- a 31 node binary tree
+    // 0  test_01 -- a 5-chain
+    // 1  test_02 -- a 10-chain
+    // 2  test_03 -- a 15 node binary tree
+    // 3  test_04 -- a 4x5 grid
+    // 4  test_05 -- a 6x7 grid
+    // 5  test_06 -- a 31 node binary tree
+    // 6  binary_tree_127 -- a 127 node binary tree
+    // 7  johnson_10_3_120 -- a 120 10-choose-3 johnson graph
+    // 8  ring_128 -- a 128 node ring
+    // 9  wreath_d7_128 -- a wreath of 128 nodes each with degree 7
 
     std::vector<std::string> fake_nodes_names =
-        {"test_01_nodes.txt", "test_02_nodes.txt",
-         "test_03_nodes.txt", "test_04_nodes.txt",
-         "test_05_nodes.txt", "test_06_nodes.txt"
+        {"test_01_nodes.txt",         "test_02_nodes.txt",
+         "test_03_nodes.txt",         "test_04_nodes.txt",
+         "test_05_nodes.txt",         "test_06_nodes.txt",
+         "binary_tree_127_nodes.txt", "johnson_10_3_120_nodes.txt",
+         "ring_128_nodes.txt",        "wreath_d7_128_nodes.txt"
         };
     std::vector<std::string> fake_edges_names =
         {"test_01_edges.txt", "test_02_edges.txt",
          "test_03_edges.txt", "test_04_edges.txt",
-         "test_05_edges.txt", "test_06_edges.txt"
+         "test_05_edges.txt", "test_06_edges.txt",
+         "binary_tree_127_edges.txt", "johnson_10_3_120_edges.txt",
+         "ring_128_edges.txt",        "wreath_d7_128_edges.txt"
         };
     std::vector<std::string> real_nodes_names =
         {"",                               "",
@@ -65,7 +75,18 @@ int main( void ) {
          "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
          "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
          "jazz_collab_nodes.txt",          "",
-         "",                               ""
+         "",                               "",
+         "season_0_directed_nodes.txt",    "season_0_undirected_nodes.txt",
+         "season_1_directed_nodes.txt",    "season_1_undirected_nodes.txt",
+         "season_2_directed_nodes.txt",    "season_2_undirected_nodes.txt",
+         "season_3_directed_nodes.txt",    "season_3_undirected_nodes.txt",
+         "season_4_directed_nodes.txt",    "season_4_undirected_nodes.txt",
+         "season_5_directed_nodes.txt",    "season_5_undirected_nodes.txt",
+         "season_6_directed_nodes.txt",    "season_6_undirected_nodes.txt",
+         "season_7_directed_nodes.txt",    "season_7_undirected_nodes.txt",
+         "season_8_directed_nodes.txt",    "season_8_undirected_nodes.txt",
+         "season_9_directed_nodes.txt",    "season_9_undirected_nodes.txt",
+         "season_10_directed_nodes.txt",   "season_10_undirected_nodes.txt"
         };
     // jazz_collab_mod_X.g are various man-made modifications to
     //  jazz_collaboration to try to increase the amount of symmetry and to see
@@ -78,7 +99,18 @@ int main( void ) {
          "jazz_collab_mod_10.g",           "jazz_collab_mod_1_changes.txt",
          "jazz_collab_mod_2_changes.txt",  "jazz_collab_mod_4_changes.txt",
          "jazz_collab_mod_10_changes.txt", "moreno_highschool_noweights.g",
-         "roget_thesaurus.g",              "pol_blogs.g"
+         "roget_thesaurus.g",              "pol_blogs.g",
+         "season_0_directed_edges.txt",    "season_0_undirected_edges.txt",
+         "season_1_directed_edges.txt",    "season_1_undirected_edges.txt",
+         "season_2_directed_edges.txt",    "season_2_undirected_edges.txt",
+         "season_3_directed_edges.txt",    "season_3_undirected_edges.txt",
+         "season_4_directed_edges.txt",    "season_4_undirected_edges.txt",
+         "season_5_directed_edges.txt",    "season_5_undirected_edges.txt",
+         "season_6_directed_edges.txt",    "season_6_undirected_edges.txt",
+         "season_7_directed_edges.txt",    "season_7_undirected_edges.txt",
+         "season_8_directed_edges.txt",    "season_8_undirected_edges.txt",
+         "season_9_directed_edges.txt",    "season_9_undirected_edges.txt",
+         "season_10_directed_edges.txt",   "season_10_undirected_edges.txt"
         };
 
     const std::string fake_prefix = "simple_test_graphs/";
@@ -129,9 +161,10 @@ int main( void ) {
     std::cout<<"The original graph has log2_aut = "<<log2_aut<<std::endl;
 
     std::unordered_set<Edge, EdgeHash> random_deletions, random_additions;
+    std::vector<Edge> flip_vec;
 
     // For genetic alg
-    const size_t NUM_ITERATIONS = 30;
+    const size_t NUM_ITERATIONS = 80;
     const size_t NUM_THREADS = 0;
 
     std::cout<<"Running for "<<NUM_ITERATIONS<<" iterations..."<<std::endl;
@@ -180,7 +213,9 @@ int main( void ) {
             }
 
             auto result = genetic_alg_search(g, NUM_ITERATIONS,
-                                             top_k, NUM_THREADS);
+                                             top_k, NUM_THREADS,
+                                             random_deletions,
+                                             random_additions);
 
             // Report the results
             NTSparseGraph reporter = NTSparseGraph(g);
@@ -203,11 +238,19 @@ int main( void ) {
                 std::cout<<"With a score of "<<result_itr->second<<" we have "
                          <<"log2(|Aut(G_H)|) of "<<log2_aut<<std::endl;
 
-                std::cout<<"With edges: "<<std::endl;
+                flip_vec = std::vector<Edge>();
                 // Flip back.
                 for (auto edge_itr = result_itr->first.begin();
                           edge_itr != result_itr->first.end(); edge_itr++) {
+                    flip_vec.push_back(*edge_itr);
                     reporter.flip_edge(edge_itr->first, edge_itr->second);
+                }
+
+                std::sort(flip_vec.begin(), flip_vec.end());
+
+                std::cout<<"With edges: "<<std::endl;
+                for (auto edge_itr = flip_vec.begin();
+                          edge_itr != flip_vec.end(); edge_itr++) {
                     std::cout<<"("<<edge_itr->first<<", "<<edge_itr->second
                              <<"), ";
                 }

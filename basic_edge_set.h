@@ -15,8 +15,8 @@ public:
             sets(std::pair<std::unordered_set<Edge, EdgeHash>,
                            std::unordered_set<Edge, EdgeHash>>(e, ne)) {}
 
-    virtual std::pair<std::unordered_set<Edge, EdgeHash>,
-                      std::unordered_set<Edge, EdgeHash>>
+    std::pair<std::unordered_set<Edge, EdgeHash>,
+              std::unordered_set<Edge, EdgeHash>>
                                 edges_and_non_edges() const { return sets; }
 
 protected:

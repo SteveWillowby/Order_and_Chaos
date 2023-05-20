@@ -1,0 +1,253 @@
+327 Kansas State
+540 Pennsylvania
+772 Western Kentucky
+328 Kansas
+236 Fordham
+709 Toledo
+433 Mississippi
+255 Georgia Tech
+366 Louisiana Tech
+71 Bowling Green
+472 New Mexico State
+669 Missouri State
+430 Mississippi State
+528 Oregon State
+441 Montana
+418 Michigan
+277 Hawai'i
+301 Illinois
+466 Nevada
+416 Michigan State
+519 Ohio
+654 Southeast Missouri State
+234 Florida State
+746 Virginia
+494 North Dakota
+791 Winston-Salem
+648 South Carolina
+732 Utah
+771 Western Illinois
+587 Rutgers
+175 Dayton
+655 Southeastern Louisiana
+721 Air Force
+1004 Central Arkansas
+521 Oklahoma State
+545 Pittsburgh
+285 Holy Cross
+813 Yale
+194 Duquesne
+107 California
+706 UTSA
+189 Drake
+167 Cornell
+380 Maine
+6 Alabama A&M
+699 Texas Southern
+388 Marshall
+440 Montana State
+141 Citadel
+500 Northeastern
+572 Rhode Island
+659 Southern Illinois
+340 La Salle
+235 Florida
+742 Virginia Tech
+288 Houston
+508 Northwestern State
+509 Northwestern
+627 San Diego
+365 LSU
+664 Southern Mississippi
+1092 Gardner-Webb
+153 Colgate
+47 Ball State
+164 Connecticut
+539 Penn State
+367 Louisville
+110 UCLA
+748 Wagner
+502 Northern Colorado
+419 Middle Tennessee
+718 Tulane
+173 Davidson
+128 UCF
+731 Utah State
+624 Sam Houston State
+485 Norfolk State
+14 Albany (N.Y.)
+8 Alabama
+2 Abilene Christian
+657 USC
+768 West Virginia
+66 Boise State
+81 Bryant
+83 Bucknell
+204 Eastern Michigan
+86 Buffalo
+725 Army
+693 Chattanooga
+735 Valparaiso
+650 South Dakota
+754 Washington State
+651 South Florida
+108 UC Davis
+196 East Carolina
+314 Jackson State
+28 Arizona State
+756 Washington
+253 Georgia Southern
+523 Old Dominion
+270 Hampton
+334 Kentucky
+428 Minnesota
+244 Furman
+444 Morehead State
+553 Prairie View
+29 Arizona
+355 Liberty
+632 Savannah State
+575 Richmond
+202 Eastern Kentucky
+716 Troy
+48 Charleston So.
+342 Lafayette
+493 North Dakota State
+102 Sacramento State
+231 Florida International
+554 Princeton
+694 Tennessee
+518 Ohio State
+193 Duke
+178 Delaware State
+299 Illinois State
+817 Youngstown State
+522 Oklahoma
+129 Central Michigan
+719 Tulsa
+228 Florida A&M
+77 BYU
+392 Maryland
+646 South Alabama
+229 Florida Atlantic
+550 Portland State
+703 Texas
+43 Austin Peay
+295 Idaho
+504 Northern Iowa
+670 Texas State
+432 Mississippi Valley State
+115 Campbell
+439 Monmouth
+559 Purdue
+254 Georgia State
+251 Georgetown
+140 Cincinnati
+590 Sacred Heart
+1068 Elon
+90 Cal Poly
+315 Jacksonville State
+758 Weber State
+574 Rice
+690 Temple
+156 Colorado State
+172 Dartmouth
+457 North Carolina
+498 Louisiana-Monroe
+5 Akron
+465 UNLV
+503 Northern Illinois
+774 Western Michigan
+2678 Ark.-Pine Bluff
+695 Tennessee-Martin
+489 N.C. Central
+674 Stanford
+483 Nicholls State
+647 South Carolina State
+736 Vanderbilt
+61 Bethune-Cookman
+469 New Hampshire
+726 Navy
+625 Samford
+386 Marist
+67 Boston College
+626 San Diego State
+700 Texas Tech
+261 Grambling
+454 Murray State
+51 Baylor
+257 Georgia
+711 Towson
+30 Arkansas State
+87 Butler
+305 Indiana State
+96 Fresno State
+697 Texas A&M
+796 Wisconsin
+414 Miami (Ohio)
+769 Western Carolina
+311 Iowa State
+402 McNeese State
+665 Southern University
+617 St. Peter's
+671 Louisiana-Lafayette
+331 Kent State
+180 Delaware
+404 Memphis
+497 North Texas
+698 TCU
+37 Auburn
+316 Jacksonville
+207 Eastern Washington
+158 Columbia
+630 San Jose State
+676 Stephen F. Austin
+1320 Presbyterian
+501 Northern Arizona
+312 Iowa
+2915 Wofford
+346 Lamar
+741 Virginia Military
+446 Morgan State
+663 SMU
+692 Tennessee Tech
+275 Harvard
+157 Colorado
+400 Massachusetts
+691 Tennessee State
+149 Coastal Carolina
+463 Nebraska
+488 North Carolina A&T
+306 Indiana
+490 North Carolina State
+667 Southern Utah
+513 Notre Dame
+600 St. Francis (Pa.)
+317 James Madison
+415 Miami (Florida)
+649 South Dakota State
+147 Clemson
+704 UTEP
+283 Hofstra
+17 Alcorn St.
+529 Oregon
+811 Wyoming
+739 Villanova
+290 Howard
+80 Brown
+31 Arkansas
+473 New Mexico
+683 Stony Brook
+786 William & Mary
+294 Idaho State
+9 UAB
+27 Appalachian State
+310 Iona
+579 Robert Morris
+7 Alabama St.
+127 Central Conn. St.
+688 Syracuse
+201 Eastern Illinois
+434 Missouri
+749 Wake Forest
+352 Lehigh

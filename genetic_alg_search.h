@@ -23,7 +23,9 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                  genetic_alg_search(const Graph& g,
                                                     size_t num_iterations,
                                                     size_t k,
-                                                    size_t nt);
+                                                    size_t nt,
+                                                    std::unordered_set<Edge, EdgeHash> add,
+                                                    std::unordered_set<Edge, EdgeHash> del);
 
 class GenePool;
 class GeneEdgeSetPair;
