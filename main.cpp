@@ -16,8 +16,8 @@
 int main( void ) {
     // These three variables determine which graph is run on.
     const bool DIRECTED = false;
-    const bool use_real_graph = false;
-    const size_t graph_idx = 9;  // football seasons start at 14
+    const bool use_real_graph = true;
+    const size_t graph_idx = 21;  // football seasons start at 14
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
     const size_t ITERS_PER_FLIP_PROB = 5;
@@ -169,8 +169,19 @@ int main( void ) {
 
     std::cout<<"Running for "<<NUM_ITERATIONS<<" iterations..."<<std::endl;
 
+    float e_flip_prob, ne_flip_prob;
+    float expected_flipped_edges;
+    size_t max_possible_edges =
+            (g.num_nodes() * (g.num_nodes() - 1)) / (1 + size_t(!DIRECTED)) +
+            (g.num_nodes() * size_t(g.num_loops() > 0));
+
     for (auto flip_prob = FLIP_PROBS.begin();
               flip_prob != FLIP_PROBS.end(); flip_prob++) {
+
+        e_flip_prob = *flip_prob / 2.0;
+        expected_flipped_edges = (e_flip_prob) * (float) g.num_edges();
+        ne_flip_prob = expected_flipped_edges / (float) max_possible_edges;
+
         for (size_t iter = 0; iter < ITERS_PER_FLIP_PROB; iter++) {
             std::cout<<"Iteration "<<iter<<" for flip probability "<<*flip_prob
                      <<std::endl<<std::endl;
@@ -185,12 +196,13 @@ int main( void ) {
                         if (i == j and !has_self_loops) {
                             continue;
                         }
-                        if (dist(gen) < *flip_prob) {
-                            // Flip the edge!
-                            if (g.has_edge(i, j)) {
+                        if (g.has_edge(i, j)) {
+                            if (dist(gen) < e_flip_prob) {
                                 random_deletions.insert(EDGE(i, j, DIRECTED));
                             }
-                            else {
+                        }
+                        else {
+                            if (dist(gen) < ne_flip_prob) {
                                 random_additions.insert(EDGE(i, j, DIRECTED));
                             }
                         }

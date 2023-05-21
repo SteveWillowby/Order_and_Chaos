@@ -19,7 +19,8 @@ std::vector<long double> log2_noise_probs_empty_g(NTSparseGraph& g,
     size_t num_edges = g.num_edges();
 
     size_t max_possible_edges =
-            (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed));
+            (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed)) +
+            (num_nodes * size_t(g.num_loops() > 0));
 
     long double alpha;
     if (num_edges < (max_possible_edges / 2)) {
