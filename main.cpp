@@ -8,16 +8,17 @@
 #include "edge_sampler.h"
 #include "file_utils.h"
 #include "genetic_alg_search.h"
-#include "nt_sparse_graph.h"
 #include "nauty_traces.h"
+#include "noise_prob_choice.h"
+#include "nt_sparse_graph.h"
 #include "simulated_annealing_search.h"
 #include "sparse_graph.h"
 
 int main( void ) {
     // These three variables determine which graph is run on.
     const bool DIRECTED = false;
-    const bool use_real_graph = true;
-    const size_t graph_idx = 21;  // football seasons start at 14
+    const bool use_real_graph = false;
+    const size_t graph_idx = 9;  // football seasons start at 14
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
     const size_t ITERS_PER_FLIP_PROB = 5;
@@ -28,7 +29,7 @@ int main( void ) {
     // Only used when corrupt_original is true.
     // const size_t num_removals = 0;
 
-    const std::vector<float> FLIP_PROBS = {0.0, 0.005, 0.01, 0.025, 0.05};
+    const std::vector<float> FLIP_PROBS = {0.005, 0.01, 0.025, 0.05};
     // const std::vector<float> FLIP_PROBS = {0.0};
 
     NautyTracesOptions o;
@@ -163,6 +164,16 @@ int main( void ) {
     std::unordered_set<Edge, EdgeHash> random_deletions, random_additions;
     std::vector<Edge> flip_vec;
 
+    size_t max_possible_edges =
+            (g.num_nodes() * (g.num_nodes() - 1)) / (1 + size_t(!DIRECTED)) +
+            (g.num_nodes() * size_t(g.num_loops() > 0));
+
+    size_t max_change_factor = 7;
+    size_t max_flip_or_edge = (g.num_edges() < (max_possible_edges / 2) ?
+                          g.num_edges() : (max_possible_edges - g.num_edges()));
+    max_flip_or_edge *= max_change_factor;
+    CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
+
     // For genetic alg
     const size_t NUM_ITERATIONS = 80;
     const size_t NUM_THREADS = 0;
@@ -171,9 +182,6 @@ int main( void ) {
 
     float e_flip_prob, ne_flip_prob;
     float expected_flipped_edges;
-    size_t max_possible_edges =
-            (g.num_nodes() * (g.num_nodes() - 1)) / (1 + size_t(!DIRECTED)) +
-            (g.num_nodes() * size_t(g.num_loops() > 0));
 
     for (auto flip_prob = FLIP_PROBS.begin();
               flip_prob != FLIP_PROBS.end(); flip_prob++) {
@@ -224,10 +232,21 @@ int main( void ) {
                 std::cout<<std::endl;
             }
 
+            std::vector<long double> log_probs;
+            if (*flip_prob > 0.0) {
+                log_probs = {std::log2l(ne_flip_prob),
+                             std::log2l(1.0 - ne_flip_prob),
+                             std::log2l(e_flip_prob),
+                             std::log2l(1.0 - e_flip_prob)};
+            } else {
+                NTSparseGraph g_nt = NTSparseGraph(g);
+                log_probs = default_log2_noise_probs(g_nt, comb_util);
+            }
             auto result = genetic_alg_search(g, NUM_ITERATIONS,
                                              top_k, NUM_THREADS,
                                              random_deletions,
-                                             random_additions);
+                                             random_additions,
+                                             log_probs);
 
             // Report the results
             NTSparseGraph reporter = NTSparseGraph(g);

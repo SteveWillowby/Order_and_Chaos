@@ -20,12 +20,13 @@
 // `nt` is the number of threads to be used by the code. Pass 0 to use
 //      a default value of std::threads::hardware_concurrency();
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
-                                 genetic_alg_search(const Graph& g,
-                                                    size_t num_iterations,
-                                                    size_t k,
-                                                    size_t nt,
-                                                    std::unordered_set<Edge, EdgeHash> add,
-                                                    std::unordered_set<Edge, EdgeHash> del);
+                 genetic_alg_search(const Graph& g,
+                                    size_t num_iterations,
+                                    size_t k,
+                                    size_t nt,
+                                    std::unordered_set<Edge, EdgeHash> add,
+                                    std::unordered_set<Edge, EdgeHash> del,
+                                    const std::vector<long double>& log_probs);
 
 class GenePool;
 class GeneEdgeSetPair;

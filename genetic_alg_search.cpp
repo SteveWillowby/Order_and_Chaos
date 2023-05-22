@@ -21,12 +21,13 @@
 //
 // `nt` is the number of threads to be used by the code.
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
-                                 genetic_alg_search(const Graph& g,
-                                                    size_t num_iterations,
-                                                    size_t k,
-                                                    size_t nt,
-                                                    std::unordered_set<Edge, EdgeHash> add,
-                                                    std::unordered_set<Edge, EdgeHash> del) {
+                 genetic_alg_search(const Graph& g,
+                                    size_t num_iterations,
+                                    size_t k,
+                                    size_t nt,
+                                    std::unordered_set<Edge, EdgeHash> add,
+                                    std::unordered_set<Edge, EdgeHash> del,
+                                    const std::vector<long double>& log_probs) {
     // Initialize Basics
 
     NTSparseGraph g_nt(g);
@@ -36,7 +37,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Initialization of Scoring Thread Pool
     size_t max_possible_edges =
-            (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed));
+            (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed)) +
+            (num_nodes * size_t(g.num_loops() > 0));
 
     if (num_edges == 0) {
         throw std::domain_error("Error! Cannot run on an empty graph.");
@@ -57,8 +59,6 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     nt_options.get_canonical_node_order = false;
     NautyTracesResults nt_result = traces(g_nt, nt_options);
 
-    std::vector<long double> log_probs = default_log2_noise_probs(g_nt,
-                                                                  comb_util);
     long double log2_p_plus = log_probs[0];
     long double log2_1_minus_p_plus = log_probs[1];
     long double log2_p_minus = log_probs[2];
