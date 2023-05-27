@@ -500,9 +500,10 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
                     // Not redundant
                     x->second[e_hash_value] = hash_value;
                 } else {
-                    // Redundant -- replace
-                    // TODO: Consider making this replacement probabilistic
-                    x->second[e_hash_value] = hash_value;
+                    // Redundant -- replace with 10% prob
+                    if (distl(gen) < 0.1) {
+                        x->second[e_hash_value] = hash_value;
+                    }
                     num_already_scored--;
                 }
             }
