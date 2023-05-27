@@ -92,7 +92,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     size_t pop_size = (g.num_nodes() / 4 + 1) *
                       (g.num_nodes() < 200 ? 200 : g.num_nodes());
-    size_t depth = 1;
+    size_t depth = 2;
     GenePool gp(g, depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
@@ -111,6 +111,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 Gene::Gene() : d(0) {
     w = 0;
     hash = 0;
+    e = std::vector<SYM__edge_int_type>();
 }
 
 Gene::Gene(SYM__edge_int_type elt) : d(0) {
@@ -138,6 +139,7 @@ Gene::Gene(Gene* elt) : d(elt->depth() + 1) {
     w = elt->weight() + 1;
     hash = ((size_t) elt) % SYM__HASH_PRIME;
     sub_g = std::vector<Gene*>(1, elt);
+    e = std::vector<SYM__edge_int_type>();
 }
 
 // Assumes elts is in sorted order
@@ -154,6 +156,7 @@ Gene::Gene(const std::vector<Gene*>& elts) : d(elts[0]->depth() + 1) {
         hash = hash % SYM__HASH_PRIME;
     }
     sub_g = elts;
+    e = std::vector<SYM__edge_int_type>();
 }
 
 // 0 means it contains edge ints
@@ -183,9 +186,13 @@ const std::vector<SYM__edge_int_type>& Gene::edge_ints() const {
     return e;
 }
 
-std::vector<SYM__edge_int_type> Gene::sub_edge_ints() const {
+std::vector<SYM__edge_int_type> Gene::sub_edge_ints() {
     if (d == 0) {
         throw std::logic_error("Error! Call sub_edge_ints() only when d > 0");
+    }
+
+    if (e.size() > 0) {
+        return e;
     }
 
     auto sub_vecs = std::vector<std::vector<SYM__edge_int_type>>(sub_g.size());
@@ -197,7 +204,18 @@ std::vector<SYM__edge_int_type> Gene::sub_edge_ints() const {
         }
     }
 
-    return merged(sub_vecs);
+    e = merged(sub_vecs);
+
+    e_hash = 0;
+    for (size_t i = 0; i < e.size(); i++) {
+        // This works because the elts are in the same order each time
+        //  If they could come in a different order, the hash would be different
+        e_hash *= SYM__HASH_FACTOR;
+        e_hash = e_hash % SYM__HASH_PRIME;
+        e_hash += e[i] % SYM__HASH_PRIME;
+        e_hash = e_hash % SYM__HASH_PRIME;
+    }
+    return e;
 }
 
 // Throws an error if d == 0
@@ -210,6 +228,16 @@ const std::vector<Gene*>& Gene::sub_genes() const {
 
 size_t Gene::hash_value() const {
     return hash;
+}
+
+size_t Gene::edge_int_hash_value() {
+    if (d == 0) {
+        return hash;
+    }
+    if (e.size() == 0) {
+        sub_edge_ints();
+    }
+    return e_hash;
 }
 
 // Note: modifies lists
@@ -281,8 +309,9 @@ GenePool::GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
 
     used = std::vector<std::vector<bool>>();
 
-    // Scores for top-level genes - maps a score to a list of gene hashes.
-    scores = std::map<long double, std::vector<size_t>>();
+    // Scores for top-level genes - maps a score to a map of
+    //  edge-int-hashes to gene-hashes.
+    scores = std::map<long double, std::unordered_map<size_t, size_t>>();
 
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     pool_map = std::vector<std::unordered_map<size_t, size_t>>();
@@ -368,9 +397,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     // Perform mutations
     while (pool_vec[depth - 1].size() < mutate_end_size) {
         i = distl(gen) * mutate_start_size;
-        std::cout<<"\tMutating..."<<std::endl; // TODO: Remove
         made = mutated(*pool_vec[depth - 1][i], gen, disti, distl);
-        std::cout<<"\t...Mutated"<<std::endl;
         if (!made.first || made.second == NULL) {
             quit_counter++;
             if (quit_counter > max_quit) {
@@ -445,24 +472,39 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         // Use the score map like a min-heap to keep the top population members
         long double score;
         long double min_score = scores.begin()->first;
-        size_t hash_value;
+        size_t hash_value, e_hash_value;
         size_t orig_num_already_scored = num_already_scored;
         for (i = 0; i < tasks.size(); i++) {
             score = new_scores[i];
-            hash_value =
-                    pool_vec[depth - 1]
-                            [i + orig_num_already_scored]->hash_value();
             if (num_already_scored == pop_size && score < min_score) {
                 continue;  // New element not good enough to keep.
             }
 
+            hash_value =
+                   pool_vec[depth - 1]
+                           [i + orig_num_already_scored]->hash_value();
+            e_hash_value =
+                   pool_vec[depth - 1]
+                           [i + orig_num_already_scored]->edge_int_hash_value();
+
             auto x = scores.find(score);
             if (x == scores.end()) {
                 // New score
-                scores.insert(std::pair<long double, std::vector<size_t>>(
-                              score, std::vector<size_t>(1, hash_value)));
+                scores.insert(std::pair<long double,
+                                        std::unordered_map<size_t, size_t>>(
+                              score, {{e_hash_value, hash_value}}));
             } else {
-                x->second.push_back(hash_value);
+                // Old score -- edge set might be redundant
+                auto y = x->second.find(e_hash_value);
+                if (y == x->second.end()) {
+                    // Not redundant
+                    x->second[e_hash_value] = hash_value;
+                } else {
+                    // Redundant -- replace
+                    // TODO: Consider making this replacement probabilistic
+                    x->second[e_hash_value] = hash_value;
+                    num_already_scored--;
+                }
             }
             num_already_scored++;
 
@@ -473,10 +515,9 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
                 if (smallest->second.size() == 1) {
                     scores.erase(smallest);
                 } else {
-                    // Randomly remove one element from the vector.
-                    smallest->second[smallest->second.size() * distl(gen)] =
-                            smallest->second[smallest->second.size() - 1];
-                    smallest->second.pop_back();
+                    // Remove one element from the vector.
+                    // TODO: Consider making this random.
+                    smallest->second.erase(smallest->second.begin());
                 }
             }
         }
@@ -484,20 +525,21 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         // Now that we have hash values for the top `pop_size` members, keep
         //  only those top-level genes.
         j = 0;
-        size_t j_hash;
+        size_t j_hash, i_hash;
         top_k.clear();
         for (auto x = scores.rbegin(); x != scores.rend(); x++) {
-            const std::vector<size_t>& hash_values = x->second;
+            const std::unordered_map<size_t, size_t>& hash_values = x->second;
             for (auto h = hash_values.begin(); h != hash_values.end(); h++) {
                 // Swap elements i and j
-                i = pool_map[depth - 1].find(*h)->second;
+                i_hash = h->second;
+                i = pool_map[depth - 1].find(i_hash)->second;
                 if (i != j) {
                     j_hash = pool_vec[depth - 1][j]->hash_value();
                     std::swap(pool_vec[depth - 1][i], pool_vec[depth - 1][j]);
-                    pool_map[depth - 1].erase(*h);
+                    pool_map[depth - 1].erase(i_hash);
                     pool_map[depth - 1].erase(j_hash);
                     pool_map[depth - 1].insert(
-                                std::pair<size_t,size_t>(*h, j));
+                                std::pair<size_t,size_t>(i_hash, j));
                     pool_map[depth - 1].insert(
                                 std::pair<size_t,size_t>(j_hash, i));
                 }
@@ -1025,12 +1067,12 @@ SYM__edge_int_type IntEdgeConverterAndSampler::sample(std::mt19937& gen,
 }
 
 GeneEdgeSetPair::GeneEdgeSetPair(const IntEdgeConverterAndSampler& iecas,
-                                 const Gene& g) :
+                                 Gene& g) :
                                     iecas(iecas), g(g) {}
 
 std::pair<std::unordered_set<Edge, EdgeHash>,
           std::unordered_set<Edge, EdgeHash>>
-                         GeneEdgeSetPair::edges_and_non_edges() const {
+                         GeneEdgeSetPair::edges_and_non_edges() {
 
     auto result = std::pair<std::unordered_set<Edge, EdgeHash>,
                             std::unordered_set<Edge, EdgeHash>>(

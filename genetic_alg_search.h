@@ -75,16 +75,19 @@ public:
     size_t weight() const;
 
     const std::vector<SYM__edge_int_type>& edge_ints() const;
-    std::vector<SYM__edge_int_type> sub_edge_ints() const;
+    std::vector<SYM__edge_int_type> sub_edge_ints();
     // Throws an error if d == 0
     const std::vector<Gene*>& sub_genes() const;
 
     size_t hash_value() const;
 
+    size_t edge_int_hash_value();
+
 protected:
     const size_t d;
     size_t w;     // Never changes - not a const to make constructor code easier
     size_t hash;  // Never changes - not a const to make constructor code easier
+    size_t e_hash;  // Assigned a value when sub_edge_ints() is called
 
     // Keep in sorted order for efficiency
     std::vector<SYM__edge_int_type> e;
@@ -191,8 +194,9 @@ protected:
     // Used by cull() to know when to delete lower-level genes
     std::vector<std::vector<bool>> used;
 
-    // Scores for top-level genes - maps a score to a list of gene hashes.
-    std::map<long double, std::vector<size_t>> scores;
+    // Scores for top-level genes - maps a score to a map of
+    //  edge-int-hashes to gene-hashes.
+    std::map<long double, std::unordered_map<size_t, size_t>> scores;
 
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     std::vector<std::unordered_map<size_t, size_t>> pool_map;
@@ -220,15 +224,15 @@ protected:
 class GeneEdgeSetPair : public EdgeSetPair {
 public:
     GeneEdgeSetPair(const IntEdgeConverterAndSampler& iecas,
-                    const Gene& g);
+                    Gene& g);
 
     std::pair<std::unordered_set<Edge, EdgeHash>,
               std::unordered_set<Edge, EdgeHash>>
-                                 edges_and_non_edges() const;
+                                 edges_and_non_edges();
 
 protected:
     const IntEdgeConverterAndSampler& iecas;
-    const Gene& g;
+    Gene& g;
 };
 
 #endif

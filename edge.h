@@ -34,7 +34,7 @@ public:
 
     virtual std::pair<std::unordered_set<Edge, EdgeHash>,
                       std::unordered_set<Edge, EdgeHash>>
-                                edges_and_non_edges() const =0;
+                                edges_and_non_edges() =0;
 };
 
 #endif

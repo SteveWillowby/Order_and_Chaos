@@ -18,11 +18,11 @@ int main( void ) {
     // These three variables determine which graph is run on.
     const bool DIRECTED = false;
     const bool use_real_graph = false;
-    const size_t graph_idx = 9;  // football seasons start at 14
+    const size_t graph_idx = 6;  // football seasons start at 14
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
     const size_t ITERS_PER_FLIP_PROB = 5;
-    const float MAX_CHANGE_FACTOR = 0.05;
+    float max_change_factor = 0.05;  // Over-written in synthetic cases
 
     // const bool corrupt_original = false;
     // Only used when corrupt_original is true.
@@ -169,10 +169,10 @@ int main( void ) {
             (g.num_nodes() * (g.num_nodes() - 1)) / (1 + size_t(!DIRECTED)) +
             (g.num_nodes() * size_t(g.num_loops() > 0));
 
-    size_t max_change_factor = 7;
+    size_t max_edit_factor = 7;
     size_t max_flip_or_edge = (g.num_edges() < (max_possible_edges / 2) ?
                           g.num_edges() : (max_possible_edges - g.num_edges()));
-    max_flip_or_edge *= max_change_factor;
+    max_flip_or_edge *= max_edit_factor;
     CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
 
     // For genetic alg
@@ -245,12 +245,16 @@ int main( void ) {
             }
             //TODO: Remove?
             log_probs = {-1.0, -1.0, -1.0, -1.0};
+
+            if (*flip_prob > 0.0) {
+                max_change_factor = 3.0 * (*flip_prob);
+            }
             auto result = genetic_alg_search(g, NUM_ITERATIONS,
                                              top_k, NUM_THREADS,
                                              random_deletions,
                                              random_additions,
                                              log_probs,
-                                             MAX_CHANGE_FACTOR);
+                                             max_change_factor);
 
             // Report the results
             NTSparseGraph reporter = NTSparseGraph(g);
