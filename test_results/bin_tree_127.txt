@@ -5,1251 +5,217 @@ Loading graph from files:
 
 The original graph has log2_aut = 63
 Running for 80 iterations...
-Iteration 0 for flip probability 0
-
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
-
-The special edge set gets a score of 53.5677
-
-Beginning Iteration 2...
-Best score is: 53.5677
-Beginning Iteration 3...
-Best score is: 53.5677
-Beginning Iteration 4...
-Best score is: 53.5677
-Beginning Iteration 5...
-Best score is: 53.5677
-Beginning Iteration 6...
-Best score is: 53.5677
-Beginning Iteration 7...
-Best score is: 53.5677
-Beginning Iteration 8...
-Best score is: 53.5677
-Beginning Iteration 9...
-Best score is: 53.5677
-Beginning Iteration 10...
-Best score is: 53.5677
-Beginning Iteration 11...
-Best score is: 53.5677
-Beginning Iteration 12...
-Best score is: 53.5677
-Beginning Iteration 13...
-Best score is: 53.5677
-Beginning Iteration 14...
-Best score is: 53.5677
-Beginning Iteration 15...
-Best score is: 53.5677
-Beginning Iteration 16...
-Best score is: 53.5677
-Beginning Iteration 17...
-Best score is: 53.5677
-Beginning Iteration 18...
-Best score is: 53.5677
-Beginning Iteration 19...
-Best score is: 53.5677
-Beginning Iteration 20...
-Best score is: 53.5677
-Hash collision at depth 0 with hash value 272306061
-Beginning Iteration 21...
-Best score is: 53.5677
-Beginning Iteration 22...
-Best score is: 53.5677
-Beginning Iteration 23...
-Best score is: 53.5677
-Beginning Iteration 24...
-Best score is: 53.5677
-Beginning Iteration 25...
-Best score is: 53.5677
-Beginning Iteration 26...
-Best score is: 53.5677
-Beginning Iteration 27...
-Best score is: 53.5677
-Beginning Iteration 28...
-Best score is: 53.5677
-Beginning Iteration 29...
-Best score is: 53.5677
-Beginning Iteration 30...
-Best score is: 53.5677
-Beginning Iteration 31...
-Best score is: 53.5677
-Beginning Iteration 32...
-Best score is: 53.5677
-Beginning Iteration 33...
-Best score is: 53.5677
-Beginning Iteration 34...
-Best score is: 53.5677
-Beginning Iteration 35...
-Best score is: 53.5677
-Beginning Iteration 36...
-Best score is: 53.5677
-Beginning Iteration 37...
-Best score is: 53.5677
-Beginning Iteration 38...
-Best score is: 53.5677
-Beginning Iteration 39...
-Best score is: 53.5677
-Beginning Iteration 40...
-Best score is: 53.5677
-Beginning Iteration 41...
-Best score is: 53.5677
-Beginning Iteration 42...
-Best score is: 53.5677
-Beginning Iteration 43...
-Best score is: 53.5677
-Beginning Iteration 44...
-Best score is: 53.5677
-Beginning Iteration 45...
-Best score is: 53.5677
-Beginning Iteration 46...
-Best score is: 53.5677
-Beginning Iteration 47...
-Best score is: 53.5677
-Beginning Iteration 48...
-Best score is: 53.5677
-Beginning Iteration 49...
-Best score is: 53.5677
-Beginning Iteration 50...
-Best score is: 53.5677
-Beginning Iteration 51...
-Best score is: 53.5677
-Beginning Iteration 52...
-Best score is: 53.5677
-Beginning Iteration 53...
-Best score is: 53.5677
-Beginning Iteration 54...
-Best score is: 53.5677
-Beginning Iteration 55...
-Best score is: 53.5677
-Beginning Iteration 56...
-Best score is: 53.5677
-Beginning Iteration 57...
-Best score is: 53.5677
-Beginning Iteration 58...
-Best score is: 53.5677
-Beginning Iteration 59...
-Best score is: 53.5677
-Beginning Iteration 60...
-Best score is: 53.5677
-Beginning Iteration 61...
-Best score is: 53.5677
-Beginning Iteration 62...
-Best score is: 53.5677
-Beginning Iteration 63...
-Best score is: 53.5677
-Beginning Iteration 64...
-Best score is: 53.5677
-Beginning Iteration 65...
-Best score is: 53.5677
-Beginning Iteration 66...
-Best score is: 53.5677
-Beginning Iteration 67...
-Best score is: 53.5677
-Beginning Iteration 68...
-Best score is: 53.5677
-Beginning Iteration 69...
-Best score is: 53.5677
-Beginning Iteration 70...
-Best score is: 53.5677
-Beginning Iteration 71...
-Best score is: 53.5677
-Beginning Iteration 72...
-Best score is: 53.5677
-Beginning Iteration 73...
-Best score is: 53.5677
-Beginning Iteration 74...
-Best score is: 53.5677
-Beginning Iteration 75...
-Best score is: 53.5677
-Beginning Iteration 76...
-Best score is: 53.5677
-Beginning Iteration 77...
-Best score is: 53.5677
-Beginning Iteration 78...
-Best score is: 53.5677
-Beginning Iteration 79...
-Best score is: 53.5677
-Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
-With edges: 
-
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
-With edges: 
-(1, 2), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 2), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(5, 6), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 1), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(3, 4), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(11, 12), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(4, 5), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(0, 5), 
-
-Iteration 1 for flip probability 0
-
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
-
-The special edge set gets a score of 53.5677
-
-Beginning Iteration 2...
-Best score is: 53.5677
-Beginning Iteration 3...
-Best score is: 53.5677
-Beginning Iteration 4...
-Best score is: 53.5677
-Beginning Iteration 5...
-Best score is: 53.5677
-Beginning Iteration 6...
-Best score is: 53.5677
-Beginning Iteration 7...
-Best score is: 53.5677
-Beginning Iteration 8...
-Best score is: 53.5677
-Beginning Iteration 9...
-Best score is: 53.5677
-Beginning Iteration 10...
-Best score is: 53.5677
-Beginning Iteration 11...
-Best score is: 53.5677
-Beginning Iteration 12...
-Best score is: 53.5677
-Beginning Iteration 13...
-Best score is: 53.5677
-Beginning Iteration 14...
-Best score is: 53.5677
-Beginning Iteration 15...
-Best score is: 53.5677
-Beginning Iteration 16...
-Best score is: 53.5677
-Beginning Iteration 17...
-Best score is: 53.5677
-Beginning Iteration 18...
-Best score is: 53.5677
-Beginning Iteration 19...
-Best score is: 53.5677
-Beginning Iteration 20...
-Best score is: 53.5677
-Beginning Iteration 21...
-Best score is: 53.5677
-Beginning Iteration 22...
-Best score is: 53.5677
-Beginning Iteration 23...
-Best score is: 53.5677
-Beginning Iteration 24...
-Best score is: 53.5677
-Beginning Iteration 25...
-Best score is: 53.5677
-Beginning Iteration 26...
-Best score is: 53.5677
-Beginning Iteration 27...
-Best score is: 53.5677
-Beginning Iteration 28...
-Best score is: 53.5677
-Beginning Iteration 29...
-Best score is: 53.5677
-Beginning Iteration 30...
-Best score is: 53.5677
-Beginning Iteration 31...
-Best score is: 53.5677
-Beginning Iteration 32...
-Best score is: 53.5677
-Beginning Iteration 33...
-Best score is: 53.5677
-Beginning Iteration 34...
-Best score is: 53.5677
-Beginning Iteration 35...
-Best score is: 53.5677
-Beginning Iteration 36...
-Best score is: 53.5677
-Beginning Iteration 37...
-Best score is: 53.5677
-Beginning Iteration 38...
-Best score is: 53.5677
-Beginning Iteration 39...
-Best score is: 53.5677
-Beginning Iteration 40...
-Best score is: 53.5677
-Beginning Iteration 41...
-Best score is: 53.5677
-Beginning Iteration 42...
-Best score is: 53.5677
-Beginning Iteration 43...
-Best score is: 53.5677
-Beginning Iteration 44...
-Best score is: 53.5677
-Beginning Iteration 45...
-Best score is: 53.5677
-Beginning Iteration 46...
-Best score is: 53.5677
-Beginning Iteration 47...
-Best score is: 53.5677
-Beginning Iteration 48...
-Best score is: 53.5677
-Beginning Iteration 49...
-Best score is: 53.5677
-Beginning Iteration 50...
-Best score is: 53.5677
-Beginning Iteration 51...
-Best score is: 53.5677
-Beginning Iteration 52...
-Best score is: 53.5677
-Beginning Iteration 53...
-Best score is: 53.5677
-Beginning Iteration 54...
-Best score is: 53.5677
-Beginning Iteration 55...
-Best score is: 53.5677
-Beginning Iteration 56...
-Best score is: 53.5677
-Beginning Iteration 57...
-Best score is: 53.5677
-Beginning Iteration 58...
-Best score is: 53.5677
-Beginning Iteration 59...
-Best score is: 53.5677
-Beginning Iteration 60...
-Best score is: 53.5677
-Beginning Iteration 61...
-Best score is: 53.5677
-Beginning Iteration 62...
-Best score is: 53.5677
-Beginning Iteration 63...
-Best score is: 53.5677
-Beginning Iteration 64...
-Best score is: 53.5677
-Beginning Iteration 65...
-Best score is: 53.5677
-Beginning Iteration 66...
-Best score is: 53.5677
-Beginning Iteration 67...
-Best score is: 53.5677
-Beginning Iteration 68...
-Best score is: 53.5677
-Beginning Iteration 69...
-Best score is: 53.5677
-Beginning Iteration 70...
-Best score is: 53.5677
-Beginning Iteration 71...
-Best score is: 53.5677
-Beginning Iteration 72...
-Best score is: 53.5677
-Beginning Iteration 73...
-Best score is: 53.5677
-Beginning Iteration 74...
-Best score is: 53.5677
-Beginning Iteration 75...
-Best score is: 53.5677
-Beginning Iteration 76...
-Best score is: 53.5677
-Beginning Iteration 77...
-Best score is: 53.5677
-Beginning Iteration 78...
-Best score is: 53.5677
-Beginning Iteration 79...
-Best score is: 53.5677
-Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
-With edges: 
-
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
-With edges: 
-(1, 2), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 1), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(3, 4), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(5, 6), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 2), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(9, 10), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(1, 5), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(11, 12), 
-
-Iteration 2 for flip probability 0
-
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
-
-The special edge set gets a score of 53.5677
-
-Beginning Iteration 2...
-Best score is: 53.5677
-Beginning Iteration 3...
-Best score is: 53.5677
-Beginning Iteration 4...
-Best score is: 53.5677
-Beginning Iteration 5...
-Best score is: 53.5677
-Beginning Iteration 6...
-Best score is: 53.5677
-Beginning Iteration 7...
-Best score is: 53.5677
-Beginning Iteration 8...
-Best score is: 53.5677
-Beginning Iteration 9...
-Best score is: 53.5677
-Beginning Iteration 10...
-Best score is: 53.5677
-Beginning Iteration 11...
-Best score is: 53.5677
-Beginning Iteration 12...
-Best score is: 53.5677
-Beginning Iteration 13...
-Best score is: 53.5677
-Beginning Iteration 14...
-Best score is: 53.5677
-Beginning Iteration 15...
-Best score is: 53.5677
-Beginning Iteration 16...
-Best score is: 53.5677
-Beginning Iteration 17...
-Best score is: 53.5677
-Beginning Iteration 18...
-Best score is: 53.5677
-Beginning Iteration 19...
-Best score is: 53.5677
-Beginning Iteration 20...
-Best score is: 53.5677
-Beginning Iteration 21...
-Best score is: 53.5677
-Beginning Iteration 22...
-Best score is: 53.5677
-Beginning Iteration 23...
-Best score is: 53.5677
-Beginning Iteration 24...
-Best score is: 53.5677
-Beginning Iteration 25...
-Best score is: 53.5677
-Hash collision at depth 0 with hash value 15099502720
-
-Beginning Iteration 26...
-Best score is: 53.5677
-Beginning Iteration 27...
-Best score is: 53.5677
-Beginning Iteration 28...
-Best score is: 53.5677
-Beginning Iteration 29...
-Best score is: 53.5677
-Beginning Iteration 30...
-Best score is: 53.5677
-Beginning Iteration 31...
-Best score is: 53.5677
-Beginning Iteration 32...
-Best score is: 53.5677
-Beginning Iteration 33...
-Best score is: 53.5677
-Beginning Iteration 34...
-Best score is: 53.5677
-Beginning Iteration 35...
-Best score is: 53.5677
-Beginning Iteration 36...
-Best score is: 53.5677
-Beginning Iteration 37...
-Best score is: 53.5677
-Beginning Iteration 38...
-Best score is: 53.5677
-Beginning Iteration 39...
-Best score is: 53.5677
-Beginning Iteration 40...
-Best score is: 53.5677
-Beginning Iteration 41...
-Best score is: 53.5677
-Beginning Iteration 42...
-Best score is: 53.5677
-Beginning Iteration 43...
-Best score is: 53.5677
-Beginning Iteration 44...
-Best score is: 53.5677
-Beginning Iteration 45...
-Best score is: 53.5677
-Beginning Iteration 46...
-Best score is: 53.5677
-Beginning Iteration 47...
-Best score is: 53.5677
-Beginning Iteration 48...
-Best score is: 53.5677
-Beginning Iteration 49...
-Best score is: 53.5677
-Beginning Iteration 50...
-Best score is: 53.5677
-Beginning Iteration 51...
-Best score is: 53.5677
-Beginning Iteration 52...
-Best score is: 53.5677
-Beginning Iteration 53...
-Best score is: 53.5677
-Beginning Iteration 54...
-Best score is: 53.5677
-Beginning Iteration 55...
-Best score is: 53.5677
-Beginning Iteration 56...
-Best score is: 53.5677
-Beginning Iteration 57...
-Best score is: 53.5677
-Beginning Iteration 58...
-Best score is: 53.5677
-Beginning Iteration 59...
-Best score is: 53.5677
-Beginning Iteration 60...
-Best score is: 53.5677
-Beginning Iteration 61...
-Best score is: 53.5677
-Beginning Iteration 62...
-Best score is: 53.5677
-Beginning Iteration 63...
-Best score is: 53.5677
-Beginning Iteration 64...
-Best score is: 53.5677
-Beginning Iteration 65...
-Best score is: 53.5677
-Beginning Iteration 66...
-Best score is: 53.5677
-Beginning Iteration 67...
-Best score is: 53.5677
-Beginning Iteration 68...
-Best score is: 53.5677
-Beginning Iteration 69...
-Best score is: 53.5677
-Beginning Iteration 70...
-Best score is: 53.5677
-Beginning Iteration 71...
-Best score is: 53.5677
-Beginning Iteration 72...
-Best score is: 53.5677
-Beginning Iteration 73...
-Best score is: 53.5677
-Beginning Iteration 74...
-Best score is: 53.5677
-Beginning Iteration 75...
-Best score is: 53.5677
-Beginning Iteration 76...
-Best score is: 53.5677
-Beginning Iteration 77...
-Best score is: 53.5677
-Beginning Iteration 78...
-Best score is: 53.5677
-Beginning Iteration 79...
-Best score is: 53.5677
-Hash collision at depth 0 with hash value 57190934335
-
-Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
-With edges: 
-
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
-With edges: 
-(1, 2), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(5, 6), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 1), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(3, 4), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 2), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(3, 5), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(11, 12), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(13, 14), 
-
-Iteration 3 for flip probability 0
-
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
-
-The special edge set gets a score of 53.5677
-
-Beginning Iteration 2...
-Best score is: 53.5677
-Beginning Iteration 3...
-Best score is: 53.5677
-Beginning Iteration 4...
-Best score is: 53.5677
-Beginning Iteration 5...
-Best score is: 53.5677
-Beginning Iteration 6...
-Best score is: 53.5677
-Beginning Iteration 7...
-Best score is: 53.5677
-Beginning Iteration 8...
-Best score is: 53.5677
-Beginning Iteration 9...
-Best score is: 53.5677
-Beginning Iteration 10...
-Best score is: 53.5677
-Beginning Iteration 11...
-Best score is: 53.5677
-Beginning Iteration 12...
-Best score is: 53.5677
-Beginning Iteration 13...
-Best score is: 53.5677
-Beginning Iteration 14...
-Best score is: 53.5677
-Beginning Iteration 15...
-Best score is: 53.5677
-Beginning Iteration 16...
-Best score is: 53.5677
-Beginning Iteration 17...
-Best score is: 53.5677
-Beginning Iteration 18...
-Best score is: 53.5677
-Beginning Iteration 19...
-Best score is: 53.5677
-Beginning Iteration 20...
-Best score is: 53.5677
-Beginning Iteration 21...
-Best score is: 53.5677
-Beginning Iteration 22...
-Best score is: 53.5677
-Beginning Iteration 23...
-Best score is: 53.5677
-Beginning Iteration 24...
-Best score is: 53.5677
-Beginning Iteration 25...
-Best score is: 53.5677
-Beginning Iteration 26...
-Best score is: 53.5677
-Beginning Iteration 27...
-Best score is: 53.5677
-Beginning Iteration 28...
-Best score is: 53.5677
-Beginning Iteration 29...
-Best score is: 53.5677
-Beginning Iteration 30...
-Best score is: 53.5677
-Beginning Iteration 31...
-Best score is: 53.5677
-Beginning Iteration 32...
-Best score is: 53.5677
-Beginning Iteration 33...
-Best score is: 53.5677
-Beginning Iteration 34...
-Best score is: 53.5677
-Beginning Iteration 35...
-Best score is: 53.5677
-Beginning Iteration 36...
-Best score is: 53.5677
-Beginning Iteration 37...
-Best score is: 53.5677
-Beginning Iteration 38...
-Best score is: 53.5677
-Beginning Iteration 39...
-Best score is: 53.5677
-Beginning Iteration 40...
-Best score is: 53.5677
-Beginning Iteration 41...
-Best score is: 53.5677
-Beginning Iteration 42...
-Best score is: 53.5677
-Beginning Iteration 43...
-Best score is: 53.5677
-Beginning Iteration 44...
-Best score is: 53.5677
-Beginning Iteration 45...
-Best score is: 53.5677
-Beginning Iteration 46...
-Best score is: 53.5677
-Beginning Iteration 47...
-Best score is: 53.5677
-Beginning Iteration 48...
-Best score is: 53.5677
-Hash collision at depth 0 with hash value 9091825618
-
-Beginning Iteration 49...
-Best score is: 53.5677
-Beginning Iteration 50...
-Best score is: 53.5677
-Beginning Iteration 51...
-Best score is: 53.5677
-Beginning Iteration 52...
-Best score is: 53.5677
-Beginning Iteration 53...
-Best score is: 53.5677
-Beginning Iteration 54...
-Best score is: 53.5677
-Beginning Iteration 55...
-Best score is: 53.5677
-Beginning Iteration 56...
-Best score is: 53.5677
-Beginning Iteration 57...
-Best score is: 53.5677
-Beginning Iteration 58...
-Best score is: 53.5677
-Beginning Iteration 59...
-Best score is: 53.5677
-Beginning Iteration 60...
-Best score is: 53.5677
-Beginning Iteration 61...
-Best score is: 53.5677
-Beginning Iteration 62...
-Best score is: 53.5677
-Beginning Iteration 63...
-Best score is: 53.5677
-Beginning Iteration 64...
-Best score is: 53.5677
-Beginning Iteration 65...
-Best score is: 53.5677
-Beginning Iteration 66...
-Best score is: 53.5677
-Beginning Iteration 67...
-Best score is: 53.5677
-Beginning Iteration 68...
-Best score is: 53.5677
-Beginning Iteration 69...
-Best score is: 53.5677
-Beginning Iteration 70...
-Best score is: 53.5677
-Beginning Iteration 71...
-Best score is: 53.5677
-Beginning Iteration 72...
-Best score is: 53.5677
-Beginning Iteration 73...
-Best score is: 53.5677
-Beginning Iteration 74...
-Best score is: 53.5677
-Beginning Iteration 75...
-Best score is: 53.5677
-Beginning Iteration 76...
-Best score is: 53.5677
-Beginning Iteration 77...
-Best score is: 53.5677
-Beginning Iteration 78...
-Best score is: 53.5677
-Beginning Iteration 79...
-Best score is: 53.5677
-Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
-With edges: 
-
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
-With edges: 
-(1, 2), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 2), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 1), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(5, 6), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(3, 4), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(1, 6), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(13, 14), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(3, 5), 
-
-Iteration 4 for flip probability 0
-
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
-
-The special edge set gets a score of 53.5677
-
-Beginning Iteration 2...
-Best score is: 53.5677
-Beginning Iteration 3...
-Best score is: 53.5677
-Beginning Iteration 4...
-Best score is: 53.5677
-Beginning Iteration 5...
-Best score is: 53.5677
-Beginning Iteration 6...
-Best score is: 53.5677
-Beginning Iteration 7...
-Best score is: 53.5677
-Beginning Iteration 8...
-Best score is: 53.5677
-Beginning Iteration 9...
-Best score is: 53.5677
-Beginning Iteration 10...
-Best score is: 53.5677
-Beginning Iteration 11...
-Best score is: 53.5677
-Beginning Iteration 12...
-Best score is: 53.5677
-Beginning Iteration 13...
-Best score is: 53.5677
-Beginning Iteration 14...
-Best score is: 53.5677
-Beginning Iteration 15...
-Best score is: 53.5677
-Beginning Iteration 16...
-Best score is: 53.5677
-Beginning Iteration 17...
-Best score is: 53.5677
-Beginning Iteration 18...
-Best score is: 53.5677
-Beginning Iteration 19...
-Best score is: 53.5677
-Beginning Iteration 20...
-Best score is: 53.5677
-Beginning Iteration 21...
-Best score is: 53.5677
-Beginning Iteration 22...
-Best score is: 53.5677
-Beginning Iteration 23...
-Best score is: 53.5677
-Beginning Iteration 24...
-Best score is: 53.5677
-Beginning Iteration 25...
-Best score is: 53.5677
-Beginning Iteration 26...
-Best score is: 53.5677
-Beginning Iteration 27...
-Best score is: 53.5677
-Beginning Iteration 28...
-Best score is: 53.5677
-Beginning Iteration 29...
-Best score is: 53.5677
-Beginning Iteration 30...
-Best score is: 53.5677
-Beginning Iteration 31...
-Best score is: 53.5677
-Beginning Iteration 32...
-Best score is: 53.5677
-Beginning Iteration 33...
-Best score is: 53.5677
-Beginning Iteration 34...
-Best score is: 53.5677
-Beginning Iteration 35...
-Best score is: 53.5677
-Beginning Iteration 36...
-Best score is: 53.5677
-Beginning Iteration 37...
-Best score is: 53.5677
-Beginning Iteration 38...
-Best score is: 53.5677
-Beginning Iteration 39...
-Best score is: 53.5677
-Beginning Iteration 40...
-Best score is: 53.5677
-Beginning Iteration 41...
-Best score is: 53.5677
-Beginning Iteration 42...
-Best score is: 53.5677
-Beginning Iteration 43...
-Best score is: 53.5677
-Beginning Iteration 44...
-Best score is: 53.5677
-Beginning Iteration 45...
-Best score is: 53.5677
-Beginning Iteration 46...
-Best score is: 53.5677
-Beginning Iteration 47...
-Best score is: 53.5677
-Beginning Iteration 48...
-Best score is: 53.5677
-Beginning Iteration 49...
-Best score is: 53.5677
-Beginning Iteration 50...
-Best score is: 53.5677
-Beginning Iteration 51...
-Best score is: 53.5677
-Beginning Iteration 52...
-Best score is: 53.5677
-Beginning Iteration 53...
-Best score is: 53.5677
-Beginning Iteration 54...
-Best score is: 53.5677
-Beginning Iteration 55...
-Best score is: 53.5677
-Beginning Iteration 56...
-Best score is: 53.5677
-Hash collision at depth 0 with hash value 452202478
-Beginning Iteration 57...
-Best score is: 53.5677
-Beginning Iteration 58...
-Best score is: 53.5677
-Beginning Iteration 59...
-Best score is: 53.5677
-Beginning Iteration 60...
-Best score is: 53.5677
-Beginning Iteration 61...
-Best score is: 53.5677
-Beginning Iteration 62...
-Best score is: 53.5677
-Beginning Iteration 63...
-Best score is: 53.5677
-Beginning Iteration 64...
-Best score is: 53.5677
-Beginning Iteration 65...
-Best score is: 53.5677
-Beginning Iteration 66...
-Best score is: 53.5677
-Beginning Iteration 67...
-Best score is: 53.5677
-Beginning Iteration 68...
-Best score is: 53.5677
-Beginning Iteration 69...
-Best score is: 53.5677
-Beginning Iteration 70...
-Best score is: 53.5677
-Beginning Iteration 71...
-Best score is: 53.5677
-Beginning Iteration 72...
-Best score is: 53.5677
-Beginning Iteration 73...
-Best score is: 53.5677
-Beginning Iteration 74...
-Best score is: 53.5677
-Beginning Iteration 75...
-Best score is: 53.5677
-Beginning Iteration 76...
-Best score is: 53.5677
-Beginning Iteration 77...
-Best score is: 53.5677
-Beginning Iteration 78...
-Best score is: 53.5677
-Beginning Iteration 79...
-Best score is: 53.5677
-Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
-With edges: 
-
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
-With edges: 
-(1, 2), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(3, 4), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 2), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(5, 6), 
-
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(0, 1), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(9, 10), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(2, 6), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(3, 6), 
-
 Iteration 0 for flip probability 0.005
 
 
 Adding: 
 
-Removing: (40, 82), (4, 10), 
-log2_p_plus:          -10.5197
-log2_1_minus_p_plus:  -0.00098304
-log2_p_minus:         -10.5197
-log2_1_minus_p_minus: -0.00098304
-p_plus:  0.000681159
-p_minus: 0.000681159
+Removing: (7, 16), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 40.0972
+The special edge set gets a score of 67
 
 Beginning Iteration 2...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 3...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 4...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 5...
-Best score is: 49.1347
+Best score is: 60
+Hash collision at depth 1 with hash value 69793436552 (case A)
 Beginning Iteration 6...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 7...
-Best score is: 49.1347
+Best score is: 60
+Hash collision at depth 1 with hash value 64300800228 (case B)
 Beginning Iteration 8...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 9...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 10...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 11...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 12...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 13...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 14...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 15...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 16...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 17...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 18...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 19...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 20...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 21...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 22...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 23...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 24...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 25...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 26...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 27...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 28...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 29...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 30...
-Best score is: 49.1347
+Best score is: 60
 Beginning Iteration 31...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 32...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 33...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 34...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 35...
-Best score is: 49.1347
-Hash collision at depth 0 with hash value 50607706810
-
+Best score is: 61
 Beginning Iteration 36...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 37...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 38...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 39...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 40...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 41...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 42...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 43...
-Best score is: 49.1347
-Hash collision at depth 0 with hash value 74939296371
-
+Best score is: 61
 Beginning Iteration 44...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 45...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 46...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 47...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 48...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 49...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 50...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 51...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 52...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 53...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 54...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 55...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 56...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 57...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 58...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 59...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 60...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 61...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 62...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 63...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 64...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 65...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 66...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 67...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 68...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 69...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 70...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 71...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 72...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 73...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 74...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 75...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 76...
-Best score is: 49.1347
+Best score is: 61
+Hash collision at depth 1 with hash value 46240785690 (case A)
 Beginning Iteration 77...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 78...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 79...
-Best score is: 49.1347
+Best score is: 61
 Beginning Iteration 80...
-Best score is: 49.1347
-With a score of 49.1347 we have log2(|Aut(G_H)|) of 57
+Best score is: 61
+With a score of 61 we have log2(|Aut(G_H)|) of 59
+With edges: 
+(9, 19), 
+
+With a score of 60 we have log2(|Aut(G_H)|) of 58
+With edges: 
+(11, 24), 
+
+With a score of 60 we have log2(|Aut(G_H)|) of 58
+With edges: 
+(12, 25), 
+
+With a score of 60 we have log2(|Aut(G_H)|) of 58
+With edges: 
+(14, 30), 
+
+With a score of 60 we have log2(|Aut(G_H)|) of 58
+With edges: 
+(13, 27), 
+
+With a score of 60 we have log2(|Aut(G_H)|) of 58
+With edges: 
+(12, 26), 
+
+With a score of 59 we have log2(|Aut(G_H)|) of 59
 With edges: 
 
 
-With a score of 44.616 we have log2(|Aut(G_H)|) of 60
+With a score of 59 we have log2(|Aut(G_H)|) of 59
 With edges: 
-(40, 82), 
+(7, 8), 
 
-With a score of 41.7859 we have log2(|Aut(G_H)|) of 58.585
+With a score of 59 we have log2(|Aut(G_H)|) of 59
 With edges: 
-(3, 10), 
-
-With a score of 41.7859 we have log2(|Aut(G_H)|) of 58.585
-With edges: 
-(39, 82), 
-
-With a score of 41.616 we have log2(|Aut(G_H)|) of 58
-With edges: 
-(39, 80), 
-
-With a score of 41.616 we have log2(|Aut(G_H)|) of 58
-With edges: 
-(39, 79), 
-
-With a score of 40.7859 we have log2(|Aut(G_H)|) of 57.585
-With edges: 
-(42, 82), 
-
-With a score of 40.7859 we have log2(|Aut(G_H)|) of 57.585
-With edges: 
-(6, 10), 
-
-With a score of 40.7859 we have log2(|Aut(G_H)|) of 57.585
-With edges: 
-(5, 10), 
+(1, 16), 
 
 Iteration 1 for flip probability 0.005
 
@@ -1257,209 +223,216 @@ Iteration 1 for flip probability 0.005
 Adding: 
 
 Removing: 
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 53.5677
+The special edge set gets a score of 63
 
 Beginning Iteration 2...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 3...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 4...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 5...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 6...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 7...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 8...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 9...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 10...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 11...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 12...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 13...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 14...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 15...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 16...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 17...
-Best score is: 53.5677
+Best score is: 63
+Hash collision at depth 1 with hash value 54164815693 (case A)
+Hash collision at depth 1 with hash value 54164815693 (case A)
+Hash collision at depth 1 with hash value 54164815693 (case A)
 Beginning Iteration 18...
-Best score is: 53.5677
+Best score is: 63
+Hash collision at depth 1 with hash value 54164815693 (case A)
 Beginning Iteration 19...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 20...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 21...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 22...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 23...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 24...
-Best score is: 53.5677
+Best score is: 63
+Hash collision at depth 1 with hash value 54164815693 (case A)
+Hash collision at depth 1 with hash value 54164815693 (case A)
+Hash collision at depth 1 with hash value 54164815693 (case A)
 Beginning Iteration 25...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 26...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 27...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 28...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 29...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 30...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 31...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 32...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 33...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 34...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 35...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 36...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 37...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 38...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 39...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 40...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 41...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 42...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 43...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 44...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 45...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 46...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 47...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 48...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 49...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 50...
-Best score is: 53.5677
+Best score is: 63
+Hash collision at depth 1 with hash value 76672142576 (case A)
 Beginning Iteration 51...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 52...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 53...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 54...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 55...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 56...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 57...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 58...
-Best score is: 53.5677
-Hash collision at depth 0 with hash value 1577
+Best score is: 63
 Beginning Iteration 59...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 60...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 61...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 62...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 63...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 64...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 65...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 66...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 67...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 68...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 69...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 70...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 71...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 72...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 73...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 74...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 75...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 76...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 77...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 78...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 79...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
-With edges: 
-
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
+Best score is: 63
+With a score of 63 we have log2(|Aut(G_H)|) of 63
 With edges: 
 (1, 2), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 63 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(3, 4), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(0, 1), 
+(1, 3), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(0, 2), 
+(1, 6), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(5, 6), 
+(0, 4), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(2, 4), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
-With edges: 
-(7, 8), 
-
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
 (4, 5), 
+
+With a score of 61 we have log2(|Aut(G_H)|) of 61
+With edges: 
+(2, 5), 
+
+With a score of 61 we have log2(|Aut(G_H)|) of 61
+With edges: 
+(2, 3), 
+
+With a score of 61 we have log2(|Aut(G_H)|) of 61
+With edges: 
+(3, 6), 
 
 Iteration 2 for flip probability 0.005
 
@@ -1467,208 +440,209 @@ Iteration 2 for flip probability 0.005
 Adding: 
 
 Removing: 
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 53.5677
+The special edge set gets a score of 63
 
 Beginning Iteration 2...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 3...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 4...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 5...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 6...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 7...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 8...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 9...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 10...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 11...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 12...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 13...
-Best score is: 53.5677
+Best score is: 63
+Hash collision at depth 1 with hash value 17883538371 (case A)
 Beginning Iteration 14...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 15...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 16...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 17...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 18...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 19...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 20...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 21...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 22...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 23...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 24...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 25...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 26...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 27...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 28...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 29...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 30...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 31...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 32...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 33...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 34...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 35...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 36...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 37...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 38...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 39...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 40...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 41...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 42...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 43...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 44...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 45...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 46...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 47...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 48...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 49...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 50...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 51...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 52...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 53...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 54...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 55...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 56...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 57...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 58...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 59...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 60...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 61...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 62...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 63...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 64...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 65...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 66...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 67...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 68...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 69...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 70...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 71...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 72...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 73...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 74...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 75...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 76...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 77...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 78...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 79...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
-With edges: 
-
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
+Best score is: 63
+With a score of 63 we have log2(|Aut(G_H)|) of 63
 With edges: 
 (1, 2), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 63 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(0, 2), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(0, 1), 
+(2, 3), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(3, 4), 
+(7, 8), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(5, 6), 
+(1, 4), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(9, 10), 
+(13, 14), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
 (11, 12), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 60 we have log2(|Aut(G_H)|) of 60
 With edges: 
-(2, 3), 
+(1, 8), 
+
+With a score of 60 we have log2(|Aut(G_H)|) of 60
+With edges: 
+(12, 13), 
 
 Iteration 3 for flip probability 0.005
 
@@ -1676,3584 +650,3584 @@ Iteration 3 for flip probability 0.005
 Adding: 
 
 Removing: 
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 53.5677
+The special edge set gets a score of 63
 
 Beginning Iteration 2...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 3...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 4...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 5...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 6...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 7...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 8...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 9...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 10...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 11...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 12...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 13...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 14...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 15...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 16...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 17...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 18...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 19...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 20...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 21...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 22...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 23...
-Best score is: 53.5677
+Best score is: 63
+Hash collision at depth 1 with hash value 52445004080 (case B)
 Beginning Iteration 24...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 25...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 26...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 27...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 28...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 29...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 30...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 31...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 32...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 33...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 34...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 35...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 36...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 37...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 38...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 39...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 40...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 41...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 42...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 43...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 44...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 45...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 46...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 47...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 48...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 49...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 50...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 51...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 52...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 53...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 54...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 55...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 56...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 57...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 58...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 59...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 60...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 61...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 62...
-Best score is: 53.5677
+Best score is: 63
+Hash collision at depth 1 with hash value 25752319080 (case A)
 Beginning Iteration 63...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 64...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 65...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 66...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 67...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 68...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 69...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 70...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 71...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 72...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 73...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 74...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 75...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 76...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 77...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 78...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 79...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
-With edges: 
-
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
+Best score is: 63
+With a score of 63 we have log2(|Aut(G_H)|) of 63
 With edges: 
 (1, 2), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 63 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(0, 1), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
-With edges: 
-(5, 6), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 62 we have log2(|Aut(G_H)|) of 62
 With edges: 
 (3, 4), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 62 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(0, 2), 
+(0, 1), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(0, 3), 
+(13, 14), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 61 we have log2(|Aut(G_H)|) of 61
+With edges: 
+(7, 8), 
+
+With a score of 61 we have log2(|Aut(G_H)|) of 61
+With edges: 
+(1, 3), 
+
+With a score of 61 we have log2(|Aut(G_H)|) of 61
 With edges: 
 (11, 12), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 60 we have log2(|Aut(G_H)|) of 60
 With edges: 
-(3, 6), 
+(0, 7), 
 
 Iteration 4 for flip probability 0.005
 
 
-Adding: 
+Adding: (45, 100), 
 
-Removing: (61, 123), 
-log2_p_plus:          -10.4356
-log2_1_minus_p_plus:  -0.00104206
-log2_p_minus:         -10.4356
-log2_1_minus_p_minus: -0.00104206
-p_plus:  0.000722042
-p_minus: 0.000722042
+Removing: 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 50.2279
+The special edge set gets a score of 73
 
 Beginning Iteration 2...
-Best score is: 50.2279
+Best score is: 54
 Beginning Iteration 3...
-Best score is: 50.2279
+Best score is: 54
+Hash collision at depth 1 with hash value 74771974128 (case A)
 Beginning Iteration 4...
-Best score is: 50.2279
+Best score is: 54
 Beginning Iteration 5...
-Best score is: 50.2279
+Best score is: 54
 Beginning Iteration 6...
-Best score is: 50.2279
+Best score is: 54
 Beginning Iteration 7...
-Best score is: 50.2279
+Best score is: 54
 Beginning Iteration 8...
-Best score is: 50.2279
+Best score is: 54
 Beginning Iteration 9...
-Best score is: 50.2279
+Best score is: 54
 Beginning Iteration 10...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 11...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 12...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 13...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 14...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 15...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 16...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 17...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 18...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 19...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 20...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 21...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 22...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 23...
-Best score is: 50.2279
+Best score is: 73
+Hash collision at depth 1 with hash value 47729245604 (case A)
 Beginning Iteration 24...
-Best score is: 50.2279
+Best score is: 73
+Hash collision at depth 1 with hash value 68427632172 (case A)
 Beginning Iteration 25...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 26...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 27...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 28...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 29...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 30...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 31...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 32...
-Best score is: 50.2279
-Hash collision at depth 0 with hash value 4101
+Best score is: 73
 Beginning Iteration 33...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 34...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 35...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 36...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 37...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 38...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 39...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 40...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 41...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 42...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 43...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 44...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 45...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 46...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 47...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 48...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 49...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 50...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 51...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 52...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 53...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 54...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 55...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 56...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 57...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 58...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 59...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 60...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 61...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 62...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 63...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 64...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 65...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 66...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 67...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 68...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 69...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 70...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 71...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 72...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 73...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 74...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 75...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 76...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 77...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 78...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 79...
-Best score is: 50.2279
+Best score is: 73
 Beginning Iteration 80...
-Best score is: 50.2279
-With a score of 50.2279 we have log2(|Aut(G_H)|) of 63
+Best score is: 73
+With a score of 73 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(61, 123), 
+(45, 100), 
 
-With a score of 48.6625 we have log2(|Aut(G_H)|) of 57
+With a score of 54 we have log2(|Aut(G_H)|) of 53
 With edges: 
+(44, 99), 
 
-
-With a score of 41.3978 we have log2(|Aut(G_H)|) of 58.585
+With a score of 54 we have log2(|Aut(G_H)|) of 53
 With edges: 
-(62, 123), 
+(45, 92), 
 
-With a score of 41.2279 we have log2(|Aut(G_H)|) of 58
+With a score of 54 we have log2(|Aut(G_H)|) of 53
 With edges: 
-(62, 125), 
+(45, 91), 
 
-With a score of 41.2279 we have log2(|Aut(G_H)|) of 58
+With a score of 54 we have log2(|Aut(G_H)|) of 53
 With edges: 
-(62, 126), 
+(50, 93), 
 
-With a score of 40.3978 we have log2(|Aut(G_H)|) of 57.585
+With a score of 54 we have log2(|Aut(G_H)|) of 53
 With edges: 
-(59, 123), 
+(44, 100), 
 
-With a score of 40.3978 we have log2(|Aut(G_H)|) of 57.585
+With a score of 54 we have log2(|Aut(G_H)|) of 53
 With edges: 
-(60, 123), 
+(43, 100), 
 
-With a score of 40.2279 we have log2(|Aut(G_H)|) of 57
+With a score of 53 we have log2(|Aut(G_H)|) of 52
 With edges: 
-(60, 122), 
+(45, 96), 
 
-With a score of 40.2279 we have log2(|Aut(G_H)|) of 57
+With a score of 53 we have log2(|Aut(G_H)|) of 52
 With edges: 
-(59, 120), 
+(45, 97), 
 
 Iteration 0 for flip probability 0.01
 
 
 Adding: 
 
-Removing: (24, 50), 
-log2_p_plus:          -10.4196
-log2_1_minus_p_plus:  -0.00105368
-log2_p_minus:         -10.4196
-log2_1_minus_p_minus: -0.00105368
-p_plus:  0.000730088
-p_minus: 0.000730088
+Removing: (45, 92), (27, 56), (20, 41), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 49.1509
+The special edge set gets a score of 75
 
 Beginning Iteration 2...
-Best score is: 49.5695
+Best score is: 57.3399
 Beginning Iteration 3...
-Best score is: 49.5695
+Best score is: 57.3399
 Beginning Iteration 4...
-Best score is: 49.5695
+Best score is: 57.3399
 Beginning Iteration 5...
-Best score is: 49.5695
+Best score is: 60.5098
 Beginning Iteration 6...
-Best score is: 49.5695
+Best score is: 63.1699
 Beginning Iteration 7...
-Best score is: 49.5695
+Best score is: 65.3399
 Beginning Iteration 8...
-Best score is: 49.5695
+Best score is: 65.3399
 Beginning Iteration 9...
-Best score is: 49.5695
+Best score is: 68
 Beginning Iteration 10...
-Best score is: 49.5695
+Best score is: 69.1699
 Beginning Iteration 11...
-Best score is: 49.5695
+Best score is: 69.1699
 Beginning Iteration 12...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 13...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 14...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 15...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 16...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 17...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 18...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 19...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 20...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 21...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 22...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 23...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 24...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 25...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 26...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 27...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 28...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 29...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 30...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 31...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 32...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 33...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 34...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 35...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 36...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 37...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 38...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 39...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 40...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 41...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 42...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 43...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 44...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 45...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 46...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 47...
-Best score is: 49.5695
-Hash collision at depth 0 with hash value 36120586228
-
+Best score is: 75
 Beginning Iteration 48...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 49...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 50...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 51...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 52...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 53...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 54...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 55...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 56...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 57...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 58...
-Best score is: 49.5695
+Best score is: 75
+Hash collision at depth 1 with hash value 72309095907 (case B)
 Beginning Iteration 59...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 60...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 61...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 62...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 63...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 64...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 65...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 66...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 67...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 68...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 69...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 70...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 71...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 72...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 73...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 74...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 75...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 76...
-Best score is: 49.5695
-Hash collision at depth 0 with hash value 542504503
+Best score is: 75
 Beginning Iteration 77...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 78...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 79...
-Best score is: 49.5695
+Best score is: 75
 Beginning Iteration 80...
-Best score is: 49.5695
-With a score of 49.5695 we have log2(|Aut(G_H)|) of 58
+Best score is: 75
+With a score of 75 we have log2(|Aut(G_H)|) of 63
 With edges: 
+(20, 56), (27, 41), (45, 92), 
 
-
-With a score of 49.1509 we have log2(|Aut(G_H)|) of 63
+With a score of 75 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(24, 50), 
+(20, 41), (27, 56), (45, 92), 
 
-With a score of 42.3208 we have log2(|Aut(G_H)|) of 59.585
+With a score of 69.1699 we have log2(|Aut(G_H)|) of 59.585
 With edges: 
-(101, 102), 
+(19, 39), (28, 58), (45, 92), 
 
-With a score of 42.3208 we have log2(|Aut(G_H)|) of 59.585
+With a score of 69.1699 we have log2(|Aut(G_H)|) of 59.585
 With edges: 
-(11, 24), 
+(19, 40), (28, 58), (45, 92), 
 
-With a score of 42.3208 we have log2(|Aut(G_H)|) of 59.585
+With a score of 69.1699 we have log2(|Aut(G_H)|) of 59.585
 With edges: 
-(23, 50), 
+(19, 40), (28, 57), (45, 92), 
 
-With a score of 42.1509 we have log2(|Aut(G_H)|) of 59
+With a score of 69.1699 we have log2(|Aut(G_H)|) of 59.585
 With edges: 
-(23, 48), 
+(19, 39), (28, 57), (45, 92), 
 
-With a score of 42.1509 we have log2(|Aut(G_H)|) of 59
+With a score of 68.3399 we have log2(|Aut(G_H)|) of 60.1699
 With edges: 
-(23, 47), 
+(9, 20), (13, 27), (45, 92), 
 
-With a score of 41.3208 we have log2(|Aut(G_H)|) of 58.585
+With a score of 68.1699 we have log2(|Aut(G_H)|) of 59.585
 With edges: 
-(26, 50), 
+(19, 56), (27, 41), (45, 92), 
 
-With a score of 41.3208 we have log2(|Aut(G_H)|) of 58.585
+With a score of 68.1699 we have log2(|Aut(G_H)|) of 59.585
 With edges: 
-(25, 50), 
+(13, 27), (20, 56), (45, 92), 
 
 Iteration 1 for flip probability 0.01
 
 
-Adding: 
+Adding: (105, 114), 
 
 Removing: 
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 53.5677
+The special edge set gets a score of 72
 
 Beginning Iteration 2...
-Best score is: 53.5677
+Best score is: 54
 Beginning Iteration 3...
-Best score is: 53.5677
+Best score is: 58
 Beginning Iteration 4...
-Best score is: 53.5677
+Best score is: 67
 Beginning Iteration 5...
-Best score is: 53.5677
+Best score is: 72
 Beginning Iteration 6...
-Best score is: 53.5677
+Best score is: 72
 Beginning Iteration 7...
-Best score is: 53.5677
+Best score is: 72
 Beginning Iteration 8...
-Best score is: 53.5677
+Best score is: 72
 Beginning Iteration 9...
-Best score is: 53.5677
+Best score is: 72
 Beginning Iteration 10...
-Best score is: 53.5677
+Best score is: 72
 Beginning Iteration 11...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 12...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 13...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 14...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 15...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 16...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 17...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 18...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 19...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 20...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 21...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 22...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 23...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 24...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 25...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 26...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 27...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 28...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 29...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 30...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 31...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 32...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 33...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 34...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 35...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 36...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 37...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 38...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 39...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 40...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 41...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 42...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 43...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 44...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 45...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 46...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 47...
-Best score is: 53.5677
+Best score is: 72.1699
+Hash collision at depth 1 with hash value 34792951209 (case A)
 Beginning Iteration 48...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 49...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 50...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 51...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 52...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 53...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 54...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 55...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 56...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 57...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 58...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 59...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 60...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 61...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 62...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 63...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 64...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 65...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 66...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 67...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 68...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 69...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 70...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 71...
-Best score is: 53.5677
+Best score is: 72.1699
+Hash collision at depth 1 with hash value 36003595565 (case A)
 Beginning Iteration 72...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 73...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 74...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 75...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 76...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 77...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 78...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 79...
-Best score is: 53.5677
+Best score is: 72.1699
 Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
+Best score is: 72.1699
+With a score of 72.1699 we have log2(|Aut(G_H)|) of 62.585
 With edges: 
+(1, 4), (2, 4), (105, 114), 
 
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
+With a score of 72.1699 we have log2(|Aut(G_H)|) of 62.585
 With edges: 
-(1, 2), 
+(1, 5), (2, 5), (105, 114), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 72.1699 we have log2(|Aut(G_H)|) of 62.585
 With edges: 
-(0, 1), 
+(1, 3), (2, 3), (105, 114), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 72.1699 we have log2(|Aut(G_H)|) of 62.585
 With edges: 
-(5, 6), 
+(1, 6), (2, 6), (105, 114), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 72 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(0, 2), 
+(1, 4), (2, 6), (105, 114), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 72 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(3, 4), 
+(1, 5), (2, 3), (105, 114), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 72 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(1, 3), 
+(1, 5), (2, 4), (105, 114), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 72 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(11, 12), 
+(1, 3), (2, 5), (105, 114), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 72 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(0, 6), 
+(3, 4), (5, 6), (105, 114), 
 
 Iteration 2 for flip probability 0.01
 
 
 Adding: 
 
-Removing: (56, 113), (49, 100), 
-log2_p_plus:          -10.552
-log2_1_minus_p_plus:  -0.000961311
-log2_p_minus:         -10.552
-log2_1_minus_p_minus: -0.000961311
-p_plus:  0.000666108
-p_minus: 0.000666108
+Removing: (29, 59), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 43.2066
+The special edge set gets a score of 68
 
 Beginning Iteration 2...
-Best score is: 47.3086
+Best score is: 59
 Beginning Iteration 3...
-Best score is: 47.3086
+Best score is: 59.1699
 Beginning Iteration 4...
-Best score is: 47.3086
+Best score is: 61.1699
 Beginning Iteration 5...
-Best score is: 47.3086
+Best score is: 61.3399
 Beginning Iteration 6...
-Best score is: 47.3086
+Best score is: 68
 Beginning Iteration 7...
-Best score is: 47.3086
+Best score is: 68
 Beginning Iteration 8...
-Best score is: 47.3086
+Best score is: 68
 Beginning Iteration 9...
-Best score is: 47.3086
+Best score is: 68
 Beginning Iteration 10...
-Best score is: 47.3086
+Best score is: 68.1699
+Hash collision at depth 1 with hash value 69471915146 (case A)
 Beginning Iteration 11...
-Best score is: 47.3086
+Best score is: 71
 Beginning Iteration 12...
-Best score is: 47.3086
+Best score is: 71
 Beginning Iteration 13...
-Best score is: 47.3086
+Best score is: 71
 Beginning Iteration 14...
-Best score is: 47.3086
+Best score is: 71
+Hash collision at depth 1 with hash value 64841859161 (case A)
+Hash collision at depth 1 with hash value 64841859161 (case A)
 Beginning Iteration 15...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 16...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 17...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 18...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 19...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 20...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 21...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 22...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 23...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 24...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 25...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 26...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 27...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 28...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 29...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 30...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 31...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 32...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 33...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 34...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 35...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 36...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 37...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 38...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 39...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 40...
-Best score is: 47.3086
+Best score is: 72
+Hash collision at depth 1 with hash value 7950633624 (case B)
 Beginning Iteration 41...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 42...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 43...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 44...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 45...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 46...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 47...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 48...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 49...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 50...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 51...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 52...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 53...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 54...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 55...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 56...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 57...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 58...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 59...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 60...
-Best score is: 47.3086
-Hash collision at depth 0 with hash value 6785
+Best score is: 72
 Beginning Iteration 61...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 62...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 63...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 64...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 65...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 66...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 67...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 68...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 69...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 70...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 71...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 72...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 73...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 74...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 75...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 76...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 77...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 78...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 79...
-Best score is: 47.3086
+Best score is: 72
 Beginning Iteration 80...
-Best score is: 47.3086
-With a score of 47.3086 we have log2(|Aut(G_H)|) of 55
+Best score is: 72
+With a score of 72 we have log2(|Aut(G_H)|) of 63
 With edges: 
+(15, 31), (15, 59), (29, 31), 
 
-
-With a score of 43.2066 we have log2(|Aut(G_H)|) of 63
+With a score of 71 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(49, 100), (56, 113), 
+(25, 51), (25, 59), (29, 51), 
 
-With a score of 43.2066 we have log2(|Aut(G_H)|) of 63
+With a score of 71 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(49, 113), (56, 100), 
+(24, 50), (24, 59), (29, 50), 
 
-With a score of 42.7576 we have log2(|Aut(G_H)|) of 57
+With a score of 70 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(56, 113), 
+(28, 58), (28, 59), (29, 58), 
 
-With a score of 42.7576 we have log2(|Aut(G_H)|) of 57
+With a score of 69 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(49, 100), 
+(29, 62), (30, 59), (30, 62), 
 
-With a score of 42.7576 we have log2(|Aut(G_H)|) of 57
+With a score of 69 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(56, 100), 
+(29, 61), (30, 59), (30, 61), 
 
-With a score of 42.7576 we have log2(|Aut(G_H)|) of 57
+With a score of 68.3399 we have log2(|Aut(G_H)|) of 62.1699
 With edges: 
-(49, 113), 
+(13, 27), (14, 29), (27, 55), 
 
-With a score of 39.9275 we have log2(|Aut(G_H)|) of 55.585
+With a score of 68.3399 we have log2(|Aut(G_H)|) of 62.1699
 With edges: 
-(50, 101), 
+(13, 28), (14, 29), (28, 58), 
 
-With a score of 39.9275 we have log2(|Aut(G_H)|) of 55.585
+With a score of 68.3399 we have log2(|Aut(G_H)|) of 62.1699
 With edges: 
-(55, 111), 
+(13, 28), (14, 29), (28, 57), 
 
 Iteration 3 for flip probability 0.01
 
 
-Adding: 
+Adding: (57, 100), 
 
-Removing: (3, 7), 
-log2_p_plus:          -10.3877
-log2_1_minus_p_plus:  -0.0010773
-log2_p_minus:         -10.3877
-log2_1_minus_p_minus: -0.0010773
-p_plus:  0.000746451
-p_minus: 0.000746451
+Removing: (35, 72), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 46.9939
+The special edge set gets a score of 77
 
 Beginning Iteration 2...
-Best score is: 51.3805
+Best score is: 52.1699
 Beginning Iteration 3...
-Best score is: 51.3805
+Best score is: 55
 Beginning Iteration 4...
-Best score is: 51.3805
+Best score is: 59
 Beginning Iteration 5...
-Best score is: 51.3805
+Best score is: 65
 Beginning Iteration 6...
-Best score is: 51.3805
+Best score is: 67
 Beginning Iteration 7...
-Best score is: 51.3805
+Best score is: 69
 Beginning Iteration 8...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 9...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 10...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 11...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 12...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 13...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 14...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 15...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 16...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 17...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 18...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 19...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 20...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 21...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 22...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 23...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 24...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 25...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 26...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 27...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 28...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 29...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 30...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 31...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 32...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 33...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 34...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 35...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 36...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 37...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 38...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 39...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 40...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 41...
-Best score is: 51.3805
-Hash collision at depth 0 with hash value 9182121357
-
+Best score is: 77
 Beginning Iteration 42...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 43...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 44...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 45...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 46...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 47...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 48...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 49...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 50...
-Best score is: 51.3805
-Hash collision at depth 0 with hash value 3880
+Best score is: 77
 Beginning Iteration 51...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 52...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 53...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 54...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 55...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 56...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 57...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 58...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 59...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 60...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 61...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 62...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 63...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 64...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 65...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 66...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 67...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 68...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 69...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 70...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 71...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 72...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 73...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 74...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 75...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 76...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 77...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 78...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 79...
-Best score is: 51.3805
+Best score is: 77
 Beginning Iteration 80...
-Best score is: 51.3805
-With a score of 51.3805 we have log2(|Aut(G_H)|) of 60
+Best score is: 77
+With a score of 77 we have log2(|Aut(G_H)|) of 63
 With edges: 
+(1, 2), (35, 72), (57, 100), 
 
-
-With a score of 46.9939 we have log2(|Aut(G_H)|) of 63
+With a score of 77 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(3, 7), 
+(35, 72), (57, 100), 
 
-With a score of 44.1638 we have log2(|Aut(G_H)|) of 61.585
+With a score of 75 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(4, 7), 
+(0, 1), (35, 72), (57, 100), 
 
-With a score of 43.9939 we have log2(|Aut(G_H)|) of 61
+With a score of 75 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(4, 10), 
+(5, 6), (35, 72), (57, 100), 
 
-With a score of 43.9939 we have log2(|Aut(G_H)|) of 61
+With a score of 75 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(4, 9), 
+(3, 4), (35, 72), (57, 100), 
 
-With a score of 43.1638 we have log2(|Aut(G_H)|) of 60.585
+With a score of 75 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(6, 7), 
+(0, 2), (35, 72), (57, 100), 
 
-With a score of 43.1638 we have log2(|Aut(G_H)|) of 60.585
+With a score of 73 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(5, 7), 
+(2, 5), (35, 72), (57, 100), 
 
-With a score of 42.9939 we have log2(|Aut(G_H)|) of 61
+With a score of 73 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(3, 8), 
+(0, 3), (35, 72), (57, 100), 
 
-With a score of 42.9939 we have log2(|Aut(G_H)|) of 60
+With a score of 73 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(5, 12), 
+(0, 6), (35, 72), (57, 100), 
 
 Iteration 4 for flip probability 0.01
 
 
-Adding: 
+Adding: (38, 113), 
 
-Removing: 
-log2_p_plus:          -10.2577
-log2_1_minus_p_plus:  -0.00117889
-log2_p_minus:         -10.2577
-log2_1_minus_p_minus: -0.00117889
-p_plus:  0.000816809
-p_minus: 0.000816809
+Removing: (54, 109), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 53.5677
+The special edge set gets a score of 77
 
 Beginning Iteration 2...
-Best score is: 53.5677
+Best score is: 50.1699
 Beginning Iteration 3...
-Best score is: 53.5677
+Best score is: 52.1699
 Beginning Iteration 4...
-Best score is: 53.5677
+Best score is: 59
 Beginning Iteration 5...
-Best score is: 53.5677
+Best score is: 63
 Beginning Iteration 6...
-Best score is: 53.5677
+Best score is: 66
 Beginning Iteration 7...
-Best score is: 53.5677
+Best score is: 66.1699
 Beginning Iteration 8...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 9...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 10...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 11...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 12...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 13...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 14...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 15...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 16...
-Best score is: 53.5677
+Best score is: 77
+Hash collision at depth 1 with hash value 62034477182 (case A)
 Beginning Iteration 17...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 18...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 19...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 20...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 21...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 22...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 23...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 24...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 25...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 26...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 27...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 28...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 29...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 30...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 31...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 32...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 33...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 34...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 35...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 36...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 37...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 38...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 39...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 40...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 41...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 42...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 43...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 44...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 45...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 46...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 47...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 48...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 49...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 50...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 51...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 52...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 53...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 54...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 55...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 56...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 57...
-Best score is: 53.5677
-Hash collision at depth 0 with hash value 3072755050
-
+Best score is: 77
 Beginning Iteration 58...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 59...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 60...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 61...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 62...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 63...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 64...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 65...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 66...
-Best score is: 53.5677
+Best score is: 77
+Hash collision at depth 1 with hash value 28095405659 (case A)
 Beginning Iteration 67...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 68...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 69...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 70...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 71...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 72...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 73...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 74...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 75...
-Best score is: 53.5677
+Best score is: 77
+Hash collision at depth 1 with hash value 81267717633 (case A)
 Beginning Iteration 76...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 77...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 78...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 79...
-Best score is: 53.5677
+Best score is: 77
 Beginning Iteration 80...
-Best score is: 53.5677
-With a score of 53.5677 we have log2(|Aut(G_H)|) of 63
+Best score is: 77
+With a score of 77 we have log2(|Aut(G_H)|) of 63
 With edges: 
+(1, 2), (38, 113), (54, 109), 
 
-
-With a score of 43.3112 we have log2(|Aut(G_H)|) of 63
+With a score of 77 we have log2(|Aut(G_H)|) of 63
 With edges: 
-(1, 2), 
+(38, 113), (54, 109), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 75 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(3, 4), 
+(5, 6), (38, 113), (54, 109), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 75 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(0, 1), 
+(3, 4), (38, 113), (54, 109), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 75 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(0, 2), 
+(0, 1), (38, 113), (54, 109), 
 
-With a score of 42.3112 we have log2(|Aut(G_H)|) of 62
+With a score of 75 we have log2(|Aut(G_H)|) of 62
 With edges: 
-(5, 6), 
+(0, 2), (38, 113), (54, 109), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 73 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(13, 14), 
+(3, 5), (38, 113), (54, 109), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 73 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(1, 5), 
+(1, 3), (38, 113), (54, 109), 
 
-With a score of 41.3112 we have log2(|Aut(G_H)|) of 61
+With a score of 73 we have log2(|Aut(G_H)|) of 61
 With edges: 
-(2, 6), 
+(0, 6), (38, 113), (54, 109), 
 
 Iteration 0 for flip probability 0.025
 
 
-Adding: (83, 86), (71, 91), 
+Adding: (10, 80), 
 
-Removing: (41, 84), (2, 6), 
-log2_p_plus:          -10.4956
-log2_1_minus_p_plus:  -0.000999598
-log2_p_minus:         -10.4956
-log2_1_minus_p_minus: -0.000999598
-p_plus:  0.000692629
-p_minus: 0.000692629
+Removing: (39, 80), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 28.0237
+The special edge set gets a score of 69
 
 Beginning Iteration 2...
-Best score is: 40.0022
+Best score is: 58
 Beginning Iteration 3...
-Best score is: 40.0022
+Best score is: 58
 Beginning Iteration 4...
-Best score is: 43.5076
+Best score is: 58
 Beginning Iteration 5...
-Best score is: 43.5076
+Best score is: 59.1699
 Beginning Iteration 6...
-Best score is: 43.5076
+Best score is: 59.1699
 Beginning Iteration 7...
-Best score is: 43.5076
+Best score is: 62.1699
 Beginning Iteration 8...
-Best score is: 43.5076
+Best score is: 63.1699
 Beginning Iteration 9...
-Best score is: 43.5076
+Best score is: 64.1699
 Beginning Iteration 10...
-Best score is: 43.5076
+Best score is: 66.5098
 Beginning Iteration 11...
-Best score is: 43.5076
-Hash collision at depth 0 with hash value 1449708239
+Best score is: 68.9837
 Beginning Iteration 12...
-Best score is: 43.5076
+Best score is: 71.5098
 Beginning Iteration 13...
-Best score is: 43.5076
+Best score is: 71.5098
 Beginning Iteration 14...
-Best score is: 43.5076
+Best score is: 71.6797
+Hash collision at depth 1 with hash value 72919078202 (case A)
 Beginning Iteration 15...
-Best score is: 43.5076
+Best score is: 73.6797
 Beginning Iteration 16...
-Best score is: 43.5076
+Best score is: 74.6797
 Beginning Iteration 17...
-Best score is: 43.5076
+Best score is: 74.6797
 Beginning Iteration 18...
-Best score is: 43.5076
+Best score is: 74.6797
 Beginning Iteration 19...
-Best score is: 43.5076
+Best score is: 78.5984
 Beginning Iteration 20...
-Best score is: 43.5076
+Best score is: 78.5984
 Beginning Iteration 21...
-Best score is: 43.5076
+Best score is: 78.5984
 Beginning Iteration 22...
-Best score is: 43.5076
+Best score is: 82.9383
 Beginning Iteration 23...
-Best score is: 43.5076
+Best score is: 83.9383
 Beginning Iteration 24...
-Best score is: 43.5076
+Best score is: 84.9383
 Beginning Iteration 25...
-Best score is: 43.5076
+Best score is: 84.9383
 Beginning Iteration 26...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 27...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 28...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 29...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 30...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 31...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 32...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 33...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 34...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 35...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 36...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 37...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 38...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 39...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 40...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 41...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 42...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 43...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 44...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 45...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 46...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 47...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 48...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 49...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 50...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 51...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 52...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 53...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 54...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 55...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 56...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 57...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 58...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 59...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 60...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 61...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 62...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 63...
-Best score is: 43.5076
+Best score is: 85.9383
+Hash collision at depth 1 with hash value 58455325779 (case B)
 Beginning Iteration 64...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 65...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 66...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 67...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 68...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 69...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 70...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 71...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 72...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 73...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 74...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 75...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 76...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 77...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 78...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 79...
-Best score is: 43.5076
+Best score is: 85.9383
 Beginning Iteration 80...
-Best score is: 43.5076
-With a score of 43.5076 we have log2(|Aut(G_H)|) of 55
+Best score is: 85.9383
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(71, 91), 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 23), (12, 26), (13, 27), (14, 30), 
 
-With a score of 40.0022 we have log2(|Aut(G_H)|) of 48
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 24), (12, 25), (13, 28), (14, 29), 
 
-
-With a score of 37.013 we have log2(|Aut(G_H)|) of 57
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(42, 85), (71, 91), 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 23), (12, 25), (13, 28), (14, 30), 
 
-With a score of 35.1829 we have log2(|Aut(G_H)|) of 55.585
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(40, 84), (71, 91), 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 24), (12, 26), (13, 27), (14, 29), 
 
-With a score of 35.1829 we have log2(|Aut(G_H)|) of 55.585
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(39, 84), (71, 91), 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 23), (12, 25), (13, 27), (14, 29), 
 
-With a score of 35.013 we have log2(|Aut(G_H)|) of 56
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(42, 84), (71, 91), 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 24), (12, 26), (13, 28), (14, 30), 
 
-With a score of 35.013 we have log2(|Aut(G_H)|) of 56
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(41, 85), (71, 91), 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 24), (12, 25), (13, 27), (14, 30), 
 
-With a score of 35.013 we have log2(|Aut(G_H)|) of 56
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(71, 91), (83, 85), 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 24), (12, 26), (13, 27), (14, 30), 
 
-With a score of 35.013 we have log2(|Aut(G_H)|) of 56
+With a score of 85.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(2, 4), (71, 91), 
+(7, 15), (7, 16), (8, 17), (8, 18), (9, 20), (11, 23), (12, 25), (13, 27), (14, 30), 
 
 Iteration 1 for flip probability 0.025
 
 
-Adding: 
+Adding: (72, 109), (40, 118), 
 
-Removing: (54, 110), (32, 65), (2, 6), 
-log2_p_plus:          -10.6702
-log2_1_minus_p_plus:  -0.000885652
-log2_p_minus:         -10.6702
-log2_1_minus_p_minus: -0.000885652
-p_plus:  0.000613699
-p_minus: 0.000613699
+Removing: (39, 80), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 34.906
+The special edge set gets a score of 82
 
 Beginning Iteration 2...
-Best score is: 45.9139
+Best score is: 46.1699
 Beginning Iteration 3...
-Best score is: 45.9139
+Best score is: 48
+Hash collision at depth 1 with hash value 41592142873 (case A)
 Beginning Iteration 4...
-Best score is: 45.9139
+Best score is: 49
 Beginning Iteration 5...
-Best score is: 45.9139
+Best score is: 57.1699
 Beginning Iteration 6...
-Best score is: 45.9139
+Best score is: 61.1699
 Beginning Iteration 7...
-Best score is: 45.9139
+Best score is: 66.1699
 Beginning Iteration 8...
-Best score is: 45.9139
+Best score is: 73.1699
 Beginning Iteration 9...
-Best score is: 45.9139
+Best score is: 75.1699
 Beginning Iteration 10...
-Best score is: 45.9139
+Best score is: 75.1699
 Beginning Iteration 11...
-Best score is: 45.9139
+Best score is: 75.1699
 Beginning Iteration 12...
-Best score is: 45.9139
+Best score is: 77.8138
 Beginning Iteration 13...
-Best score is: 45.9139
+Best score is: 80.8138
 Beginning Iteration 14...
-Best score is: 45.9139
+Best score is: 80.8138
 Beginning Iteration 15...
-Best score is: 45.9139
+Best score is: 81.9837
 Beginning Iteration 16...
-Best score is: 45.9139
+Best score is: 85.1536
 Beginning Iteration 17...
-Best score is: 45.9139
+Best score is: 88.5984
 Beginning Iteration 18...
-Best score is: 45.9139
-Hash collision at depth 0 with hash value 97304435
+Best score is: 92.5984
 Beginning Iteration 19...
-Best score is: 45.9139
+Best score is: 94.5984
 Beginning Iteration 20...
-Best score is: 45.9139
+Best score is: 94.5984
 Beginning Iteration 21...
-Best score is: 45.9139
+Best score is: 94.5984
 Beginning Iteration 22...
-Best score is: 45.9139
+Best score is: 97.5984
 Beginning Iteration 23...
-Best score is: 45.9139
+Best score is: 97.5984
 Beginning Iteration 24...
-Best score is: 45.9139
+Best score is: 97.5984
 Beginning Iteration 25...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 26...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 27...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 28...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 29...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 30...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 31...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 32...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 33...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 34...
-Best score is: 45.9139
+Best score is: 98.5984
 Beginning Iteration 35...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 36...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 37...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 38...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 39...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 40...
-Best score is: 45.9139
+Best score is: 99.5984
+Hash collision at depth 1 with hash value 31873390352 (case A)
 Beginning Iteration 41...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 42...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 43...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 44...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 45...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 46...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 47...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 48...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 49...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 50...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 51...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 52...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 53...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 54...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 55...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 56...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 57...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 58...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 59...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 60...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 61...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 62...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 63...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 64...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 65...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 66...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 67...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 68...
-Best score is: 45.9139
+Best score is: 99.5984
+Hash collision at depth 1 with hash value 14900902697 (case A)
 Beginning Iteration 69...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 70...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 71...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 72...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 73...
-Best score is: 45.9139
-Hash collision at depth 0 with hash value 4508
+Best score is: 99.5984
 Beginning Iteration 74...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 75...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 76...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 77...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 78...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 79...
-Best score is: 45.9139
+Best score is: 99.5984
 Beginning Iteration 80...
-Best score is: 45.9139
-With a score of 45.9139 we have log2(|Aut(G_H)|) of 53
+Best score is: 99.5984
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
+(40, 82), (40, 118), (41, 83), (42, 86), (43, 87), (44, 90), (45, 91), (46, 93), (72, 109), 
 
-
-With a score of 44.2446 we have log2(|Aut(G_H)|) of 57
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
-(32, 110), 
+(40, 81), (40, 118), (41, 84), (42, 86), (43, 87), (44, 90), (45, 92), (46, 93), (72, 109), 
 
-With a score of 44.2446 we have log2(|Aut(G_H)|) of 57
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
-(32, 65), 
+(40, 82), (40, 118), (41, 83), (42, 86), (43, 88), (44, 90), (45, 92), (46, 93), (72, 109), 
 
-With a score of 42.2446 we have log2(|Aut(G_H)|) of 56
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
-(54, 110), 
+(40, 81), (40, 118), (41, 83), (42, 85), (43, 88), (44, 89), (45, 91), (46, 93), (72, 109), 
 
-With a score of 42.2446 we have log2(|Aut(G_H)|) of 56
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
-(54, 65), 
+(40, 82), (40, 118), (41, 84), (42, 86), (43, 87), (44, 90), (45, 91), (46, 93), (72, 109), 
 
-With a score of 41.5753 we have log2(|Aut(G_H)|) of 61
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
-(32, 110), (54, 65), 
+(40, 82), (40, 118), (41, 84), (42, 86), (43, 88), (44, 90), (45, 91), (46, 93), (72, 109), 
 
-With a score of 41.5753 we have log2(|Aut(G_H)|) of 61
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
-(32, 65), (54, 110), 
+(40, 82), (40, 118), (41, 83), (42, 86), (43, 87), (44, 90), (45, 92), (46, 93), (72, 109), 
 
-With a score of 39.4145 we have log2(|Aut(G_H)|) of 54.585
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
-(53, 108), 
+(40, 82), (40, 118), (41, 83), (42, 85), (43, 87), (44, 90), (45, 92), (46, 93), (72, 109), 
 
-With a score of 39.4145 we have log2(|Aut(G_H)|) of 54.585
+With a score of 99.5984 we have log2(|Aut(G_H)|) of 68.2992
 With edges: 
-(31, 63), 
+(40, 81), (40, 118), (41, 83), (42, 86), (43, 88), (44, 89), (45, 92), (46, 93), (72, 109), 
 
 Iteration 2 for flip probability 0.025
 
 
-Adding: (95, 109), (37, 40), (10, 102), 
+Adding: (0, 108), 
 
-Removing: (62, 125), (2, 6), 
-log2_p_plus:          -10.5232
-log2_1_minus_p_plus:  -0.000980662
-log2_p_minus:         -10.5232
-log2_1_minus_p_minus: -0.000980662
-p_plus:  0.000679512
-p_minus: 0.000679512
+Removing: (6, 14), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 24.5426
+The special edge set gets a score of 70
 
 Beginning Iteration 2...
-Best score is: 33.1537
+Best score is: 56
 Beginning Iteration 3...
-Best score is: 33.1537
+Best score is: 56.1699
 Beginning Iteration 4...
-Best score is: 33.1537
+Best score is: 60
 Beginning Iteration 5...
-Best score is: 33.1537
+Best score is: 64
 Beginning Iteration 6...
-Best score is: 33.1537
+Best score is: 64
 Beginning Iteration 7...
-Best score is: 33.1537
+Best score is: 66.1699
 Beginning Iteration 8...
-Best score is: 33.587
+Best score is: 70
 Beginning Iteration 9...
-Best score is: 33.587
+Best score is: 70
 Beginning Iteration 10...
-Best score is: 33.587
+Best score is: 71.3399
 Beginning Iteration 11...
-Best score is: 33.587
+Best score is: 73.1699
 Beginning Iteration 12...
-Best score is: 33.587
+Best score is: 73.1699
 Beginning Iteration 13...
-Best score is: 33.587
+Best score is: 75.8138
 Beginning Iteration 14...
-Best score is: 33.587
+Best score is: 78.9837
 Beginning Iteration 15...
-Best score is: 33.587
+Best score is: 84.5984
 Beginning Iteration 16...
-Best score is: 33.587
+Best score is: 86.5984
 Beginning Iteration 17...
-Best score is: 33.587
+Best score is: 89.7683
 Beginning Iteration 18...
-Best score is: 33.587
+Best score is: 89.7683
 Beginning Iteration 19...
-Best score is: 33.587
+Best score is: 89.7683
 Beginning Iteration 20...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 21...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 22...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 23...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 24...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 25...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 26...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 27...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 28...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 29...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 30...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 31...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 32...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 33...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 34...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 35...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 36...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 37...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 38...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 39...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 40...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 41...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 42...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 43...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 44...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 45...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 46...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 47...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 48...
-Best score is: 33.587
-Hash collision at depth 0 with hash value 1475612222
+Best score is: 93.7683
 Beginning Iteration 49...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 50...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 51...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 52...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 53...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 54...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 55...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 56...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 57...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 58...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 59...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 60...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 61...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 62...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 63...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 64...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 65...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 66...
-Best score is: 33.587
+Best score is: 93.7683
+Hash collision at depth 1 with hash value 70967523839 (case A)
 Beginning Iteration 67...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 68...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 69...
-Best score is: 33.587
+Best score is: 93.7683
+Hash collision at depth 1 with hash value 43336124134 (case A)
 Beginning Iteration 70...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 71...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 72...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 73...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 74...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 75...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 76...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 77...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 78...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 79...
-Best score is: 33.587
+Best score is: 93.7683
 Beginning Iteration 80...
-Best score is: 33.587
-With a score of 33.587 we have log2(|Aut(G_H)|) of 57
+Best score is: 93.7683
+With a score of 93.7683 we have log2(|Aut(G_H)|) of 74.8842
 With edges: 
-(10, 102), (37, 40), (95, 109), 
+(0, 1), (0, 108), (3, 7), (3, 8), (4, 9), (4, 10), (5, 11), (5, 12), (6, 13), 
 
-With a score of 33.1537 we have log2(|Aut(G_H)|) of 41
+With a score of 93.7683 we have log2(|Aut(G_H)|) of 74.8842
 With edges: 
+(0, 2), (0, 108), (3, 7), (3, 8), (4, 9), (4, 10), (5, 11), (5, 12), (6, 13), 
 
-
-With a score of 32.6315 we have log2(|Aut(G_H)|) of 46
+With a score of 92.5984 we have log2(|Aut(G_H)|) of 74.2992
 With edges: 
-(95, 109), 
+(0, 108), (1, 2), (3, 7), (3, 8), (4, 9), (4, 10), (5, 11), (5, 12), (6, 13), 
 
-With a score of 32.6315 we have log2(|Aut(G_H)|) of 46
+With a score of 92.5984 we have log2(|Aut(G_H)|) of 74.2992
 With edges: 
-(37, 40), 
+(0, 108), (3, 7), (3, 8), (4, 9), (4, 10), (5, 11), (5, 12), (6, 13), 
 
-With a score of 32.1093 we have log2(|Aut(G_H)|) of 51
+With a score of 91.7683 we have log2(|Aut(G_H)|) of 72.8842
 With edges: 
-(10, 102), (95, 109), 
+(0, 9), (0, 108), (3, 7), (3, 8), (4, 9), (4, 10), (5, 11), (5, 12), (6, 13), 
 
-With a score of 32.1093 we have log2(|Aut(G_H)|) of 51
+With a score of 91.7683 we have log2(|Aut(G_H)|) of 72.8842
 With edges: 
-(37, 40), (95, 109), 
+(0, 2), (0, 108), (2, 4), (3, 7), (3, 8), (4, 10), (5, 11), (5, 12), (6, 13), 
 
-With a score of 32.1093 we have log2(|Aut(G_H)|) of 51
+With a score of 91.7683 we have log2(|Aut(G_H)|) of 72.8842
 With edges: 
-(10, 102), (37, 40), 
+(0, 8), (0, 108), (3, 7), (3, 8), (4, 9), (4, 10), (5, 11), (5, 12), (6, 13), 
 
-With a score of 31.0648 we have log2(|Aut(G_H)|) of 61
+With a score of 91.7683 we have log2(|Aut(G_H)|) of 72.8842
 With edges: 
-(10, 102), (37, 40), (62, 125), (95, 109), 
+(0, 2), (0, 108), (2, 3), (3, 8), (4, 9), (4, 10), (5, 11), (5, 12), (6, 13), 
 
-With a score of 30.6315 we have log2(|Aut(G_H)|) of 45
+With a score of 91.7683 we have log2(|Aut(G_H)|) of 72.8842
 With edges: 
-(62, 125), 
+(0, 2), (0, 108), (2, 3), (3, 7), (4, 9), (4, 10), (5, 11), (5, 12), (6, 13), 
 
 Iteration 3 for flip probability 0.025
 
 
-Adding: (92, 115), (70, 108), (23, 34), 
+Adding: 
 
 Removing: 
-log2_p_plus:          -10.3292
-log2_1_minus_p_plus:  -0.00112187
-log2_p_minus:         -10.3292
-log2_1_minus_p_minus: -0.00112187
-p_plus:  0.000777316
-p_minus: 0.000777316
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 43.0397
+The special edge set gets a score of 63
 
 Beginning Iteration 2...
-Best score is: 34.0239
+Best score is: 63
 Beginning Iteration 3...
-Best score is: 34.0239
+Best score is: 63
 Beginning Iteration 4...
-Best score is: 39.6959
+Best score is: 63
 Beginning Iteration 5...
-Best score is: 39.6959
+Best score is: 63
 Beginning Iteration 6...
-Best score is: 39.6959
+Best score is: 63
 Beginning Iteration 7...
-Best score is: 39.6959
+Best score is: 63.1699
 Beginning Iteration 8...
-Best score is: 39.6959
+Best score is: 66.9837
 Beginning Iteration 9...
-Best score is: 43.0397
+Best score is: 66.9837
 Beginning Iteration 10...
-Best score is: 43.0397
+Best score is: 66.9837
 Beginning Iteration 11...
-Best score is: 43.0397
+Best score is: 69.9837
 Beginning Iteration 12...
-Best score is: 43.0397
+Best score is: 74.5984
 Beginning Iteration 13...
-Best score is: 43.0397
+Best score is: 74.5984
 Beginning Iteration 14...
-Best score is: 43.0397
+Best score is: 77.9383
 Beginning Iteration 15...
-Best score is: 43.0397
+Best score is: 80.6634
 Beginning Iteration 16...
-Best score is: 43.0397
+Best score is: 82.9383
 Beginning Iteration 17...
-Best score is: 43.0397
+Best score is: 84.6634
 Beginning Iteration 18...
-Best score is: 43.0397
+Best score is: 84.6634
 Beginning Iteration 19...
-Best score is: 43.0397
+Best score is: 84.6634
 Beginning Iteration 20...
-Best score is: 43.0397
+Best score is: 85.6634
 Beginning Iteration 21...
-Best score is: 43.0397
+Best score is: 85.6634
 Beginning Iteration 22...
-Best score is: 43.0397
+Best score is: 85.6634
 Beginning Iteration 23...
-Best score is: 43.0397
+Best score is: 85.6634
 Beginning Iteration 24...
-Best score is: 43.0397
+Best score is: 85.9383
 Beginning Iteration 25...
-Best score is: 43.0397
+Best score is: 85.9383
 Beginning Iteration 26...
-Best score is: 43.0397
+Best score is: 85.9383
 Beginning Iteration 27...
-Best score is: 43.0397
+Best score is: 85.9383
+Hash collision at depth 1 with hash value 5022297475 (case A)
 Beginning Iteration 28...
-Best score is: 43.0397
+Best score is: 85.9383
 Beginning Iteration 29...
-Best score is: 43.0397
+Best score is: 85.9383
 Beginning Iteration 30...
-Best score is: 43.0397
+Best score is: 85.9383
 Beginning Iteration 31...
-Best score is: 43.0397
+Best score is: 85.9383
 Beginning Iteration 32...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 33...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 34...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 35...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 36...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 37...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 38...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 39...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 40...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 41...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 42...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 43...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 44...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 45...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 46...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 47...
-Best score is: 43.0397
+Best score is: 86.9383
+Hash collision at depth 1 with hash value 46235089309 (case A)
 Beginning Iteration 48...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 49...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 50...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 51...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 52...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 53...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 54...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 55...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 56...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 57...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 58...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 59...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 60...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 61...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 62...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 63...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 64...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 65...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 66...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 67...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 68...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 69...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 70...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 71...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 72...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 73...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 74...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 75...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 76...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 77...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 78...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 79...
-Best score is: 43.0397
+Best score is: 86.9383
 Beginning Iteration 80...
-Best score is: 43.0397
-With a score of 43.0397 we have log2(|Aut(G_H)|) of 63
+Best score is: 86.9383
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(23, 34), (70, 108), (92, 115), 
+(15, 31), (15, 32), (16, 34), (17, 35), (18, 37), (19, 39), (20, 41), (21, 43), (22, 45), 
 
-With a score of 39.6959 we have log2(|Aut(G_H)|) of 51
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(92, 115), 
+(15, 31), (16, 34), (17, 36), (18, 37), (19, 39), (20, 41), (20, 42), (21, 43), (22, 46), 
 
-With a score of 37.3678 we have log2(|Aut(G_H)|) of 55
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 70.4691
 With edges: 
-(70, 108), (92, 115), 
+(15, 31), (16, 34), (17, 36), (18, 38), (19, 40), (21, 43), (21, 44), (22, 45), (22, 46), 
 
-With a score of 34.0239 we have log2(|Aut(G_H)|) of 43
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
+(15, 32), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (20, 42), (21, 44), (22, 45), 
 
-
-With a score of 33.3678 we have log2(|Aut(G_H)|) of 53
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 70.4691
 With edges: 
-(23, 34), (92, 115), 
+(15, 31), (16, 33), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (20, 42), (21, 43), 
 
-With a score of 33.3678 we have log2(|Aut(G_H)|) of 53
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(23, 34), (70, 108), 
+(15, 31), (16, 34), (17, 35), (17, 36), (18, 38), (19, 40), (20, 42), (21, 43), (22, 46), 
 
-With a score of 32.7116 we have log2(|Aut(G_H)|) of 63
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 70.4691
 With edges: 
-(1, 2), (23, 34), (70, 108), (92, 115), 
+(15, 31), (16, 34), (17, 35), (18, 38), (19, 39), (21, 43), (21, 44), (22, 45), (22, 46), 
 
-With a score of 31.6959 we have log2(|Aut(G_H)|) of 47
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(70, 108), 
+(15, 31), (16, 34), (17, 36), (18, 38), (19, 39), (20, 41), (21, 43), (21, 44), (22, 45), 
 
-With a score of 31.3678 we have log2(|Aut(G_H)|) of 52
+With a score of 86.9383 we have log2(|Aut(G_H)|) of 69.4691
 With edges: 
-(69, 108), (92, 115), 
+(15, 31), (16, 33), (16, 34), (17, 35), (18, 38), (19, 39), (20, 41), (21, 44), (22, 45), 
 
 Iteration 4 for flip probability 0.025
 
 
-Adding: (3, 77), 
+Adding: (121, 124), 
 
-Removing: (55, 111), 
-log2_p_plus:          -10.4322
-log2_1_minus_p_plus:  -0.00104456
-log2_p_minus:         -10.4322
-log2_1_minus_p_minus: -0.00104456
-p_plus:  0.000723769
-p_minus: 0.000723769
+Removing: (56, 113), (42, 85), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 44.7802
+The special edge set gets a score of 78
 
 Beginning Iteration 2...
-Best score is: 43.6425
+Best score is: 53.1699
 Beginning Iteration 3...
-Best score is: 43.6425
+Best score is: 53.1699
 Beginning Iteration 4...
-Best score is: 43.6425
+Best score is: 57.1699
 Beginning Iteration 5...
-Best score is: 43.6425
+Best score is: 60.1699
 Beginning Iteration 6...
-Best score is: 43.6425
+Best score is: 61.5984
 Beginning Iteration 7...
-Best score is: 44.7802
+Best score is: 68.1699
 Beginning Iteration 8...
-Best score is: 44.7802
+Best score is: 71.5984
 Beginning Iteration 9...
-Best score is: 44.7802
+Best score is: 76.5984
 Beginning Iteration 10...
-Best score is: 44.7802
+Best score is: 83.5821
 Beginning Iteration 11...
-Best score is: 44.7802
+Best score is: 92.5821
 Beginning Iteration 12...
-Best score is: 44.7802
+Best score is: 94.5821
 Beginning Iteration 13...
-Best score is: 44.7802
+Best score is: 96.5821
 Beginning Iteration 14...
-Best score is: 44.7802
+Best score is: 96.5821
 Beginning Iteration 15...
-Best score is: 44.7802
+Best score is: 96.5821
 Beginning Iteration 16...
-Best score is: 44.7802
+Best score is: 96.5821
 Beginning Iteration 17...
-Best score is: 44.7802
+Best score is: 97.5821
+Hash collision at depth 1 with hash value 41614582866 (case A)
 Beginning Iteration 18...
-Best score is: 44.7802
+Best score is: 97.5821
 Beginning Iteration 19...
-Best score is: 44.7802
+Best score is: 97.5821
 Beginning Iteration 20...
-Best score is: 44.7802
+Best score is: 97.5821
 Beginning Iteration 21...
-Best score is: 44.7802
+Best score is: 97.5821
 Beginning Iteration 22...
-Best score is: 44.7802
+Best score is: 97.5821
 Beginning Iteration 23...
-Best score is: 44.7802
+Best score is: 97.5821
 Beginning Iteration 24...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 25...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 26...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 27...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 28...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 29...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 30...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 31...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 32...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 33...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 34...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 35...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 36...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 37...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 38...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 39...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 40...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 41...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 42...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 43...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 44...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 45...
-Best score is: 44.7802
+Best score is: 98.5821
+Hash collision at depth 1 with hash value 62811146123 (case A)
 Beginning Iteration 46...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 47...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 48...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 49...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 50...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 51...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 52...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 53...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 54...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 55...
-Best score is: 44.7802
+Best score is: 98.5821
+Hash collision at depth 1 with hash value 64850543794 (case A)
 Beginning Iteration 56...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 57...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 58...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 59...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 60...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 61...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 62...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 63...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 64...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 65...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 66...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 67...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 68...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 69...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 70...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 71...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 72...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 73...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 74...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 75...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 76...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 77...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 78...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 79...
-Best score is: 44.7802
+Best score is: 98.5821
 Beginning Iteration 80...
-Best score is: 44.7802
-With a score of 44.7802 we have log2(|Aut(G_H)|) of 63
+Best score is: 98.5821
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
-(3, 77), (55, 111), 
+(39, 80), (40, 82), (41, 84), (43, 88), (44, 90), (45, 91), (46, 94), (55, 112), (121, 124), 
 
-With a score of 43.6425 we have log2(|Aut(G_H)|) of 52
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
+(39, 79), (40, 82), (41, 83), (43, 87), (44, 89), (45, 91), (46, 93), (55, 111), (121, 124), 
 
-
-With a score of 43.2114 we have log2(|Aut(G_H)|) of 57
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
-(3, 77), 
+(39, 79), (40, 81), (41, 84), (43, 87), (44, 89), (45, 92), (46, 94), (55, 111), (121, 124), 
 
-With a score of 43.2114 we have log2(|Aut(G_H)|) of 57
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
-(55, 111), 
+(39, 80), (40, 81), (41, 83), (43, 88), (44, 89), (45, 91), (46, 94), (55, 112), (121, 124), 
 
-With a score of 36.3813 we have log2(|Aut(G_H)|) of 53.585
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
-(37, 111), 
+(39, 80), (40, 82), (41, 84), (43, 87), (44, 90), (45, 91), (46, 93), (55, 112), (121, 124), 
 
-With a score of 36.3813 we have log2(|Aut(G_H)|) of 53.585
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
-(56, 111), 
+(39, 79), (40, 82), (41, 84), (43, 88), (44, 89), (45, 91), (46, 93), (55, 112), (121, 124), 
 
-With a score of 36.2114 we have log2(|Aut(G_H)|) of 53
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
-(56, 113), 
+(39, 79), (40, 81), (41, 84), (43, 88), (44, 90), (45, 91), (46, 94), (55, 112), (121, 124), 
 
-With a score of 36.2114 we have log2(|Aut(G_H)|) of 53
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
-(56, 114), 
+(39, 79), (40, 81), (41, 84), (43, 87), (44, 90), (45, 91), (46, 93), (55, 111), (121, 124), 
 
-With a score of 35.9502 we have log2(|Aut(G_H)|) of 58.585
+With a score of 98.5821 we have log2(|Aut(G_H)|) of 69.7911
 With edges: 
-(3, 77), (56, 111), 
+(39, 80), (40, 82), (41, 83), (43, 87), (44, 89), (45, 92), (46, 94), (55, 112), (121, 124), 
 
 Iteration 0 for flip probability 0.05
 
 
-Adding: (94, 113), (91, 104), (68, 117), (64, 106), (39, 56), (25, 110), 
+Adding: (58, 75), 
 
-Removing: (60, 121), (55, 111), (47, 95), (45, 91), (43, 88), (29, 59), (41, 83), (21, 44), (19, 40), 
-log2_p_plus:          -11.0035
-log2_1_minus_p_plus:  -0.000702922
-log2_p_minus:         -11.0035
-log2_1_minus_p_minus: -0.000702922
-p_plus:  0.00048711
-p_minus: 0.00048711
+Removing: (20, 42), (15, 32), (59, 120), (1, 3), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of -67.6655
+The special edge set gets a score of 81
 
 Beginning Iteration 2...
-Best score is: 26.8678
+Best score is: 53.3399
 Beginning Iteration 3...
-Best score is: 26.8678
+Best score is: 53.3399
 Beginning Iteration 4...
-Best score is: 26.8678
+Best score is: 53.3399
 Beginning Iteration 5...
-Best score is: 26.8678
+Best score is: 58.1699
+Hash collision at depth 1 with hash value 26230248498 (case B)
 Beginning Iteration 6...
-Best score is: 26.8678
+Best score is: 62.1699
 Beginning Iteration 7...
-Best score is: 26.8678
+Best score is: 66.1699
 Beginning Iteration 8...
-Best score is: 26.8678
+Best score is: 73.4935
 Beginning Iteration 9...
-Best score is: 26.8678
+Best score is: 77.7683
 Beginning Iteration 10...
-Best score is: 26.8678
+Best score is: 84.9383
 Beginning Iteration 11...
-Best score is: 26.8678
+Best score is: 96.6709
 Beginning Iteration 12...
-Best score is: 26.8678
+Best score is: 105.242
 Beginning Iteration 13...
-Best score is: 26.8678
+Best score is: 116.026
 Beginning Iteration 14...
-Best score is: 26.8678
+Best score is: 124.67
 Beginning Iteration 15...
-Best score is: 26.8678
+Best score is: 128.67
 Beginning Iteration 16...
-Best score is: 26.8678
+Best score is: 141.845
 Beginning Iteration 17...
-Best score is: 26.8678
+Best score is: 141.845
 Beginning Iteration 18...
-Best score is: 26.8678
+Best score is: 151.185
 Beginning Iteration 19...
-Best score is: 26.8678
+Best score is: 151.185
 Beginning Iteration 20...
-Best score is: 26.8678
+Best score is: 153.185
 Beginning Iteration 21...
-Best score is: 26.8678
+Best score is: 154.185
 Beginning Iteration 22...
-Best score is: 26.8678
+Best score is: 159.155
 Beginning Iteration 23...
-Best score is: 26.8678
+Best score is: 159.155
 Beginning Iteration 24...
-Best score is: 26.8678
+Best score is: 160.155
 Beginning Iteration 25...
-Best score is: 26.8678
+Best score is: 160.155
 Beginning Iteration 26...
-Best score is: 26.8678
+Best score is: 160.155
 Beginning Iteration 27...
-Best score is: 26.8678
+Best score is: 161.155
 Beginning Iteration 28...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 29...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 30...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 31...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 32...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 33...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 34...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 35...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 36...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 37...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 38...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 39...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 40...
-Best score is: 26.8678
+Best score is: 163.155
 Beginning Iteration 41...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 42...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 43...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 44...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 45...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 46...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 47...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 48...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 49...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 50...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 51...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 52...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 53...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 54...
-Best score is: 26.8678
-Hash collision at depth 0 with hash value 2348508683
+Best score is: 170.325
 Beginning Iteration 55...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 56...
-Best score is: 26.8678
+Best score is: 170.325
 Beginning Iteration 57...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 58...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 59...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 60...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 61...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 62...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 63...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 64...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 65...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 66...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 67...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 68...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 69...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 70...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 71...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 72...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 73...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 74...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 75...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 76...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 77...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 78...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 79...
-Best score is: 26.8678
+Best score is: 171.325
 Beginning Iteration 80...
-Best score is: 26.8678
-With a score of 26.8678 we have log2(|Aut(G_H)|) of 32.4919
+Best score is: 171.325
+With a score of 171.325 we have log2(|Aut(G_H)|) of 107.662
 With edges: 
+(3, 7), (4, 9), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (27, 55), (28, 57), (29, 60), (30, 61), (37, 75), 
 
-
-With a score of 23.865 we have log2(|Aut(G_H)|) of 36.4919
+With a score of 171.325 we have log2(|Aut(G_H)|) of 107.662
 With edges: 
-(68, 117), 
+(3, 7), (4, 9), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (21, 44), (22, 46), (28, 57), (29, 60), (37, 75), 
 
-With a score of 23.0349 we have log2(|Aut(G_H)|) of 36.0768
+With a score of 171.325 we have log2(|Aut(G_H)|) of 107.662
 With edges: 
-(91, 104), 
+(3, 7), (4, 9), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (27, 56), (28, 57), (29, 60), (30, 62), (37, 75), 
 
-With a score of 22.8622 we have log2(|Aut(G_H)|) of 41.4919
+With a score of 171.325 we have log2(|Aut(G_H)|) of 107.662
 With edges: 
-(64, 106), (68, 117), 
+(3, 7), (4, 9), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (21, 43), (22, 46), (28, 57), (29, 60), (37, 75), 
 
-With a score of 22.0349 we have log2(|Aut(G_H)|) of 35.0768
+With a score of 171.325 we have log2(|Aut(G_H)|) of 108.662
 With edges: 
-(42, 85), 
+(3, 7), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (21, 43), (21, 44), (22, 45), (22, 46), (29, 60), (37, 75), 
 
-With a score of 22.0349 we have log2(|Aut(G_H)|) of 35.0768
+With a score of 171.325 we have log2(|Aut(G_H)|) of 107.662
 With edges: 
-(48, 98), 
+(3, 7), (4, 9), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (21, 44), (22, 45), (28, 57), (29, 60), (37, 75), 
 
-With a score of 22.0349 we have log2(|Aut(G_H)|) of 35.0768
+With a score of 171.325 we have log2(|Aut(G_H)|) of 107.662
 With edges: 
-(48, 97), 
+(3, 7), (4, 9), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (21, 43), (22, 45), (28, 57), (29, 60), (37, 75), 
 
-With a score of 22.0349 we have log2(|Aut(G_H)|) of 35.0768
+With a score of 171.325 we have log2(|Aut(G_H)|) of 107.662
 With edges: 
-(42, 86), 
+(3, 7), (4, 9), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (27, 55), (28, 57), (29, 60), (30, 62), (37, 75), 
 
-With a score of 21.865 we have log2(|Aut(G_H)|) of 35.4919
+With a score of 171.325 we have log2(|Aut(G_H)|) of 108.662
 With edges: 
-(14, 29), 
+(3, 7), (4, 9), (8, 18), (14, 29), (15, 31), (16, 33), (16, 34), (17, 35), (17, 36), (18, 38), (19, 39), (19, 40), (20, 41), (28, 57), (29, 60), (30, 61), (30, 62), (37, 75), 
 
 Iteration 1 for flip probability 0.05
 
 
-Adding: (82, 118), (72, 95), (37, 104), (34, 123), 
+Adding: (109, 122), (102, 116), (96, 122), (91, 102), (34, 85), 
 
-Removing: (48, 98), (19, 39), 
-log2_p_plus:          -10.5504
-log2_1_minus_p_plus:  -0.000962373
-log2_p_minus:         -10.5504
-log2_1_minus_p_minus: -0.000962373
-p_plus:  0.000666843
-p_minus: 0.000666843
+Removing: (24, 50), (22, 45), (47, 96), (5, 11), (1, 3), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 21.0036
+The special edge set gets a score of 92
 
 Beginning Iteration 2...
-Best score is: 26.3001
+Best score is: 37.1699
 Beginning Iteration 3...
-Best score is: 26.3001
+Best score is: 42
 Beginning Iteration 4...
-Best score is: 26.3001
+Best score is: 46
 Beginning Iteration 5...
-Best score is: 26.3001
+Best score is: 48
 Beginning Iteration 6...
-Best score is: 26.3001
+Best score is: 54.3399
 Beginning Iteration 7...
-Best score is: 26.3001
+Best score is: 60.3399
 Beginning Iteration 8...
-Best score is: 26.3001
+Best score is: 64.3399
 Beginning Iteration 9...
-Best score is: 26.3001
+Best score is: 67.3399
 Beginning Iteration 10...
-Best score is: 26.3001
+Best score is: 78.5098
 Beginning Iteration 11...
-Best score is: 26.3001
+Best score is: 78.5098
 Beginning Iteration 12...
-Best score is: 26.3001
+Best score is: 81.1536
 Beginning Iteration 13...
-Best score is: 26.3001
+Best score is: 84.3236
 Beginning Iteration 14...
-Best score is: 26.3001
+Best score is: 89.3236
 Beginning Iteration 15...
-Best score is: 26.3001
+Best score is: 93.3236
 Beginning Iteration 16...
-Best score is: 26.3001
+Best score is: 94.4935
 Beginning Iteration 17...
-Best score is: 26.3001
+Best score is: 104.278
 Beginning Iteration 18...
-Best score is: 26.3001
+Best score is: 106.278
 Beginning Iteration 19...
-Best score is: 26.3001
+Best score is: 108.448
 Beginning Iteration 20...
-Best score is: 26.3001
+Best score is: 116.173
 Beginning Iteration 21...
-Best score is: 26.3001
+Best score is: 121.092
 Beginning Iteration 22...
-Best score is: 26.3001
+Best score is: 121.092
 Beginning Iteration 23...
-Best score is: 26.3001
+Best score is: 127.448
 Beginning Iteration 24...
-Best score is: 26.3001
+Best score is: 132.092
 Beginning Iteration 25...
-Best score is: 26.3001
+Best score is: 132.092
 Beginning Iteration 26...
-Best score is: 26.3001
+Best score is: 136.432
 Beginning Iteration 27...
-Best score is: 26.3001
+Best score is: 136.432
 Beginning Iteration 28...
-Best score is: 26.3001
+Best score is: 136.618
 Beginning Iteration 29...
-Best score is: 26.3001
+Best score is: 136.618
 Beginning Iteration 30...
-Best score is: 26.3001
+Best score is: 137.262
 Beginning Iteration 31...
-Best score is: 26.3001
+Best score is: 139.602
 Beginning Iteration 32...
-Best score is: 26.3001
+Best score is: 139.602
 Beginning Iteration 33...
-Best score is: 26.3001
+Best score is: 139.602
 Beginning Iteration 34...
-Best score is: 26.3001
+Best score is: 139.602
 Beginning Iteration 35...
-Best score is: 26.3001
+Best score is: 139.602
 Beginning Iteration 36...
-Best score is: 26.3001
+Best score is: 139.602
 Beginning Iteration 37...
-Best score is: 26.3001
+Best score is: 139.602
 Beginning Iteration 38...
-Best score is: 26.3001
+Best score is: 139.602
 Beginning Iteration 39...
-Best score is: 26.3001
+Best score is: 140.432
 Beginning Iteration 40...
-Best score is: 26.3001
+Best score is: 140.432
 Beginning Iteration 41...
-Best score is: 26.3001
+Best score is: 140.432
 Beginning Iteration 42...
-Best score is: 26.3001
+Best score is: 140.432
 Beginning Iteration 43...
-Best score is: 26.3001
+Best score is: 140.432
+Hash collision at depth 1 with hash value 65011406586 (case A)
 Beginning Iteration 44...
-Best score is: 26.3001
+Best score is: 140.432
 Beginning Iteration 45...
-Best score is: 26.3001
+Best score is: 140.432
 Beginning Iteration 46...
-Best score is: 26.3001
+Best score is: 141.432
 Beginning Iteration 47...
-Best score is: 26.3001
+Best score is: 141.432
 Beginning Iteration 48...
-Best score is: 26.3001
+Best score is: 142.026
 Beginning Iteration 49...
-Best score is: 26.3001
+Best score is: 142.026
 Beginning Iteration 50...
-Best score is: 26.3001
+Best score is: 142.751
 Beginning Iteration 51...
-Best score is: 26.3001
+Best score is: 143.67
 Beginning Iteration 52...
-Best score is: 26.3001
+Best score is: 145.026
 Beginning Iteration 53...
-Best score is: 26.3001
+Best score is: 145.026
 Beginning Iteration 54...
-Best score is: 26.3001
+Best score is: 149.67
 Beginning Iteration 55...
-Best score is: 26.3001
+Best score is: 151.67
 Beginning Iteration 56...
-Best score is: 26.3001
+Best score is: 151.67
 Beginning Iteration 57...
-Best score is: 26.3001
+Best score is: 151.67
 Beginning Iteration 58...
-Best score is: 26.3001
+Best score is: 151.67
 Beginning Iteration 59...
-Best score is: 26.3001
+Best score is: 151.67
 Beginning Iteration 60...
-Best score is: 26.3001
+Best score is: 151.67
 Beginning Iteration 61...
-Best score is: 26.3001
+Best score is: 151.67
 Beginning Iteration 62...
-Best score is: 26.3001
+Best score is: 151.67
 Beginning Iteration 63...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 64...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 65...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 66...
-Best score is: 26.3001
-Hash collision at depth 0 with hash value 3712815836
-Hash collision at depth 0 with hash value 3712815836
-Hash collision at depth 0 with hash value 3712815836
+Best score is: 153.67
 Beginning Iteration 67...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 68...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 69...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 70...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 71...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 72...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 73...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 74...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 75...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 76...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 77...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 78...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 79...
-Best score is: 26.3001
+Best score is: 153.67
 Beginning Iteration 80...
-Best score is: 26.3001
-With a score of 26.3001 we have log2(|Aut(G_H)|) of 34
+Best score is: 153.67
+With a score of 153.67 we have log2(|Aut(G_H)|) of 92.8351
 With edges: 
+(11, 23), (11, 24), (23, 47), (23, 48), (34, 85), (43, 88), (44, 89), (45, 91), (45, 92), (47, 95), (48, 97), (48, 98), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
-
-With a score of 25.7507 we have log2(|Aut(G_H)|) of 39
+With a score of 153.67 we have log2(|Aut(G_H)|) of 92.8351
 With edges: 
-(34, 123), 
+(11, 23), (11, 24), (23, 47), (23, 48), (34, 85), (43, 87), (44, 90), (45, 91), (45, 92), (47, 95), (48, 97), (48, 98), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
-With a score of 25.2013 we have log2(|Aut(G_H)|) of 44
+With a score of 153.67 we have log2(|Aut(G_H)|) of 92.8351
 With edges: 
-(34, 123), (82, 118), 
+(11, 23), (11, 24), (23, 47), (23, 48), (34, 85), (43, 88), (44, 90), (45, 91), (45, 92), (47, 95), (48, 97), (48, 98), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
-With a score of 23.7507 we have log2(|Aut(G_H)|) of 38
+With a score of 153.67 we have log2(|Aut(G_H)|) of 92.8351
 With edges: 
-(37, 104), 
+(11, 23), (11, 24), (23, 47), (23, 48), (34, 85), (43, 87), (44, 89), (45, 91), (45, 92), (47, 95), (48, 97), (48, 98), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
-With a score of 23.7507 we have log2(|Aut(G_H)|) of 38
+With a score of 153.5 we have log2(|Aut(G_H)|) of 93.2501
 With edges: 
-(82, 118), 
+(11, 23), (11, 24), (23, 47), (23, 48), (24, 49), (34, 85), (45, 91), (45, 92), (47, 95), (48, 97), (48, 98), (49, 99), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
-With a score of 23.2013 we have log2(|Aut(G_H)|) of 43
+With a score of 152.67 we have log2(|Aut(G_H)|) of 91.8351
 With edges: 
-(34, 123), (37, 104), 
+(11, 23), (11, 24), (23, 47), (23, 48), (34, 85), (44, 90), (45, 91), (45, 92), (46, 93), (47, 95), (48, 97), (48, 98), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
-With a score of 22.6519 we have log2(|Aut(G_H)|) of 48
+With a score of 152.67 we have log2(|Aut(G_H)|) of 91.8351
 With edges: 
-(34, 123), (37, 104), (72, 95), 
+(11, 23), (11, 24), (23, 47), (23, 48), (34, 85), (43, 88), (45, 91), (45, 92), (46, 93), (47, 95), (48, 97), (48, 98), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
-With a score of 22.6519 we have log2(|Aut(G_H)|) of 48
+With a score of 152.67 we have log2(|Aut(G_H)|) of 91.8351
 With edges: 
-(34, 123), (37, 104), (82, 118), 
+(11, 23), (11, 24), (23, 47), (23, 48), (34, 85), (44, 89), (45, 91), (45, 92), (46, 93), (47, 95), (48, 97), (48, 98), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
-With a score of 22.1024 we have log2(|Aut(G_H)|) of 53
+With a score of 152.67 we have log2(|Aut(G_H)|) of 91.8351
 With edges: 
-(34, 123), (37, 104), (72, 95), (82, 118), 
+(11, 23), (11, 24), (23, 47), (23, 48), (34, 85), (43, 87), (45, 91), (45, 92), (46, 93), (47, 95), (48, 97), (48, 98), (50, 101), (50, 102), (91, 102), (96, 122), (102, 116), (109, 122), 
 
 Iteration 2 for flip probability 0.05
 
 
-Adding: (63, 84), 
+Adding: (26, 115), (7, 62), 
 
-Removing: (58, 118), (53, 108), (15, 32), (39, 79), (8, 18), 
-log2_p_plus:          -10.8955
-log2_1_minus_p_plus:  -0.00075758
-log2_p_minus:         -10.8955
-log2_1_minus_p_minus: -0.00075758
-p_plus:  0.000524977
-p_minus: 0.000524977
+Removing: (44, 89), (13, 28), (1, 4), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 12.5704
+The special edge set gets a score of 79
 
 Beginning Iteration 2...
-Best score is: 38.5236
+Best score is: 53
 Beginning Iteration 3...
-Best score is: 38.5236
+Best score is: 55.1699
 Beginning Iteration 4...
-Best score is: 38.5236
+Best score is: 55.1699
 Beginning Iteration 5...
-Best score is: 38.5236
+Best score is: 59
 Beginning Iteration 6...
-Best score is: 38.5236
+Best score is: 63
 Beginning Iteration 7...
-Best score is: 38.5236
+Best score is: 64
 Beginning Iteration 8...
-Best score is: 38.5236
+Best score is: 70.1699
 Beginning Iteration 9...
-Best score is: 38.5236
+Best score is: 71.1699
 Beginning Iteration 10...
-Best score is: 38.5236
+Best score is: 73.3399
 Beginning Iteration 11...
-Best score is: 38.5236
+Best score is: 73.3399
 Beginning Iteration 12...
-Best score is: 38.5236
+Best score is: 74.3399
+Hash collision at depth 1 with hash value 72963314548 (case B)
 Beginning Iteration 13...
-Best score is: 38.5236
+Best score is: 76.3399
 Beginning Iteration 14...
-Best score is: 38.5236
+Best score is: 76.3399
 Beginning Iteration 15...
-Best score is: 38.5236
+Best score is: 79.6797
 Beginning Iteration 16...
-Best score is: 38.5236
+Best score is: 84.3236
 Beginning Iteration 17...
-Best score is: 38.5236
+Best score is: 88.7683
 Beginning Iteration 18...
-Best score is: 38.5236
+Best score is: 90.7683
+Hash collision at depth 1 with hash value 11837341007 (case A)
 Beginning Iteration 19...
-Best score is: 38.5236
+Best score is: 100.922
 Beginning Iteration 20...
-Best score is: 38.5236
+Best score is: 106.752
 Beginning Iteration 21...
-Best score is: 38.5236
+Best score is: 119.011
 Beginning Iteration 22...
-Best score is: 38.5236
+Best score is: 123.242
 Beginning Iteration 23...
-Best score is: 38.5236
+Best score is: 132.582
 Beginning Iteration 24...
-Best score is: 38.5236
+Best score is: 138.67
 Beginning Iteration 25...
-Best score is: 38.5236
+Best score is: 139.67
 Beginning Iteration 26...
-Best score is: 38.5236
+Best score is: 145.675
 Beginning Iteration 27...
-Best score is: 38.5236
+Best score is: 145.845
 Beginning Iteration 28...
-Best score is: 38.5236
-Hash collision at depth 0 with hash value 33689418374
-
+Best score is: 147.845
+Hash collision at depth 1 with hash value 12367876285 (case A)
 Beginning Iteration 29...
-Best score is: 38.5236
-Hash collision at depth 0 with hash value 73964063220
-
+Best score is: 154.015
 Beginning Iteration 30...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 31...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 32...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 33...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 34...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 35...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 36...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 37...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 38...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 39...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 40...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 41...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 42...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 43...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 44...
-Best score is: 38.5236
-Hash collision at depth 0 with hash value 43030826140
-
+Best score is: 154.015
 Beginning Iteration 45...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 46...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 47...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 48...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 49...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 50...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 51...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 52...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 53...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 54...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 55...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 56...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 57...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 58...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 59...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 60...
-Best score is: 38.5236
+Best score is: 154.015
 Beginning Iteration 61...
-Best score is: 38.5236
-Hash collision at depth 0 with hash value 64155884585
-
+Best score is: 154.015
 Beginning Iteration 62...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 63...
-Best score is: 38.5236
-Hash collision at depth 0 with hash value 52261261931
-
+Best score is: 155.015
 Beginning Iteration 64...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 65...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 66...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 67...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 68...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 69...
-Best score is: 38.5236
-Hash collision at depth 0 with hash value 206507907
+Best score is: 155.015
 Beginning Iteration 70...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 71...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 72...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 73...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 74...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 75...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 76...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 77...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 78...
-Best score is: 38.5236
-Hash collision at depth 0 with hash value 900209772
+Best score is: 155.015
 Beginning Iteration 79...
-Best score is: 38.5236
+Best score is: 155.015
 Beginning Iteration 80...
-Best score is: 38.5236
-With a score of 38.5236 we have log2(|Aut(G_H)|) of 44.585
+Best score is: 155.015
+With a score of 155.015 we have log2(|Aut(G_H)|) of 100.508
 With edges: 
+(7, 62), (26, 115), (27, 55), (28, 57), (28, 58), (43, 87), (43, 88), (44, 90), (45, 91), (45, 92), (46, 93), (46, 94), (55, 111), (55, 112), (57, 115), (57, 116), (58, 117), (58, 118), 
 
-
-With a score of 33.6289 we have log2(|Aut(G_H)|) of 47.585
+With a score of 155.015 we have log2(|Aut(G_H)|) of 100.508
 With edges: 
-(63, 84), 
+(7, 62), (26, 115), (27, 56), (28, 57), (28, 58), (43, 87), (43, 88), (44, 90), (45, 91), (45, 92), (46, 93), (46, 94), (56, 113), (56, 114), (57, 115), (57, 116), (58, 117), (58, 118), 
 
-With a score of 33.0439 we have log2(|Aut(G_H)|) of 46
+With a score of 155.015 we have log2(|Aut(G_H)|) of 96.5075
 With edges: 
-(58, 79), 
+(7, 62), (26, 115), (28, 57), (28, 58), (39, 79), (40, 81), (41, 84), (42, 85), (43, 87), (45, 91), (46, 93), (55, 111), (56, 113), (56, 114), (57, 115), (57, 116), (58, 117), (58, 118), 
 
-With a score of 33.0439 we have log2(|Aut(G_H)|) of 46
+With a score of 155.015 we have log2(|Aut(G_H)|) of 96.5075
 With edges: 
-(53, 108), 
+(7, 62), (26, 115), (28, 57), (28, 58), (39, 79), (40, 81), (41, 84), (42, 86), (43, 87), (45, 91), (46, 93), (55, 111), (56, 113), (56, 114), (57, 115), (57, 116), (58, 117), (58, 118), 
 
-With a score of 33.0439 we have log2(|Aut(G_H)|) of 46
+With a score of 155.015 we have log2(|Aut(G_H)|) of 96.5075
 With edges: 
-(58, 108), 
+(7, 62), (26, 115), (28, 57), (28, 58), (39, 80), (40, 81), (41, 83), (42, 85), (43, 87), (45, 91), (46, 93), (55, 111), (56, 113), (56, 114), (57, 115), (57, 116), (58, 117), (58, 118), 
 
-With a score of 33.0439 we have log2(|Aut(G_H)|) of 46
+With a score of 154.015 we have log2(|Aut(G_H)|) of 100.508
 With edges: 
-(58, 118), 
+(7, 62), (10, 21), (21, 43), (21, 44), (26, 115), (28, 57), (28, 58), (43, 87), (43, 88), (44, 90), (45, 91), (45, 92), (46, 93), (46, 94), (57, 115), (57, 116), (58, 117), (58, 118), 
 
-With a score of 33.0439 we have log2(|Aut(G_H)|) of 46
+With a score of 154.015 we have log2(|Aut(G_H)|) of 100.508
 With edges: 
-(53, 79), 
+(7, 62), (10, 21), (21, 43), (21, 44), (26, 115), (28, 57), (28, 58), (43, 87), (43, 88), (44, 90), (55, 111), (55, 112), (56, 113), (56, 114), (57, 115), (57, 116), (58, 117), (58, 118), 
 
-With a score of 33.0439 we have log2(|Aut(G_H)|) of 46
+With a score of 154.015 we have log2(|Aut(G_H)|) of 98.5075
 With edges: 
-(53, 118), 
+(7, 62), (10, 21), (21, 43), (21, 44), (26, 115), (28, 57), (28, 58), (39, 80), (40, 82), (41, 83), (42, 86), (43, 87), (43, 88), (44, 90), (57, 115), (57, 116), (58, 117), (58, 118), 
 
-With a score of 32.6289 we have log2(|Aut(G_H)|) of 46.585
+With a score of 154.015 we have log2(|Aut(G_H)|) of 98.5075
 With edges: 
-(32, 65), 
+(7, 62), (10, 21), (21, 43), (21, 44), (26, 115), (28, 57), (28, 58), (39, 79), (40, 81), (41, 83), (42, 85), (43, 87), (43, 88), (44, 90), (57, 115), (57, 116), (58, 117), (58, 118), 
 
 Iteration 3 for flip probability 0.05
 
 
-Adding: (70, 89), (42, 77), 
+Adding: (100, 104), (65, 66), (57, 58), (49, 74), (39, 85), 
 
-Removing: (50, 101), (33, 67), 
-log2_p_plus:          -10.5749
-log2_1_minus_p_plus:  -0.000946111
-log2_p_minus:         -10.5749
-log2_1_minus_p_minus: -0.000946111
-p_plus:  0.000655579
-p_minus: 0.000655579
+Removing: (57, 115), (46, 93), (40, 82), (23, 48), 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of 34.1342
+The special edge set gets a score of 93
 
 Beginning Iteration 2...
-Best score is: 35.4302
+Best score is: 43.585
 Beginning Iteration 3...
-Best score is: 35.4302
+Best score is: 44.2288
 Beginning Iteration 4...
-Best score is: 35.4302
+Best score is: 48.3987
 Beginning Iteration 5...
-Best score is: 36.2822
-Hash collision at depth 0 with hash value 901606699
+Best score is: 57.3987
 Beginning Iteration 6...
-Best score is: 36.2822
+Best score is: 62.0135
 Beginning Iteration 7...
-Best score is: 36.2822
+Best score is: 71.3533
 Beginning Iteration 8...
-Best score is: 36.2822
+Best score is: 81.916
 Beginning Iteration 9...
-Best score is: 36.2822
+Best score is: 97.1015
 Beginning Iteration 10...
-Best score is: 36.2822
+Best score is: 110.915
 Beginning Iteration 11...
-Best score is: 36.2822
+Best score is: 120.09
 Beginning Iteration 12...
-Best score is: 36.2822
+Best score is: 131.43
 Beginning Iteration 13...
-Best score is: 36.2822
+Best score is: 147.57
 Beginning Iteration 14...
-Best score is: 36.2822
+Best score is: 147.57
 Beginning Iteration 15...
-Best score is: 36.2822
+Best score is: 157.354
 Beginning Iteration 16...
-Best score is: 36.2822
+Best score is: 165.273
 Beginning Iteration 17...
-Best score is: 36.2822
+Best score is: 166.273
 Beginning Iteration 18...
-Best score is: 36.2822
+Best score is: 166.273
 Beginning Iteration 19...
-Best score is: 36.2822
+Best score is: 169.273
 Beginning Iteration 20...
-Best score is: 36.2822
+Best score is: 170.273
 Beginning Iteration 21...
-Best score is: 36.2822
+Best score is: 171.273
 Beginning Iteration 22...
-Best score is: 36.2822
+Best score is: 171.273
 Beginning Iteration 23...
-Best score is: 36.2822
+Best score is: 171.273
 Beginning Iteration 24...
-Best score is: 36.2822
+Best score is: 171.273
 Beginning Iteration 25...
-Best score is: 36.2822
+Best score is: 171.273
 Beginning Iteration 26...
-Best score is: 36.2822
+Best score is: 171.273
 Beginning Iteration 27...
-Best score is: 36.2822
+Best score is: 171.273
 Beginning Iteration 28...
-Best score is: 36.2822
+Best score is: 171.273
 Beginning Iteration 29...
-Best score is: 36.2822
+Best score is: 171.32
 Beginning Iteration 30...
-Best score is: 36.2822
+Best score is: 171.32
 Beginning Iteration 31...
-Best score is: 36.2822
+Best score is: 171.32
 Beginning Iteration 32...
-Best score is: 36.2822
+Best score is: 171.32
 Beginning Iteration 33...
-Best score is: 36.2822
+Best score is: 171.32
 Beginning Iteration 34...
-Best score is: 36.2822
+Best score is: 171.32
 Beginning Iteration 35...
-Best score is: 36.2822
+Best score is: 172.273
 Beginning Iteration 36...
-Best score is: 36.2822
+Best score is: 172.273
 Beginning Iteration 37...
-Best score is: 36.2822
+Best score is: 172.273
 Beginning Iteration 38...
-Best score is: 36.2822
+Best score is: 172.273
 Beginning Iteration 39...
-Best score is: 36.2822
+Best score is: 172.273
 Beginning Iteration 40...
-Best score is: 36.2822
+Best score is: 172.273
 Beginning Iteration 41...
-Best score is: 36.2822
+Best score is: 173.273
 Beginning Iteration 42...
-Best score is: 36.2822
+Best score is: 173.273
 Beginning Iteration 43...
-Best score is: 36.2822
+Best score is: 173.273
 Beginning Iteration 44...
-Best score is: 36.2822
+Best score is: 173.273
 Beginning Iteration 45...
-Best score is: 36.2822
+Best score is: 173.273
 Beginning Iteration 46...
-Best score is: 36.2822
+Best score is: 173.273
+Hash collision at depth 1 with hash value 2347013633 (case B)
 Beginning Iteration 47...
-Best score is: 36.2822
+Best score is: 173.273
 Beginning Iteration 48...
-Best score is: 36.2822
+Best score is: 173.273
 Beginning Iteration 49...
-Best score is: 36.2822
+Best score is: 173.273
 Beginning Iteration 50...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 51...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 52...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 53...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 54...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 55...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 56...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 57...
-Best score is: 36.2822
-Hash collision at depth 0 with hash value 53466903920
+Best score is: 173.32
 Beginning Iteration 58...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 59...
-Best score is: 36.2822
+Best score is: 173.32
 Beginning Iteration 60...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 61...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 62...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 63...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 64...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 65...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 66...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 67...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 68...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 69...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 70...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 71...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 72...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 73...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 74...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 75...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 76...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 77...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 78...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 79...
-Best score is: 36.2822
+Best score is: 174.32
 Beginning Iteration 80...
-Best score is: 36.2822
-With a score of 36.2822 we have log2(|Aut(G_H)|) of 54
+Best score is: 174.32
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
-(42, 77), (70, 89), 
+(36, 73), (39, 79), (39, 80), (40, 81), (41, 83), (41, 84), (42, 86), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (49, 99), (51, 103), (58, 117), 
 
-With a score of 35.4302 we have log2(|Aut(G_H)|) of 43
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
+(36, 73), (39, 79), (39, 80), (40, 81), (41, 83), (41, 84), (42, 86), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (49, 99), (51, 103), (58, 118), 
 
-
-With a score of 34.8562 we have log2(|Aut(G_H)|) of 48
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
-(42, 77), 
+(19, 40), (20, 41), (36, 73), (39, 79), (39, 80), (40, 81), (41, 83), (41, 84), (42, 86), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (58, 118), 
 
-With a score of 34.1342 we have log2(|Aut(G_H)|) of 63
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
-(33, 101), (42, 77), (50, 67), (70, 89), 
+(36, 73), (39, 79), (40, 81), (41, 83), (41, 84), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (49, 99), (51, 103), (57, 116), (58, 117), (58, 118), 
 
-With a score of 34.1342 we have log2(|Aut(G_H)|) of 63
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
-(33, 67), (42, 77), (50, 101), (70, 89), 
+(19, 40), (20, 41), (36, 73), (40, 81), (41, 83), (41, 84), (42, 86), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (49, 99), (51, 103), (58, 118), 
 
-With a score of 33.8562 we have log2(|Aut(G_H)|) of 47
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
-(50, 101), 
+(19, 40), (36, 73), (40, 81), (42, 86), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (49, 99), (50, 101), (51, 103), (57, 116), (58, 117), (58, 118), 
 
-With a score of 33.8562 we have log2(|Aut(G_H)|) of 47
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
-(50, 67), 
+(19, 40), (20, 41), (36, 73), (39, 79), (39, 80), (40, 81), (41, 83), (41, 84), (42, 86), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (58, 117), 
 
-With a score of 33.2822 we have log2(|Aut(G_H)|) of 52
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
-(42, 77), (50, 67), 
+(19, 40), (20, 41), (36, 73), (40, 81), (41, 83), (41, 84), (42, 86), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (49, 99), (51, 103), (58, 117), 
 
-With a score of 33.2822 we have log2(|Aut(G_H)|) of 52
+With a score of 174.32 we have log2(|Aut(G_H)|) of 104.453
 With edges: 
-(42, 77), (50, 101), 
+(19, 40), (36, 73), (39, 79), (40, 81), (42, 86), (43, 87), (43, 88), (44, 89), (44, 90), (45, 91), (45, 92), (46, 94), (48, 97), (48, 98), (49, 99), (51, 103), (57, 116), (58, 117), (58, 118), 
 
 Iteration 4 for flip probability 0.05
 
 
-Adding: (55, 87), (36, 107), (19, 32), (15, 119), 
+Adding: (93, 94), (46, 73), (9, 99), 
 
-Removing: (57, 115), (27, 56), (17, 36), (7, 15), 
-log2_p_plus:          -10.6543
-log2_1_minus_p_plus:  -0.000895486
-log2_p_minus:         -10.6543
-log2_1_minus_p_minus: -0.000895486
-p_plus:  0.000620511
-p_minus: 0.000620511
+Removing: 
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
 
-The special edge set gets a score of -4.39167
+The special edge set gets a score of 77
 
 Beginning Iteration 2...
-Best score is: 30.8352
+Best score is: 59
 Beginning Iteration 3...
-Best score is: 30.8352
+Best score is: 59
 Beginning Iteration 4...
-Best score is: 30.8352
+Best score is: 59
 Beginning Iteration 5...
-Best score is: 30.8352
+Best score is: 60
 Beginning Iteration 6...
-Best score is: 30.8352
+Best score is: 67
 Beginning Iteration 7...
-Best score is: 30.8352
+Best score is: 67
+Hash collision at depth 1 with hash value 86272018653 (case B)
 Beginning Iteration 8...
-Best score is: 30.8352
+Best score is: 70.3399
 Beginning Iteration 9...
-Best score is: 30.8352
+Best score is: 77
 Beginning Iteration 10...
-Best score is: 30.8352
-Hash collision at depth 0 with hash value 22270613396
+Best score is: 77
 Beginning Iteration 11...
-Best score is: 30.8352
+Best score is: 77
 Beginning Iteration 12...
-Best score is: 30.8352
+Best score is: 77
 Beginning Iteration 13...
-Best score is: 30.8352
+Best score is: 77
 Beginning Iteration 14...
-Best score is: 30.8352
+Best score is: 77
 Beginning Iteration 15...
-Best score is: 30.8352
+Best score is: 79.8496
 Beginning Iteration 16...
-Best score is: 30.8352
+Best score is: 83.8496
 Beginning Iteration 17...
-Best score is: 30.8352
+Best score is: 85.8496
 Beginning Iteration 18...
-Best score is: 30.8352
+Best score is: 85.8496
 Beginning Iteration 19...
-Best score is: 30.8352
+Best score is: 91.0196
 Beginning Iteration 20...
-Best score is: 30.8352
+Best score is: 96.1895
 Beginning Iteration 21...
-Best score is: 30.8352
+Best score is: 96.1895
 Beginning Iteration 22...
-Best score is: 30.8352
+Best score is: 98.8333
 Beginning Iteration 23...
-Best score is: 30.8352
+Best score is: 104.003
 Beginning Iteration 24...
-Best score is: 30.8352
+Best score is: 104.003
 Beginning Iteration 25...
-Best score is: 30.8352
+Best score is: 104.003
 Beginning Iteration 26...
-Best score is: 30.8352
+Best score is: 107.173
 Beginning Iteration 27...
-Best score is: 30.8352
+Best score is: 111.869
 Beginning Iteration 28...
-Best score is: 30.8352
+Best score is: 115.513
 Beginning Iteration 29...
-Best score is: 30.8352
+Best score is: 121.128
 Beginning Iteration 30...
-Best score is: 30.8352
+Best score is: 121.128
 Beginning Iteration 31...
-Best score is: 30.8352
+Best score is: 121.128
 Beginning Iteration 32...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 33...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 34...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 35...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 36...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 37...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 38...
-Best score is: 30.8352
-Hash collision at depth 0 with hash value 2732808808
+Best score is: 123.128
 Beginning Iteration 39...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 40...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 41...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 42...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 43...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 44...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 45...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 46...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 47...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 48...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 49...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 50...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 51...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 52...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 53...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 54...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 55...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 56...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 57...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 58...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 59...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 60...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 61...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 62...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 63...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 64...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 65...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 66...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 67...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 68...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 69...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 70...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 71...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 72...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 73...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 74...
-Best score is: 30.8352
+Best score is: 123.128
 Beginning Iteration 75...
-Best score is: 30.8352
+Best score is: 125.128
 Beginning Iteration 76...
-Best score is: 30.8352
+Best score is: 125.128
 Beginning Iteration 77...
-Best score is: 30.8352
+Best score is: 125.128
 Beginning Iteration 78...
-Best score is: 30.8352
+Best score is: 125.128
 Beginning Iteration 79...
-Best score is: 30.8352
+Best score is: 125.128
 Beginning Iteration 80...
-Best score is: 30.8352
-With a score of 30.8352 we have log2(|Aut(G_H)|) of 38
+Best score is: 125.128
+With a score of 125.128 we have log2(|Aut(G_H)|) of 85.5639
 With edges: 
+(1, 4), (4, 9), (4, 22), (9, 99), (10, 21), (19, 20), (19, 39), (19, 40), (20, 41), (20, 42), (21, 44), (22, 45), (22, 46), (46, 73), (79, 80), (81, 82), (85, 86), (89, 90), (91, 92), 
 
-
-With a score of 30.1819 we have log2(|Aut(G_H)|) of 43
+With a score of 125.128 we have log2(|Aut(G_H)|) of 85.5639
 With edges: 
-(36, 107), 
+(1, 4), (4, 9), (4, 22), (9, 99), (10, 21), (19, 20), (19, 39), (19, 40), (20, 41), (20, 42), (21, 44), (22, 45), (22, 46), (46, 73), (81, 82), (83, 84), (85, 86), (89, 90), (91, 92), 
 
-With a score of 26.1819 we have log2(|Aut(G_H)|) of 41
+With a score of 125.128 we have log2(|Aut(G_H)|) of 85.5639
 With edges: 
-(15, 119), 
+(1, 4), (4, 9), (4, 22), (9, 99), (10, 21), (19, 20), (19, 39), (19, 40), (20, 41), (20, 42), (21, 44), (22, 45), (22, 46), (46, 73), (79, 80), (83, 84), (85, 86), (89, 90), (91, 92), 
 
-With a score of 26.1819 we have log2(|Aut(G_H)|) of 41
+With a score of 123.128 we have log2(|Aut(G_H)|) of 83.5639
 With edges: 
-(55, 87), 
+(1, 4), (4, 9), (4, 22), (9, 19), (9, 20), (9, 99), (10, 21), (19, 39), (20, 42), (20, 83), (21, 44), (22, 45), (22, 46), (41, 84), (46, 73), (79, 80), (85, 86), (89, 90), (91, 92), 
 
-With a score of 25.5285 we have log2(|Aut(G_H)|) of 46
+With a score of 123.128 we have log2(|Aut(G_H)|) of 83.5639
 With edges: 
-(15, 119), (36, 107), 
+(1, 4), (4, 9), (4, 22), (9, 19), (9, 20), (9, 99), (10, 21), (19, 39), (20, 41), (20, 86), (21, 44), (22, 45), (22, 46), (42, 85), (46, 73), (79, 80), (83, 84), (89, 90), (91, 92), 
 
-With a score of 25.5285 we have log2(|Aut(G_H)|) of 46
+With a score of 123.128 we have log2(|Aut(G_H)|) of 83.5639
 With edges: 
-(36, 107), (55, 87), 
+(1, 4), (4, 9), (4, 22), (9, 19), (9, 20), (9, 99), (10, 21), (19, 39), (20, 41), (20, 85), (21, 44), (22, 45), (22, 46), (42, 86), (46, 73), (79, 80), (83, 84), (89, 90), (91, 92), 
 
-With a score of 25.3518 we have log2(|Aut(G_H)|) of 40.585
+With a score of 123.128 we have log2(|Aut(G_H)|) of 85.5639
 With edges: 
-(8, 17), 
+(1, 4), (4, 9), (4, 22), (9, 99), (10, 21), (19, 39), (19, 40), (20, 41), (20, 42), (21, 44), (22, 45), (22, 46), (46, 73), (79, 80), (81, 82), (83, 84), (85, 86), (89, 90), (91, 92), 
 
-With a score of 24.6984 we have log2(|Aut(G_H)|) of 45.585
+With a score of 123.128 we have log2(|Aut(G_H)|) of 83.5639
 With edges: 
-(8, 17), (36, 107), 
+(1, 4), (4, 9), (4, 22), (9, 19), (9, 20), (9, 99), (10, 21), (19, 39), (20, 42), (20, 84), (21, 44), (22, 45), (22, 46), (41, 83), (46, 73), (79, 80), (85, 86), (89, 90), (91, 92), 
 
-With a score of 24.1819 we have log2(|Aut(G_H)|) of 40
+With a score of 122.128 we have log2(|Aut(G_H)|) of 83.5639
 With edges: 
-(19, 32), 
+(1, 4), (4, 9), (4, 22), (9, 19), (9, 20), (9, 99), (10, 21), (19, 39), (20, 42), (21, 44), (21, 87), (22, 45), (22, 46), (43, 88), (46, 73), (79, 80), (85, 86), (89, 90), (91, 92), 
 
