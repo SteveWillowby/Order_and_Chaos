@@ -21,7 +21,8 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
                                    long double log2_p_plus,
                                    long double log2_p_minus,
                                    long double log2_1_minus_p_plus,
-                                   long double log2_1_minus_p_minus) : 
+                                   long double log2_1_minus_p_minus,
+                                   size_t max_change_size) : 
                                       num_threads(
                          (nt == 0 ? std::thread::hardware_concurrency() : nt)),
                                       comb_util(comb_util),
@@ -30,7 +31,8 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
                                       log2_p_plus(log2_p_plus),
                                       log2_p_minus(log2_p_minus),
                                       log2_1_minus_p_plus(log2_1_minus_p_plus),
-                                      log2_1_minus_p_minus(log2_1_minus_p_minus)
+                                      log2_1_minus_p_minus(log2_1_minus_p_minus),
+                                      max_change_size(max_change_size)
 {
     terminate_pool = false;
     tasks_begun = 0;
@@ -153,7 +155,8 @@ void ThreadPoolScorer::run() {
                                        e_ne.first,
                                        log2_p_plus, log2_p_minus,
                                        log2_1_minus_p_plus,
-                                       log2_1_minus_p_minus);
+                                       log2_1_minus_p_minus,
+                                       max_change_size);
 
             l.lock();
         }

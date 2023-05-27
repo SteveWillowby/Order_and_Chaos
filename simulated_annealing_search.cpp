@@ -122,7 +122,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                    editable_edge_orbits,
                                    candidate_additions, candidate_removals,
                                    log2_p_plus, log2_p_minus,
-                                   log2_1_minus_p_plus, log2_1_minus_p_minus);
+                                   log2_1_minus_p_plus, log2_1_minus_p_minus,
+                                   (size_t) -1);
     long double no_noise_score = prev_score;
 
     // Stores the best score found so far minus no_noise_score
@@ -287,7 +288,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                            editable_edge_orbits,
                            candidate_additions, candidate_removals,
                            log2_p_plus, log2_p_minus,
-                           log2_1_minus_p_plus, log2_1_minus_p_minus);
+                           log2_1_minus_p_plus, log2_1_minus_p_minus,
+                           (size_t) -1);
         if (curr_score < prev_score) {
             // Consider rejecting the change.
             bool half_edges_deleted = candidate_removals.size() >

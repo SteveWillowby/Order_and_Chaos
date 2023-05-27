@@ -18,7 +18,12 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const std::unordered_set<Edge,EdgeHash>& edge_removals,
                   const long double log2_p_plus, const long double log2_p_minus,
                   const long double log2_1_minus_p_plus,
-                  const long double log2_1_minus_p_minus) {
+                  const long double log2_1_minus_p_minus,
+                  const size_t max_change) {
+
+    if (edge_additions.size() + edge_removals.size() > max_change) {
+        return -INFINITY;  // INFINITY is defined in cmath
+    }
 
     NautyTracesOptions o;
     o.get_node_orbits = false;
@@ -104,14 +109,18 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     //  set of this SIZE would be chosen. However, that includes some
     //  (a choose b) terms that cancel out with other aspects of our scoring,
     //  formula, so we can do this simpler calculation instead.
-    long double log2_sequence =
-                    num_additions * log2_p_minus +
+    long double log2_sequence;
+    if (log2_p_plus == -1.0 && log2_p_minus == -1.0) {
+        log2_sequence = 0;
+    } else {
+        log2_sequence = num_additions * log2_p_minus +
                     (m_prime - num_additions) * log2_1_minus_p_minus +
                     num_removals * log2_p_plus +
                ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+    }
 
     // Perform the probability calculations.
-    return (2.0 * log2_hypothesis_aut - log2_stabilizer_size) + log2_sequence;
+    return ((2.0 * log2_hypothesis_aut) - log2_stabilizer_size) + log2_sequence;
 }
 
 long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,

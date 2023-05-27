@@ -64,7 +64,8 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const std::unordered_set<Edge,EdgeHash>& edge_removals,
                   const long double log2_p_plus, const long double log2_p_minus,
                   const long double log2_1_minus_p_plus,
-                  const long double log2_1_minus_p_minus);
+                  const long double log2_1_minus_p_minus,
+                  const size_t max_change);
 
 long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<int>& node_orbit_coloring,

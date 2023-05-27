@@ -22,6 +22,7 @@ int main( void ) {
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
     const size_t ITERS_PER_FLIP_PROB = 5;
+    const float MAX_CHANGE_FACTOR = 0.05;
 
     // const bool corrupt_original = false;
     // Only used when corrupt_original is true.
@@ -242,11 +243,14 @@ int main( void ) {
                 NTSparseGraph g_nt = NTSparseGraph(g);
                 log_probs = default_log2_noise_probs(g_nt, comb_util);
             }
+            //TODO: Remove?
+            log_probs = {-1.0, -1.0, -1.0, -1.0};
             auto result = genetic_alg_search(g, NUM_ITERATIONS,
                                              top_k, NUM_THREADS,
                                              random_deletions,
                                              random_additions,
-                                             log_probs);
+                                             log_probs,
+                                             MAX_CHANGE_FACTOR);
 
             // Report the results
             NTSparseGraph reporter = NTSparseGraph(g);

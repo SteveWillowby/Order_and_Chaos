@@ -27,7 +27,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     size_t nt,
                                     std::unordered_set<Edge, EdgeHash> add,
                                     std::unordered_set<Edge, EdgeHash> del,
-                                    const std::vector<long double>& log_probs) {
+                                    const std::vector<long double>& log_probs,
+                                    float max_change_factor) {
     // Initialize Basics
 
     NTSparseGraph g_nt(g);
@@ -46,10 +47,11 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
         throw std::domain_error("Error! Cannot run on a clique graph.");
     }
 
-    size_t max_change_factor = 7;
     size_t max_flip_or_edge = (num_edges < (max_possible_edges / 2) ?
                                num_edges : (max_possible_edges - num_edges));
-    max_flip_or_edge *= max_change_factor;
+    size_t max_change_size = ((double) max_flip_or_edge) * max_change_factor;
+    max_flip_or_edge = ((double) (max_flip_or_edge)) *
+                       (1.2 + max_change_factor);  // The 0.2 is a safety factor
 
     CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
 
@@ -75,7 +77,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     ThreadPoolScorer tps(nt, g_nt, comb_util,
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
-                         log2_1_minus_p_plus, log2_1_minus_p_minus);
+                         log2_1_minus_p_plus, log2_1_minus_p_minus,
+                         max_change_size);
 
     std::vector<std::unique_ptr<EdgeSetPair>> start_task =
         std::vector<std::unique_ptr<EdgeSetPair>>();
@@ -365,7 +368,9 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     // Perform mutations
     while (pool_vec[depth - 1].size() < mutate_end_size) {
         i = distl(gen) * mutate_start_size;
+        std::cout<<"\tMutating..."<<std::endl; // TODO: Remove
         made = mutated(*pool_vec[depth - 1][i], gen, disti, distl);
+        std::cout<<"\t...Mutated"<<std::endl;
         if (!made.first || made.second == NULL) {
             quit_counter++;
             if (quit_counter > max_quit) {
@@ -882,7 +887,8 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
 
         const std::vector<Gene*>& prev = g.sub_genes();
         std::vector<Gene*> next;
-        if ((g.size() > 1 && distl(gen) < 0.5) || (g.size() == sub_options)) {
+        if (g.size() > 1 && (distl(gen) < 0.5 ||
+                (g.size() >= (sub_options * 3) / 2))) {
             // Remove a sub-gene
             next.reserve(prev.size() - 1); // Prevent re-allocations for speed
             size_t to_remove = distl(gen) * ((double) prev.size());

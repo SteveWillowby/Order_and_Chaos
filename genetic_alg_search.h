@@ -26,7 +26,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     size_t nt,
                                     std::unordered_set<Edge, EdgeHash> add,
                                     std::unordered_set<Edge, EdgeHash> del,
-                                    const std::vector<long double>& log_probs);
+                                    const std::vector<long double>& log_probs,
+                                    float max_change_factor);
 
 class GenePool;
 class GeneEdgeSetPair;

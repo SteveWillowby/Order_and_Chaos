@@ -23,7 +23,8 @@ public:
                      const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                      long double log2_p_plus, long double log2_p_minus,
                      long double log2_1_minus_p_plus,
-                     long double log2_1_minus_p_minus);
+                     long double log2_1_minus_p_minus,
+                     size_t max_change_size);
 
     ~ThreadPoolScorer();
 
@@ -58,6 +59,7 @@ protected:
     const long double log2_p_minus;
     const long double log2_1_minus_p_plus;
     const long double log2_1_minus_p_minus;
+    const size_t max_change_size;
 
     // Used by running workers to select the next task
     std::mutex m_worker_queue;
