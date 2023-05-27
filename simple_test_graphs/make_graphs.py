@@ -67,7 +67,6 @@ if __name__ == "__main__":
         for d in range(1, degree_right + 1):
             edges.append((i, (i + d) % NUM_NODES))
 
-    edges = [(i, (i + 1) % NUM_NODES) for i in range(0, NUM_NODES)]
     if not TEST_ONLY:
         write_graph(edges, "wreath_d%d" % degree)
 
