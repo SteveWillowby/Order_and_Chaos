@@ -1,3 +1,5 @@
+Check out Iteration 0 for flip probability 0.01 -- is that Aut(H) calculation wrong?
+
 Loading graph from files:
     simple_test_graphs/ring_128_nodes.txt
     simple_test_graphs/ring_128_edges.txt

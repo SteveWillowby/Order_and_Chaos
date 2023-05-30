@@ -16,13 +16,13 @@
 
 int main( void ) {
     // These three variables determine which graph is run on.
-    const bool DIRECTED = false;
+    const bool DIRECTED = true;
     const bool use_real_graph = true;
-    const size_t graph_idx = 23;  // football seasons start at 14
+    const size_t graph_idx = 1;  // football seasons start at 14
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
     const size_t ITERS_PER_FLIP_PROB = 5;
-    float max_change_factor = 0.07;  // Over-written in synthetic cases
+    float max_change_factor = 0.1;  // Over-written in synthetic cases
 
     // const bool corrupt_original = false;
     // Only used when corrupt_original is true.
