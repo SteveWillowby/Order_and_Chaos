@@ -7,6 +7,7 @@
 #include<utility>
 #include<vector>
 
+#include "Jonker_Volgenant/src/assignAlgs2D.h"
 #include "graph.h"
 
 #include "scoring_heuristic.h"
@@ -32,6 +33,9 @@ void SYM__pair_insert(std::unordered_map<int, std::unordered_set<int>>& pairs,
 
 long double wl_symmetry_measure(const Graph& g) {
 
+    // TODO: Move all allocations OUTSIDE the call to this function so as
+    //  to avoid repeat calls to malloc and free.
+
     const double CONVERGENCE_FACTOR = 0.05;
 
     size_t n = g.num_nodes();
@@ -42,11 +46,11 @@ long double wl_symmetry_measure(const Graph& g) {
     size_t matrix_size = ((n * (n - 1)) / 2) + n;
 
     double score_bound = ((double) n);
-    double scaling_factor = score_bound / 2.0;
     double gap_cost =       score_bound / 2.0;
+    double scaling_factor = gap_cost;
     if (directed) {
         // Sums can get twice as large, so divide by twice as much
-        scaling_factor = scaling_factor * 2.0;
+        scaling_factor = gap_cost * 2.0;
     }
 
     double* pairwise_scores[3];
@@ -75,9 +79,10 @@ long double wl_symmetry_measure(const Graph& g) {
                                     (double) g.out_neighbors(b).size()) +
                       SYM__abs_diff((double) g.in_neighbors(a).size(),
                                     (double) g.in_neighbors(b).size())) / 2.0);
-                pairwise_scores[0][start_indices[a] + (b - a)] = 
-                    pairwise_scores[1][start_indices[a] + (b - a)] = 
-                        pairwise_scores[2][start_indices[a] + (b - a)];
+                // TODO: Remove -- handled below
+                // pairwise_scores[0][start_indices[a] + (b - a)] = 
+                //     pairwise_scores[1][start_indices[a] + (b - a)] = 
+                //         pairwise_scores[2][start_indices[a] + (b - a)];
             }
         }
     } else {
@@ -93,9 +98,10 @@ long double wl_symmetry_measure(const Graph& g) {
                     SYM__abs_diff((double) g.neighbors(a).size(),
                                   (double) g.neighbors(b).size());
 
-                pairwise_scores[0][start_indices[a] + (b - a)] = 
-                    pairwise_scores[1][start_indices[a] + (b - a)] = 
-                        pairwise_scores[2][start_indices[a] + (b - a)];
+                // TODO: Remove -- handled below
+                // pairwise_scores[0][start_indices[a] + (b - a)] = 
+                //     pairwise_scores[1][start_indices[a] + (b - a)] = 
+                //         pairwise_scores[2][start_indices[a] + (b - a)];
             }
         }
     }
@@ -105,12 +111,22 @@ long double wl_symmetry_measure(const Graph& g) {
 
     double prev_value, next_value, diff;
     int a, b, x, y, temp_int;
-    std::unordered_set<int> unmatched_1, unmatched_2;
-    std::vector<int> shared = std::vector<int>();
-    std::map<double, std::vector<std::pair<int, int>>> edge_ranks =
-                        std::map<double, std::vector<std::pair<int, int>>>();
+    size_t num_rows, num_cols, r_, c_;
+    const std::unordered_set<int>* unmatched_1;
+    const std::unordered_set<int>* unmatched_2;
+    double* cost_matrix = new double[n * n];
+    ptrdiff_t* col_for_row = new ptrdiff_t[n];  // long int
+    ptrdiff_t* row_for_col = new ptrdiff_t[n];
+    double *u = new double[n];
+    double *v = new double[n];
+    void *workspace = malloc(assign2DCBufferSize(n, n));
 
-    // Keep track of which pairs of values might not have converged.
+    // TODO: Remove
+    // std::vector<int> shared = std::vector<int>();
+    // std::map<double, std::vector<std::pair<int, int>>> edge_ranks =
+    //                     std::map<double, std::vector<std::pair<int, int>>>();
+
+    // Keep track of which pairs might not have converged.
     std::unordered_map<int, std::unordered_set<int>> pairs_to_calc;
     std::unordered_map<int, std::unordered_set<int>> next_pairs_to_calc;
 
@@ -137,6 +153,10 @@ long double wl_symmetry_measure(const Graph& g) {
             for (auto b_itr = a_itr->second.begin();
                       b_itr != a_itr->second.end(); b_itr++) {
                 b = *b_itr;
+                if (a >= b) {
+                    // TODO: Remove this check
+                    throw std::logic_error("Wat????????????? a >= b???");
+                }
 
                 // Calculate difference between a and b
                 next_value = 0;
@@ -145,24 +165,67 @@ long double wl_symmetry_measure(const Graph& g) {
                     if (k == 0) {
                         if (g.out_neighbors(a).size() >
                                 g.out_neighbors(b).size()) {
-                            unmatched_2 = g.out_neighbors(a);
-                            unmatched_1 = g.out_neighbors(b);
+                            unmatched_2 = &g.out_neighbors(a);
+                            unmatched_1 = &g.out_neighbors(b);
                         } else {
-                            unmatched_1 = g.out_neighbors(a);
-                            unmatched_2 = g.out_neighbors(b);
+                            unmatched_1 = &g.out_neighbors(a);
+                            unmatched_2 = &g.out_neighbors(b);
                         }
                     } else {
                         // Go a second time for in_neighbors
                         if (g.in_neighbors(a).size() >
                                 g.in_neighbors(b).size()) {
-                            unmatched_2 = g.in_neighbors(a);
-                            unmatched_1 = g.in_neighbors(b);
+                            unmatched_2 = &g.in_neighbors(a);
+                            unmatched_1 = &g.in_neighbors(b);
                         } else {
-                            unmatched_1 = g.in_neighbors(a);
-                            unmatched_2 = g.in_neighbors(b);
+                            unmatched_1 = &g.in_neighbors(a);
+                            unmatched_2 = &g.in_neighbors(b);
                         }
                     }
 
+                    // Create the cost matrix
+                    num_rows = unmatched_1->size();
+                    num_cols = unmatched_2->size();
+                    for (size_t i = 0; i < num_rows; i++) {
+                        v[i] = 0.0;
+                    }
+                    for (size_t i = 0; i < num_cols; i++) {
+                        u[i] = 0.0;
+                    }
+                    r_ = 0;
+                    for (auto x_itr = unmatched_1->begin();
+                              x_itr != unmatched_1->end(); x_itr++) {
+                        c_ = 0;
+                        for (auto y_itr = unmatched_2->begin();
+                                  y_itr != unmatched_2->end(); y_itr++) {
+
+                            x = *x_itr;
+                            y = *y_itr;
+                            if (x > y) {
+                                temp_int = x;
+                                x = y;
+                                y = temp_int;
+                            }
+
+                            diff = pairwise_scores[prev_mat_idx]
+                                                  [start_indices[x] + (y - x)];
+                            std::cout<<diff<<std::endl;
+                            cost_matrix[r_ + num_rows * c_] = diff + 0.1;
+                                
+                            c_++;
+                        }
+                        r_++;
+                    }
+
+                    diff =
+                        assign2DCBasic(cost_matrix, col_for_row, row_for_col,
+                                       workspace, u, v, num_rows, num_cols);
+                    if (diff < 0.0) {
+                        std::cout<<"Deemed infeasible. -- "<<diff<<std::endl;
+                    }
+                    next_value += diff;
+
+                    /*
                     // Remove all shared nodes
                     shared.clear();
                     for (auto x_itr = unmatched_1.begin();
@@ -230,6 +293,8 @@ long double wl_symmetry_measure(const Graph& g) {
                             unmatched_1.erase(x_itr);
                             unmatched_2.erase(y_itr);
 
+                            std::cout<<x<<", "<<y<<"("<<er_itr->first<<")   ";
+
                             next_value += er_itr->first;
                             if (unmatched_1.size() == 0) {
                                 break;
@@ -239,11 +304,13 @@ long double wl_symmetry_measure(const Graph& g) {
                             break;
                         }
                     }
+                    std::cout<<std::endl;
 
                     if (unmatched_1.size() > 0) {
                         // TODO: Remove this check
                         throw std::logic_error("Wat?????????????");
                     }
+                    */
 
                     // In the undirected case, this is the degree difference.
                     //
@@ -264,10 +331,18 @@ long double wl_symmetry_measure(const Graph& g) {
                               q_itr != g.out_neighbors(a).end(); q_itr++) {
                         for (auto z_itr = g.out_neighbors(b).begin();
                                   z_itr != g.out_neighbors(b).end(); z_itr++) {
+                            x = *q_itr;
+                            y = *z_itr;
+                            if (x > y) {
+                                temp_int = x;
+                                x = y;
+                                y = temp_int;
+                            }
                             std::cout<<"("<<*q_itr<<", "<<*z_itr<<"): "
-                                     <<pairwise_scores[prev_mat_idx][start_indices[*q_itr] + (*z_itr - *q_itr)]<<", ";
+                                     <<pairwise_scores[prev_mat_idx][start_indices[x] + (y - x)]<<", ";
                         }
                     }
+                    std::cout<<prev_mat_idx<<" vs. "<<next_mat_idx<<std::endl;
                     std::cout<<std::endl;
                     throw std::logic_error("");
                 }
@@ -297,6 +372,9 @@ long double wl_symmetry_measure(const Graph& g) {
                                   y_itr != g.neighbors(b).end(); y_itr++) {
                             x = *x_itr;
                             y = *y_itr;
+                            if (x == y) {
+                                continue;
+                            }
                             if (x > y) {
                                 temp_int = x;
                                 x = y;
@@ -377,6 +455,12 @@ long double wl_symmetry_measure(const Graph& g) {
     delete pairwise_scores[1];
     delete pairwise_scores[2];
     delete start_indices;
+    delete cost_matrix;
+    delete col_for_row;
+    delete row_for_col;
+    delete u;
+    delete v;
+    free(workspace);
 
     std::cout<<"...Done."<<std::endl;
 
