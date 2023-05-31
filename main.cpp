@@ -16,7 +16,7 @@
 
 int main( void ) {
     // These three variables determine which graph is run on.
-    const bool DIRECTED = true;
+    const bool DIRECTED = false;
     const bool use_real_graph = true;
     const size_t graph_idx = 1;  // football seasons start at 14
 
@@ -177,7 +177,7 @@ int main( void ) {
 
     // For genetic alg
     const size_t NUM_ITERATIONS = 80;
-    const size_t NUM_THREADS = 0;
+    const size_t NUM_THREADS = 1;
 
     std::cout<<"Running for "<<NUM_ITERATIONS<<" iterations..."<<std::endl;
 

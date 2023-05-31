@@ -2,9 +2,12 @@
 #include "edge.h"
 #include "nauty_traces.h"
 #include "nt_sparse_graph.h"
+#include "scoring_heuristic.h"
+
 #include "scoring_function.h"
 
 #include<cmath>
+#include<iostream>  // TODO: Remove
 #include<stdexcept>
 #include<string>
 #include<unordered_set>
@@ -87,6 +90,10 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                           ((long double)(nt_results.num_aut_exponent)) *
                                            comb_util.log2(10);
 
+    long double test_value = wl_symmetry_measure(g);
+    if (test_value == 0.0) {
+        std::cout<<"Graph is Regular"<<std::endl;  // TODO: Remove this
+    }
 
     // Restore the deleted edges.
     for (auto edge_itr = edge_removals.begin();
