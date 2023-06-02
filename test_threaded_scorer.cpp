@@ -108,7 +108,8 @@ int main(void) {
                         new BasicEdgeSetPair(edge_deletions, edge_additions)));
         }
 
-        const std::vector<long double>& scores = TPS.get_scores(&tasks);
+        const std::vector<std::pair<long double, long double>>& scores =
+                    TPS.get_scores(&tasks);
 
         for (size_t i = 0; i < num_noise_sets; i++) {
             std::cout<<"- ";
@@ -124,7 +125,8 @@ int main(void) {
                       e != r.second.end(); e++) {
                 std::cout<<"("<<e->first<<", "<<e->second<<"), ";
             }
-            std::cout<<" \t "<<scores[i]<<std::endl;
+            std::cout<<" \t "<<scores[i].first<<", "
+                             <<scores[i].second<<std::endl;
         }
     }
 

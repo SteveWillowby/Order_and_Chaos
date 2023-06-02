@@ -84,9 +84,10 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
         std::vector<std::unique_ptr<EdgeSetPair>>();
     start_task.push_back(std::unique_ptr<EdgeSetPair>(
                             new BasicEdgeSetPair(del, add)));
-    std::vector<long double> start_score = tps.get_scores(&start_task);
-    std::cout<<"The special edge set gets a score of "<<start_score[0]<<std::endl
-             <<std::endl;
+    std::vector<std::pair<long double, long double>> start_score =
+                    tps.get_scores(&start_task);
+    std::cout<<"The special edge set gets a score of "
+             <<start_score[0].first<<std::endl<<std::endl;
 
     // Initialization of Gene Population
 
@@ -311,7 +312,8 @@ GenePool::GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
 
     // Scores for top-level genes - maps a score to a map of
     //  edge-int-hashes to gene-hashes.
-    scores = std::map<long double, std::unordered_map<size_t, size_t>>();
+    scores = std::map<std::pair<long double, long double>,
+                      std::unordered_map<size_t, size_t>>();
 
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     pool_map = std::vector<std::unordered_map<size_t, size_t>>();
@@ -465,13 +467,14 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
 
     if (tasks.size() > 0) {
         // Get scores for new members
-        const std::vector<long double>& new_scores = tps.get_scores(&tasks);
+        const std::vector<std::pair<long double, long double>>& new_scores =
+                    tps.get_scores(&tasks);
 
         // std::cout<<"\tPost-processing"<<std::endl;
 
         // Use the score map like a min-heap to keep the top population members
-        long double score;
-        long double min_score = scores.begin()->first;
+        std::pair<long double, long double> score;
+        std::pair<long double, long double> min_score = scores.begin()->first;
         size_t hash_value, e_hash_value;
         size_t orig_num_already_scored = num_already_scored;
         for (i = 0; i < tasks.size(); i++) {
@@ -490,7 +493,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
             auto x = scores.find(score);
             if (x == scores.end()) {
                 // New score
-                scores.insert(std::pair<long double,
+                scores.insert(std::pair<std::pair<long double, long double>,
                                         std::unordered_map<size_t, size_t>>(
                               score, {{e_hash_value, hash_value}}));
             } else {
@@ -555,7 +558,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
                         e_ne.first.insert(*e);
                     }
                     top_k.push_back(std::pair<std::unordered_set<Edge,EdgeHash>,
-                                            long double>(e_ne.first, x->first));
+                                     long double>(e_ne.first, x->first.first));
                 }
                 j++;
             }

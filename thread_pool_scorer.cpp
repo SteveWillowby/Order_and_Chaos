@@ -1,10 +1,10 @@
 #include "coloring.h"
 #include "edge.h"
 #include "nt_sparse_graph.h"
+#include "Jonker_Volgenant/src/assignAlgs2D.h"
 #include "scoring_function.h"
+#include "scoring_heuristic.h"
 #include "thread_pool_scorer.h"
-
-#include<iostream>  // TODO: Remove this
 
 #include<condition_variable>
 #include<memory>
@@ -38,14 +38,41 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
     tasks_begun = 0;
     num_tasks = 0;
     threads_working = threads_launched = 0;
-    score_vec = std::vector<long double>();
+    score_vec = std::vector<std::pair<long double, long double>>();
     graphs = std::vector<NTSparseGraph>();
     edge_colorings = std::vector<Coloring<Edge, EdgeHash>>();
     pool = std::vector<std::thread>();
 
+    size_t n = base_graph.num_nodes();
+
+    start_indices = new size_t[n];
+    size_t start_idx = 0;
+    for (size_t i = 0; i < n; i++) {
+        start_indices[i] = start_idx;
+        start_idx += n - i;
+    }
+    difference_matrices_1 = std::vector<double*>();
+    difference_matrices_2 = std::vector<double*>();
+    u_vec = std::vector<double*>();
+    v_vec = std::vector<double*>();
+    cost_matrices = std::vector<double*>();
+    col_for_row_vec = std::vector<ptrdiff_t*>();
+    row_for_col_vec = std::vector<ptrdiff_t*>();
+    workspaces = std::vector<void*>();
+
     for (size_t i = 0; i < num_threads; i++) {
         graphs.push_back(NTSparseGraph(base_graph));
         edge_colorings.push_back(Coloring<Edge, EdgeHash>());
+
+        u_vec.push_back(new double[n]);
+        v_vec.push_back(new double[n]);
+        difference_matrices_1.push_back(new double[n * n]);
+        difference_matrices_2.push_back(new double[n * n]);
+        cost_matrices.push_back(new double[n * n]);
+        col_for_row_vec.push_back(new ptrdiff_t[n]);
+        row_for_col_vec.push_back(new ptrdiff_t[n]);
+        workspaces.push_back(malloc(assign2DCBufferSize(n, n)));
+
         for (auto c = edge_orbit_coloring.colors().begin();
                   c != edge_orbit_coloring.colors().end(); c++) {
             const auto &cell = edge_orbit_coloring.cell(*c);
@@ -65,9 +92,22 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
 
 ThreadPoolScorer::~ThreadPoolScorer() {
     terminate();
+
+    delete start_indices;
+    for (size_t i = 0; i < num_threads; i++) {
+        delete u_vec[i];
+        delete v_vec[i];
+        delete cost_matrices[i];
+        delete difference_matrices_1[i];
+        delete difference_matrices_2[i];
+        delete col_for_row_vec[i];
+        delete row_for_col_vec[i];
+        free(workspaces[i]);
+    }
 }
 
-const std::vector<long double>& ThreadPoolScorer::get_scores(
+const std::vector<std::pair<long double, long double>>&
+            ThreadPoolScorer::get_scores(
                     std::vector<std::unique_ptr<EdgeSetPair>> *tasks) {
 
     std::unique_lock<std::mutex> begin_lock(m_worker_meta);
@@ -77,7 +117,8 @@ const std::vector<long double>& ThreadPoolScorer::get_scores(
     task_vec = tasks;
     num_tasks = task_vec->size();
     if (score_vec.size() < num_tasks) {
-        score_vec = std::vector<long double>(num_tasks, 0);
+        score_vec =
+            std::vector<std::pair<long double, long double>>(num_tasks, {0,0});
     }
     tasks_begun = 0;
     threads_working = 0;
@@ -156,7 +197,16 @@ void ThreadPoolScorer::run() {
                                        log2_p_plus, log2_p_minus,
                                        log2_1_minus_p_plus,
                                        log2_1_minus_p_minus,
-                                       max_change_size);
+                                       max_change_size,
+                                       cost_matrices[thread_id],
+                                       col_for_row_vec[thread_id],
+                                       row_for_col_vec[thread_id],
+                                       u_vec[thread_id], v_vec[thread_id],
+                                       workspaces[thread_id],
+                                       difference_matrices_1[thread_id],
+                                       difference_matrices_2[thread_id],
+                                       start_indices);
+
 
             l.lock();
         }

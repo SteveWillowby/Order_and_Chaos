@@ -196,7 +196,8 @@ protected:
 
     // Scores for top-level genes - maps a score to a map of
     //  edge-int-hashes to gene-hashes.
-    std::map<long double, std::unordered_map<size_t, size_t>> scores;
+    std::map<std::pair<long double, long double>,
+             std::unordered_map<size_t, size_t>> scores;
 
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     std::vector<std::unordered_map<size_t, size_t>> pool_map;
