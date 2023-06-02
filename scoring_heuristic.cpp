@@ -41,7 +41,7 @@ long double wl_symmetry_measure(const Graph& g, double* cost_matrix,
                                 size_t* start_indices) {
 
     const double CONVERGENCE_FACTOR = 0.05;
-    const size_t MAX_ITERATIONS = 10;
+    const size_t MAX_ITERATIONS = 4;
     size_t iteration = 0;
 
     size_t n = g.num_nodes();
