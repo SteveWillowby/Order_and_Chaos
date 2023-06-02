@@ -16,9 +16,9 @@
 
 int main( void ) {
     // These three variables determine which graph is run on.
-    const bool DIRECTED = true;
+    const bool DIRECTED = false;
     const bool use_real_graph = true;
-    const size_t graph_idx = 1;  // football seasons start at 14
+    const size_t graph_idx = 2;  // football seasons start at 14
 
     const size_t top_k = 9;  // Number of candidate noise sets to keep.
     const size_t ITERS_PER_FLIP_PROB = 5;
