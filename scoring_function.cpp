@@ -2,7 +2,7 @@
 #include "edge.h"
 #include "nauty_traces.h"
 #include "nt_sparse_graph.h"
-#include "scoring_heuristic.h"
+#include "wl_similarity.h"
 
 #include "scoring_function.h"
 
@@ -141,8 +141,6 @@ std::pair<long double, long double>
                   double* pw_scores_1, double* pw_scores_2,
                   size_t* start_indices) {
 
-    const bool USE_HEURISTIC = true;
-
     if (edge_additions.size() + edge_removals.size() > max_change) {
         // INFINITY is defined in cmath
         return std::pair<long double, long double>(-INFINITY, -INFINITY);
@@ -210,14 +208,10 @@ std::pair<long double, long double>
                           ((long double)(nt_results.num_aut_exponent)) *
                                            comb_util.log2(10);
 
-    long double heuristic = 0;
-    if (USE_HEURISTIC) {
-        heuristic = wl_symmetry_measure(g, cost_matrix,
-                                        col_for_row, row_for_col,
-                                        u, v, workspace,
-                                        pw_scores_1, pw_scores_2,
-                                        start_indices);
-    }
+    long double heuristic;
+    wl_similarity_measure(true, &heuristic, g, -1, cost_matrix,
+                          col_for_row, row_for_col, u, v,
+                          workspace, pw_scores_1, pw_scores_2, start_indices);
 
     // Restore the deleted edges.
     for (auto edge_itr = edge_removals.begin();

@@ -1,10 +1,12 @@
 #include "coloring.h"
 #include "edge.h"
 #include "nt_sparse_graph.h"
-#include "Jonker_Volgenant/src/assignAlgs2D.h"
 #include "scoring_function.h"
-#include "scoring_heuristic.h"
 #include "thread_pool_scorer.h"
+
+#ifdef SYM__THREAD_POOL_SCORER_USE_HEURISTIC
+#include "Jonker_Volgenant/src/assignAlgs2D.h"
+#endif
 
 #include<condition_variable>
 #include<memory>
@@ -43,6 +45,7 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
     edge_colorings = std::vector<Coloring<Edge, EdgeHash>>();
     pool = std::vector<std::thread>();
 
+#ifdef SYM__THREAD_POOL_SCORER_USE_HEURISTIC
     size_t n = base_graph.num_nodes();
 
     start_indices = new size_t[n];
@@ -59,11 +62,13 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
     col_for_row_vec = std::vector<ptrdiff_t*>();
     row_for_col_vec = std::vector<ptrdiff_t*>();
     workspaces = std::vector<void*>();
+#endif
 
     for (size_t i = 0; i < num_threads; i++) {
         graphs.push_back(NTSparseGraph(base_graph));
         edge_colorings.push_back(Coloring<Edge, EdgeHash>());
 
+#ifdef SYM__THREAD_POOL_SCORER_USE_HEURISTIC
         u_vec.push_back(new double[n]);
         v_vec.push_back(new double[n]);
         difference_matrices_1.push_back(new double[n * n]);
@@ -72,6 +77,7 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
         col_for_row_vec.push_back(new ptrdiff_t[n]);
         row_for_col_vec.push_back(new ptrdiff_t[n]);
         workspaces.push_back(malloc(assign2DCBufferSize(n, n)));
+#endif
 
         for (auto c = edge_orbit_coloring.colors().begin();
                   c != edge_orbit_coloring.colors().end(); c++) {
@@ -93,6 +99,7 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
 ThreadPoolScorer::~ThreadPoolScorer() {
     terminate();
 
+#ifdef SYM__THREAD_POOL_SCORER_USE_HEURISTIC
     delete start_indices;
     for (size_t i = 0; i < num_threads; i++) {
         delete u_vec[i];
@@ -104,6 +111,7 @@ ThreadPoolScorer::~ThreadPoolScorer() {
         delete row_for_col_vec[i];
         free(workspaces[i]);
     }
+#endif
 }
 
 const std::vector<std::pair<long double, long double>>&
@@ -188,6 +196,7 @@ void ThreadPoolScorer::run() {
                             (*task_vec)[task_id]->edges_and_non_edges();
 
             // Do task # task_id
+#ifdef SYM__THREAD_POOL_SCORER_USE_HEURISTIC
             score_vec[task_id] = score(graphs[thread_id], comb_util,
                                        node_orbit_coloring,
                                        edge_orbit_coloring,
@@ -206,7 +215,24 @@ void ThreadPoolScorer::run() {
                                        difference_matrices_1[thread_id],
                                        difference_matrices_2[thread_id],
                                        start_indices);
+#endif
+#ifndef SYM__THREAD_POOL_SCORER_USE_HEURISTIC
 
+            // Right now, no heuristic is used at all.
+            score_vec[task_id] =
+                std::pair<long double, long double>(
+                    score(graphs[thread_id], comb_util,
+                                       node_orbit_coloring,
+                                       edge_orbit_coloring,
+                                       edge_colorings[thread_id],
+                                       e_ne.second,
+                                       e_ne.first,
+                                       log2_p_plus, log2_p_minus,
+                                       log2_1_minus_p_plus,
+                                       log2_1_minus_p_minus,
+                                       max_change_size), 0.0);
+
+#endif
 
             l.lock();
         }

@@ -5,6 +5,7 @@
 #include "nauty_traces.h"
 #include "noise_prob_choice.h"
 #include "thread_pool_scorer.h"
+#include "thread_pool_wl_sim.h"
 
 #include<iostream>
 #include<map>
@@ -1028,6 +1029,17 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
 
 IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g) :
         directed(g.directed), n(g.num_nodes()), self_loops(g.num_loops() > 0) {
+
+    ThreadPoolWLSim tpwls(0, n);
+    std::vector<std::pair<const Graph*, size_t>> tasks = {{&g, -1}};
+    for (size_t a = 0; a < n; a++) {
+        tasks.push_back({&g, a});
+    }
+    std::cout<<"Beginning heuristic pre-computation."<<std::endl;
+    const std::vector<std::vector<double>>& uniqueness =
+                                        tpwls.get_uniqueness(&tasks);
+    std::cout<<"Finished heuristic pre-computation."<<std::endl;
+    std::cout<<uniqueness.size()<<std::endl;
 
     edges = std::unordered_set<SYM__edge_int_type>();
     for (size_t a = 0; a < n; a++) {

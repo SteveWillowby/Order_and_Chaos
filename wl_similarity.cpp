@@ -9,10 +9,7 @@
 #include "Jonker_Volgenant/src/assignAlgs2D.h"
 #include "graph.h"
 
-#include "scoring_heuristic.h"
-
-// TODO: Consider making the degrees pre-computed and only modify the places
-//  where edges were changed.
+#include "wl_similarity.h"
 
 double SYM__abs_diff(double x, double y) {
     double v = x - y;
@@ -34,14 +31,16 @@ void SYM__pair_insert(std::unordered_map<int, std::unordered_set<int>>& pairs,
 }
 
 
-long double wl_symmetry_measure(const Graph& g, double* cost_matrix,
-                                ptrdiff_t* col_for_row, ptrdiff_t* row_for_col,
-                                double* u, double* v, void* workspace,
-                                double* pw_scores_1, double* pw_scores_2,
-                                size_t* start_indices) {
+double* wl_similarity_measure(bool sum_result, long double* neg_sum,
+                              const Graph& g, const size_t node,
+                              double* cost_matrix,
+                              ptrdiff_t* col_for_row, ptrdiff_t* row_for_col,
+                              double* u, double* v, void* workspace,
+                              double* pw_scores_1, double* pw_scores_2,
+                              size_t* start_indices) {
 
     const double CONVERGENCE_FACTOR = 0.05;
-    const size_t MAX_ITERATIONS = 4;
+    const size_t MAX_ITERATIONS = -1;  // Go until convergence
     size_t iteration = 0;
 
     size_t n = g.num_nodes();
@@ -71,6 +70,11 @@ long double wl_symmetry_measure(const Graph& g, double* cost_matrix,
                     pairwise_scores[1][start_indices[a]] = 0.0;
                     continue;
                 }
+                if (a == node || b == node) {
+                    pairwise_scores[0][start_indices[a] + (b - a)] = n;
+                    pairwise_scores[1][start_indices[a] + (b - a)] = n;
+                    continue;
+                }
                 pairwise_scores[0][start_indices[a] + (b - a)] =
                     ((SYM__abs_diff((double) g.out_neighbors(a).size(),
                                     (double) g.out_neighbors(b).size()) +
@@ -84,6 +88,11 @@ long double wl_symmetry_measure(const Graph& g, double* cost_matrix,
                 if (a == b) {
                     pairwise_scores[0][start_indices[a]] = 0.0;
                     pairwise_scores[1][start_indices[a]] = 0.0;
+                    continue;
+                }
+                if (a == node || b == node) {
+                    pairwise_scores[0][start_indices[a] + (b - a)] = n;
+                    pairwise_scores[1][start_indices[a] + (b - a)] = n;
                     continue;
                 }
                 pairwise_scores[0][start_indices[a] + (b - a)] =
@@ -108,6 +117,10 @@ long double wl_symmetry_measure(const Graph& g, double* cost_matrix,
 
     for (a = 0; a < (int) n; a++) {
         for (b = a + 1; b < (int) n; b++) {
+            if ((size_t) a == node || (size_t) b == node) {
+                // Distance to node is always n. Don't recalculate.
+                continue;
+            }
             SYM__pair_insert(pairs_to_calc, a, b);
         }
     }
@@ -220,8 +233,17 @@ long double wl_symmetry_measure(const Graph& g, double* cost_matrix,
 
                     for (auto x_itr = g.neighbors(a).begin();
                               x_itr != g.neighbors(a).end(); x_itr++) {
+                        if ((size_t) *x_itr == node) {
+                            // Distance to node is always n. Don't recalculate.
+                            continue;
+                        }
                         for (auto y_itr = g.neighbors(b).begin();
                                   y_itr != g.neighbors(b).end(); y_itr++) {
+                            if ((size_t) *y_itr == node) {
+                                // Distance to node is always n.
+                                //  Don't recalculate.
+                                continue;
+                            }
                             x = *x_itr;
                             y = *y_itr;
                             if (x == y) {
@@ -256,6 +278,10 @@ long double wl_symmetry_measure(const Graph& g, double* cost_matrix,
         }
 
         std::swap(pairs_to_calc, next_pairs_to_calc);
+    }
+
+    if (!sum_result) {
+        return pairwise_scores[prev_mat_idx];  // Return the final result
     }
 
     // Return the (negated) total sum of pairwise_scores[prev_mat_idx]
@@ -302,5 +328,6 @@ long double wl_symmetry_measure(const Graph& g, double* cost_matrix,
         ccs = ccs + cc;
     }
 
-    return -(sum + cs + ccs);
+    (*neg_sum) = -(sum + cs + ccs);
+    return pairwise_scores[prev_mat_idx];  // Return the final result
 }

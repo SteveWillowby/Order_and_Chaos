@@ -1,7 +1,6 @@
 #include "coloring.h"
 #include "edge.h"
 #include "nt_sparse_graph.h"
-#include "scoring_function.h"
 
 #include<condition_variable>
 #include<memory>
@@ -10,44 +9,38 @@
 #include<unordered_set>
 #include<vector>
 
-#ifndef SYM__THREAD_POOL_SCORER_H
-#define SYM__THREAD_POOL_SCORER_H
+#ifndef SYM__THREAD_POOL_WL_SIM_H
+#define SYM__THREAD_POOL_WL_SIM_H
 
-// Define this if you want to use the slow heuristic as a tiebreaker
-// #define SYM__THREAD_POOL_SCORER_USE_HEURISTIC
-
-class ThreadPoolScorer {
+class ThreadPoolWLSim {
 public:
     // `nt` is the number of threads to use. If 0 is passed, the code will
     //      use the default of std::thread::hardware_concurrency()
-    ThreadPoolScorer(size_t nt, const Graph& base_graph,
-                     const CombinatoricUtility& comb_util,
-                     const Coloring<int>& node_orbit_coloring,
-                     const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
-                     long double log2_p_plus, long double log2_p_minus,
-                     long double log2_1_minus_p_plus,
-                     long double log2_1_minus_p_minus,
-                     size_t max_change_size);
+    //
+    // `n` is the number of nodes
+    ThreadPoolWLSim(size_t nt, size_t n);
 
-    ~ThreadPoolScorer();
+    ~ThreadPoolWLSim();
 
     // IMPORTANT: The vector returned may have extra elements at the end.
-    //  Thus you must ignore get_scores(tasks).size().
-    //  The score for (*tasks)[i] will be stored at get_scores(tasks)[i].
-    const std::vector<std::pair<long double, long double>>& get_scores(
-            std::vector<std::unique_ptr<EdgeSetPair>> *tasks);
+    //  Thus you must ignore get_uniqueness().size().
+    //
+    // A task consists of a graph and a node ID (for node-centric computation).
+    //  If node-centric is not desired, pass -1 as the node.
+    const std::vector<std::vector<double>>& get_uniqueness(
+            const std::vector<std::pair<const Graph*, size_t>>* tasks);
 
     void terminate();
 
 protected:
     const size_t num_threads;
+    const size_t num_nodes;
 
+    const std::vector<std::pair<const Graph*, size_t>>* task_vec;
     std::vector<std::thread> pool;
-    std::vector<NTSparseGraph> graphs;  // One copy of the graph per thread.
-    // One editable coloring per thread.
-    std::vector<Coloring<Edge, EdgeHash>> edge_colorings;
 
-#ifdef SYM__THREAD_POOL_SCORER_USE_HEURISTIC
+    const Graph* g_;
+
     // Editable data for heuristic
     size_t* start_indices;
     std::vector<double*> u_vec;
@@ -58,24 +51,13 @@ protected:
     std::vector<ptrdiff_t*> col_for_row_vec;
     std::vector<ptrdiff_t*> row_for_col_vec;
     std::vector<void*> workspaces;
-#endif
 
-    std::vector<std::unique_ptr<EdgeSetPair>> *task_vec;
-    std::vector<std::pair<long double, long double>> score_vec;
+    std::vector<std::vector<double>> uniqueness_vec;
 
     bool terminate_pool;
 
     size_t tasks_begun, num_tasks;
     size_t threads_working, threads_launched;
-
-    const CombinatoricUtility& comb_util;
-    const Coloring<int>& node_orbit_coloring;
-    const Coloring<Edge,EdgeHash>& edge_orbit_coloring;
-    const long double log2_p_plus;
-    const long double log2_p_minus;
-    const long double log2_1_minus_p_plus;
-    const long double log2_1_minus_p_minus;
-    const size_t max_change_size;
 
     // Used by running workers to select the next task
     std::mutex m_worker_queue;
