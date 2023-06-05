@@ -39,9 +39,9 @@ double* wl_similarity_measure(bool sum_result, long double* neg_sum,
                               double* pw_scores_1, double* pw_scores_2,
                               size_t* start_indices) {
 
-    const double CONVERGENCE_FACTOR = 0.05;
-    const size_t MAX_ITERATIONS = -1;  // Go until convergence
-    size_t iteration = 0;
+    const double CONVERGENCE_FACTOR = 0.01;
+    // const size_t MAX_ITERATIONS = -1;  // Go until convergence
+    // size_t iteration = 0;
 
     size_t n = g.num_nodes();
     // size_t m = g.num_edges();
@@ -125,8 +125,8 @@ double* wl_similarity_measure(bool sum_result, long double* neg_sum,
         }
     }
 
-    while (pairs_to_calc.size() > 0 && iteration < MAX_ITERATIONS) {
-        iteration++;
+    while (pairs_to_calc.size() > 0) {
+        // iteration++;
 
         next_pairs_to_calc.clear();
 
