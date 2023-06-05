@@ -19,6 +19,8 @@ public:
               std::unordered_set<Edge, EdgeHash>>
                                 edges_and_non_edges() { return sets; }
 
+    long double heuristic_score() const { return 0.0; }
+
 protected:
     std::pair<std::unordered_set<Edge, EdgeHash>,
               std::unordered_set<Edge, EdgeHash>> sets;

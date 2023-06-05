@@ -230,7 +230,8 @@ void ThreadPoolScorer::run() {
                                        log2_p_plus, log2_p_minus,
                                        log2_1_minus_p_plus,
                                        log2_1_minus_p_minus,
-                                       max_change_size), 0.0);
+                                       max_change_size),
+                    (*task_vec)[task_id]->heuristic_score());
 
 #endif
 

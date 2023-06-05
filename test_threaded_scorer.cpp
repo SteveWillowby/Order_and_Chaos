@@ -6,6 +6,7 @@
 #include "basic_edge_set.h"
 #include "edge.h"
 #include "edge_sampler.h"
+#include "int_edge_sampler.h"
 #include "file_utils.h"
 #include "nt_sparse_graph.h"
 #include "nauty_traces.h"
@@ -72,6 +73,17 @@ int main(void) {
     long double log2_p_minus = std::log2l(alpha_minus) -
                                std::log2l(1.0 + alpha_minus);
     long double log2_1_minus_p_minus = -std::log2l(1.0 + alpha_minus);
+
+    IntEdgeConverterAndSampler iecas(g);
+    const std::vector<long double>& heuristics = iecas.get_heuristic_scores();
+    for (size_t i = 0; i < heuristics.size(); i++) {
+        if (heuristics[i] == 0.0) {
+            continue;
+        }
+        Edge e = iecas.edge(i);
+        std::cout<<"("<<e.first<<", "<<e.second<<"): "<<heuristics[i]
+                 <<std::endl;
+    }
 
     std::cout<<"Creating Thread Pool Scorer..."<<std::endl;
 

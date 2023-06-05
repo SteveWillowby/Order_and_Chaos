@@ -177,7 +177,7 @@ void ThreadPoolWLSim::run() {
                     }
                     v += sim[start_indices[a] + (b - a)];
                 }
-                uniqueness_vec[task_id][i] = v / ((double) num_nodes);
+                uniqueness_vec[task_id][i] = v / ((double) (num_nodes - 1));
             }
 
             l.lock();

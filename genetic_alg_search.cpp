@@ -2,10 +2,10 @@
 #include "edge.h"
 #include "genetic_alg_search.h"
 #include "graph.h"
+#include "int_edge_sampler.h"
 #include "nauty_traces.h"
 #include "noise_prob_choice.h"
 #include "thread_pool_scorer.h"
-#include "thread_pool_wl_sim.h"
 
 #include<iostream>
 #include<map>
@@ -75,6 +75,10 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     std::cout<<"p_minus: "<<std::exp2l(log2_p_minus)<<std::endl;
     std::cout<<std::endl;
 
+    std::cout<<"  Beginning edge heuristic pre-computation..."<<std::endl;
+    IntEdgeConverterAndSampler iecas(g);
+    std::cout<<"  ...Finished edge heuristic pre-computation."<<std::endl;
+
     ThreadPoolScorer tps(nt, g_nt, comb_util,
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
@@ -95,7 +99,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     size_t pop_size = (g.num_nodes() / 4 + 1) *
                       (g.num_nodes() < 200 ? 200 : g.num_nodes());
     size_t depth = 2;
-    GenePool gp(g, depth, pop_size, k);
+    GenePool gp(g, iecas, depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
         if (i % 5 == 4 or i > 0) {
@@ -293,9 +297,9 @@ std::vector<SYM__edge_int_type> Gene::merged(
 //
 // Creates an initial population by starting with a single gene and
 //  continuously mutating it until we get to pop size.
-GenePool::GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
-                   size_t num_results) :
-            iecas(g), depth(gene_depth), pop_size(pop_size), k(num_results),
+GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
+                   size_t gene_depth, size_t pop_size, size_t num_results) :
+            iecas(iecas), depth(gene_depth), pop_size(pop_size), k(num_results),
             n(g.num_nodes()) {
 
     if (depth < 1) {
@@ -392,6 +396,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<SYM__edge_int_type> disti(0, n * n - 1);
     std::uniform_real_distribution<double> distl(0.0, 1.0);
+    std::uniform_real_distribution<long double> distll(0.0, 1.0);
     std::uniform_int_distribution<uint8_t> distbool(0, 1);
     std::pair<bool, Gene*> made;
 
@@ -400,7 +405,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     // Perform mutations
     while (pool_vec[depth - 1].size() < mutate_end_size) {
         i = distl(gen) * mutate_start_size;
-        made = mutated(*pool_vec[depth - 1][i], gen, disti, distl);
+        made = mutated(*pool_vec[depth - 1][i], gen, disti, distl, distll);
         if (!made.first || made.second == NULL) {
             quit_counter++;
             if (quit_counter > max_quit) {
@@ -866,6 +871,7 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 // disti should be
 //  std::uniform_int_distribution<SYM__edge_int_type>(0, (n * n) - 1)
 // distl should be std::uniform_real_distribution<double>(0, 1)
+// distll should be std::uniform_real_distribution<long double>(0, 1)
 //
 // Returns a pair (n, g). n is true iff g is a new gene.
 //  If the operation fails entirely (new gene made but had hash collision)
@@ -876,7 +882,8 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
                     std::mt19937& gen,
                     std::uniform_int_distribution<SYM__edge_int_type>& disti,
-                    std::uniform_real_distribution<double>& distl) {
+                    std::uniform_real_distribution<double>& distl,
+                    std::uniform_real_distribution<long double>& distll) {
 
     if (g.depth() == 0) {
         const std::vector<SYM__edge_int_type>& prev = g.edge_ints();
@@ -900,7 +907,7 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             size_t spot;
             while (!done) {
                 done = true;
-                addition = iecas.sample(gen, disti);
+                addition = iecas.weighted_sample(gen, distll);
                 for (spot = 0; spot < prev.size(); spot++) {
                     if (addition > prev[spot]) {
                         next[spot] = prev[spot];
@@ -995,7 +1002,7 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
         choice_idx--;
     }
     Gene* old_sub_gene = sub_genes[choice_idx];
-    std::pair<bool, Gene*> x = mutated(*old_sub_gene, gen, disti, distl);
+    std::pair<bool, Gene*> x = mutated(*old_sub_gene, gen, disti, distl,distll);
     Gene* new_sub_gene = x.second;
 
     if (new_sub_gene == NULL) {
@@ -1027,64 +1034,10 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
     return add(made);
 }
 
-IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g) :
-        directed(g.directed), n(g.num_nodes()), self_loops(g.num_loops() > 0) {
-
-    ThreadPoolWLSim tpwls(0, n);
-    std::vector<std::pair<const Graph*, size_t>> tasks = {{&g, -1}};
-    for (size_t a = 0; a < n; a++) {
-        tasks.push_back({&g, a});
-    }
-    std::cout<<"Beginning heuristic pre-computation."<<std::endl;
-    const std::vector<std::vector<double>>& uniqueness =
-                                        tpwls.get_uniqueness(&tasks);
-    std::cout<<"Finished heuristic pre-computation."<<std::endl;
-    std::cout<<uniqueness.size()<<std::endl;
-
-    edges = std::unordered_set<SYM__edge_int_type>();
-    for (size_t a = 0; a < n; a++) {
-        const auto& nbrs = g.out_neighbors(a);
-        for (auto b = nbrs.begin(); b != nbrs.end(); b++) {
-            if (!directed && ((size_t) *b) < a) {
-                continue;
-            }
-            edges.insert((a * n) + *b);
-        }
-    }
-}
-
-bool IntEdgeConverterAndSampler::is_edge(SYM__edge_int_type e) const {
-    return edges.find(e) != edges.end();
-}
-
-Edge IntEdgeConverterAndSampler::edge(SYM__edge_int_type e) const {
-    if (e >= n*n) {
-        throw std::domain_error("Error! Edge int too large (i.e. >= n * n )");
-    }
-    return EDGE(e / n, e % n, directed);
-}
-
-SYM__edge_int_type IntEdgeConverterAndSampler::sample(std::mt19937& gen,
-                std::uniform_int_distribution<SYM__edge_int_type>& dist) const {
-
-    SYM__edge_int_type x, a, b;
-    while (true) {
-        x = dist(gen);  // Decompose as x = a * n + b
-        a = x / n;
-        b = x % n;
-        if (a == b && !self_loops) {
-            continue;
-        }
-        if (!directed && a > b) {
-            return (b * n) + a;
-        }
-        return x;
-    }
-}
 
 GeneEdgeSetPair::GeneEdgeSetPair(const IntEdgeConverterAndSampler& iecas,
                                  Gene& g) :
-                                    iecas(iecas), g(g) {}
+                                    iecas(iecas), g(g) {h_score = 0.0;}
 
 std::pair<std::unordered_set<Edge, EdgeHash>,
           std::unordered_set<Edge, EdgeHash>>
@@ -1103,16 +1056,35 @@ std::pair<std::unordered_set<Edge, EdgeHash>,
     }
 
     size_t s = e_ints.size();
-    SYM__edge_int_type e;
 
-    for (size_t i = 0; i < s; i++) {
-        e = e_ints[i];
-        if (iecas.is_edge(e)) {
-            result.first.insert(iecas.edge(e));
-        } else {
-            result.second.insert(iecas.edge(e));
+    if (s == 0) {
+        h_score = 1.0;
+    } else {
+        SYM__edge_int_type e;
+        h_score = 0.0;
+        const std::vector<long double>& h_scores = iecas.get_heuristic_scores();
+
+        for (size_t i = 0; i < s; i++) {
+            e = e_ints[i];
+            if (iecas.is_edge(e)) {
+                result.first.insert(iecas.edge(e));
+            } else {
+                result.second.insert(iecas.edge(e));
+            }
+            h_score += h_scores[e];
         }
+        // TODO: Consider making this the exact average (i.e. remove the + 1)
+        h_score /= (long double) (e_ints.size() + 1);
     }
 
     return result;
+}
+
+
+long double GeneEdgeSetPair::heuristic_score() const {
+    if (h_score == 0.0) {
+        throw std::logic_error(
+"Error! Must call edges_and_non_edges() before calling heuristic_score()");
+    }
+    return h_score;
 }

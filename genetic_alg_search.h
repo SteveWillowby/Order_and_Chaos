@@ -1,5 +1,6 @@
 #include "edge.h"
 #include "graph.h"
+#include "int_edge_sampler.h"
 #include "thread_pool_scorer.h"
 
 #include<map>
@@ -31,25 +32,6 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
 class GenePool;
 class GeneEdgeSetPair;
-
-class IntEdgeConverterAndSampler {
-public:
-    IntEdgeConverterAndSampler(const Graph& g);
-
-    // dist should be
-    //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
-    SYM__edge_int_type sample(std::mt19937& gen,
-                std::uniform_int_distribution<SYM__edge_int_type>& dist) const;
-
-    bool is_edge(SYM__edge_int_type e) const;
-    Edge edge(SYM__edge_int_type e) const;
-
-protected:
-    const bool directed;
-    const size_t n;
-    const bool self_loops;
-    std::unordered_set<SYM__edge_int_type> edges;
-};
 
 // Immutable object -- all operations are const
 class Gene {
@@ -113,8 +95,8 @@ public:
     //
     // Creates an initial population by starting with a single gene and
     //  continuously mutating it until we get to pop size.
-    GenePool(const Graph& g, size_t gene_depth, size_t pop_size,
-             size_t num_results);
+    GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
+             size_t gene_depth, size_t pop_size, size_t num_results);
 
     // Grows the population by 10x
     //  (creates 5x matings and 4x mutations)
@@ -153,6 +135,7 @@ protected:
     // disti should be
     //  std::uniform_int_distribution<SYM__edge_int_type>(0, (n * n) - 1)
     // distl should be std::uniform_real_distribution<double>(0, 1)
+    // distll should be std::uniform_real_distribution<long double>(0, 1)
     //
     // Returns a pair (n, g). n is true iff g is a new gene.
     //  If the operation fails entirely (new gene made but had hash collision)
@@ -163,7 +146,8 @@ protected:
     std::pair<bool, Gene*> mutated(const Gene& g,
                   std::mt19937& gen,
                   std::uniform_int_distribution<SYM__edge_int_type>& disti,
-                  std::uniform_real_distribution<double>& distl);
+                  std::uniform_real_distribution<double>& distl,
+                  std::uniform_real_distribution<long double>& distll);
 
     // Adds the gene to the database
     //
@@ -231,9 +215,13 @@ public:
               std::unordered_set<Edge, EdgeHash>>
                                  edges_and_non_edges();
 
+    // Do not call until after edges_and_non_edges()
+    long double heuristic_score() const;
+
 protected:
     const IntEdgeConverterAndSampler& iecas;
     Gene& g;
+    long double h_score;
 };
 
 #endif

@@ -35,6 +35,8 @@ public:
     virtual std::pair<std::unordered_set<Edge, EdgeHash>,
                       std::unordered_set<Edge, EdgeHash>>
                                 edges_and_non_edges() =0;
+
+    virtual long double heuristic_score() const =0;
 };
 
 #endif
