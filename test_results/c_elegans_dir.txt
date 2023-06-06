@@ -1,0 +1,1645 @@
+Loading graph from files:
+    
+    real_world_graphs/celegans_metabolic.g
+  ...graph loaded. It has 454 nodes and 2025 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 4
+Running for 80 iterations...
+Iteration 0 for flip probability 0
+
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of 4
+
+Beginning Iteration 2...
+Best score is: 6
+Hash collision at depth 1 with hash value 83165153038 (case A)
+Beginning Iteration 3...
+Best score is: 8
+Hash collision at depth 1 with hash value 11159056864 (case A)
+Hash collision at depth 1 with hash value 11159056864 (case A)
+Hash collision at depth 1 with hash value 63897495050 (case A)
+Beginning Iteration 4...
+Best score is: 9.16993
+Hash collision at depth 1 with hash value 12816031696 (case B)
+Hash collision at depth 1 with hash value 12816031696 (case B)
+Hash collision at depth 1 with hash value 34367272238 (case A)
+Beginning Iteration 5...
+Best score is: 10
+Hash collision at depth 1 with hash value 39459197354 (case A)
+Hash collision at depth 1 with hash value 84351207217 (case A)
+Hash collision at depth 1 with hash value 34876898865 (case A)
+Beginning Iteration 6...
+Best score is: 13.1699
+Beginning Iteration 7...
+Best score is: 16.3399
+Hash collision at depth 1 with hash value 10947824146 (case A)
+Hash collision at depth 1 with hash value 38677798387 (case A)
+Hash collision at depth 1 with hash value 10947824146 (case A)
+Beginning Iteration 8...
+Best score is: 19.1699
+Hash collision at depth 1 with hash value 19117803278 (case A)
+Beginning Iteration 9...
+Best score is: 22.3399
+Hash collision at depth 1 with hash value 11927649106 (case A)
+Beginning Iteration 10...
+Best score is: 26.3399
+Hash collision at depth 1 with hash value 54553980039 (case B)
+Hash collision at depth 1 with hash value 1190639094 (case A)
+Beginning Iteration 11...
+Best score is: 28.9837
+Hash collision at depth 1 with hash value 38548477357 (case A)
+Beginning Iteration 12...
+Best score is: 34.9837
+Hash collision at depth 1 with hash value 36779375463 (case A)
+Hash collision at depth 1 with hash value 36779375463 (case A)
+Hash collision at depth 1 with hash value 48662360727 (case A)
+Beginning Iteration 13...
+Best score is: 38.9837
+Hash collision at depth 1 with hash value 28474574609 (case A)
+Beginning Iteration 14...
+Best score is: 42.9837
+Hash collision at depth 1 with hash value 49426064375 (case A)
+Hash collision at depth 1 with hash value 46136637091 (case A)
+Beginning Iteration 15...
+Best score is: 46.9837
+Beginning Iteration 16...
+Best score is: 48.9837
+Hash collision at depth 1 with hash value 16648170512 (case A)
+Hash collision at depth 1 with hash value 18875194154 (case A)
+Beginning Iteration 17...
+Best score is: 50.9837
+Hash collision at depth 1 with hash value 55683950665 (case A)
+Hash collision at depth 1 with hash value 65042355531 (case A)
+Hash collision at depth 1 with hash value 54199825794 (case A)
+Hash collision at depth 1 with hash value 83398841756 (case A)
+Beginning Iteration 18...
+Best score is: 53.3236
+Hash collision at depth 1 with hash value 62092300902 (case A)
+Hash collision at depth 1 with hash value 61909600562 (case B)
+Beginning Iteration 19...
+Best score is: 58.1536
+Hash collision at depth 1 with hash value 5959037276 (case A)
+Beginning Iteration 20...
+Best score is: 60.1536
+Hash collision at depth 1 with hash value 24726722607 (case A)
+Hash collision at depth 1 with hash value 76092667234 (case A)
+Beginning Iteration 21...
+Best score is: 63.3236
+Hash collision at depth 1 with hash value 35186390858 (case A)
+Beginning Iteration 22...
+Best score is: 66.9383
+Hash collision at depth 1 with hash value 35305781811 (case A)
+Beginning Iteration 23...
+Best score is: 68.3236
+Hash collision at depth 1 with hash value 13624712489 (case A)
+Hash collision at depth 1 with hash value 8803201209 (case A)
+Hash collision at depth 1 with hash value 63852390010 (case A)
+Beginning Iteration 24...
+Best score is: 70.9383
+Hash collision at depth 1 with hash value 55692118406 (case B)
+Hash collision at depth 1 with hash value 81927801681 (case A)
+Beginning Iteration 25...
+Best score is: 72.9383
+Hash collision at depth 1 with hash value 21212939087 (case A)
+Beginning Iteration 26...
+Best score is: 76.9383
+Beginning Iteration 27...
+Best score is: 78.9383
+Hash collision at depth 1 with hash value 85742917930 (case A)
+Beginning Iteration 28...
+Best score is: 83.2781
+Beginning Iteration 29...
+Best score is: 84.2781
+Hash collision at depth 1 with hash value 51885581945 (case A)
+Hash collision at depth 1 with hash value 24429686004 (case B)
+Beginning Iteration 30...
+Best score is: 88.922
+Hash collision at depth 1 with hash value 21766378583 (case A)
+Hash collision at depth 1 with hash value 52501512413 (case A)
+Beginning Iteration 31...
+Best score is: 92.922
+Hash collision at depth 1 with hash value 12062741082 (case A)
+Beginning Iteration 32...
+Best score is: 92.922
+Hash collision at depth 1 with hash value 52449062039 (case A)
+Hash collision at depth 1 with hash value 26917849324 (case A)
+Hash collision at depth 1 with hash value 57928348316 (case A)
+Beginning Iteration 33...
+Best score is: 92.922
+Hash collision at depth 1 with hash value 37240717298 (case A)
+Hash collision at depth 1 with hash value 69956682673 (case A)
+Beginning Iteration 34...
+Best score is: 92.922
+Hash collision at depth 1 with hash value 76050309656 (case A)
+Hash collision at depth 1 with hash value 4805209842 (case A)
+Beginning Iteration 35...
+Best score is: 94.922
+Hash collision at depth 1 with hash value 25878550880 (case A)
+Hash collision at depth 1 with hash value 27467899037 (case A)
+Hash collision at depth 1 with hash value 85676309177 (case A)
+Beginning Iteration 36...
+Best score is: 99.0919
+Beginning Iteration 37...
+Best score is: 99.0919
+Hash collision at depth 1 with hash value 18369480973 (case A)
+Beginning Iteration 38...
+Best score is: 99.0919
+Hash collision at depth 1 with hash value 73870090323 (case A)
+Hash collision at depth 1 with hash value 11254863798 (case A)
+Hash collision at depth 1 with hash value 42857354272 (case A)
+Hash collision at depth 1 with hash value 38420841909 (case A)
+Beginning Iteration 39...
+Best score is: 101.092
+Hash collision at depth 1 with hash value 80050575788 (case A)
+Beginning Iteration 40...
+Best score is: 101.092
+Hash collision at depth 1 with hash value 36623832878 (case A)
+Hash collision at depth 1 with hash value 51211742631 (case A)
+Beginning Iteration 41...
+Best score is: 104.011
+Hash collision at depth 1 with hash value 6774839052 (case A)
+Hash collision at depth 1 with hash value 58210882771 (case A)
+Beginning Iteration 42...
+Best score is: 106.011
+Hash collision at depth 1 with hash value 28530940311 (case B)
+Hash collision at depth 1 with hash value 31102730409 (case A)
+Beginning Iteration 43...
+Best score is: 108.011
+Hash collision at depth 1 with hash value 57772350803 (case A)
+Beginning Iteration 44...
+Best score is: 108.011
+Beginning Iteration 45...
+Best score is: 113.181
+Hash collision at depth 1 with hash value 12752364987 (case A)
+Hash collision at depth 1 with hash value 14334419120 (case A)
+Beginning Iteration 46...
+Best score is: 113.181
+Hash collision at depth 1 with hash value 45508171402 (case A)
+Hash collision at depth 1 with hash value 7139553681 (case A)
+Beginning Iteration 47...
+Best score is: 118.582
+Hash collision at depth 1 with hash value 12323595751 (case A)
+Hash collision at depth 1 with hash value 36286904072 (case A)
+Beginning Iteration 48...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 38225052440 (case A)
+Beginning Iteration 49...
+Best score is: 120.582
+Beginning Iteration 50...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 18740378302 (case A)
+Beginning Iteration 51...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 85772679312 (case A)
+Beginning Iteration 52...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 2243012760 (case A)
+Beginning Iteration 53...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 25689747069 (case A)
+Hash collision at depth 1 with hash value 11089859997 (case A)
+Beginning Iteration 54...
+Best score is: 120.582
+Beginning Iteration 55...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 77181039876 (case A)
+Beginning Iteration 56...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 20871622284 (case A)
+Beginning Iteration 57...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 52767914162 (case A)
+Hash collision at depth 1 with hash value 37236809975 (case A)
+Hash collision at depth 1 with hash value 49350832304 (case A)
+Beginning Iteration 58...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 16148986201 (case A)
+Beginning Iteration 59...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 23110614643 (case A)
+Beginning Iteration 60...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 74423424495 (case A)
+Beginning Iteration 61...
+Best score is: 120.582
+Beginning Iteration 62...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 83674822686 (case A)
+Hash collision at depth 1 with hash value 50731872020 (case A)
+Beginning Iteration 63...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 59485099330 (case A)
+Beginning Iteration 64...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 3454590311 (case A)
+Hash collision at depth 1 with hash value 70571223291 (case A)
+Hash collision at depth 1 with hash value 5368364415 (case A)
+Hash collision at depth 1 with hash value 21447419600 (case A)
+Beginning Iteration 65...
+Best score is: 120.582
+Beginning Iteration 66...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 1458831987 (case A)
+Hash collision at depth 1 with hash value 2273922219 (case A)
+Beginning Iteration 67...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 17475567424 (case A)
+Hash collision at depth 1 with hash value 56953399684 (case A)
+Hash collision at depth 1 with hash value 38677690675 (case A)
+Hash collision at depth 1 with hash value 51520019673 (case A)
+Beginning Iteration 68...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 42211714562 (case A)
+Beginning Iteration 69...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 81511003079 (case A)
+Hash collision at depth 1 with hash value 39476522760 (case A)
+Beginning Iteration 70...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 50665670113 (case A)
+Hash collision at depth 1 with hash value 73423837587 (case A)
+Hash collision at depth 1 with hash value 50433140150 (case A)
+Beginning Iteration 71...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 76206330887 (case A)
+Hash collision at depth 1 with hash value 67675224213 (case A)
+Beginning Iteration 72...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 22130929398 (case A)
+Hash collision at depth 1 with hash value 42486598432 (case A)
+Beginning Iteration 73...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 10496069937 (case A)
+Beginning Iteration 74...
+Best score is: 120.582
+Beginning Iteration 75...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 59909104820 (case A)
+Hash collision at depth 1 with hash value 7126675350 (case A)
+Hash collision at depth 1 with hash value 73938098078 (case A)
+Beginning Iteration 76...
+Best score is: 120.582
+Beginning Iteration 77...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 13411930537 (case A)
+Beginning Iteration 78...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 12416642765 (case A)
+Beginning Iteration 79...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 37768561791 (case A)
+Hash collision at depth 1 with hash value 6391588202 (case B)
+Hash collision at depth 1 with hash value 10400347409 (case A)
+Beginning Iteration 80...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 17079886970 (case A)
+Hash collision at depth 1 with hash value 71852918827 (case A)
+Hash collision at depth 1 with hash value 22733627708 (case A)
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 115), (3, 117), (3, 120), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (16, 3), (16, 11), (16, 18), (16, 32), (16, 67), (16, 103), (18, 3), (18, 11), (18, 16), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 18), (32, 49), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (77, 23), (88, 356), (102, 3), (103, 3), (103, 16), (107, 108), (108, 452), (117, 3), (118, 3), (120, 3), (121, 3), (148, 150), (149, 394), (160, 162), (167, 3), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 115), (3, 120), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 65), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (18, 3), (18, 11), (18, 16), (18, 65), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 18), (32, 49), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (77, 23), (102, 3), (103, 3), (107, 108), (108, 452), (117, 3), (118, 3), (120, 3), (121, 3), (148, 150), (149, 394), (160, 162), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (385, 328), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 115), (3, 117), (3, 120), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 103), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (18, 3), (18, 11), (18, 16), (18, 65), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 49), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 359), (67, 360), (68, 3), (68, 16), (77, 23), (88, 356), (102, 3), (103, 3), (103, 16), (103, 18), (107, 108), (108, 452), (117, 3), (118, 3), (120, 3), (121, 3), (148, 150), (149, 394), (160, 162), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 115), (3, 117), (3, 120), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 65), (11, 67), (11, 103), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 103), (18, 3), (18, 11), (18, 16), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 18), (32, 49), (63, 3), (65, 3), (65, 16), (65, 18), (67, 3), (67, 359), (67, 360), (68, 3), (77, 23), (88, 356), (102, 3), (103, 3), (103, 11), (107, 108), (108, 452), (117, 3), (118, 3), (120, 3), (121, 3), (148, 150), (149, 394), (160, 162), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 115), (3, 117), (3, 120), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 103), (16, 3), (16, 11), (16, 18), (16, 65), (16, 67), (16, 68), (16, 103), (18, 3), (18, 11), (18, 16), (18, 65), (18, 103), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 49), (63, 3), (65, 3), (65, 16), (67, 3), (67, 11), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (77, 23), (88, 356), (102, 3), (103, 3), (103, 16), (107, 108), (108, 452), (117, 3), (118, 3), (121, 3), (148, 150), (149, 394), (160, 162), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 103), (16, 3), (16, 11), (16, 18), (16, 32), (16, 68), (16, 103), (18, 3), (18, 11), (18, 16), (18, 65), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 49), (63, 3), (65, 3), (65, 16), (67, 3), (67, 359), (67, 360), (68, 3), (68, 16), (77, 23), (88, 356), (102, 3), (103, 3), (107, 108), (108, 452), (118, 3), (120, 3), (121, 3), (125, 20), (148, 150), (160, 162), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 115), (3, 117), (3, 120), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 65), (11, 103), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (18, 3), (18, 11), (18, 16), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 49), (63, 3), (65, 3), (65, 11), (65, 16), (65, 18), (67, 3), (67, 359), (67, 360), (68, 3), (77, 23), (88, 356), (102, 3), (103, 3), (107, 108), (108, 452), (117, 3), (118, 3), (121, 3), (125, 20), (148, 150), (160, 162), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 115), (3, 117), (3, 120), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 103), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (18, 3), (18, 11), (18, 16), (18, 67), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 49), (63, 3), (65, 3), (65, 16), (67, 3), (67, 359), (67, 360), (68, 3), (77, 23), (88, 356), (102, 3), (103, 3), (103, 16), (107, 108), (108, 452), (117, 3), (118, 3), (148, 150), (149, 394), (160, 162), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+With a score of 120.582 we have log2(|Aut(G_H)|) of 62.2908
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 19), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 115), (3, 117), (3, 121), (3, 193), (4, 6), (5, 304), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 65), (11, 103), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (18, 3), (18, 11), (18, 16), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 49), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 359), (67, 360), (68, 3), (68, 16), (77, 23), (88, 356), (102, 3), (103, 3), (107, 108), (108, 452), (117, 3), (118, 3), (121, 3), (148, 150), (149, 394), (160, 162), (174, 3), (193, 3), (217, 216), (237, 3), (251, 429), (264, 3), (282, 283), (288, 289), (294, 3), (303, 304), (332, 387), (343, 196), (354, 309), (359, 360), (374, 375), (390, 389), (396, 397), (401, 402), (409, 408), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (433, 432), (437, 438), (444, 443), (447, 448), (449, 32), (453, 444), 
+
+Iteration 1 for flip probability 0
+
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of 4
+
+Beginning Iteration 2...
+Best score is: 6
+Hash collision at depth 1 with hash value 50767697671 (case A)
+Hash collision at depth 1 with hash value 57299501992 (case A)
+Beginning Iteration 3...
+Best score is: 9.16993
+Hash collision at depth 1 with hash value 22740555581 (case A)
+Hash collision at depth 1 with hash value 43813234704 (case A)
+Hash collision at depth 1 with hash value 36679427979 (case A)
+Beginning Iteration 4...
+Best score is: 9.16993
+Hash collision at depth 1 with hash value 68467200185 (case B)
+Hash collision at depth 1 with hash value 26185808765 (case A)
+Beginning Iteration 5...
+Best score is: 11.1699
+Beginning Iteration 6...
+Best score is: 13.1699
+Hash collision at depth 1 with hash value 33877439748 (case B)
+Beginning Iteration 7...
+Best score is: 17.1699
+Hash collision at depth 1 with hash value 65762979337 (case A)
+Beginning Iteration 8...
+Best score is: 21.1699
+Hash collision at depth 1 with hash value 49402171715 (case A)
+Hash collision at depth 1 with hash value 22157751065 (case B)
+Hash collision at depth 1 with hash value 57178016241 (case A)
+Beginning Iteration 9...
+Best score is: 24.3399
+Hash collision at depth 1 with hash value 28192807113 (case A)
+Hash collision at depth 1 with hash value 85156755726 (case A)
+Hash collision at depth 1 with hash value 53392005912 (case A)
+Beginning Iteration 10...
+Best score is: 26.3399
+Hash collision at depth 1 with hash value 82005982930 (case A)
+Beginning Iteration 11...
+Best score is: 28.9837
+Hash collision at depth 1 with hash value 21933792142 (case B)
+Beginning Iteration 12...
+Best score is: 30.9837
+Hash collision at depth 1 with hash value 70336441815 (case B)
+Hash collision at depth 1 with hash value 5268313713 (case A)
+Beginning Iteration 13...
+Best score is: 34.9837
+Hash collision at depth 1 with hash value 76740621780 (case A)
+Beginning Iteration 14...
+Best score is: 38.9837
+Hash collision at depth 1 with hash value 85707986223 (case A)
+Hash collision at depth 1 with hash value 70394306286 (case A)
+Beginning Iteration 15...
+Best score is: 44.1536
+Hash collision at depth 1 with hash value 22989562323 (case A)
+Hash collision at depth 1 with hash value 69242145673 (case A)
+Beginning Iteration 16...
+Best score is: 46.1536
+Hash collision at depth 0 with hash value 83737807118
+Hash collision at depth 1 with hash value 16367556746 (case A)
+Beginning Iteration 17...
+Best score is: 51.7683
+Hash collision at depth 1 with hash value 19600119583 (case A)
+Hash collision at depth 1 with hash value 35133871806 (case A)
+Beginning Iteration 18...
+Best score is: 55.7683
+Hash collision at depth 1 with hash value 6442455872 (case A)
+Beginning Iteration 19...
+Best score is: 59.7683
+Hash collision at depth 1 with hash value 37820434584 (case A)
+Beginning Iteration 20...
+Best score is: 64.1082
+Hash collision at depth 1 with hash value 9798082247 (case B)
+Beginning Iteration 21...
+Best score is: 68.1082
+Beginning Iteration 22...
+Best score is: 74.752
+Hash collision at depth 1 with hash value 47196314900 (case A)
+Beginning Iteration 23...
+Best score is: 78.752
+Hash collision at depth 1 with hash value 5815675822 (case A)
+Beginning Iteration 24...
+Best score is: 83.6709
+Hash collision at depth 1 with hash value 56223798886 (case A)
+Hash collision at depth 1 with hash value 57270242384 (case A)
+Beginning Iteration 25...
+Best score is: 88.8408
+Hash collision at depth 1 with hash value 76234771545 (case A)
+Beginning Iteration 26...
+Best score is: 94.2417
+Hash collision at depth 1 with hash value 30833793387 (case A)
+Beginning Iteration 27...
+Best score is: 98.0108
+Beginning Iteration 28...
+Best score is: 98.8408
+Hash collision at depth 1 with hash value 35643150195 (case A)
+Beginning Iteration 29...
+Best score is: 102.242
+Beginning Iteration 30...
+Best score is: 104.011
+Hash collision at depth 1 with hash value 83985215037 (case A)
+Hash collision at depth 1 with hash value 79855779294 (case A)
+Hash collision at depth 1 with hash value 35435724218 (case A)
+Hash collision at depth 1 with hash value 10291438621 (case A)
+Beginning Iteration 31...
+Best score is: 105.412
+Hash collision at depth 1 with hash value 73353257011 (case A)
+Beginning Iteration 32...
+Best score is: 113.026
+Hash collision at depth 1 with hash value 47237557146 (case A)
+Beginning Iteration 33...
+Best score is: 115.026
+Hash collision at depth 1 with hash value 37402152850 (case A)
+Beginning Iteration 34...
+Best score is: 119.026
+Hash collision at depth 1 with hash value 75258705076 (case A)
+Beginning Iteration 35...
+Best score is: 119.026
+Beginning Iteration 36...
+Best score is: 124.84
+Hash collision at depth 1 with hash value 49886468963 (case A)
+Beginning Iteration 37...
+Best score is: 126.84
+Hash collision at depth 1 with hash value 59728631592 (case A)
+Beginning Iteration 38...
+Best score is: 126.84
+Hash collision at depth 1 with hash value 78011057574 (case A)
+Beginning Iteration 39...
+Best score is: 128.84
+Beginning Iteration 40...
+Best score is: 130.84
+Hash collision at depth 1 with hash value 69793936967 (case A)
+Beginning Iteration 41...
+Best score is: 134.84
+Hash collision at depth 1 with hash value 3061943181 (case A)
+Beginning Iteration 42...
+Best score is: 134.84
+Hash collision at depth 0 with hash value 71294349089
+Hash collision at depth 1 with hash value 12210708920 (case A)
+Beginning Iteration 43...
+Best score is: 136.84
+Beginning Iteration 44...
+Best score is: 136.84
+Beginning Iteration 45...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 19955415197 (case A)
+Beginning Iteration 46...
+Best score is: 136.84
+Hash collision at depth 0 with hash value 86632529683
+
+Hash collision at depth 1 with hash value 77508230629 (case A)
+Beginning Iteration 47...
+Best score is: 136.84
+Hash collision at depth 0 with hash value 5130322860
+Beginning Iteration 48...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 11110188137 (case A)
+Hash collision at depth 1 with hash value 37453150669 (case A)
+Beginning Iteration 49...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 18791222297 (case A)
+Hash collision at depth 1 with hash value 82304300265 (case A)
+Beginning Iteration 50...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 29762139496 (case A)
+Beginning Iteration 51...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 39848390993 (case A)
+Hash collision at depth 1 with hash value 8031192112 (case A)
+Beginning Iteration 52...
+Best score is: 136.84
+Beginning Iteration 53...
+Best score is: 136.84
+Beginning Iteration 54...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 20538501204 (case A)
+Hash collision at depth 1 with hash value 45883416697 (case A)
+Hash collision at depth 1 with hash value 5615937990 (case A)
+Beginning Iteration 55...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 1558123775 (case A)
+Hash collision at depth 1 with hash value 12593665241 (case A)
+Hash collision at depth 1 with hash value 19188101458 (case A)
+Beginning Iteration 56...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 60950398965 (case A)
+Hash collision at depth 1 with hash value 70087394636 (case A)
+Beginning Iteration 57...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 58028373616 (case A)
+Beginning Iteration 58...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 65134360816 (case A)
+Hash collision at depth 1 with hash value 52104352122 (case A)
+Hash collision at depth 1 with hash value 38752408795 (case A)
+Hash collision at depth 1 with hash value 81583481136 (case A)
+Beginning Iteration 59...
+Best score is: 136.84
+Beginning Iteration 60...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 42376775062 (case A)
+Hash collision at depth 1 with hash value 29845681630 (case A)
+Hash collision at depth 1 with hash value 75528176347 (case A)
+Beginning Iteration 61...
+Best score is: 136.84
+Beginning Iteration 62...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 83040070795 (case A)
+Hash collision at depth 1 with hash value 67839785513 (case A)
+Hash collision at depth 1 with hash value 43568820957 (case A)
+Beginning Iteration 63...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 74794588821 (case A)
+Hash collision at depth 1 with hash value 33657589140 (case A)
+Beginning Iteration 64...
+Best score is: 136.84
+Hash collision at depth 0 with hash value 45008394258
+Hash collision at depth 1 with hash value 82617761900 (case A)
+Hash collision at depth 1 with hash value 54384413103 (case A)
+Beginning Iteration 65...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 48645773091 (case A)
+Beginning Iteration 66...
+Best score is: 136.84
+Beginning Iteration 67...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 81363985983 (case A)
+Hash collision at depth 1 with hash value 21564127400 (case A)
+Beginning Iteration 68...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 27442167656 (case A)
+Hash collision at depth 1 with hash value 39689073989 (case A)
+Hash collision at depth 1 with hash value 14436408760 (case A)
+Beginning Iteration 69...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 31626972479 (case A)
+Hash collision at depth 1 with hash value 60672638630 (case A)
+Beginning Iteration 70...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 15639965117 (case A)
+Beginning Iteration 71...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 690675894 (case A)
+Hash collision at depth 1 with hash value 57622839485 (case A)
+Beginning Iteration 72...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 32031946402 (case A)
+Beginning Iteration 73...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 47359651743 (case A)
+Beginning Iteration 74...
+Best score is: 136.84
+Beginning Iteration 75...
+Best score is: 136.84
+Beginning Iteration 76...
+Best score is: 136.84
+Beginning Iteration 77...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 80263371438 (case A)
+Hash collision at depth 1 with hash value 56782492339 (case A)
+Hash collision at depth 1 with hash value 84598115165 (case A)
+Hash collision at depth 1 with hash value 12050769971 (case A)
+Beginning Iteration 78...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 55805157281 (case A)
+Hash collision at depth 1 with hash value 67793295994 (case A)
+Beginning Iteration 79...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 37510227923 (case A)
+Beginning Iteration 80...
+Best score is: 136.84
+Hash collision at depth 1 with hash value 26384523841 (case A)
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 193), (3, 206), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (11, 67), (16, 3), (16, 11), (16, 18), (16, 32), (16, 67), (16, 68), (16, 213), (18, 3), (18, 11), (18, 16), (18, 65), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (67, 3), (67, 11), (67, 16), (67, 359), (67, 360), (68, 3), (73, 49), (91, 70), (102, 3), (102, 352), (103, 3), (103, 16), (103, 18), (107, 108), (108, 452), (117, 3), (120, 3), (121, 3), (150, 148), (162, 160), (167, 3), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (442, 59), (448, 447), (449, 32), (453, 444), 
+
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 193), (3, 206), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 213), (18, 3), (18, 11), (18, 16), (18, 65), (18, 67), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (65, 16), (65, 18), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (73, 49), (91, 70), (102, 3), (102, 352), (103, 3), (103, 18), (107, 108), (108, 452), (117, 3), (121, 24), (150, 148), (162, 160), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (442, 59), (448, 447), (449, 32), (453, 444), 
+
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 206), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 213), (18, 3), (18, 11), (18, 16), (18, 65), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 11), (68, 16), (91, 70), (102, 3), (102, 352), (103, 3), (107, 108), (108, 452), (117, 3), (150, 148), (162, 160), (184, 212), (187, 112), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (442, 59), (448, 447), (449, 32), (453, 444), 
+
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 206), (3, 285), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (11, 68), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 213), (18, 3), (18, 11), (18, 16), (18, 65), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (65, 18), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (73, 49), (91, 70), (102, 3), (102, 352), (103, 3), (103, 16), (107, 108), (108, 452), (117, 3), (121, 3), (121, 24), (150, 148), (162, 160), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (442, 59), (448, 447), (449, 32), (453, 444), 
+
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 49), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 206), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (11, 103), (16, 3), (16, 11), (16, 18), (16, 65), (16, 67), (16, 68), (16, 213), (18, 3), (18, 11), (18, 16), (18, 65), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (67, 3), (67, 16), (67, 18), (67, 359), (67, 360), (68, 3), (68, 16), (73, 49), (91, 70), (102, 352), (103, 3), (103, 16), (107, 108), (108, 452), (117, 3), (120, 3), (121, 3), (150, 148), (162, 160), (187, 112), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (442, 59), (448, 447), (449, 32), (453, 444), 
+
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 118), (3, 120), (3, 121), (3, 193), (3, 206), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 213), (18, 3), (18, 11), (18, 16), (18, 32), (18, 65), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (65, 16), (65, 18), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (73, 49), (91, 70), (102, 3), (102, 352), (103, 3), (107, 108), (108, 452), (117, 3), (120, 3), (121, 24), (150, 148), (162, 160), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (442, 59), (448, 447), (449, 32), (453, 444), 
+
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 193), (3, 206), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 213), (18, 3), (18, 11), (18, 16), (18, 65), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (67, 3), (67, 16), (67, 18), (67, 359), (67, 360), (68, 3), (68, 11), (73, 49), (91, 70), (102, 352), (103, 3), (107, 108), (108, 452), (117, 3), (120, 3), (121, 3), (121, 24), (150, 148), (162, 160), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (442, 59), (448, 447), (449, 32), (453, 444), 
+
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 193), (3, 206), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 103), (16, 213), (18, 3), (18, 11), (18, 16), (18, 32), (18, 65), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (65, 18), (67, 3), (67, 359), (67, 360), (68, 3), (68, 16), (73, 49), (91, 70), (102, 352), (103, 3), (107, 108), (108, 452), (117, 3), (120, 3), (150, 148), (162, 160), (184, 212), (187, 112), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (448, 447), (449, 32), (453, 444), 
+
+With a score of 136.84 we have log2(|Aut(G_H)|) of 70.4201
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 40), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 206), (3, 285), (3, 416), (3, 417), (3, 418), (5, 304), (6, 4), (7, 3), (8, 3), (8, 7), (11, 3), (11, 16), (11, 18), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 213), (18, 3), (18, 11), (18, 16), (18, 65), (18, 205), (21, 3), (21, 22), (22, 3), (24, 65), (32, 3), (32, 11), (32, 16), (32, 18), (54, 172), (63, 3), (65, 3), (65, 16), (65, 18), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (91, 70), (102, 3), (102, 16), (102, 352), (102, 391), (103, 3), (107, 108), (108, 452), (117, 3), (120, 3), (121, 24), (150, 148), (162, 160), (193, 3), (216, 217), (234, 446), (244, 187), (253, 11), (283, 282), (289, 288), (303, 304), (313, 128), (332, 387), (343, 196), (359, 360), (374, 375), (389, 390), (397, 396), (401, 402), (409, 408), (412, 445), (417, 416), (417, 418), (418, 416), (420, 421), (422, 423), (430, 431), (432, 433), (437, 438), (442, 59), (448, 447), (449, 32), (453, 444), 
+
+Iteration 2 for flip probability 0
+
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of 4
+
+Beginning Iteration 2...
+Best score is: 6
+Beginning Iteration 3...
+Best score is: 6
+Hash collision at depth 1 with hash value 2717206551 (case A)
+Beginning Iteration 4...
+Best score is: 8
+Hash collision at depth 1 with hash value 15628497658 (case A)
+Beginning Iteration 5...
+Best score is: 11.1699
+Hash collision at depth 1 with hash value 34722221323 (case A)
+Hash collision at depth 1 with hash value 60245896737 (case A)
+Beginning Iteration 6...
+Best score is: 13.1699
+Hash collision at depth 1 with hash value 56122514177 (case B)
+Beginning Iteration 7...
+Best score is: 15.1699
+Hash collision at depth 1 with hash value 85736718159 (case A)
+Beginning Iteration 8...
+Best score is: 17.1699
+Hash collision at depth 1 with hash value 67712578990 (case A)
+Hash collision at depth 1 with hash value 2593763966 (case A)
+Beginning Iteration 9...
+Best score is: 20.3399
+Hash collision at depth 1 with hash value 31040453545 (case B)
+Beginning Iteration 10...
+Best score is: 25.3399
+Hash collision at depth 1 with hash value 6183884290 (case A)
+Hash collision at depth 1 with hash value 83396830482 (case A)
+Beginning Iteration 11...
+Best score is: 29.9837
+Hash collision at depth 1 with hash value 17028248489 (case A)
+Hash collision at depth 1 with hash value 42765436425 (case A)
+Hash collision at depth 1 with hash value 51999327246 (case A)
+Beginning Iteration 12...
+Best score is: 37.1536
+Hash collision at depth 1 with hash value 13279231964 (case A)
+Hash collision at depth 1 with hash value 32700004725 (case A)
+Beginning Iteration 13...
+Best score is: 40.7683
+Beginning Iteration 14...
+Best score is: 47.3236
+Hash collision at depth 1 with hash value 79774919379 (case A)
+Beginning Iteration 15...
+Best score is: 50.9383
+Hash collision at depth 0 with hash value 37398934890
+
+Hash collision at depth 1 with hash value 72830590718 (case A)
+Beginning Iteration 16...
+Best score is: 56.9383
+Hash collision at depth 1 with hash value 65150917531 (case A)
+Hash collision at depth 1 with hash value 84119358732 (case A)
+Hash collision at depth 1 with hash value 41202971133 (case B)
+Beginning Iteration 17...
+Best score is: 58.9383
+Beginning Iteration 18...
+Best score is: 60.9383
+Hash collision at depth 1 with hash value 23131676835 (case A)
+Beginning Iteration 19...
+Best score is: 64.9383
+Hash collision at depth 1 with hash value 51983006984 (case A)
+Beginning Iteration 20...
+Best score is: 66.9383
+Hash collision at depth 1 with hash value 78830219908 (case B)
+Hash collision at depth 1 with hash value 67402967591 (case A)
+Beginning Iteration 21...
+Best score is: 68.9383
+Hash collision at depth 1 with hash value 47996839997 (case A)
+Beginning Iteration 22...
+Best score is: 70.9383
+Hash collision at depth 1 with hash value 64557659445 (case A)
+Beginning Iteration 23...
+Best score is: 72.9383
+Hash collision at depth 1 with hash value 47164315025 (case A)
+Beginning Iteration 24...
+Best score is: 76.9383
+Hash collision at depth 1 with hash value 59385920067 (case A)
+Beginning Iteration 25...
+Best score is: 76.9383
+Hash collision at depth 1 with hash value 22198648662 (case A)
+Hash collision at depth 1 with hash value 7968246601 (case A)
+Beginning Iteration 26...
+Best score is: 79.2781
+Beginning Iteration 27...
+Best score is: 79.2781
+Hash collision at depth 1 with hash value 50473334001 (case A)
+Beginning Iteration 28...
+Best score is: 81.2781
+Hash collision at depth 1 with hash value 71170396657 (case A)
+Hash collision at depth 1 with hash value 58971885383 (case A)
+Hash collision at depth 1 with hash value 69164524959 (case A)
+Beginning Iteration 29...
+Best score is: 81.2781
+Hash collision at depth 1 with hash value 7849217069 (case A)
+Hash collision at depth 1 with hash value 1784091190 (case A)
+Hash collision at depth 1 with hash value 8558591580 (case A)
+Beginning Iteration 30...
+Best score is: 83.2781
+Hash collision at depth 1 with hash value 69765784957 (case B)
+Beginning Iteration 31...
+Best score is: 85.922
+Hash collision at depth 1 with hash value 33757168994 (case A)
+Hash collision at depth 1 with hash value 57889092538 (case A)
+Beginning Iteration 32...
+Best score is: 89.922
+Beginning Iteration 33...
+Best score is: 91.922
+Beginning Iteration 34...
+Best score is: 96.8408
+Beginning Iteration 35...
+Best score is: 100.841
+Hash collision at depth 1 with hash value 47501917439 (case A)
+Hash collision at depth 1 with hash value 13324690619 (case A)
+Hash collision at depth 1 with hash value 19936688764 (case A)
+Beginning Iteration 36...
+Best score is: 100.841
+Hash collision at depth 1 with hash value 77077138335 (case A)
+Hash collision at depth 1 with hash value 26775296008 (case A)
+Hash collision at depth 1 with hash value 28013106894 (case A)
+Hash collision at depth 1 with hash value 36099262362 (case A)
+Beginning Iteration 37...
+Best score is: 100.841
+Beginning Iteration 38...
+Best score is: 102.841
+Hash collision at depth 1 with hash value 77128550453 (case B)
+Beginning Iteration 39...
+Best score is: 102.841
+Beginning Iteration 40...
+Best score is: 102.841
+Hash collision at depth 1 with hash value 23706365260 (case A)
+Hash collision at depth 1 with hash value 36220274214 (case A)
+Beginning Iteration 41...
+Best score is: 102.841
+Hash collision at depth 1 with hash value 86378155812 (case A)
+Hash collision at depth 1 with hash value 39143436625 (case A)
+Hash collision at depth 1 with hash value 7594795482 (case A)
+Beginning Iteration 42...
+Best score is: 102.841
+Beginning Iteration 43...
+Best score is: 102.841
+Hash collision at depth 1 with hash value 57508573091 (case A)
+Hash collision at depth 1 with hash value 21141850595 (case A)
+Hash collision at depth 1 with hash value 58905811226 (case A)
+Beginning Iteration 44...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 8000454120 (case A)
+Hash collision at depth 1 with hash value 37578617089 (case A)
+Beginning Iteration 45...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 16439962312 (case A)
+Beginning Iteration 46...
+Best score is: 104.841
+Hash collision at depth 0 with hash value 37890610437
+Hash collision at depth 1 with hash value 85244714187 (case A)
+Hash collision at depth 1 with hash value 42174258612 (case A)
+Hash collision at depth 1 with hash value 81985378937 (case A)
+Beginning Iteration 47...
+Best score is: 104.841
+Beginning Iteration 48...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 69969146807 (case A)
+Hash collision at depth 1 with hash value 38136191348 (case A)
+Beginning Iteration 49...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 33284527733 (case A)
+Hash collision at depth 1 with hash value 58874830859 (case A)
+Beginning Iteration 50...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 71797984709 (case A)
+Hash collision at depth 1 with hash value 3412808271 (case A)
+Beginning Iteration 51...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 4232048055 (case A)
+Hash collision at depth 1 with hash value 75963968219 (case A)
+Hash collision at depth 1 with hash value 42308811142 (case A)
+Hash collision at depth 1 with hash value 79056622562 (case A)
+Beginning Iteration 52...
+Best score is: 106.841
+Beginning Iteration 53...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 4338203888 (case A)
+Hash collision at depth 1 with hash value 2892268484 (case A)
+Beginning Iteration 54...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 7102968288 (case A)
+Hash collision at depth 1 with hash value 80475943312 (case A)
+Beginning Iteration 55...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 11848502893 (case A)
+Hash collision at depth 1 with hash value 68527097056 (case A)
+Beginning Iteration 56...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 27295629942 (case A)
+Beginning Iteration 57...
+Best score is: 106.841
+Beginning Iteration 58...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 78959762340 (case A)
+Hash collision at depth 1 with hash value 69161798143 (case A)
+Beginning Iteration 59...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 28639996439 (case A)
+Beginning Iteration 60...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 32342382114 (case A)
+Beginning Iteration 61...
+Best score is: 106.841
+Hash collision at depth 0 with hash value 17012860173
+Hash collision at depth 1 with hash value 4706919946 (case A)
+Beginning Iteration 62...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 52663546712 (case A)
+Hash collision at depth 1 with hash value 51914314337 (case A)
+Hash collision at depth 1 with hash value 66304631190 (case B)
+Beginning Iteration 63...
+Best score is: 106.841
+Beginning Iteration 64...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 70808438396 (case A)
+Beginning Iteration 65...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 44386160406 (case A)
+Beginning Iteration 66...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 38103063143 (case A)
+Beginning Iteration 67...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 77701155924 (case A)
+Hash collision at depth 1 with hash value 69722036986 (case A)
+Beginning Iteration 68...
+Best score is: 106.841
+Beginning Iteration 69...
+Best score is: 106.841
+Hash collision at depth 1 with hash value 24701466265 (case A)
+Hash collision at depth 1 with hash value 36837623510 (case A)
+Hash collision at depth 1 with hash value 44334463360 (case A)
+Beginning Iteration 70...
+Best score is: 106.841
+Beginning Iteration 71...
+Best score is: 108.841
+Hash collision at depth 1 with hash value 15131107436 (case A)
+Hash collision at depth 1 with hash value 68857266975 (case A)
+Hash collision at depth 1 with hash value 68703638372 (case A)
+Beginning Iteration 72...
+Best score is: 108.841
+Hash collision at depth 1 with hash value 11231453323 (case A)
+Hash collision at depth 1 with hash value 74787271525 (case A)
+Beginning Iteration 73...
+Best score is: 108.841
+Beginning Iteration 74...
+Best score is: 108.841
+Hash collision at depth 1 with hash value 43020852310 (case A)
+Hash collision at depth 1 with hash value 31896861960 (case A)
+Beginning Iteration 75...
+Best score is: 108.841
+Beginning Iteration 76...
+Best score is: 108.841
+Beginning Iteration 77...
+Best score is: 108.841
+Hash collision at depth 1 with hash value 2821087653 (case A)
+Hash collision at depth 1 with hash value 80659853672 (case A)
+Beginning Iteration 78...
+Best score is: 108.841
+Hash collision at depth 1 with hash value 26368498935 (case A)
+Hash collision at depth 1 with hash value 55224940555 (case A)
+Beginning Iteration 79...
+Best score is: 108.841
+Hash collision at depth 1 with hash value 29810762563 (case A)
+Beginning Iteration 80...
+Best score is: 108.841
+Hash collision at depth 1 with hash value 16069368260 (case A)
+Hash collision at depth 1 with hash value 240777513 (case A)
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 68), (11, 114), (13, 204), (16, 3), (16, 11), (16, 18), (16, 65), (16, 67), (16, 68), (18, 3), (18, 11), (18, 16), (18, 32), (18, 67), (21, 3), (21, 22), (22, 3), (24, 3), (29, 347), (32, 3), (32, 11), (32, 16), (39, 18), (63, 3), (65, 3), (67, 3), (67, 11), (67, 16), (68, 3), (95, 16), (102, 3), (103, 3), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (120, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (248, 191), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (312, 43), (326, 204), (332, 387), (343, 196), (360, 359), (374, 375), (390, 389), (396, 397), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 32), (11, 68), (11, 114), (11, 117), (13, 204), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (18, 3), (18, 11), (18, 16), (18, 32), (18, 67), (18, 68), (18, 103), (21, 3), (21, 22), (22, 3), (24, 3), (29, 347), (32, 3), (32, 11), (32, 16), (39, 18), (63, 3), (65, 3), (65, 16), (67, 3), (67, 11), (68, 3), (95, 16), (102, 3), (103, 3), (103, 16), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (326, 204), (332, 387), (333, 16), (343, 196), (360, 359), (374, 375), (390, 389), (396, 397), (400, 325), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 19), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 67), (11, 68), (11, 114), (13, 204), (16, 3), (16, 11), (16, 18), (16, 32), (18, 3), (18, 11), (18, 16), (18, 32), (19, 3), (21, 3), (21, 22), (22, 3), (24, 3), (29, 347), (32, 3), (32, 16), (39, 18), (63, 3), (65, 3), (65, 16), (67, 3), (67, 11), (68, 3), (95, 16), (102, 3), (103, 3), (103, 16), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (120, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (326, 204), (332, 387), (333, 16), (343, 196), (354, 259), (360, 359), (374, 375), (390, 389), (396, 397), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 68), (11, 103), (11, 114), (11, 117), (13, 204), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 68), (16, 103), (18, 3), (18, 11), (18, 16), (18, 32), (21, 3), (21, 22), (22, 3), (24, 3), (29, 347), (32, 3), (32, 11), (32, 16), (32, 18), (39, 18), (63, 3), (65, 3), (65, 18), (67, 3), (67, 11), (68, 3), (95, 16), (102, 3), (103, 3), (103, 16), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (121, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (326, 204), (332, 387), (333, 16), (343, 196), (360, 359), (374, 375), (390, 389), (396, 397), (400, 325), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 68), (11, 114), (11, 117), (13, 204), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (18, 3), (18, 11), (18, 16), (18, 32), (19, 3), (21, 3), (21, 22), (22, 3), (24, 3), (29, 347), (32, 3), (32, 11), (32, 16), (39, 18), (63, 3), (65, 3), (65, 18), (67, 3), (67, 11), (68, 3), (95, 16), (102, 3), (103, 3), (103, 16), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (326, 204), (332, 387), (333, 16), (343, 196), (360, 359), (374, 375), (390, 389), (396, 397), (400, 325), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 67), (11, 68), (11, 114), (11, 117), (13, 204), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (18, 3), (18, 11), (18, 16), (18, 32), (18, 67), (18, 103), (21, 3), (21, 22), (22, 3), (24, 3), (29, 347), (32, 3), (32, 16), (39, 18), (63, 3), (65, 3), (65, 16), (67, 3), (67, 11), (67, 16), (68, 3), (95, 16), (102, 3), (103, 3), (103, 16), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (326, 204), (332, 387), (333, 16), (343, 196), (354, 259), (360, 359), (374, 375), (390, 389), (396, 397), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 68), (11, 103), (11, 114), (11, 117), (13, 204), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (18, 3), (18, 11), (18, 16), (18, 32), (18, 65), (21, 3), (21, 22), (22, 3), (29, 347), (32, 3), (32, 16), (32, 18), (39, 18), (63, 3), (65, 3), (65, 11), (67, 3), (67, 11), (68, 3), (95, 16), (102, 3), (103, 3), (103, 16), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (326, 204), (332, 387), (333, 16), (343, 196), (360, 359), (374, 375), (390, 389), (396, 397), (400, 325), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 68), (11, 114), (11, 117), (13, 204), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (18, 3), (18, 11), (18, 16), (18, 32), (18, 67), (21, 3), (21, 22), (22, 3), (24, 3), (29, 347), (32, 3), (32, 16), (32, 18), (39, 18), (63, 3), (65, 3), (67, 3), (67, 11), (68, 3), (95, 16), (102, 3), (103, 3), (103, 16), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (326, 204), (332, 387), (333, 16), (343, 196), (360, 359), (374, 375), (390, 389), (396, 397), (400, 325), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 108.841 we have log2(|Aut(G_H)|) of 56.4204
+With edges: 
+(3, 4), (3, 6), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 76), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 274), (3, 286), (4, 6), (5, 304), (7, 8), (11, 3), (11, 16), (11, 18), (11, 67), (11, 68), (13, 204), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (16, 117), (18, 3), (18, 11), (18, 16), (18, 32), (18, 67), (21, 3), (21, 22), (22, 3), (24, 3), (29, 347), (32, 3), (32, 16), (39, 18), (63, 3), (65, 3), (67, 3), (67, 11), (67, 16), (68, 3), (95, 16), (102, 3), (103, 3), (103, 193), (107, 108), (108, 452), (110, 210), (113, 271), (117, 3), (132, 121), (150, 148), (162, 160), (174, 3), (193, 3), (216, 217), (244, 9), (245, 10), (248, 191), (283, 282), (289, 288), (303, 304), (306, 301), (306, 305), (312, 43), (326, 204), (332, 387), (343, 196), (360, 359), (374, 375), (390, 389), (396, 397), (400, 325), (402, 401), (409, 408), (412, 445), (416, 418), (420, 421), (422, 423), (428, 16), (431, 430), (432, 433), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+Iteration 3 for flip probability 0
+
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of 4
+
+Beginning Iteration 2...
+Best score is: 6
+Beginning Iteration 3...
+Best score is: 9.16993
+Hash collision at depth 1 with hash value 20488120161 (case A)
+Hash collision at depth 1 with hash value 44623652473 (case A)
+Hash collision at depth 1 with hash value 31357279393 (case A)
+Beginning Iteration 4...
+Best score is: 11.1699
+Hash collision at depth 1 with hash value 11233336832 (case A)
+Beginning Iteration 5...
+Best score is: 11.1699
+Hash collision at depth 1 with hash value 11796613671 (case B)
+Beginning Iteration 6...
+Best score is: 15.1699
+Hash collision at depth 1 with hash value 14534304263 (case A)
+Hash collision at depth 1 with hash value 5109331824 (case A)
+Beginning Iteration 7...
+Best score is: 16.3399
+Hash collision at depth 1 with hash value 68935166561 (case A)
+Beginning Iteration 8...
+Best score is: 19.1699
+Beginning Iteration 9...
+Best score is: 24.3399
+Hash collision at depth 1 with hash value 54301854427 (case A)
+Hash collision at depth 1 with hash value 43826137287 (case A)
+Beginning Iteration 10...
+Best score is: 28.3399
+Hash collision at depth 1 with hash value 62367132746 (case A)
+Hash collision at depth 1 with hash value 51784361725 (case A)
+Beginning Iteration 11...
+Best score is: 28.3399
+Hash collision at depth 1 with hash value 21492642773 (case A)
+Hash collision at depth 1 with hash value 86313218990 (case A)
+Hash collision at depth 1 with hash value 59150289006 (case A)
+Hash collision at depth 1 with hash value 51845265955 (case A)
+Beginning Iteration 12...
+Best score is: 32.3399
+Hash collision at depth 1 with hash value 32649347053 (case A)
+Hash collision at depth 1 with hash value 23004195764 (case A)
+Beginning Iteration 13...
+Best score is: 36.3399
+Hash collision at depth 1 with hash value 46854835499 (case A)
+Beginning Iteration 14...
+Best score is: 40.3399
+Hash collision at depth 1 with hash value 4081478466 (case A)
+Hash collision at depth 1 with hash value 9820857363 (case A)
+Beginning Iteration 15...
+Best score is: 42.3399
+Hash collision at depth 1 with hash value 70538612251 (case A)
+Beginning Iteration 16...
+Best score is: 44.9837
+Hash collision at depth 1 with hash value 56936585703 (case A)
+Hash collision at depth 1 with hash value 78431199576 (case A)
+Hash collision at depth 1 with hash value 41084776582 (case A)
+Beginning Iteration 17...
+Best score is: 48.9837
+Hash collision at depth 1 with hash value 18646292750 (case A)
+Hash collision at depth 1 with hash value 28427954775 (case A)
+Hash collision at depth 1 with hash value 32342355673 (case A)
+Beginning Iteration 18...
+Best score is: 50.9837
+Hash collision at depth 1 with hash value 6149741684 (case A)
+Beginning Iteration 19...
+Best score is: 54.1536
+Hash collision at depth 1 with hash value 2746244487 (case A)
+Hash collision at depth 1 with hash value 28311224003 (case A)
+Beginning Iteration 20...
+Best score is: 56.1536
+Hash collision at depth 1 with hash value 33145511770 (case A)
+Beginning Iteration 21...
+Best score is: 58.1536
+Beginning Iteration 22...
+Best score is: 61.7683
+Hash collision at depth 1 with hash value 36022544347 (case A)
+Hash collision at depth 1 with hash value 71538435559 (case A)
+Hash collision at depth 1 with hash value 56767594932 (case B)
+Beginning Iteration 23...
+Best score is: 63.7683
+Hash collision at depth 1 with hash value 1513394211 (case A)
+Hash collision at depth 0 with hash value 5743063511
+
+Hash collision at depth 1 with hash value 74582041628 (case A)
+Hash collision at depth 1 with hash value 35740401402 (case A)
+Hash collision at depth 1 with hash value 60267931250 (case A)
+Hash collision at depth 1 with hash value 25521708297 (case A)
+Hash collision at depth 1 with hash value 24127591327 (case A)
+Beginning Iteration 24...
+Best score is: 67.7683
+Hash collision at depth 1 with hash value 66331920626 (case A)
+Beginning Iteration 25...
+Best score is: 69.7683
+Beginning Iteration 26...
+Best score is: 74.1082
+Beginning Iteration 27...
+Best score is: 79.2781
+Hash collision at depth 1 with hash value 3431130848 (case A)
+Hash collision at depth 1 with hash value 24858391917 (case A)
+Beginning Iteration 28...
+Best score is: 82.752
+Hash collision at depth 1 with hash value 5003396465 (case A)
+Hash collision at depth 1 with hash value 49114299423 (case A)
+Hash collision at depth 1 with hash value 10333430442 (case A)
+Beginning Iteration 29...
+Best score is: 89.922
+Hash collision at depth 1 with hash value 48838409869 (case A)
+Beginning Iteration 30...
+Best score is: 89.922
+Hash collision at depth 1 with hash value 83155847137 (case A)
+Hash collision at depth 1 with hash value 58457060313 (case A)
+Beginning Iteration 31...
+Best score is: 90.6709
+Hash collision at depth 1 with hash value 37755413233 (case A)
+Hash collision at depth 1 with hash value 48232955968 (case A)
+Hash collision at depth 1 with hash value 15181196661 (case A)
+Hash collision at depth 1 with hash value 4515444352 (case A)
+Beginning Iteration 32...
+Best score is: 94.8408
+Hash collision at depth 1 with hash value 66104048031 (case A)
+Beginning Iteration 33...
+Best score is: 96.8408
+Hash collision at depth 1 with hash value 18295041065 (case A)
+Hash collision at depth 1 with hash value 27535162387 (case A)
+Beginning Iteration 34...
+Best score is: 102.011
+Hash collision at depth 1 with hash value 57772983226 (case A)
+Hash collision at depth 1 with hash value 6630638924 (case A)
+Beginning Iteration 35...
+Best score is: 104.011
+Hash collision at depth 1 with hash value 77106286306 (case A)
+Beginning Iteration 36...
+Best score is: 106.011
+Beginning Iteration 37...
+Best score is: 107.181
+Hash collision at depth 1 with hash value 29393574572 (case A)
+Hash collision at depth 1 with hash value 20281131756 (case A)
+Hash collision at depth 1 with hash value 4957956766 (case A)
+Hash collision at depth 1 with hash value 68713441750 (case A)
+Beginning Iteration 38...
+Best score is: 109.181
+Beginning Iteration 39...
+Best score is: 109.181
+Beginning Iteration 40...
+Best score is: 109.181
+Hash collision at depth 1 with hash value 76328189731 (case A)
+Hash collision at depth 1 with hash value 33509012452 (case A)
+Hash collision at depth 1 with hash value 74947077373 (case A)
+Beginning Iteration 41...
+Best score is: 113.181
+Hash collision at depth 1 with hash value 73023804906 (case A)
+Beginning Iteration 42...
+Best score is: 113.181
+Hash collision at depth 1 with hash value 73209581042 (case A)
+Hash collision at depth 1 with hash value 30470073321 (case A)
+Hash collision at depth 1 with hash value 11166324776 (case A)
+Beginning Iteration 43...
+Best score is: 113.181
+Hash collision at depth 1 with hash value 48526474945 (case A)
+Hash collision at depth 1 with hash value 13717202617 (case A)
+Hash collision at depth 1 with hash value 37539731065 (case A)
+Beginning Iteration 44...
+Best score is: 113.181
+Hash collision at depth 1 with hash value 39996299840 (case A)
+Beginning Iteration 45...
+Best score is: 117.825
+Beginning Iteration 46...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 19601978369 (case A)
+Beginning Iteration 47...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 86041918115 (case A)
+Hash collision at depth 1 with hash value 6437625829 (case A)
+Beginning Iteration 48...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 5777860400 (case A)
+Beginning Iteration 49...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 48222482076 (case A)
+Hash collision at depth 1 with hash value 5037790461 (case A)
+Beginning Iteration 50...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 68069447778 (case A)
+Hash collision at depth 1 with hash value 67983432911 (case B)
+Hash collision at depth 1 with hash value 78486585568 (case A)
+Beginning Iteration 51...
+Best score is: 117.825
+Beginning Iteration 52...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 66413583350 (case A)
+Hash collision at depth 1 with hash value 71884285818 (case A)
+Hash collision at depth 1 with hash value 13233697177 (case A)
+Beginning Iteration 53...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 7736913177 (case A)
+Hash collision at depth 1 with hash value 67013291668 (case A)
+Hash collision at depth 1 with hash value 63813256969 (case A)
+Hash collision at depth 1 with hash value 70460682659 (case A)
+Beginning Iteration 54...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 29065091560 (case A)
+Beginning Iteration 55...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 12577675565 (case A)
+Beginning Iteration 56...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 49808155331 (case A)
+Hash collision at depth 1 with hash value 76390723428 (case A)
+Beginning Iteration 57...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 58386157865 (case A)
+Hash collision at depth 1 with hash value 1402503359 (case A)
+Beginning Iteration 58...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 83277073498 (case A)
+Beginning Iteration 59...
+Best score is: 117.825
+Beginning Iteration 60...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 25655433911 (case A)
+Beginning Iteration 61...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 66411476591 (case A)
+Beginning Iteration 62...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 5920970847 (case A)
+Hash collision at depth 1 with hash value 42095766196 (case B)
+Beginning Iteration 63...
+Best score is: 117.825
+Beginning Iteration 64...
+Best score is: 117.825
+Beginning Iteration 65...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 49310299010 (case A)
+Hash collision at depth 1 with hash value 14982004045 (case A)
+Hash collision at depth 1 with hash value 3250231598 (case A)
+Hash collision at depth 1 with hash value 47277484449 (case A)
+Beginning Iteration 66...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 68327441214 (case A)
+Hash collision at depth 1 with hash value 59050628290 (case A)
+Hash collision at depth 1 with hash value 5172915439 (case A)
+Hash collision at depth 1 with hash value 8783330783 (case A)
+Beginning Iteration 67...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 1296695794 (case A)
+Hash collision at depth 1 with hash value 84487433855 (case A)
+Hash collision at depth 1 with hash value 80162399313 (case A)
+Beginning Iteration 68...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 81837480314 (case A)
+Hash collision at depth 1 with hash value 80178638939 (case A)
+Hash collision at depth 1 with hash value 79291889327 (case A)
+Beginning Iteration 69...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 78381468274 (case A)
+Beginning Iteration 70...
+Best score is: 117.825
+Hash collision at depth 1 with hash value 25972473583 (case A)
+Hash collision at depth 1 with hash value 2107313986 (case A)
+Hash collision at depth 1 with hash value 69248581209 (case A)
+Beginning Iteration 71...
+Best score is: 120.582
+Hash collision at depth 1 with hash value 30395257200 (case A)
+Beginning Iteration 72...
+Best score is: 125.225
+Beginning Iteration 73...
+Best score is: 125.225
+Hash collision at depth 1 with hash value 3817285989 (case A)
+Hash collision at depth 1 with hash value 24551219254 (case A)
+Beginning Iteration 74...
+Best score is: 125.225
+Hash collision at depth 1 with hash value 66722633038 (case A)
+Hash collision at depth 1 with hash value 78989216650 (case A)
+Beginning Iteration 75...
+Best score is: 125.225
+Beginning Iteration 76...
+Best score is: 125.225
+Hash collision at depth 1 with hash value 33599260523 (case A)
+Beginning Iteration 77...
+Best score is: 125.225
+Hash collision at depth 1 with hash value 19825450079 (case A)
+Hash collision at depth 1 with hash value 60308402434 (case A)
+Beginning Iteration 78...
+Best score is: 125.225
+Beginning Iteration 79...
+Best score is: 125.225
+Hash collision at depth 1 with hash value 55063984278 (case A)
+Beginning Iteration 80...
+Best score is: 125.225
+Hash collision at depth 1 with hash value 72680258038 (case A)
+Hash collision at depth 1 with hash value 27054560533 (case A)
+Hash collision at depth 1 with hash value 79626995704 (case A)
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 67), (16, 3), (16, 11), (16, 18), (16, 32), (16, 67), (16, 68), (16, 333), (18, 3), (18, 11), (18, 16), (18, 32), (18, 67), (21, 3), (21, 22), (22, 3), (32, 3), (32, 11), (32, 16), (35, 71), (36, 264), (63, 3), (65, 3), (65, 16), (67, 3), (67, 11), (67, 359), (67, 360), (68, 3), (68, 16), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (148, 150), (160, 162), (193, 3), (193, 330), (216, 217), (283, 282), (289, 288), (294, 158), (298, 25), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 314), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 67), (11, 103), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (16, 333), (18, 3), (18, 11), (18, 16), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 18), (35, 71), (36, 264), (63, 3), (65, 3), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (120, 3), (121, 3), (148, 150), (160, 162), (193, 3), (193, 330), (216, 217), (283, 282), (289, 288), (294, 158), (298, 25), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (3, 314), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 67), (11, 103), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 333), (18, 3), (18, 11), (18, 16), (18, 32), (18, 67), (21, 3), (21, 22), (22, 3), (32, 3), (32, 11), (32, 16), (35, 71), (36, 264), (63, 3), (65, 3), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (120, 3), (121, 3), (148, 150), (160, 162), (193, 3), (193, 330), (216, 217), (283, 282), (289, 288), (294, 158), (298, 25), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 314), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 67), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 333), (18, 3), (18, 11), (18, 16), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (35, 71), (36, 264), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (120, 3), (121, 3), (148, 150), (160, 162), (193, 3), (193, 330), (216, 217), (283, 282), (289, 288), (294, 158), (298, 25), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (3, 314), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 32), (11, 67), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (16, 333), (18, 3), (18, 11), (18, 16), (21, 3), (21, 22), (22, 3), (32, 3), (32, 11), (32, 16), (32, 18), (35, 71), (36, 264), (63, 3), (65, 3), (65, 16), (67, 3), (67, 359), (67, 360), (68, 3), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (117, 319), (120, 3), (121, 3), (148, 150), (160, 162), (193, 3), (193, 330), (216, 217), (283, 282), (289, 288), (294, 158), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 314), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 67), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 333), (18, 3), (18, 11), (18, 16), (21, 3), (21, 22), (22, 3), (32, 3), (32, 11), (32, 16), (32, 18), (35, 71), (36, 264), (63, 3), (65, 3), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (117, 319), (121, 3), (148, 150), (160, 162), (193, 3), (193, 330), (206, 3), (216, 217), (283, 282), (289, 288), (298, 25), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (3, 314), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 67), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 68), (16, 103), (16, 333), (18, 3), (18, 11), (18, 16), (18, 32), (21, 3), (21, 22), (22, 3), (32, 3), (32, 11), (32, 16), (32, 18), (35, 71), (36, 264), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 18), (67, 359), (67, 360), (68, 3), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (120, 3), (121, 3), (148, 150), (160, 162), (187, 3), (193, 3), (193, 330), (216, 217), (283, 282), (289, 288), (294, 158), (298, 25), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (3, 314), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 67), (16, 3), (16, 11), (16, 18), (16, 32), (16, 65), (16, 67), (16, 103), (16, 333), (18, 3), (18, 11), (18, 16), (18, 32), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 18), (35, 71), (36, 264), (63, 3), (65, 3), (65, 16), (67, 3), (67, 11), (67, 16), (67, 18), (67, 359), (67, 360), (68, 3), (68, 16), (68, 18), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (121, 3), (148, 150), (160, 162), (193, 3), (193, 330), (206, 3), (216, 217), (283, 282), (289, 288), (294, 158), (298, 25), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+With a score of 125.225 we have log2(|Aut(G_H)|) of 64.6127
+With edges: 
+(2, 398), (3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (5, 304), (6, 4), (8, 7), (11, 3), (11, 16), (11, 18), (11, 67), (16, 3), (16, 11), (16, 18), (16, 32), (16, 67), (16, 68), (16, 333), (18, 3), (18, 11), (18, 16), (18, 32), (18, 67), (21, 3), (21, 22), (22, 3), (32, 3), (32, 16), (32, 18), (35, 71), (36, 264), (63, 3), (65, 3), (65, 16), (67, 3), (67, 11), (67, 359), (67, 360), (68, 3), (102, 3), (103, 3), (103, 163), (107, 108), (108, 452), (117, 3), (148, 150), (160, 162), (193, 3), (193, 330), (206, 3), (216, 217), (283, 282), (289, 288), (294, 158), (298, 25), (303, 304), (332, 387), (343, 196), (359, 360), (374, 375), (389, 332), (393, 345), (397, 396), (401, 402), (406, 57), (408, 409), (410, 198), (412, 445), (417, 418), (420, 421), (422, 423), (430, 431), (432, 433), (438, 437), (447, 448), (449, 32), (453, 444), 
+
+Iteration 4 for flip probability 0
+
+log2_p_plus:          -1
+log2_1_minus_p_plus:  -1
+log2_p_minus:         -1
+log2_1_minus_p_minus: -1
+p_plus:  0.5
+p_minus: 0.5
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of 4
+
+Beginning Iteration 2...
+Best score is: 6
+Hash collision at depth 1 with hash value 39634726017 (case A)
+Hash collision at depth 1 with hash value 85483200139 (case A)
+Hash collision at depth 1 with hash value 38203835021 (case A)
+Hash collision at depth 1 with hash value 3662688591 (case B)
+Beginning Iteration 3...
+Best score is: 8
+Hash collision at depth 1 with hash value 28624529673 (case A)
+Beginning Iteration 4...
+Best score is: 8
+Hash collision at depth 1 with hash value 30653630407 (case A)
+Beginning Iteration 5...
+Best score is: 10
+Beginning Iteration 6...
+Best score is: 12
+Hash collision at depth 1 with hash value 9689815056 (case B)
+Hash collision at depth 1 with hash value 4554790661 (case A)
+Hash collision at depth 1 with hash value 38816146087 (case A)
+Hash collision at depth 1 with hash value 17257072326 (case A)
+Beginning Iteration 7...
+Best score is: 14
+Beginning Iteration 8...
+Best score is: 17.1699
+Hash collision at depth 1 with hash value 2710410270 (case A)
+Beginning Iteration 9...
+Best score is: 21.1699
+Beginning Iteration 10...
+Best score is: 23.1699
+Hash collision at depth 1 with hash value 67430284201 (case A)
+Beginning Iteration 11...
+Best score is: 31.8138
+Hash collision at depth 1 with hash value 38246209819 (case A)
+Hash collision at depth 1 with hash value 69734121103 (case A)
+Hash collision at depth 1 with hash value 13203772628 (case A)
+Beginning Iteration 12...
+Best score is: 32.3399
+Hash collision at depth 1 with hash value 11281814537 (case A)
+Beginning Iteration 13...
+Best score is: 40.9837
+Hash collision at depth 1 with hash value 58033792244 (case A)
+Beginning Iteration 14...
+Best score is: 44.1536
+Hash collision at depth 1 with hash value 78206297412 (case A)
+Beginning Iteration 15...
+Best score is: 48.1536
+Beginning Iteration 16...
+Best score is: 51.7683
+Hash collision at depth 1 with hash value 76727176348 (case A)
+Beginning Iteration 17...
+Best score is: 57.7683
+Hash collision at depth 1 with hash value 83490395300 (case A)
+Hash collision at depth 1 with hash value 83144629142 (case A)
+Hash collision at depth 1 with hash value 67655612953 (case A)
+Beginning Iteration 18...
+Best score is: 59.7683
+Beginning Iteration 19...
+Best score is: 63.7683
+Hash collision at depth 1 with hash value 21422648401 (case A)
+Hash collision at depth 1 with hash value 54320670163 (case A)
+Beginning Iteration 20...
+Best score is: 65.7683
+Beginning Iteration 21...
+Best score is: 67.7683
+Hash collision at depth 1 with hash value 65539846456 (case A)
+Beginning Iteration 22...
+Best score is: 68.9383
+Hash collision at depth 1 with hash value 57570636245 (case B)
+Hash collision at depth 1 with hash value 5203113047 (case A)
+Beginning Iteration 23...
+Best score is: 72.9383
+Hash collision at depth 1 with hash value 76861270426 (case A)
+Hash collision at depth 1 with hash value 53627964957 (case A)
+Beginning Iteration 24...
+Best score is: 74.7683
+Beginning Iteration 25...
+Best score is: 76.9383
+Beginning Iteration 26...
+Best score is: 80.1082
+Hash collision at depth 1 with hash value 9243695612 (case A)
+Hash collision at depth 1 with hash value 1459014428 (case B)
+Hash collision at depth 1 with hash value 23890240810 (case A)
+Beginning Iteration 27...
+Best score is: 85.2781
+Hash collision at depth 1 with hash value 42145838683 (case A)
+Beginning Iteration 28...
+Best score is: 86.2781
+Hash collision at depth 1 with hash value 13193834341 (case A)
+Beginning Iteration 29...
+Best score is: 89.2781
+Hash collision at depth 1 with hash value 59789308193 (case B)
+Beginning Iteration 30...
+Best score is: 89.2781
+Hash collision at depth 1 with hash value 56292743458 (case A)
+Hash collision at depth 1 with hash value 69450950754 (case A)
+Hash collision at depth 1 with hash value 51802001955 (case A)
+Beginning Iteration 31...
+Best score is: 90.2781
+Hash collision at depth 1 with hash value 78268094491 (case A)
+Hash collision at depth 1 with hash value 55288990581 (case A)
+Beginning Iteration 32...
+Best score is: 90.2781
+Hash collision at depth 1 with hash value 23722615123 (case A)
+Hash collision at depth 1 with hash value 4132634304 (case A)
+Hash collision at depth 1 with hash value 22939938757 (case B)
+Hash collision at depth 1 with hash value 41343112554 (case A)
+Beginning Iteration 33...
+Best score is: 91.2781
+Hash collision at depth 1 with hash value 59409950576 (case A)
+Hash collision at depth 1 with hash value 31330805772 (case A)
+Beginning Iteration 34...
+Best score is: 91.2781
+Hash collision at depth 1 with hash value 81627766282 (case A)
+Beginning Iteration 35...
+Best score is: 91.2781
+Hash collision at depth 1 with hash value 42841033092 (case A)
+Hash collision at depth 1 with hash value 72016029615 (case A)
+Beginning Iteration 36...
+Best score is: 91.2781
+Hash collision at depth 1 with hash value 59270911494 (case A)
+Beginning Iteration 37...
+Best score is: 93.2781
+Hash collision at depth 0 with hash value 75320947890
+Hash collision at depth 1 with hash value 46995081171 (case A)
+Beginning Iteration 38...
+Best score is: 93.2781
+Hash collision at depth 1 with hash value 1781072676 (case A)
+Beginning Iteration 39...
+Best score is: 93.2781
+Beginning Iteration 40...
+Best score is: 97.922
+Hash collision at depth 1 with hash value 86497666783 (case A)
+Hash collision at depth 1 with hash value 18505065325 (case A)
+Beginning Iteration 41...
+Best score is: 97.922
+Hash collision at depth 1 with hash value 78284717328 (case A)
+Beginning Iteration 42...
+Best score is: 97.922
+Hash collision at depth 1 with hash value 55414278225 (case A)
+Hash collision at depth 1 with hash value 75556381128 (case B)
+Hash collision at depth 1 with hash value 71178195756 (case A)
+Beginning Iteration 43...
+Best score is: 97.922
+Beginning Iteration 44...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 31889627522 (case A)
+Hash collision at depth 1 with hash value 13557847365 (case A)
+Beginning Iteration 45...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 80266873735 (case A)
+Beginning Iteration 46...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 493757503 (case A)
+Hash collision at depth 1 with hash value 6236900434 (case A)
+Beginning Iteration 47...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 28054236917 (case A)
+Hash collision at depth 1 with hash value 16452487889 (case A)
+Beginning Iteration 48...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 30404459949 (case A)
+Beginning Iteration 49...
+Best score is: 104.841
+Beginning Iteration 50...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 7059137135 (case A)
+Hash collision at depth 1 with hash value 66973278777 (case B)
+Beginning Iteration 51...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 9455477385 (case A)
+Beginning Iteration 52...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 18349133133 (case A)
+Hash collision at depth 1 with hash value 24075293595 (case B)
+Hash collision at depth 1 with hash value 8100821747 (case A)
+Hash collision at depth 1 with hash value 85511611064 (case A)
+Beginning Iteration 53...
+Best score is: 104.841
+Beginning Iteration 54...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 69405886210 (case A)
+Hash collision at depth 1 with hash value 12960035281 (case A)
+Beginning Iteration 55...
+Best score is: 104.841
+Beginning Iteration 56...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 8537631024 (case A)
+Hash collision at depth 1 with hash value 10664856987 (case A)
+Hash collision at depth 1 with hash value 68519464121 (case A)
+Beginning Iteration 57...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 6778436505 (case A)
+Hash collision at depth 1 with hash value 76691253398 (case A)
+Beginning Iteration 58...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 45316519618 (case A)
+Hash collision at depth 1 with hash value 70147972677 (case A)
+Beginning Iteration 59...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 77308795159 (case B)
+Hash collision at depth 1 with hash value 26295903037 (case A)
+Beginning Iteration 60...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 58818700915 (case A)
+Hash collision at depth 1 with hash value 18127433151 (case A)
+Beginning Iteration 61...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 47359473434 (case A)
+Beginning Iteration 62...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 36681691401 (case A)
+Beginning Iteration 63...
+Best score is: 104.841
+Beginning Iteration 64...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 82326688617 (case A)
+Beginning Iteration 65...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 50455142283 (case A)
+Beginning Iteration 66...
+Best score is: 104.841
+Beginning Iteration 67...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 65258249755 (case A)
+Hash collision at depth 1 with hash value 52278163233 (case B)
+Hash collision at depth 1 with hash value 44411136768 (case A)
+Beginning Iteration 68...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 52142706038 (case A)
+Hash collision at depth 1 with hash value 64103555231 (case A)
+Hash collision at depth 1 with hash value 81406813227 (case A)
+Hash collision at depth 1 with hash value 11802158463 (case A)
+Hash collision at depth 1 with hash value 62492063767 (case B)
+Beginning Iteration 69...
+Best score is: 104.841
+Beginning Iteration 70...
+Best score is: 104.841
+Beginning Iteration 71...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 36806562877 (case A)
+Hash collision at depth 1 with hash value 51382947113 (case A)
+Beginning Iteration 72...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 54134027882 (case A)
+Beginning Iteration 73...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 5866517209 (case A)
+Hash collision at depth 1 with hash value 27366627296 (case A)
+Hash collision at depth 1 with hash value 84497001049 (case B)
+Beginning Iteration 74...
+Best score is: 104.841
+Beginning Iteration 75...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 41065307143 (case A)
+Hash collision at depth 1 with hash value 7301900830 (case A)
+Beginning Iteration 76...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 75358876286 (case A)
+Hash collision at depth 1 with hash value 68916212070 (case A)
+Hash collision at depth 1 with hash value 11127775391 (case A)
+Hash collision at depth 1 with hash value 47949376054 (case A)
+Beginning Iteration 77...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 20277213871 (case A)
+Hash collision at depth 1 with hash value 65589996719 (case A)
+Beginning Iteration 78...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 40944635859 (case A)
+Hash collision at depth 1 with hash value 35166420353 (case B)
+Beginning Iteration 79...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 57600965794 (case A)
+Hash collision at depth 1 with hash value 49822276053 (case A)
+Beginning Iteration 80...
+Best score is: 104.841
+Hash collision at depth 1 with hash value 30890982424 (case A)
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 32), (11, 371), (16, 3), (16, 11), (16, 18), (16, 32), (16, 54), (16, 65), (16, 67), (18, 3), (18, 11), (18, 16), (18, 65), (22, 21), (32, 3), (32, 16), (63, 3), (65, 3), (65, 11), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (102, 3), (102, 386), (103, 3), (107, 108), (108, 452), (117, 3), (121, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 65), (11, 371), (16, 3), (16, 11), (16, 18), (16, 32), (16, 54), (16, 67), (18, 3), (18, 11), (18, 16), (18, 65), (22, 21), (32, 3), (32, 11), (32, 16), (63, 3), (65, 3), (65, 11), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (68, 18), (102, 3), (102, 386), (103, 3), (107, 108), (108, 452), (117, 3), (120, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 32), (11, 371), (16, 3), (16, 11), (16, 18), (16, 32), (16, 54), (16, 65), (16, 67), (18, 3), (18, 11), (18, 16), (18, 65), (22, 21), (32, 3), (32, 11), (32, 16), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (102, 3), (102, 386), (103, 3), (107, 108), (108, 452), (117, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (340, 3), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 32), (11, 371), (16, 3), (16, 11), (16, 18), (16, 54), (16, 65), (16, 67), (16, 68), (16, 439), (18, 3), (18, 11), (18, 16), (22, 21), (32, 3), (32, 11), (32, 16), (63, 3), (65, 3), (65, 11), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (102, 3), (103, 3), (107, 108), (108, 452), (117, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (340, 3), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 371), (16, 3), (16, 11), (16, 18), (16, 32), (16, 54), (16, 65), (16, 67), (18, 3), (18, 11), (18, 16), (22, 21), (32, 3), (32, 11), (32, 16), (63, 3), (65, 3), (65, 11), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (68, 18), (102, 3), (102, 386), (103, 3), (107, 108), (108, 452), (117, 3), (120, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (340, 3), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 371), (16, 3), (16, 11), (16, 18), (16, 32), (16, 54), (16, 65), (16, 67), (18, 3), (18, 11), (18, 16), (18, 65), (22, 21), (32, 3), (32, 11), (32, 16), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (68, 18), (102, 3), (102, 386), (103, 3), (107, 108), (108, 452), (117, 3), (120, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (340, 3), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 121), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 32), (11, 65), (11, 371), (16, 3), (16, 11), (16, 18), (16, 32), (16, 54), (16, 65), (16, 67), (18, 3), (18, 11), (18, 16), (18, 68), (19, 3), (22, 21), (32, 3), (32, 11), (32, 16), (63, 3), (65, 3), (65, 11), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (68, 18), (102, 386), (103, 3), (107, 108), (108, 452), (117, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 32), (11, 371), (16, 3), (16, 11), (16, 18), (16, 32), (16, 54), (16, 67), (18, 3), (18, 11), (18, 16), (18, 65), (22, 21), (32, 3), (32, 16), (63, 3), (65, 3), (65, 11), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (102, 3), (102, 386), (103, 3), (107, 108), (108, 452), (117, 3), (120, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (340, 3), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
+With a score of 104.841 we have log2(|Aut(G_H)|) of 54.4204
+With edges: 
+(3, 11), (3, 16), (3, 18), (3, 32), (3, 63), (3, 65), (3, 67), (3, 68), (3, 102), (3, 103), (3, 117), (3, 120), (3, 193), (5, 304), (6, 4), (7, 8), (11, 3), (11, 16), (11, 18), (11, 32), (11, 371), (16, 3), (16, 11), (16, 18), (16, 32), (16, 54), (16, 65), (16, 67), (18, 3), (18, 11), (18, 16), (18, 32), (18, 65), (22, 21), (32, 3), (32, 11), (32, 16), (63, 3), (65, 3), (65, 11), (65, 16), (67, 3), (67, 16), (67, 359), (67, 360), (68, 3), (68, 16), (68, 18), (102, 3), (102, 386), (103, 3), (107, 108), (108, 452), (117, 3), (121, 3), (150, 148), (162, 160), (193, 3), (217, 216), (237, 3), (282, 283), (289, 288), (303, 304), (332, 387), (340, 3), (343, 196), (359, 360), (375, 374), (389, 390), (396, 397), (402, 401), (409, 408), (412, 445), (418, 417), (421, 420), (423, 422), (430, 431), (433, 432), (438, 437), (443, 444), (448, 447), (449, 32), (453, 444), 
+
