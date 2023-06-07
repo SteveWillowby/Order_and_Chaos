@@ -25,6 +25,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     size_t num_iterations,
                                     size_t k,
                                     size_t nt,
+                                    size_t gene_depth,
                                     std::unordered_set<Edge, EdgeHash> add,
                                     std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,

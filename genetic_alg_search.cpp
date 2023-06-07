@@ -26,6 +26,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     size_t num_iterations,
                                     size_t k,
                                     size_t nt,
+                                    size_t gene_depth,
                                     std::unordered_set<Edge, EdgeHash> add,
                                     std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
@@ -98,8 +99,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     size_t pop_size = (g.num_nodes() / 4 + 1) *
                       (g.num_nodes() < 200 ? 200 : g.num_nodes());
-    size_t depth = 2;
-    GenePool gp(g, iecas, depth, pop_size, k);
+    GenePool gp(g, iecas, gene_depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
         if (i % 5 == 4 or i > 0) {
