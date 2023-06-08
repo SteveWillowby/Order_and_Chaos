@@ -102,13 +102,12 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     GenePool gp(g, iecas, gene_depth, pop_size, k);
 
     for (size_t i = 0; i < num_iterations; i++) {
-        if (i % 5 == 4 or i > 0) {
-            std::cout<<"Beginning Iteration "<<(i + 1)<<"..."<<std::endl;
-            std::cout<<"Best score is: "<<(gp.top_k_results()[0].second)
-                     <<std::endl;
-        }
+        std::cout<<"Beginning Iteration "<<(i + 1)<<"..."<<std::endl;
 
         gp.evolve(tps);
+
+        std::cout<<"...Finished iteration with a best score of "
+                 <<(gp.top_k_results()[0].second)<<std::endl<<std::endl;
     }
 
     return gp.top_k_results();
@@ -400,7 +399,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     std::uniform_int_distribution<uint8_t> distbool(0, 1);
     std::pair<bool, Gene*> made;
 
-    // std::cout<<"\tMutating"<<std::endl;
+    std::cout<<"\tMutating"<<std::endl;
 
     // Perform mutations
     while (pool_vec[depth - 1].size() < mutate_end_size) {
@@ -426,7 +425,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         mate_start_size = pool_vec[depth - 1].size();
     }
 
-    // std::cout<<"\tMating"<<std::endl;
+    std::cout<<"\tMating"<<std::endl;
 
     // Perform matings
     quit_counter = 0;
@@ -455,6 +454,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         }
     }
 
+    std::cout<<"\tScoring"<<std::endl;
+
     // Score new genes.
     size_t num_already_scored = 0;
     for (auto x = scores.begin(); x != scores.end(); x++) {
@@ -468,8 +469,6 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         tasks.push_back(std::unique_ptr<EdgeSetPair>(
                         new GeneEdgeSetPair(iecas, *(pool_vec[depth - 1][i]))));
     }
-
-    // std::cout<<"\tScoring"<<std::endl;
 
     if (tasks.size() > 0) {
         // Get scores for new members
@@ -864,7 +863,7 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 // Mutate "constructor"
 //  Returns pointer to a Gene allocated on the heap
 //  Creates a new gene identical to g but where a gene or sub-gene
-//      is added or removed.
+//      is added, removed, or replaced.
 //
 // Requires random generators (and dists) to be passed into it for
 //  thread-safety purposes
@@ -885,12 +884,66 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
                     std::uniform_real_distribution<double>& distl,
                     std::uniform_real_distribution<long double>& distll) {
 
+    double rand;
+
     if (g.depth() == 0) {
         const std::vector<SYM__edge_int_type>& prev = g.edge_ints();
 
         SYM__edge_int_type addition;
         std::vector<SYM__edge_int_type> next;
-        if (g.size() > 1 && distl(gen) < 0.5) {
+        rand = distl(gen);
+
+        if (g.size() > 1 && rand < 0.6) {
+            // Replace edge int
+            size_t remove_idx = distl(gen) * ((double) prev.size());
+
+            bool done = false;
+            size_t spot;
+
+            while (!done) {
+                done = true;
+                next = std::vector<SYM__edge_int_type>(prev);
+                addition = iecas.weighted_sample(gen, distll);
+                for (spot = 0; spot < remove_idx; spot++) {
+                    if (addition > next[spot]) {
+                        continue;
+                    } else if (addition == next[spot]) {
+                        done = false;
+                        break;
+                    } else {
+                        break;  // We found where it goes
+                    }
+                }
+                if (done) {
+                    if (spot < remove_idx) {
+                        for (size_t i = remove_idx; i > spot; i--) {
+                            next[i] = next[i - 1];
+                        }
+                        next[spot] = addition;
+                    } else if (next[spot] == addition) {
+                        // The replacement is the removed object
+                        done = false;
+                    } else {
+                        // Still searching for where addition goes.
+                        //  It's at or after remove_idx, so start shifting data
+                        for (; spot < prev.size() - 1; spot++) {
+                            if (addition == next[spot + 1]) {
+                                done = false;
+                                break;
+                            } else if (addition < next[spot + 1]) {
+                                break;
+                            }
+                            next[spot] = next[spot + 1];
+                        }
+                        if (next[spot] == addition) {
+                            done = false;
+                        } else {
+                            next[spot] = addition;
+                        }
+                    }
+                }
+            }
+        } else if (g.size() > 1 && rand < 0.8) {
             // Remove edge int
             next.reserve(prev.size() - 1); // Prevent re-allocations for speed
             size_t to_remove = distl(gen) * ((double) prev.size());
@@ -941,8 +994,66 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
 
         const std::vector<Gene*>& prev = g.sub_genes();
         std::vector<Gene*> next;
-        if (g.size() > 1 && (distl(gen) < 0.5 ||
-                (g.size() >= (sub_options * 3) / 2))) {
+        if (g.size() > 1 && distl(gen) < 0.6 &&
+                (g.size() <= (sub_options * 2) / 3)) {
+            // ^^ Make sure there are enough replacements that we have a
+            //  decent chance of randomly selecting one.
+
+            // Replace a subgene
+            size_t remove_idx = distl(gen) * ((double) prev.size());
+
+            Gene* addition;
+            bool done = false;
+            size_t spot, selection;
+
+            while (!done) {
+                done = true;
+
+                next = std::vector<Gene*>(prev);
+                l.lock();
+                selection = distl(gen) * pool_vec[g.depth() - 1].size();
+                addition = pool_vec[g.depth() - 1][selection].get();
+                l.unlock();
+                for (spot = 0; spot < remove_idx; spot++) {
+                    if (addition > next[spot]) {
+                        continue;
+                    } else if (addition == next[spot]) {
+                        done = false;
+                        break;
+                    } else {
+                        break;  // We found where it goes
+                    }
+                }
+                if (done) {
+                    if (spot < remove_idx) {
+                        for (size_t i = remove_idx; i > spot; i--) {
+                            next[i] = next[i - 1];
+                        }
+                        next[spot] = addition;
+                    } else if (next[spot] == addition) {
+                        done = false;
+                    } else {
+                        // Still searching for where addition goes.
+                        //  It's after or at remove_idx, so start shifting data
+                        for (; spot < prev.size() - 1; spot++) {
+                            if (addition == next[spot + 1]) {
+                                done = false;
+                                break;
+                            } else if (addition < next[spot + 1]) {
+                                break;
+                            }
+                            next[spot] = next[spot + 1];
+                        }
+                        if (next[spot] == addition) {
+                            done = false;
+                        } else {
+                            next[spot] = addition;
+                        }
+                    }
+                }
+            }
+        } else if (g.size() > 1 && ((g.size() >= (sub_options * 2) / 3)
+                                    || distl(gen) < 0.5)) {
             // Remove a sub-gene
             next.reserve(prev.size() - 1); // Prevent re-allocations for speed
             size_t to_remove = distl(gen) * ((double) prev.size());
@@ -1026,6 +1137,10 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             next[i] = new_sub_gene;
             old_offset--;
         } else {
+            if (sub_genes[i + old_offset] == new_sub_gene) {
+                // Failed to mutate. The new gene is the same as an old one.
+                return std::pair<bool, Gene*>(false, NULL);
+            }
             next[i] = sub_genes[i + old_offset];
         }
     }
