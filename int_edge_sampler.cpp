@@ -52,16 +52,21 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g) :
     volatile long double t = 0.0;  // volatile ensures that the compiler doesn't
     volatile long double z = 0.0;  //   optimize these operation orders away
 
+    // Used to prevent zero probabilities
+    const long double non_zero = 0.0000001;
+
     for (size_t a = 0; a < n; a++) {
         for (size_t b = ((size_t) !directed) * a; b < n; b++) {
             if (!self_loops && a == b) {
                 continue;
             }
             edge_int = a * n + b;
-            score = ((long double) uniqueness[0][a]) * 
-                            ((long double) uniqueness[a + 1][b]) +
-                    ((long double) uniqueness[0][b]) *
-                            ((long double) uniqueness[b + 1][a]);
+            // TODO: Consider taking the square root somewhere
+            score = ((long double) uniqueness[0][a] + non_zero) * 
+                            ((long double) uniqueness[a + 1][b] + non_zero) +
+                    ((long double) uniqueness[0][b] + non_zero) *
+                            ((long double) uniqueness[b + 1][a] + non_zero);
+
             heuristic_scores[edge_int] = score;
 
             t = sum + score;

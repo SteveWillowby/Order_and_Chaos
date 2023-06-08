@@ -231,7 +231,11 @@ void ThreadPoolScorer::run() {
                                        log2_1_minus_p_plus,
                                        log2_1_minus_p_minus,
                                        max_change_size),
-                    (*task_vec)[task_id]->heuristic_score());
+                    0);
+
+                    //  This makes the program get stuck -- too many edges on
+                    //    the most unique nodes.
+                    // (*task_vec)[task_id]->heuristic_score());
 
 #endif
 
