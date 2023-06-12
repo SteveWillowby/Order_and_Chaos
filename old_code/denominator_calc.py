@@ -201,7 +201,12 @@ if __name__ == "__main__":
     f.write("//   edges, log2_(1 - p) = P_values[n]\n")
     f.write("std::vector<long double> P_values = {-1.0, -1.0")
 
-    for n in range(2, MAX_N + 1):
+    START_N = 50
+
+    for n in range(2, START_N):
+        log2_n_fact += bf.log2(n)
+
+    for n in range(START_N, MAX_N + 1):
         log2_n_fact += bf.log2(n)
         big_hunk = (n * (n - 1)) / 2 - log2_n_fact
         big_hunk = bf.exp2(big_hunk)
@@ -219,7 +224,7 @@ if __name__ == "__main__":
 
         nae = num_automorphisms_estimate(n, B, A)
 
-        if n % 100 == 0:
+        if n % 50 == 0:
             print("N = %d" % n)
             print("Meta Error Factors:")
             print_bf(num_mat / est_num_mat)
@@ -233,6 +238,8 @@ if __name__ == "__main__":
             print("fancy_factor - (Est Num Graphs / (Est Num Mat / n!))")
             print_bf(fancy_formula(n) -
                      (est_num_graphs / (est_num_mat / bf.exp2(log2_n_fact))))
+            print("fancy_factor / (nae / num_graphs)")
+            print_bf(fancy_formula(n) / (nae / num_graphs))
 
 
         S = -(bf.log2(nae) - log2_n_fact) / ((n * (n - 1)) / 2)
