@@ -25,11 +25,18 @@ def undirected_to_directed():
                   245935864153532932683719776, 1787577725145611700547878190848,\
                   24637809253125004524383007491432768]
 
+    print(str([bigfloat_str(bf.log2(x), k=30) + " " for x in oeis_undir]).replace("'", ""))
+    print(str([bigfloat_str(bf.log2(x), k=31) for x in oeis_undir]).replace("'", ""))
+
     oeis_dir = [1, 1, 3, 16, 218, 9608, 1540944, 882033440, 1793359192848, \
                 13027956824399552, 341260431952972580352, \
                 32522909385055886111197440, 11366745430825400574433894004224, \
                 14669085692712929869037096075316220928, \
                 70315656615234999521385506555979904091217920]
+
+    print("")
+    print(str([bigfloat_str(bf.log2(x), k=30) + " " for x in oeis_dir]).replace("'", ""))
+    print(str([bigfloat_str(bf.log2(x), k=31) for x in oeis_dir]).replace("'", ""))
 
     max_n = min(len(oeis_undir), len(oeis_dir)) - 1
 
@@ -191,7 +198,7 @@ if __name__ == "__main__":
 
     # Don't try to actualize 2^(N^2)
 
-    # undirected_to_directed()
+    undirected_to_directed()
 
     log2_n_fact = bf.BigFloat(0.0)
 
