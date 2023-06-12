@@ -351,6 +351,10 @@ int main(int argc, char* argv[]) {
     size_t max_flip_or_edge = (g.num_edges() < (max_possible_edges / 2) ?
                           g.num_edges() : (max_possible_edges - g.num_edges()));
     max_flip_or_edge *= max_edit_factor;
+
+    if (max_flip_or_edge < g.num_nodes() * 2) {
+        max_flip_or_edge = g.num_nodes() * 2;
+    }
     CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
 
     // For genetic alg
@@ -430,9 +434,9 @@ int main(int argc, char* argv[]) {
                          std::log2l(p_minus),
                          std::log2l(1.0 - p_minus)};
         } else {
-            log_probs = {-1.0, -1.0, -1.0, -1.0};
-            // NTSparseGraph g_nt = NTSparseGraph(g);
-            // log_probs = default_log2_noise_probs(g_nt, comb_util);
+            // log_probs = {-1.0, -1.0, -1.0, -1.0};
+            NTSparseGraph g_nt = NTSparseGraph(g);
+            log_probs = default_log2_noise_probs(g_nt, comb_util);
         }
 
         auto result = genetic_alg_search(g, num_iterations,

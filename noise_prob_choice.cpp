@@ -6,6 +6,71 @@
 #include "nt_sparse_graph.h"
 #include "scoring_function.h"
 
+long double fancy_factor(long double n, long double max_E_no_SL,
+                         long double log2_n_fact, bool directed) {
+
+    if (directed && n < 15) {
+        std::vector<long double> log2_num_graphs = {0, 0,
+            1.58496250072115618145373894395, 4.00000000000000000000000000000,
+            7.76818432477692635847878680267, 13.2300204357056340945901830909,
+            20.5553830026302805397007004079, 29.7162581119425090062051620927,
+            40.7058016139384163498316900063, 53.5324603618554374979747570314,
+            68.2094350460413784972197484213, 84.7496586937927632790050761116,
+            103.164590177010205079441905893, 123.464118463118692395266911061,
+            145.656754038391204022206232903};
+        long double log2_ratio = log2_num_graphs[n] - max_E_no_SL + log2_n_fact;
+        return log2_ratio;
+    } else if (!directed && n < 20) {
+        std::vector<long double> log2_num_graphs = {0, 0, 1.0, 2.0,
+            3.45943161863729725619936304675, 5.08746284125033940825406601081,
+            7.28540221886224834185055159820, 10.0279059965698844836272512125,
+            13.5917560760229900027396129249, 18.0673293144811357155639053873,
+            23.5171522569569572352913536136, 29.9245038813488327373283308491,
+            37.2644720253191471328061410100, 45.5214066527967648257388625947,
+            54.6895940473113672250797267462, 64.7686147655035370309689021222,
+            75.7605128885761279188207305346, 87.6684126016135392619332623025,
+            100.495848819277919926324471434, 114.246429206222428663749162609};
+        long double log2_ratio = log2_num_graphs[n] - max_E_no_SL + log2_n_fact;
+        return log2_ratio;
+    }
+
+    long double r = (n * n - n) / std::exp2l(n - 1) +
+                    (n * (n - 1) * (n - 2) * (n - 3) * (3*n - 7) * (3*n - 9)) /
+                        std::exp2l(2*n)             +
+                    (n * n * n * n * n) / std::exp2l(5.0 * n / 2.0);
+    return std::log2l(1.0 + r);
+}
+
+std::vector<long double> log2_noise_probs_fancy_equality(NTSparseGraph& g,
+                                      const CombinatoricUtility& comb_util) {
+
+    bool directed = g.directed;
+    size_t num_nodes = g.num_nodes();
+
+    size_t max_possible_edges =
+            (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed)) +
+            (num_nodes * size_t(g.num_loops() > 0));
+
+    long double log2_n_fact = comb_util.log2_factorial(num_nodes);
+    long double max_E = max_possible_edges;
+    long double max_E_no_SL = max_E - (num_nodes * double(g.num_loops() > 0));
+
+    long double log2_f_factor = fancy_factor((long double) num_nodes,
+                                             max_E_no_SL, log2_n_fact,
+                                             directed);
+    if (!directed) {
+        log2_f_factor *= 2.0;
+    }
+
+    long double log2_estimated_autos = max_E - (log2_n_fact - log2_f_factor);
+
+    long double log2_1_minus_p = (log2_n_fact - log2_estimated_autos) / max_E;
+
+    long double log2_p = std::log2l(1.0 - std::exp2l(log2_1_minus_p));
+
+    return {log2_p, log2_1_minus_p, log2_p, log2_1_minus_p};
+}
+
 std::vector<long double> log2_noise_probs_empty_g(NTSparseGraph& g,
                                       const CombinatoricUtility& comb_util) {
     NautyTracesOptions o;

@@ -55,6 +55,10 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     max_flip_or_edge = ((double) (max_flip_or_edge)) *
                        (1.2 + max_change_factor);  // The 0.2 is a safety factor
 
+    if (max_flip_or_edge < num_nodes * 2) {
+        max_flip_or_edge = num_nodes * 2.0;
+    }
+
     CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
 
     NautyTracesOptions nt_options;
