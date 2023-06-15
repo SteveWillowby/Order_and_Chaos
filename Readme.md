@@ -65,4 +65,23 @@ To see the command-line options, run `executables/main -h`
 
 ## Running the Experiments
 
+In the below example, we get the modified version of a college football season team-plays-team graph.
+
+```
+nice -2 executables/main -graph experiments/real_world_graphs/season_4_undirected_edges.txt -nodes experiments/real_world_graphs/season_4_undirected_nodes.txt -n_itr=200 >> experiments/test_results/season_4_undir.txt
+
+cd experiments/plotting_code
+
+python3 build_result_graph.py ../real_world_graphs/season_4_undirected_nodes.txt ../real_world_graphs/season_4_undirected_edges.txt ../test_results/season_4_undir.txt
+
+cat structure_graph.csv
+```
+
+
+In the below example, we take a 120-node Johnson graph, randomly modify 1% of its connections (measured in terms of the number of its edges), and then see if the algorithm can find the original graph.
+
+```
+time nice -2 executables/main -graph experiments/simple_test_graphs/johnson_10_3_120_edges.txt -nodes experiments/simple_test_graphs/johnson_10_3_120_nodes.txt -noise- 0.005 -noise+ 0.005 -n_itr 140
+```
+
 (TODO: Fill in)
