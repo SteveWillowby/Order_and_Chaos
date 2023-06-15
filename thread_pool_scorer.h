@@ -14,9 +14,6 @@
 #ifndef SYM__THREAD_POOL_SCORER_H
 #define SYM__THREAD_POOL_SCORER_H
 
-// Define this if you want to use the slow heuristic as a tiebreaker
-// #define SYM__THREAD_POOL_SCORER_USE_HEURISTIC
-
 class ThreadPoolScorer {
 public:
     // `nt` is the number of threads to use. If 0 is passed, the code will
@@ -28,7 +25,7 @@ public:
                      long double log2_p_plus, long double log2_p_minus,
                      long double log2_1_minus_p_plus,
                      long double log2_1_minus_p_minus,
-                     size_t max_change_size);
+                     size_t max_change_size, bool use_heuristic);
 
     ~ThreadPoolScorer();
 
@@ -48,7 +45,6 @@ protected:
     // One editable coloring per thread.
     std::vector<Coloring<Edge, EdgeHash>> edge_colorings;
 
-#ifdef SYM__THREAD_POOL_SCORER_USE_HEURISTIC
     // Editable data for heuristic
     size_t* start_indices;
     std::vector<double*> u_vec;
@@ -59,7 +55,6 @@ protected:
     std::vector<ptrdiff_t*> col_for_row_vec;
     std::vector<ptrdiff_t*> row_for_col_vec;
     std::vector<void*> workspaces;
-#endif
 
     std::vector<std::unique_ptr<EdgeSetPair>> *task_vec;
     std::vector<std::pair<long double, long double>> score_vec;
@@ -77,6 +72,8 @@ protected:
     const long double log2_1_minus_p_plus;
     const long double log2_1_minus_p_minus;
     const size_t max_change_size;
+
+    const bool use_heuristic;
 
     // Used by running workers to select the next task
     std::mutex m_worker_queue;

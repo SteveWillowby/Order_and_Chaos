@@ -30,7 +30,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     std::unordered_set<Edge, EdgeHash> add,
                                     std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
-                                    float max_change_factor) {
+                                    float max_change_factor,
+                                    bool use_heuristic) {
     // Initialize Basics
 
     NTSparseGraph g_nt(g);
@@ -88,7 +89,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
                          log2_1_minus_p_plus, log2_1_minus_p_minus,
-                         max_change_size);
+                         max_change_size, use_heuristic);
 
     std::vector<std::unique_ptr<EdgeSetPair>> start_task =
         std::vector<std::unique_ptr<EdgeSetPair>>();

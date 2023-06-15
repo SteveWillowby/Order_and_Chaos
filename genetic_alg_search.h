@@ -20,6 +20,30 @@
 //
 // `nt` is the number of threads to be used by the code. Pass 0 to use
 //      a default value of std::threads::hardware_concurrency();
+//
+// `num_iterations` is the number of mate, mutate, and score steps.
+//
+// `gene_depth` is how many layers of sub-genes there are.
+//      A value of 1 means a gene is an edge set
+//      A value of 2 means a gene is a set of edge sets
+//      A value of 3 means a gene is a set of sets of edge sets
+//          Etc.
+//
+//  `add` and `del` are purely for printing out initial information
+//      The code says what score would be obtained if the noise was that the
+//      edges removed from h to get `g` were in `add`, and the edges added to h
+//      to get `g` were in `del`.
+//
+//  `log_probs` should contain {log2(p+), log2(1-p+), log2(p-), log2(1-p-)}
+//      where p+ is the prob. a noise edge was added to get `g`, and p- is the
+//      prob. an edge was randomly removed to get `g`.
+//
+//  `max_change_factor` is used to limit how large the solution sets can be.
+//      A set of changes with more than `max_change_factor` * g.num_edges()
+//          will receive an infinitely bad score.
+//
+//  `use_heuristic` determines whether or not noise sets get a heuristic score
+//      as a tiebreaker
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                  genetic_alg_search(const Graph& g,
                                     size_t num_iterations,
@@ -29,7 +53,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     std::unordered_set<Edge, EdgeHash> add,
                                     std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
-                                    float max_change_factor);
+                                    float max_change_factor,
+                                    bool use_heuristic);
 
 class GenePool;
 class GeneEdgeSetPair;

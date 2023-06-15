@@ -67,6 +67,9 @@ int main(int argc, char* argv[]) {
                  <<"-n_itr <arg>:\tnumber of iterations for genetic algorithm"
                  <<" -- must be >= 1"<<std::endl<<"\t\t\t* defaults to 80"
                  <<std::endl<<std::endl
+                 <<"-use_heuristic:\ttells genetic algorithm to use a heuristic"
+                 <<std::endl<<"\t\t\tscore as a tiebreaker"
+                 <<std::endl<<std::endl
                  <<"-noise- <arg>:\tfraction of input edges to randomly remove"
                  <<std::endl<<"\t\t\t* for example, with 0.05, randomly removes "
                  <<"5% of edges"<<std::endl<<"\t\t\t* defaults to 0"
@@ -154,6 +157,8 @@ int main(int argc, char* argv[]) {
             throw std::invalid_argument("Error! n_itr must be > 0");
         }
     }
+
+    bool use_heuristic = cmd_flag_present(inputs, "-use_heuristic");
 
     std::string edgelist_file;
     edgelist_file = get_cmd_option(inputs, "-graph");
@@ -445,7 +450,8 @@ int main(int argc, char* argv[]) {
                                          random_deletions,
                                          random_additions,
                                          log_probs,
-                                         max_change_factor);
+                                         max_change_factor,
+                                         use_heuristic);
 
         // Report the results
         NTSparseGraph reporter = NTSparseGraph(g);
