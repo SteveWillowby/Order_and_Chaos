@@ -76,7 +76,7 @@ python3 build_result_graph.py ../real_world_graphs/season_4_undirected_nodes.txt
 
 cd ..
 
-python3 make_node.py plotting_code/strucure_graph.txt
+python3 make_node_list.py plotting_code/strucure_graph.txt
 
 nice -2 executables/main -graph experiments/plotting_code/structure_graph.txt -nodes experiments/plotting_code/structure_graph_nodes.txt -n_itr=50 -use_heuristic
 ```
