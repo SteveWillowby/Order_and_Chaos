@@ -56,7 +56,7 @@ if __name__ == "__main__":
     origin_nodes = set([a for (a, b) in origin_graph] + \
                        [b for (a, b) in origin_graph])
 
-    f = open("merged_graph.csv", "w")
+    f = open("structure_graph.csv", "w")
     f.write("Source,Target,Weight\n")
     for (a, b) in sorted(list(origin_graph)):
         f.write("%d,%d,%d\n" % (a, b, 1))
@@ -77,7 +77,7 @@ if __name__ == "__main__":
             sum([1 for (a, b) in flipped_edges if a in (nodes - origin_nodes) or \
                                                   b in (nodes - origin_nodes)]))
 
-    f = open("merged_graph_with_noise.csv", "w")
+    f = open("structure_graph_with_noise.csv", "w")
     f.write("Source,Target,Weight\n")
     for (a, b) in sorted(list(origin_graph - noise)):
         f.write("%d,%d,%d\n" % (a, b, 1))
