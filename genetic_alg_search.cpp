@@ -16,11 +16,6 @@
 #include<utility>
 #include<vector>
 
-// Given a graph `g`, does a search to find good candidates for noise.
-//
-// Lists the top `k` candidates with their associated scores.
-//
-// `nt` is the number of threads to be used by the code.
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                  genetic_alg_search(const Graph& g,
                                     size_t num_iterations,
@@ -31,7 +26,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
                                     float max_change_factor,
-                                    bool use_heuristic) {
+                                    bool use_heuristic,
+                                    const Graph& legal_edges) {
     // Initialize Basics
 
     NTSparseGraph g_nt(g);
@@ -82,7 +78,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     std::cout<<std::endl;
 
     std::cout<<"  Beginning edge heuristic pre-computation..."<<std::endl;
-    IntEdgeConverterAndSampler iecas(g);
+    IntEdgeConverterAndSampler iecas(g, legal_edges);
     std::cout<<"  ...Finished edge heuristic pre-computation."<<std::endl;
 
     ThreadPoolScorer tps(nt, g_nt, comb_util,

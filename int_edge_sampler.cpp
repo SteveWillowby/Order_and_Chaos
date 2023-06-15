@@ -1,5 +1,6 @@
 #include "edge.h"
 #include "graph.h"
+#include "sparse_graph.h"
 #include "int_edge_sampler.h"
 #include "thread_pool_wl_sim.h"
 
@@ -9,6 +10,10 @@
 #include<vector>
 
 IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g) :
+        IntEdgeConverterAndSampler(g, SparseGraph(g.directed, g.num_nodes())) {}
+
+IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
+              const Graph& g, const Graph& legal_edges) :
         directed(g.directed), n(g.num_nodes()), self_loops(g.num_loops() > 0) {
 
     edges = std::unordered_set<SYM__edge_int_type>();
@@ -61,11 +66,15 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g) :
                 continue;
             }
             edge_int = a * n + b;
-            // TODO: Consider taking the square root somewhere
-            score = ((long double) uniqueness[0][a] + non_zero) * 
-                            ((long double) uniqueness[a + 1][b] + non_zero) +
-                    ((long double) uniqueness[0][b] + non_zero) *
-                            ((long double) uniqueness[b + 1][a] + non_zero);
+            if (legal_edges.num_edges() == 0 || legal_edges.has_edge(a, b)) {
+                // TODO: Consider taking the square root somewhere
+                score = ((long double) uniqueness[0][a] + non_zero) * 
+                               ((long double) uniqueness[a + 1][b] + non_zero) +
+                        ((long double) uniqueness[0][b] + non_zero) *
+                               ((long double) uniqueness[b + 1][a] + non_zero);
+            } else {
+                score = 0.0;
+            }
 
             heuristic_scores[edge_int] = score;
 

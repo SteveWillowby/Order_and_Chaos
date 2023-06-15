@@ -44,6 +44,10 @@
 //
 //  `use_heuristic` determines whether or not noise sets get a heuristic score
 //      as a tiebreaker
+//
+//  `legal_edges` is used if you want to constrain which edges can be part of
+//      the noise. If you want to include all edges as an option, make
+//      `legal_edges` an empty graph on the same number of nodes as `g`.
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                  genetic_alg_search(const Graph& g,
                                     size_t num_iterations,
@@ -54,7 +58,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
                                     float max_change_factor,
-                                    bool use_heuristic);
+                                    bool use_heuristic,
+                                    const Graph& legal_edges);
 
 class GenePool;
 class GeneEdgeSetPair;

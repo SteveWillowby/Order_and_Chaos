@@ -14,6 +14,13 @@ class IntEdgeConverterAndSampler {
 public:
     IntEdgeConverterAndSampler(const Graph& g);
 
+    // When this constructor is used, then only edges from `legal_edges` are
+    //  randomly sampled by weighted_sample()
+    //
+    // IMPORTANT: This does not affect behavior of unweighted_sample()
+    IntEdgeConverterAndSampler(const Graph& g,
+                               const Graph& legal_edges);
+
     // dist should be std::uniform_real_distribution<long double>(0, 1.0)
     SYM__edge_int_type weighted_sample(std::mt19937& gen,
                 std::uniform_real_distribution<long double>& dist) const;

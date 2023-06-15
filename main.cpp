@@ -47,14 +47,24 @@ int main(int argc, char* argv[]) {
         std::cout<<"Guide to flags:"<<std::endl
                  <<"REQUIRED:"<<std::endl<<std::endl
                  <<"-graph <arg>:\tedgelist filename (including path)"
+                 <<std::endl<<"\t\t\t* If a nodelist is also specified, "
+                 <<"then all nodes"<<std::endl<<"\t\t\t\tin the nodelist will "
+                 <<"be included."<<std::endl<<"\t\t\t* If a nodelist is NOT "
+                 <<"specified, then the "<<std::endl<<"\t\t\t\tgraph's nodes "
+                 <<"will be 0, 1, 2, ..., X, where "<<std::endl
+                 <<"\t\t\t\tX is the max node label in the edgelist."
                  <<std::endl<<std::endl
                  <<std::endl<<"OPTIONAL:"<<std::endl<<std::endl
                  <<"-nodes <arg>:\tnodelist filename (including path)"
-                 <<std::endl<<"\t\t\t* use if you want to ensure that nodes "
-                 <<"with no edges are"<<std::endl<<"\t\t\t\tincluded"
                  <<std::endl<<std::endl
                  <<"-d and -u:\tdirected and undirected respectively"
                  <<std::endl<<"\t\t\t* defaults to undirected"
+                 <<std::endl<<std::endl
+                 <<"-legal_noise <arg>:\tan edgelist filename (including path)"
+                 <<std::endl<<"\t\t\t* used to constrain which edges are "
+                 <<"allowed to be part"<<std::endl<<"\t\t\t\tof the noise set."
+                 <<std::endl<<"\t\t\t* uses the -nodes nodelist in the same way"
+                 <<" as -graph"
                  <<std::endl<<std::endl
                  <<"-trials <arg>:\tnumber of times to do a full trial"
                  <<std::endl<<"\t\t\t* defaults to 1"
@@ -73,6 +83,9 @@ int main(int argc, char* argv[]) {
                  <<"-noise- <arg>:\tfraction of input edges to randomly remove"
                  <<std::endl<<"\t\t\t* for example, with 0.05, randomly removes "
                  <<"5% of edges"<<std::endl<<"\t\t\t* defaults to 0"
+                 <<std::endl<<"\t\t\t* If -legal_noise is specified, the "
+                 <<"removed edges will be"<<std::endl<<"\t\t\t\ta subset of"
+                 <<"-legal_noise."
                  <<std::endl<<std::endl
                  <<"-noise+ <arg>:\tfraction of input non-edges to randomly add"
                  <<std::endl<<"\t\t\t* IMPORTANTLY, this is scaled to the"
@@ -84,6 +97,9 @@ int main(int argc, char* argv[]) {
                  <<" of 2, "<<std::endl<<"\t\t\t\tfor example, means adding "
                  <<"roughly (2 * num_edges) "<<std::endl<<"\t\t\t\tnon-edges."
                  <<std::endl<<"\t\t\t* defaults to 0"
+                 <<std::endl<<"\t\t\t* If -legal_noise is specified, the "
+                 <<"added edges will be"<<std::endl<<"\t\t\t\ta subset of"
+                 <<"-legal_noise."
                  <<std::endl<<std::endl
                  <<"-mcf <arg>:\taka 'max change factor' -- the candidate noise"
                  <<std::endl<<"\t\t\t\tset will have at most (mcf * num_edges)"
@@ -168,6 +184,11 @@ int main(int argc, char* argv[]) {
         nodelist_file = get_cmd_option(inputs, "-nodes");
     }
 
+    std::string legal_noise_file = "";  // No limits on noise edge choice
+    if (cmd_flag_present(inputs, "-legal_noise")) {
+        legal_noise_file = get_cmd_option(inputs, "-legal_noise");
+    }
+
     double noise_minus = 0.0;
     if (cmd_flag_present(inputs, "-noise-")) {
         noise_minus = std::stod(get_cmd_option(inputs, "-noise-"));
@@ -237,91 +258,6 @@ int main(int argc, char* argv[]) {
 
     std::uniform_real_distribution<float> dist(0, 1);
 
-    // 0  test_01 -- a 5-chain
-    // 1  test_02 -- a 10-chain
-    // 2  test_03 -- a 15 node binary tree
-    // 3  test_04 -- a 4x5 grid
-    // 4  test_05 -- a 6x7 grid
-    // 5  test_06 -- a 31 node binary tree
-    // 6  binary_tree_127 -- a 127 node binary tree
-    // 7  johnson_10_3_120 -- a 120 10-choose-3 johnson graph
-    // 8  ring_128 -- a 128 node ring
-    // 9  wreath_d7_128 -- a wreath of 128 nodes each with degree 7
-
-    std::vector<std::string> fake_nodes_names =
-        {"test_01_nodes.txt",         "test_02_nodes.txt",
-         "test_03_nodes.txt",         "test_04_nodes.txt",
-         "test_05_nodes.txt",         "test_06_nodes.txt",
-         "binary_tree_127_nodes.txt", "johnson_10_3_120_nodes.txt",
-         "ring_128_nodes.txt",        "wreath_d7_128_nodes.txt"
-        };
-    std::vector<std::string> fake_edges_names =
-        {"test_01_edges.txt", "test_02_edges.txt",
-         "test_03_edges.txt", "test_04_edges.txt",
-         "test_05_edges.txt", "test_06_edges.txt",
-         "binary_tree_127_edges.txt", "johnson_10_3_120_edges.txt",
-         "ring_128_edges.txt",        "wreath_d7_128_edges.txt"
-        };
-    std::vector<std::string> real_nodes_names =
-        {"",                               "",
-         "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
-         "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
-         "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
-         "jazz_collab_nodes.txt",          "jazz_collab_nodes.txt",
-         "jazz_collab_nodes.txt",          "",
-         "",                               "",
-         "season_0_directed_nodes.txt",    "season_0_undirected_nodes.txt",
-         "season_1_directed_nodes.txt",    "season_1_undirected_nodes.txt",
-         "season_2_directed_nodes.txt",    "season_2_undirected_nodes.txt",
-         "season_3_directed_nodes.txt",    "season_3_undirected_nodes.txt",
-         "season_4_directed_nodes.txt",    "season_4_undirected_nodes.txt",
-         "season_5_directed_nodes.txt",    "season_5_undirected_nodes.txt",
-         "season_6_directed_nodes.txt",    "season_6_undirected_nodes.txt",
-         "season_7_directed_nodes.txt",    "season_7_undirected_nodes.txt",
-         "season_8_directed_nodes.txt",    "season_8_undirected_nodes.txt",
-         "season_9_directed_nodes.txt",    "season_9_undirected_nodes.txt",
-         "season_10_directed_nodes.txt",   "season_10_undirected_nodes.txt"
-        };
-    // jazz_collab_mod_X.g are various man-made modifications to
-    //  jazz_collaboration to try to increase the amount of symmetry and to see
-    //  how the scoring function would score those modifications.
-    // jazz_collab_mod_X_changes.txt contains the list of edges removed.
-    std::vector<std::string> real_edges_names =
-        {"celegans_metabolic.g",           "species_brain_1.g",
-         "jazz_collaboration.g",           "jazz_collab_mod_1.g",
-         "jazz_collab_mod_2.g",            "jazz_collab_mod_4.g",
-         "jazz_collab_mod_10.g",           "jazz_collab_mod_1_changes.txt",
-         "jazz_collab_mod_2_changes.txt",  "jazz_collab_mod_4_changes.txt",
-         "jazz_collab_mod_10_changes.txt", "moreno_highschool_noweights.g",
-         "roget_thesaurus.g",              "pol_blogs.g",
-         "season_0_directed_edges.txt",    "season_0_undirected_edges.txt",
-         "season_1_directed_edges.txt",    "season_1_undirected_edges.txt",
-         "season_2_directed_edges.txt",    "season_2_undirected_edges.txt",
-         "season_3_directed_edges.txt",    "season_3_undirected_edges.txt",
-         "season_4_directed_edges.txt",    "season_4_undirected_edges.txt",
-         "season_5_directed_edges.txt",    "season_5_undirected_edges.txt",
-         "season_6_directed_edges.txt",    "season_6_undirected_edges.txt",
-         "season_7_directed_edges.txt",    "season_7_undirected_edges.txt",
-         "season_8_directed_edges.txt",    "season_8_undirected_edges.txt",
-         "season_9_directed_edges.txt",    "season_9_undirected_edges.txt",
-         "season_10_directed_edges.txt",   "season_10_undirected_edges.txt"
-        };
-
-    const std::string fake_prefix = "simple_test_graphs/";
-    for (size_t i = 0; i < fake_nodes_names.size(); i++) {
-        if (!fake_nodes_names[i].empty()) {
-            fake_nodes_names[i] = fake_prefix + fake_nodes_names[i];
-        }
-        fake_edges_names[i] = fake_prefix + fake_edges_names[i];
-    }
-    const std::string real_prefix = "real_world_graphs/";
-    for (size_t i = 0; i < real_nodes_names.size(); i++) {
-        if (!real_nodes_names[i].empty()) {
-            real_nodes_names[i] = real_prefix + real_nodes_names[i];
-        }
-        real_edges_names[i] = real_prefix + real_edges_names[i];
-    }
-
     std::cout<<"Loading graph from files:"<<std::endl
              <<"    "<<nodelist_file<<std::endl
              <<"    "<<edgelist_file<<std::endl;
@@ -334,6 +270,17 @@ int main(int argc, char* argv[]) {
     std::cout<<"  ...graph loaded. It has "<<g.num_nodes()<<" nodes and "
              <<g.num_edges()<<" edges, "<<g.num_loops()<<" of which are "
              <<"self-loops."<<std::endl<<std::endl;
+
+    SparseGraph legal_noise(directed, g.num_nodes());
+    bool has_legal_noise = !legal_noise_file.empty();
+    if (has_legal_noise) {
+        if (nodelist_file.empty()) {
+            legal_noise = read_graph(directed, legal_noise_file);
+        } else {
+            legal_noise = read_graph(directed, nodelist_file,
+                                     legal_noise_file);
+        }
+    }
 
     bool has_self_loops = g.num_loops() > 0;
 
@@ -381,9 +328,50 @@ int main(int argc, char* argv[]) {
     }
     noise_plus = new_noise_plus;
 
+    double og_noise_plus = noise_plus;
+    double og_noise_minus = noise_minus;
+
+    if (has_extra_noise && has_legal_noise) {
+        double expected_edge_dels = noise_minus * g.num_edges();
+        double expected_edge_adds =
+            noise_plus * (max_possible_edges - g.num_edges());
+
+        double legal_adds = 0.0;
+        double legal_dels = 0.0;
+        for (size_t a = 0; a < legal_noise.num_nodes(); a++) {
+            for (auto b_itr = legal_noise.out_neighbors(a).begin();
+                      b_itr != legal_noise.out_neighbors(a).end(); b_itr++) {
+                if (!directed && *b_itr < int(a)) {
+                    continue;
+                }
+                if (g.has_edge(a, *b_itr)) {
+                    legal_dels++;
+                } else {
+                    legal_adds++;
+                }
+            }
+        }
+
+        if (legal_dels < expected_edge_dels) {
+            throw std::logic_error(
+std::string("Error! Due to -noise-, supposed to delete roughly ") +
+std::to_string(expected_edge_dels) + " edges,\tbut only have " +
+std::to_string(legal_dels) + " options due to -legal_noise");
+        }
+        if (legal_adds < expected_edge_adds) {
+            throw std::logic_error(
+std::string("Error! Due to -noise+, supposed to add roughly ") +
+std::to_string(expected_edge_adds) + " edges,\nbut only have " +
+std::to_string(legal_adds) + " options due to -legal_noise");
+        }
+
+        noise_plus =  expected_edge_adds / legal_adds;
+        noise_minus = expected_edge_dels / legal_dels;
+    }
+
     for (size_t trial = 0; trial < trials; trial++) {
         std::cout<<"Trial "<<trial<<" for (noise-, noise+) = ("
-                 <<noise_minus<<", "<<noise_plus<<")"
+                 <<og_noise_minus<<", "<<og_noise_plus<<")"
                  <<std::endl<<std::endl;
         random_deletions = std::unordered_set<Edge, EdgeHash>();
         random_additions = std::unordered_set<Edge, EdgeHash>();
@@ -393,6 +381,9 @@ int main(int argc, char* argv[]) {
             for (size_t i = 0; i < g.num_nodes(); i++) {
                 for (size_t j = i * (!directed); j < g.num_nodes(); j++) {
                     if (i == j and !has_self_loops) {
+                        continue;
+                    }
+                    if (has_legal_noise && !legal_noise.has_edge(i, j)) {
                         continue;
                     }
                     if (g.has_edge(i, j)) {
@@ -451,7 +442,8 @@ int main(int argc, char* argv[]) {
                                          random_additions,
                                          log_probs,
                                          max_change_factor,
-                                         use_heuristic);
+                                         use_heuristic,
+                                         legal_noise);
 
         // Report the results
         NTSparseGraph reporter = NTSparseGraph(g);
