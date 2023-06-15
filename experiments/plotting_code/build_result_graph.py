@@ -57,9 +57,11 @@ if __name__ == "__main__":
                        [b for (a, b) in origin_graph])
 
     f = open("structure_graph.csv", "w")
+    f2 = open("structure_graph.txt", "w")
     f.write("Source,Target,Weight\n")
     for (a, b) in sorted(list(origin_graph)):
         f.write("%d,%d,%d\n" % (a, b, 1))
+        f2.write("%d %d\n" % (a, b))
 
     for node in sorted(list(nodes - origin_nodes)):
         f.write("%d,%d,%d\n" % (node, meta_node, 1))
@@ -68,6 +70,7 @@ if __name__ == "__main__":
             f.write("%d,%d,%d\n" % (node, meta_node, 1))
             break
     f.close()
+    f2.close()
 
     print("There were %d additions and %d removals." % \
             (len(flipped_edges - edges), len(flipped_edges & edges)))
