@@ -4,6 +4,7 @@
 
 This code is associated with the research paper (TODO: Title) currently on arXiv at (TODO: link).
 
+
 ## Installation
 
 ### Main Binary
@@ -20,6 +21,7 @@ and then run:
 
 That's it! The main program should be ready to run.
 
+
 ### Other Experiments
 
 Much of the experimental code that uses the main binary is coded in Python.
@@ -28,11 +30,13 @@ Necessary Python packages are: (TODO: Fill in)
 
 You can install these with the commands: (TODO: Fill in) 
 
+
 ## Running the Main Binary
 
 The main binary is located at `executables/main`.
 
 To see the command-line options, run `executables/main -h`
+
 
 ## Running the Experiments
 
