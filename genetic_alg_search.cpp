@@ -528,6 +528,10 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
                 if (smi == 1 && scores.find(new_scores[i]) != scores.end()) {
                     // This score pair is already covered by scores.
                     //  Don't record it in h_scores in case we get a duplicate.
+
+                    // TODO: Consider making this check more precise, to check
+                    //  if this EXACT edge set is already taken.
+                    //  However, the current setup might perform better...
                     continue;
                 }
 
@@ -579,11 +583,11 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         // Now that we have hash values for the top `pop_size` members,
         //  keep only those top-level genes.
         top_k.clear();
+        j = 0;
+        size_t j_hash, i_hash;
         for (size_t smi = 0; smi < 1 + size_t(use_heuristic); smi++) {
             auto score_map = score_maps[smi];
 
-            j = 0;
-            size_t j_hash, i_hash;
             for (auto x = score_map->rbegin(); x != score_map->rend(); x++) {
                 const std::unordered_map<size_t, size_t>& hash_values =
                                                                     x->second;
