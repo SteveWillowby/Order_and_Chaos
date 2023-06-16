@@ -585,12 +585,24 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         top_k.clear();
         j = 0;
         size_t j_hash, i_hash;
+        bool show_score;
         for (size_t smi = 0; smi < 1 + size_t(use_heuristic); smi++) {
             auto score_map = score_maps[smi];
-
+            show_score = true;
             for (auto x = score_map->rbegin(); x != score_map->rend(); x++) {
                 const std::unordered_map<size_t, size_t>& hash_values =
                                                                     x->second;
+                if (show_score && use_heuristic) {
+                    show_score = false;
+                    std::cout<<"\tTop Score & Heuristic Values: ";
+                    if (smi == 0) {
+                        std::cout<<x->first.first<<", "
+                                 <<x->first.second<<std::endl;
+                    } else {
+                        std::cout<<x->first.second<<", "
+                                 <<x->first.first<<std::endl;
+                    }
+                }
                 for (auto h = hash_values.begin(); h != hash_values.end(); h++){
                     // Swap elements i and j
                     i_hash = h->second;
