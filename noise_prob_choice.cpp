@@ -6,8 +6,8 @@
 #include "nt_sparse_graph.h"
 #include "scoring_function.h"
 
-long double fancy_factor(long double n, long double max_E_no_SL,
-                         long double log2_n_fact, bool directed) {
+long double log2_fancy_factor(long double n, long double max_E_no_SL,
+                              long double log2_n_fact, bool directed) {
 
     if (directed && n < 15) {
         std::vector<long double> log2_num_graphs = {0, 0,
@@ -18,7 +18,8 @@ long double fancy_factor(long double n, long double max_E_no_SL,
             68.2094350460413784972197484213, 84.7496586937927632790050761116,
             103.164590177010205079441905893, 123.464118463118692395266911061,
             145.656754038391204022206232903};
-        long double log2_ratio = log2_num_graphs[n] - max_E_no_SL + log2_n_fact;
+        long double log2_ratio =
+                        (log2_num_graphs[n] - max_E_no_SL) + log2_n_fact;
         return log2_ratio;
     } else if (!directed && n < 20) {
         std::vector<long double> log2_num_graphs = {0, 0, 1.0, 2.0,
@@ -30,15 +31,26 @@ long double fancy_factor(long double n, long double max_E_no_SL,
             54.6895940473113672250797267462, 64.7686147655035370309689021222,
             75.7605128885761279188207305346, 87.6684126016135392619332623025,
             100.495848819277919926324471434, 114.246429206222428663749162609};
-        long double log2_ratio = log2_num_graphs[n] - max_E_no_SL + log2_n_fact;
+        long double log2_ratio =
+                        (log2_num_graphs[n] - max_E_no_SL) + log2_n_fact;
         return log2_ratio;
     }
 
-    long double r = (n * n - n) / std::exp2l(n - 1) +
-                    (n * (n - 1) * (n - 2) * (n - 3) * (3*n - 7) * (3*n - 9)) /
-                        std::exp2l(2*n)             +
-                    (n * n * n * n * n) / std::exp2l(5.0 * n / 2.0);
-    return std::log2l(1.0 + r);
+    long double r;
+    // These formulae taken from Harary and Palmer's book
+    //  "Graphical Enumeration"
+    if (directed) {
+        r = (n * n - n) / std::exp2l(n - 1)   +
+            (n * (n - 1) * (n - 2) * (n - 3) * (3*n - 7)) /
+                ((3*n - 9) * std::exp2l(2*n)) +
+            (n * n * n * n * n) / std::exp2l(5.0 * n / 2.0);
+    } else {
+        r = (4 * n * (n - 1)) / std::exp2l(2 * n) +
+            (n * (n - 1) * (n - 2) * (n - 3) * (3*n - 7)) /
+                ((3*n - 9) * std::exp2l(4*n - 7)) +
+            (n * n * n * n * n) / std::exp2l(5 * n);
+    }
+    return std::log1pl(r) / std::log(2.0);
 }
 
 std::vector<long double> log2_noise_probs_fancy_equality(NTSparseGraph& g,
@@ -55,16 +67,24 @@ std::vector<long double> log2_noise_probs_fancy_equality(NTSparseGraph& g,
     long double max_E = max_possible_edges;
     long double max_E_no_SL = max_E - (num_nodes * double(g.num_loops() > 0));
 
-    long double log2_f_factor = fancy_factor((long double) num_nodes,
-                                             max_E_no_SL, log2_n_fact,
-                                             directed);
-    if (!directed) {
-        log2_f_factor *= 2.0;
-    }
+    long double log2_f_factor = log2_fancy_factor((long double) num_nodes,
+                                                  max_E_no_SL, log2_n_fact,
+                                                  directed);
 
-    long double log2_estimated_autos = max_E - (log2_n_fact - log2_f_factor);
+    log2_f_factor *= 2.0;  // square the un-logged fancy factor
 
-    long double log2_1_minus_p = (log2_n_fact - log2_estimated_autos) / max_E;
+    // Equivalent to:
+    //  log2_estimated_autos = max_E - (log2_n_fact - log2_f_factor);
+    //  log2_1_minus_p = (log2_n_fact - log2_estimated_autos) / max_E
+    long double log2_1_minus_p =
+                    ((2.0 * log2_n_fact - log2_f_factor) / max_E) - 1.0;
+
+    // NOTE: at as few as 120 nodes, log2_f_factor ceases to be relevant
+    // volatile long double check = (2.0 * log2_n_fact - log2_f_factor);
+    // check = check - (2.0 * log2_n_fact);
+    // if (check == 0.0) {
+    //     std::cout<<"Lost in translation."<<std::endl;
+    // }
 
     long double log2_p = std::log2l(1.0 - std::exp2l(log2_1_minus_p));
 
