@@ -100,7 +100,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     size_t pop_size = (g.num_nodes() / 4 + 1) *
                       (g.num_nodes() < 200 ? 200 : g.num_nodes());
-    GenePool gp(g, iecas, gene_depth, pop_size, k);
+    GenePool gp(g, iecas, gene_depth, pop_size, k, use_heuristic);
 
     for (size_t i = 0; i < num_iterations; i++) {
         std::cout<<"Beginning Iteration "<<(i + 1)<<"..."<<std::endl;
@@ -298,9 +298,10 @@ std::vector<SYM__edge_int_type> Gene::merged(
 // Creates an initial population by starting with a single gene and
 //  continuously mutating it until we get to pop size.
 GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
-                   size_t gene_depth, size_t pop_size, size_t num_results) :
+                   size_t gene_depth, size_t pop_size, size_t num_results,
+                   bool use_heuristic) :
             iecas(iecas), depth(gene_depth), pop_size(pop_size), k(num_results),
-            n(g.num_nodes()) {
+            n(g.num_nodes()), use_heuristic(use_heuristic) {
 
     if (depth < 1) {
         throw std::domain_error("Error! Cannot make gene pool with depth < 1");
@@ -319,6 +320,11 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
     //  edge-int-hashes to gene-hashes.
     scores = std::map<std::pair<long double, long double>,
                       std::unordered_map<size_t, size_t>>();
+
+    if (use_heuristic) {
+        h_scores = std::map<std::pair<long double, long double>,
+                            std::unordered_map<size_t, size_t>>();
+    }
 
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     pool_map = std::vector<std::unordered_map<size_t, size_t>>();
@@ -462,6 +468,13 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     for (auto x = scores.begin(); x != scores.end(); x++) {
         num_already_scored += x->second.size();
     }
+    size_t num_regular_scored = num_already_scored;
+    if (use_heuristic) {
+        for (auto x = h_scores.begin(); x != h_scores.end(); x++) {
+            num_already_scored += x->second.size();
+        }
+    }
+    size_t num_heuristic_scored = num_already_scored - num_regular_scored;
 
     std::vector<std::unique_ptr<EdgeSetPair>> tasks =
                 std::vector<std::unique_ptr<EdgeSetPair>>();
@@ -478,95 +491,132 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
 
         // std::cout<<"\tPost-processing"<<std::endl;
 
+        std::vector<size_t> keep_sizes = {pop_size};
+        std::vector<std::map<std::pair<long double, long double>,
+                             std::unordered_map<size_t, size_t>>*> score_maps;
+        score_maps = {&scores};
+
+        if (use_heuristic) {
+            size_t to_keep = (pop_size * 3) / 4;
+            keep_sizes = {to_keep + num_heuristic_scored, pop_size};
+            score_maps = {&scores, &h_scores};
+        }
+
         // Use the score map like a min-heap to keep the top population members
         std::pair<long double, long double> score;
-        std::pair<long double, long double> min_score = scores.begin()->first;
+        std::pair<long double, long double> min_score;
         size_t hash_value, e_hash_value;
         size_t orig_num_already_scored = num_already_scored;
-        for (i = 0; i < tasks.size(); i++) {
-            score = new_scores[i];
-            if (num_already_scored == pop_size && score < min_score) {
-                continue;  // New element not good enough to keep.
-            }
+        for (size_t smi = 0; smi < 1 + size_t(use_heuristic); smi++) {
 
-            hash_value =
-                   pool_vec[depth - 1]
-                           [i + orig_num_already_scored]->hash_value();
-            e_hash_value =
+            auto score_map = score_maps[smi];
+            size_t keep_size = keep_sizes[smi];
+
+            for (i = 0; i < tasks.size(); i++) {
+                if (smi == 0) {
+                    // Regular scores
+                    score = new_scores[i];
+                } else {
+                    // Heuristic first, regular second
+                    score = std::pair<long double, long double>(
+                              new_scores[i].second, new_scores[i].first);
+                }
+                min_score = score_map->begin()->first;
+                if (num_already_scored == keep_size && score < min_score) {
+                    continue;  // New element not good enough to keep.
+                }
+                if (smi == 1 && scores.find(new_scores[i]) != scores.end()) {
+                    // This score pair is already covered by scores.
+                    //  Don't record it in h_scores in case we get a duplicate.
+                    continue;
+                }
+
+                hash_value =
+                       pool_vec[depth - 1]
+                               [i + orig_num_already_scored]->hash_value();
+                e_hash_value =
                    pool_vec[depth - 1]
                            [i + orig_num_already_scored]->edge_int_hash_value();
 
-            auto x = scores.find(score);
-            if (x == scores.end()) {
-                // New score
-                scores.insert(std::pair<std::pair<long double, long double>,
+                auto x = score_map->find(score);
+                if (x == score_map->end()) {
+                    // New score
+                    score_map->insert(std::pair<std::pair<long double,
+                                                          long double>,
                                         std::unordered_map<size_t, size_t>>(
-                              score, {{e_hash_value, hash_value}}));
-            } else {
-                // Old score -- edge set might be redundant
-                auto y = x->second.find(e_hash_value);
-                if (y == x->second.end()) {
-                    // Not redundant
-                    x->second[e_hash_value] = hash_value;
+                               score, {{e_hash_value, hash_value}}));
                 } else {
-                    // Redundant -- replace with 10% prob
-                    if (distl(gen) < 0.1) {
+                    // Old score -- edge set might be redundant
+                    auto y = x->second.find(e_hash_value);
+                    if (y == x->second.end()) {
+                        // Not redundant
                         x->second[e_hash_value] = hash_value;
+                    } else {
+                        // Redundant -- replace with 10% prob
+                        if (distl(gen) < 0.1) {
+                            x->second[e_hash_value] = hash_value;
+                        }
+                        num_already_scored--;
                     }
-                    num_already_scored--;
                 }
-            }
-            num_already_scored++;
+                num_already_scored++;
 
-            if (num_already_scored > pop_size) {
-                num_already_scored--;
-                // Replace a smallest element.
-                auto smallest = scores.begin();
-                if (smallest->second.size() == 1) {
-                    scores.erase(smallest);
-                } else {
-                    // Remove one element from the vector.
-                    // TODO: Consider making this random.
-                    smallest->second.erase(smallest->second.begin());
+                if (num_already_scored > keep_size) {
+                    num_already_scored--;
+                    // Replace a smallest element.
+                    auto smallest = score_map->begin();
+                    if (smallest->second.size() == 1) {
+                        score_map->erase(smallest);
+                    } else {
+                        // Remove one element from the vector.
+                        // TODO: Consider making this random.
+                        smallest->second.erase(smallest->second.begin());
+                    }
                 }
             }
         }
 
-        // Now that we have hash values for the top `pop_size` members, keep
-        //  only those top-level genes.
-        j = 0;
-        size_t j_hash, i_hash;
+        // Now that we have hash values for the top `pop_size` members,
+        //  keep only those top-level genes.
         top_k.clear();
-        for (auto x = scores.rbegin(); x != scores.rend(); x++) {
-            const std::unordered_map<size_t, size_t>& hash_values = x->second;
-            for (auto h = hash_values.begin(); h != hash_values.end(); h++) {
-                // Swap elements i and j
-                i_hash = h->second;
-                i = pool_map[depth - 1].find(i_hash)->second;
-                if (i != j) {
-                    j_hash = pool_vec[depth - 1][j]->hash_value();
-                    std::swap(pool_vec[depth - 1][i], pool_vec[depth - 1][j]);
-                    pool_map[depth - 1].erase(i_hash);
-                    pool_map[depth - 1].erase(j_hash);
-                    pool_map[depth - 1].insert(
-                                std::pair<size_t,size_t>(i_hash, j));
-                    pool_map[depth - 1].insert(
-                                std::pair<size_t,size_t>(j_hash, i));
-                }
-                if (j < k) {
-                    // Save one of the top k.
-                    GeneEdgeSetPair gesp(iecas, *pool_vec[depth - 1][j]);
-                    std::pair<std::unordered_set<Edge, EdgeHash>,
-                              std::unordered_set<Edge, EdgeHash>> e_ne =
-                                    gesp.edges_and_non_edges();
-                    for (auto e = e_ne.second.begin();
-                                  e != e_ne.second.end(); e++) {
-                        e_ne.first.insert(*e);
+        for (size_t smi = 0; smi < 1 + size_t(use_heuristic); smi++) {
+            auto score_map = score_maps[smi];
+
+            j = 0;
+            size_t j_hash, i_hash;
+            for (auto x = score_map->rbegin(); x != score_map->rend(); x++) {
+                const std::unordered_map<size_t, size_t>& hash_values =
+                                                                    x->second;
+                for (auto h = hash_values.begin(); h != hash_values.end(); h++){
+                    // Swap elements i and j
+                    i_hash = h->second;
+                    i = pool_map[depth - 1].find(i_hash)->second;
+                    if (i != j) {
+                        j_hash = pool_vec[depth - 1][j]->hash_value();
+                        std::swap(pool_vec[depth-1][i], pool_vec[depth-1][j]);
+                        pool_map[depth - 1].erase(i_hash);
+                        pool_map[depth - 1].erase(j_hash);
+                        pool_map[depth - 1].insert(
+                                    std::pair<size_t,size_t>(i_hash, j));
+                        pool_map[depth - 1].insert(
+                                    std::pair<size_t,size_t>(j_hash, i));
                     }
-                    top_k.push_back(std::pair<std::unordered_set<Edge,EdgeHash>,
-                                     long double>(e_ne.first, x->first.first));
+                    if (j < k) {
+                        // Save one of the top k.
+                        GeneEdgeSetPair gesp(iecas, *pool_vec[depth - 1][j]);
+                        std::pair<std::unordered_set<Edge, EdgeHash>,
+                                  std::unordered_set<Edge, EdgeHash>> e_ne =
+                                        gesp.edges_and_non_edges();
+                        for (auto e = e_ne.second.begin();
+                                      e != e_ne.second.end(); e++) {
+                            e_ne.first.insert(*e);
+                        }
+                        top_k.push_back(
+                            std::pair<std::unordered_set<Edge,EdgeHash>,
+                                      long double>(e_ne.first, x->first.first));
+                    }
+                    j++;
                 }
-                j++;
             }
         }
         while (pool_vec[depth - 1].size() > num_already_scored) {

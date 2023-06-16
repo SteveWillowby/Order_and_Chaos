@@ -127,7 +127,8 @@ public:
     // Creates an initial population by starting with a single gene and
     //  continuously mutating it until we get to pop size.
     GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
-             size_t gene_depth, size_t pop_size, size_t num_results);
+             size_t gene_depth, size_t pop_size, size_t num_results,
+             bool use_heuristic);
 
     // Grows the population by 10x
     //  (creates 5x matings and 4x mutations)
@@ -203,6 +204,7 @@ protected:
     const size_t pop_size;
     const size_t k;
     const size_t n;
+    const bool use_heuristic;
 
     // For each depth level, stores a list of each Gene
     std::vector<std::vector<std::unique_ptr<Gene>>> pool_vec;
@@ -213,6 +215,10 @@ protected:
     //  edge-int-hashes to gene-hashes.
     std::map<std::pair<long double, long double>,
              std::unordered_map<size_t, size_t>> scores;
+
+    // Same as above but for heuristic scores getting the priority
+    std::map<std::pair<long double, long double>,
+             std::unordered_map<size_t, size_t>> h_scores;
 
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     std::vector<std::unordered_map<size_t, size_t>> pool_map;
