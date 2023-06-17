@@ -57,9 +57,6 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
     volatile long double t = 0.0;  // volatile ensures that the compiler doesn't
     volatile long double z = 0.0;  //   optimize these operation orders away
 
-    // Used to prevent zero probabilities
-    const long double non_zero = 0.0000001;
-
     for (size_t a = 0; a < n; a++) {
         for (size_t b = ((size_t) !directed) * a; b < n; b++) {
             if (!self_loops && a == b) {
@@ -67,10 +64,11 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
             }
             edge_int = a * n + b;
             if (legal_edges.num_edges() == 0 || legal_edges.has_edge(a, b)) {
-                score = ((long double) fuzzy_orbit_sizes[0][a] + non_zero) * 
-                         ((long double) fuzzy_orbit_sizes[a+1][b] + non_zero) +
-                        ((long double) fuzzy_orbit_sizes[0][b] + non_zero) *
-                         ((long double) fuzzy_orbit_sizes[b+1][a] + non_zero);
+                score = 2.0 /
+                         (((long double) fuzzy_orbit_sizes[0][a]) * 
+                          ((long double) fuzzy_orbit_sizes[a+1][b]) +
+                         ((long double) fuzzy_orbit_sizes[0][b]) *
+                          ((long double) fuzzy_orbit_sizes[b+1][a]));
             } else {
                 score = 0.0;
             }

@@ -138,55 +138,6 @@ double* wl_node_differences(const Graph& g,
 
     return pairwise_scores[prev_mat_idx];  // Return the final result
 
-
-    /*
-    // Return the (negated) total sum of pairwise_scores[prev_mat_idx]
-
-    // This is the Kahan, Babushka, and Klein sum algorithm.
-    //  Copied from the pseudocode on Wikipedia (12/8/22).
-    //
-    // A., Klein (2006). "A generalized Kahan-Babuska-Summation-Algorithm"
-    //
-    //  The point of the algorithm is to do floating-point summation while
-    //   minimizing floating-point rounding errors.
-
-    long double value;
-    long double sum = 0.0;
-    long double cs = 0.0;
-    long double ccs = 0.0;
-    long double c = 0.0;
-    long double cc = 0.0;
-    volatile long double t = 0.0;  // volatile ensures that the compiler doesn't
-    volatile long double z = 0.0;  //   optimize these operation orders away
-
-    for (size_t i = 0; i < matrix_size; i++) {
-        // Access memoized versions if available.
-        value = pairwise_scores[prev_mat_idx][i];
-
-        t = sum + value;
-        if (std::fabs(sum) >= std::fabs(value)) {
-            z = sum - t;
-            c = z + value;
-        } else {
-            z = value - t;
-            c = z + sum;
-        }
-        sum = t;
-        t = cs + c;
-        if (std::fabs(cs) >= std::fabs(c)) {
-            z = cs - t;
-            cc = z + c;
-        } else {
-            z = c - t;
-            cc = z + cs;
-        }
-        cs = t;
-        ccs = ccs + cc;
-    }
-
-    (*neg_sum) = -(sum + cs + ccs);
-    return pairwise_scores[prev_mat_idx];  // Return the final result
-    */
 }
 
 long double wl_symmetry_measure(const Graph& g,
@@ -203,63 +154,156 @@ long double wl_symmetry_measure(const Graph& g,
                                 const size_t* start_indices) {
 
     size_t n = g.num_nodes();
+    size_t matrix_size = ((n * (n - 1)) / 2) + n;
 
-    double* matrices[2];
-    double **old_mat, **new_mat;
-    double* temp_ptr;
+    double *old_mat, *new_mat;
 
     if (precomputed_basics == NULL) {
-        matrices[0] = wl_node_differences(g, node_coloring, edge_coloring,
-                                          cost_matrix, col_for_row, row_for_col,
-                                          u, v, workspace, pw_scores_1,
-                                          pw_scores_2, start_indices);
+        old_mat = wl_node_differences(g, node_coloring, edge_coloring,
+                                      cost_matrix, col_for_row, row_for_col,
+                                      u, v, workspace, pw_scores_1,
+                                      pw_scores_2, start_indices);
 
-        if (matrices[0] == pw_scores_1) {
-            matrices[1] = pw_scores_2;
+        if (old_mat == pw_scores_1) {
+            new_mat = pw_scores_2;
         } else {
-            matrices[1] = pw_scores_1;
+            new_mat = pw_scores_1;
         }
     } else {
-        size_t matrix_size = ((n * (n - 1)) / 2) + n;
         std::memcpy(pw_scores_1, precomputed_basics,
                         matrix_size * sizeof(double));
         if (node_coloring != NULL || edge_coloring != NULL) {
             impose_coloring_constraints(g, node_coloring, edge_coloring,
                                         pw_scores_1, start_indices);
 
-            matrices[0] = wl_node_differences(g, node_coloring, edge_coloring,
-                                              cost_matrix,
-                                              col_for_row, row_for_col,
-                                              u, v, workspace, pw_scores_1,
-                                              pw_scores_2, start_indices);
+            old_mat = wl_node_differences(g, node_coloring, edge_coloring,
+                                          cost_matrix,
+                                          col_for_row, row_for_col,
+                                          u, v, workspace, pw_scores_1,
+                                          pw_scores_2, start_indices);
 
-            if (matrices[0] == pw_scores_1) {
-                matrices[1] = pw_scores_2;
+            if (old_mat == pw_scores_1) {
+                new_mat = pw_scores_2;
             } else {
-                matrices[1] = pw_scores_1;
+                new_mat = pw_scores_1;
             }
         } else {
-            matrices[0] = pw_scores_1;
-            matrices[1] = pw_scores_2;
+            old_mat = pw_scores_1;
+            new_mat = pw_scores_2;
         }
     }
 
-    old_mat = &(matrices[0]);
-    new_mat = &(matrices[1]);
+    std::memcpy(new_mat, old_mat, matrix_size * sizeof(double));
 
-    return 1.0;
+    // Quit when the largest orbit size is no larger than QUIT_FACTOR
+    const long double QUIT_FACTOR = 1.5;
+
+    long double value;
+    long double log2_aut_approx = 0.0;
+    long double max_orbit_size = 0.0;
+    int node_with_max_orbit = 0;
+    int a, b;
+    for (a = 0; a < int(n); a++) {
+        value = wl_orbit_size(a, n, old_mat, start_indices);
+        if (value > max_orbit_size) {
+            max_orbit_size = value;
+            node_with_max_orbit = a;
+        }
+    }
+
+    std::unordered_map<int, std::unordered_set<int>> pairs_to_calc;
+    std::unordered_map<int, std::unordered_set<int>> next_pairs_to_calc;
+
+    size_t min, max;
+    while (max_orbit_size > QUIT_FACTOR) {
+        log2_aut_approx += std::log2(max_orbit_size);
+
+        // Make node_with_max_orbit a singleton
+        for (a = 0; a < int(n); a++) {
+            if (a == node_with_max_orbit) {
+                continue;
+            } else if (a < node_with_max_orbit) {
+                min = a;
+                max = node_with_max_orbit;
+            } else {
+                min = node_with_max_orbit;
+                max = a;
+            }
+            old_mat[start_indices[min] + (max - min)] = 1.0;
+            new_mat[start_indices[min] + (max - min)] = 1.0;
+        }
+
+        // Figure out which pairs to recompute.
+        pairs_to_calc.clear();
+        for (auto nbr_itr = g.neighbors(node_with_max_orbit).begin();
+                  nbr_itr != g.neighbors(node_with_max_orbit).end(); nbr_itr++){
+            for (b = 0; b < int(n); b++) {
+                if (b == int(node_with_max_orbit) || b == *nbr_itr) {
+                    continue;
+                } else if (b < *nbr_itr) {
+                    min = b;
+                    max = *nbr_itr;
+                } else {
+                    min = *nbr_itr;
+                    max = b;
+                }
+                if (old_mat[start_indices[min] + (max - min)] < 1.0) {
+                    SYM__pair_insert(pairs_to_calc, min, max);
+                }
+            }
+        }
+
+        // Run until convergence
+        while (pairs_to_calc.size() > 0) {
+            next_pairs_to_calc.clear();
+            perform_wl_diff_iteration(g, edge_coloring,
+                                      cost_matrix, col_for_row, row_for_col,
+                                      u, v, workspace,
+                                      old_mat, new_mat,
+                                      start_indices,
+                                      pairs_to_calc, next_pairs_to_calc);
+
+            // Copy all changes from new mat into old mat
+            for (auto a_itr = pairs_to_calc.begin();
+                      a_itr != pairs_to_calc.end(); a_itr++) {
+                a = a_itr->first;
+                for (auto b_itr = a_itr->second.begin();
+                          b_itr != a_itr->second.end(); b_itr++) {
+                    b = *b_itr;
+                    old_mat[start_indices[a] + (b - a)] =
+                        new_mat[start_indices[a] + (b - a)];
+                }
+            }
+
+            std::swap(pairs_to_calc, next_pairs_to_calc);
+        }
+
+        // Collect results
+
+        max_orbit_size = 0.0;
+        for (a = 0; a < int(n); a++) {
+            value = wl_orbit_size(a, n, old_mat, start_indices);
+            if (value > max_orbit_size) {
+                max_orbit_size = value;
+                node_with_max_orbit = a;
+            }
+        }
+    }
+
+    return log2_aut_approx;
 }
 
 long double wl_orbit_size(const size_t node, const size_t num_nodes,
                           const double* pw_scores,
                           const size_t* start_indices) {
     // TODO: Experiment with this exponent value (or make it principled)
-    const long double EXPONENT = 3.0;
+    const long double EXPONENT = 2.0;
     long double size = 0.0;
     long double similarity;
     size_t min, max;
     for (size_t a = 0; a < num_nodes; a++) {
         if (a == node) {
+            size += 1.0;
             continue;
         } else if (a < node) {
             min = a;
