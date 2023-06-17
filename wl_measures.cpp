@@ -96,7 +96,7 @@ double* wl_node_differences(const Graph& g,
     for (a = 0; a < (int) n; a++) {
         for (b = a + 1; b < (int) n; b++) {
             if (pw_scores_1[start_indices[a] + (b - a)] == 1.0 ||
-                   (g.neighbors(a).size() == 0 && g.neighbors(b).size() == 0)) {
+                   g.neighbors(a).size() == 0 || g.neighbors(b).size() == 0) {
                 // Distance to node is always 1.0 (or 0.0). Don't recalculate.
                 continue;
             }
@@ -238,7 +238,8 @@ long double wl_symmetry_measure(const Graph& g,
         for (auto nbr_itr = g.neighbors(node_with_max_orbit).begin();
                   nbr_itr != g.neighbors(node_with_max_orbit).end(); nbr_itr++){
             for (b = 0; b < int(n); b++) {
-                if (b == int(node_with_max_orbit) || b == *nbr_itr) {
+                if (b == int(node_with_max_orbit) || b == *nbr_itr ||
+                        g.neighbors(b).size() == 0) {
                     continue;
                 } else if (b < *nbr_itr) {
                     min = b;
