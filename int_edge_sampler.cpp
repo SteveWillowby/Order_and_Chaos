@@ -32,8 +32,8 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
     for (size_t a = 0; a < n; a++) {
         tasks.push_back({&g, a});
     }
-    const std::vector<std::vector<double>>& uniqueness =
-                                        tpwls.get_uniqueness(&tasks);
+    const std::vector<std::vector<double>>& fuzzy_orbit_sizes =
+                                        tpwls.get_fuzzy_orbit_sizes(&tasks);
 
     heuristic_scores = std::vector<long double>(n*n, 0.0);
     bool self_loops = g.num_loops() > 0;
@@ -67,11 +67,10 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
             }
             edge_int = a * n + b;
             if (legal_edges.num_edges() == 0 || legal_edges.has_edge(a, b)) {
-                // TODO: Consider taking the square root somewhere
-                score = ((long double) uniqueness[0][a] + non_zero) * 
-                               ((long double) uniqueness[a + 1][b] + non_zero) +
-                        ((long double) uniqueness[0][b] + non_zero) *
-                               ((long double) uniqueness[b + 1][a] + non_zero);
+                score = ((long double) fuzzy_orbit_sizes[0][a] + non_zero) * 
+                         ((long double) fuzzy_orbit_sizes[a+1][b] + non_zero) +
+                        ((long double) fuzzy_orbit_sizes[0][b] + non_zero) *
+                         ((long double) fuzzy_orbit_sizes[b+1][a] + non_zero);
             } else {
                 score = 0.0;
             }

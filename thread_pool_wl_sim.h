@@ -23,11 +23,11 @@ public:
     ~ThreadPoolWLSim();
 
     // IMPORTANT: The vector returned may have extra elements at the end.
-    //  Thus you must ignore get_uniqueness().size().
+    //  Thus you must ignore get_fuzzy_orbit_sizes().size().
     //
     // A task consists of a graph and a node ID (for node-centric computation).
     //  If node-centric is not desired, pass -1 as the node.
-    const std::vector<std::vector<double>>& get_uniqueness(
+    const std::vector<std::vector<double>>& get_fuzzy_orbit_sizes(
             const std::vector<std::pair<const Graph*, size_t>>* tasks);
 
     void terminate();
@@ -51,8 +51,9 @@ protected:
     std::vector<ptrdiff_t*> col_for_row_vec;
     std::vector<ptrdiff_t*> row_for_col_vec;
     std::vector<void*> workspaces;
+    std::vector<Coloring<int>> node_colorings;
 
-    std::vector<std::vector<double>> uniqueness_vec;
+    std::vector<std::vector<double>> orbits_vec;
 
     bool terminate_pool;
 

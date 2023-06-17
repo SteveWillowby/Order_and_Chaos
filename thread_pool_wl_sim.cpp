@@ -2,7 +2,7 @@
 #include "edge.h"
 #include "nt_sparse_graph.h"
 #include "Jonker_Volgenant/src/assignAlgs2D.h"
-#include "wl_similarity.h"
+#include "wl_measures.h"
 #include "thread_pool_wl_sim.h"
 
 #include<condition_variable>
@@ -10,6 +10,7 @@
 #include<mutex>
 #include<thread>
 #include<unordered_set>
+#include<utility>
 #include<vector>
 
 ThreadPoolWLSim::ThreadPoolWLSim(size_t nt, size_t n) : num_threads(
@@ -20,7 +21,7 @@ ThreadPoolWLSim::ThreadPoolWLSim(size_t nt, size_t n) : num_threads(
     tasks_begun = 0;
     num_tasks = 0;
     threads_working = threads_launched = 0;
-    uniqueness_vec = std::vector<std::vector<double>>();
+    orbits_vec = std::vector<std::vector<double>>();
     pool = std::vector<std::thread>();
 
     start_indices = new size_t[n];
@@ -37,6 +38,7 @@ ThreadPoolWLSim::ThreadPoolWLSim(size_t nt, size_t n) : num_threads(
     col_for_row_vec = std::vector<ptrdiff_t*>();
     row_for_col_vec = std::vector<ptrdiff_t*>();
     workspaces = std::vector<void*>();
+    node_colorings = std::vector<Coloring<int>>();
 
     for (size_t i = 0; i < num_threads; i++) {
         u_vec.push_back(new double[n]);
@@ -47,6 +49,11 @@ ThreadPoolWLSim::ThreadPoolWLSim(size_t nt, size_t n) : num_threads(
         col_for_row_vec.push_back(new ptrdiff_t[n]);
         row_for_col_vec.push_back(new ptrdiff_t[n]);
         workspaces.push_back(malloc(assign2DCBufferSize(n, n)));
+        // Add a blank node coloring
+        node_colorings.emplace_back();
+        for (int j = 0; j < int(n); j++) {
+            node_colorings[i].set(j, 0);
+        }
     }
 
     std::unique_lock<std::mutex> launch_lock(m_launch);
@@ -73,7 +80,7 @@ ThreadPoolWLSim::~ThreadPoolWLSim() {
     }
 }
 
-const std::vector<std::vector<double>>& ThreadPoolWLSim::get_uniqueness(
+const std::vector<std::vector<double>>& ThreadPoolWLSim::get_fuzzy_orbit_sizes(
                 const std::vector<std::pair<const Graph*, size_t>>* tasks) {
 
     std::unique_lock<std::mutex> begin_lock(m_worker_meta);
@@ -82,8 +89,8 @@ const std::vector<std::vector<double>>& ThreadPoolWLSim::get_uniqueness(
     // Prepare jobs.
     task_vec = tasks;
     num_tasks = task_vec->size();
-    while (uniqueness_vec.size() < num_tasks) {
-        uniqueness_vec.push_back(std::vector<double>(num_nodes, 0.0));
+    while (orbits_vec.size() < num_tasks) {
+        orbits_vec.push_back(std::vector<double>(num_nodes, 0.0));
     }
     tasks_begun = 0;
     threads_working = 0;
@@ -96,7 +103,7 @@ const std::vector<std::vector<double>>& ThreadPoolWLSim::get_uniqueness(
     done_wait_signal.wait(done_lock);
     done_lock.unlock();
 
-    return uniqueness_vec; 
+    return orbits_vec; 
 }
 
 void ThreadPoolWLSim::terminate() {
@@ -119,7 +126,7 @@ void ThreadPoolWLSim::run() {
     launch_lock.unlock();
     launch_wait_signal.notify_one();
 
-    size_t task_id, a, b;
+    size_t task_id;
 
     std::unique_lock<std::mutex> done_lock(m_tasks_done);
     done_lock.unlock();
@@ -152,8 +159,15 @@ void ThreadPoolWLSim::run() {
 
             // Do task # task_id
 
-            double* sim =wl_similarity_measure(false, NULL,
-                                               *(task.first), task.second,
+            // Highlighted node is task.second, unless task.second is -1
+            Coloring<int>* highlighted_node = NULL;
+            if (task.second != size_t(-1)) {
+                highlighted_node = &(node_colorings[thread_id]);
+                highlighted_node->set(task.second, 1);
+            }
+
+            double* diff = wl_node_differences(*(task.first),
+                                               highlighted_node, NULL,
                                                cost_matrices[thread_id],
                                                col_for_row_vec[thread_id],
                                                row_for_col_vec[thread_id],
@@ -164,20 +178,15 @@ void ThreadPoolWLSim::run() {
                                                difference_matrices_2[thread_id],
                                                start_indices);
 
+            if (task.second != size_t(-1)) {
+                // Reset coloring
+                highlighted_node->set(task.second, 0);
+            }
+
             // Get the relevant sums                                   
             for (size_t i = 0; i < num_nodes; i++) {
-                double v = 0.0;  // Sum of diff between i and all other nodes
-                for (size_t j = 0; j < num_nodes; j++) {
-                    if (i <= j) {
-                        a = i;
-                        b = j;
-                    } else {
-                        a = j;
-                        b = i;
-                    }
-                    v += sim[start_indices[a] + (b - a)];
-                }
-                uniqueness_vec[task_id][i] = v / ((double) (num_nodes - 1));
+                orbits_vec[task_id][i] = wl_orbit_size(i, num_nodes, diff,
+                                                       start_indices);
             }
 
             l.lock();

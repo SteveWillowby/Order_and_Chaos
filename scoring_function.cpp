@@ -2,7 +2,7 @@
 #include "edge.h"
 #include "nauty_traces.h"
 #include "nt_sparse_graph.h"
-#include "wl_similarity.h"
+#include "wl_measures.h"
 
 #include "scoring_function.h"
 
@@ -196,6 +196,14 @@ std::pair<long double, long double>
                            ((long double)(nt_results.num_aut_exponent)) *
                                             comb_util.log2(10);
 
+    long double heuristic_log2_stabilizer_size =
+                      wl_symmetry_measure(g, NULL,
+                                          &editable_edge_orbit_coloring, NULL,
+                                          cost_matrix,
+                                          col_for_row, row_for_col, u, v,
+                                          workspace, pw_scores_1, pw_scores_2,
+                                          start_indices);
+
     // Perform the edge deletions in actuality.
     for (auto edge_itr = edge_removals.begin();
               edge_itr != edge_removals.end(); edge_itr++) {
@@ -208,10 +216,11 @@ std::pair<long double, long double>
                           ((long double)(nt_results.num_aut_exponent)) *
                                            comb_util.log2(10);
 
-    long double heuristic;
-    wl_similarity_measure(true, &heuristic, g, -1, cost_matrix,
-                          col_for_row, row_for_col, u, v,
-                          workspace, pw_scores_1, pw_scores_2, start_indices);
+    long double heuristic_log2_symmetry =
+                      wl_symmetry_measure(g, NULL, NULL, NULL, cost_matrix,
+                                          col_for_row, row_for_col, u, v,
+                                          workspace, pw_scores_1, pw_scores_2,
+                                          start_indices);
 
     // Restore the deleted edges.
     for (auto edge_itr = edge_removals.begin();
@@ -247,7 +256,7 @@ std::pair<long double, long double>
     // Perform the probability calculations.
     return std::pair<long double, long double>(
            ((2.0 * log2_hypothesis_aut) - log2_stabilizer_size) + log2_sequence,
-           heuristic);
+           ((2.0 * heuristic_log2_symmetry) - heuristic_log2_stabilizer_size));
 }
 
 long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
