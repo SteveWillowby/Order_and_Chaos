@@ -256,7 +256,8 @@ std::pair<long double, long double>
     // Perform the probability calculations.
     return std::pair<long double, long double>(
            ((2.0 * log2_hypothesis_aut) - log2_stabilizer_size) + log2_sequence,
-           ((2.0 * heuristic_log2_symmetry) - heuristic_log2_stabilizer_size));
+           // heuristic_log2_symmetry);
+            ((2.0 * heuristic_log2_symmetry) - heuristic_log2_stabilizer_size));
 }
 
 long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,

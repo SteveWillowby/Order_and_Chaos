@@ -15,14 +15,16 @@
 
 int main(void) {
 
+    const size_t num_threads = 1;
+
     const bool directed = false;
     std::cout<<"## Directed?   "<<(directed ? "Yes" : "No")<<std::endl;
     const size_t num_nodes = 5;
     const size_t num_edges = 5;
     const size_t num_additions = 1;
     const size_t num_deletions = 1;
-    const size_t num_noise_sets = 8;
-    const size_t num_rounds = 5;
+    const size_t num_noise_sets = 1;
+    const size_t num_rounds = 18;
     const size_t max_possible_edges =
             (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed));
     const size_t max_flip_or_edge = num_edges * 2;
@@ -87,7 +89,7 @@ int main(void) {
 
     std::cout<<"Creating Thread Pool Scorer..."<<std::endl;
 
-    ThreadPoolScorer TPS(2, g, comb_util,
+    ThreadPoolScorer TPS(num_threads, g, comb_util,
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
                          log2_1_minus_p_plus, log2_1_minus_p_minus,

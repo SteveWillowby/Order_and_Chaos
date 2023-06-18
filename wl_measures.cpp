@@ -193,6 +193,7 @@ long double wl_symmetry_measure(const Graph& g,
         }
     }
 
+    int a, b;
     std::memcpy(new_mat, old_mat, matrix_size * sizeof(double));
 
     // Quit when the largest orbit size is no larger than QUIT_FACTOR
@@ -202,7 +203,6 @@ long double wl_symmetry_measure(const Graph& g,
     long double log2_aut_approx = 0.0;
     long double max_orbit_size = 0.0;
     int node_with_max_orbit = 0;
-    int a, b;
     for (a = 0; a < int(n); a++) {
         value = wl_orbit_size(a, n, old_mat, start_indices);
         if (value > max_orbit_size) {
@@ -435,8 +435,8 @@ void initialize_wl_diff_matrix(const Graph& g,
             bon = g.out_neighbors(b).size();
             ain =  g.in_neighbors(a).size();
             bin =  g.in_neighbors(b).size();
-            if (aon || bon == 0.0) {
-                if (aon && bon == 0.0) {
+            if (aon == 0.0 || bon == 0.0) {
+                if (aon == 0.0 && bon == 0.0) {
                     o = 0.0;  // Both singletons
                 } else {
                     o = 1.0;  // One singleton
@@ -445,8 +445,8 @@ void initialize_wl_diff_matrix(const Graph& g,
                 // Both have edges
                 o = SYM__abs_diff(aon, bon) / SYM__max(aon, bon);
             }
-            if (ain || bin == 0.0) {
-                if (ain && bin == 0.0) {
+            if (ain == 0.0 || bin == 0.0) {
+                if (ain  == 0.0 && bin == 0.0) {
                     i = 0.0;  // Both singletons
                 } else {
                     i = 1.0;  // One singleton
@@ -455,7 +455,7 @@ void initialize_wl_diff_matrix(const Graph& g,
                 // Both have edges
                 i = SYM__abs_diff(ain, bin) / SYM__max(ain, bin);
             }
-            the_matrix[start_indices[a] + (b - a)] = i + o;
+            the_matrix[start_indices[a] + (b - a)] = (i + o) / 2.0;
         }
     }
 
@@ -588,6 +588,7 @@ void perform_wl_diff_iteration(const Graph& g,
                     throw std::logic_error(
                             "Assignment problem deemed infeasible.");
                 }
+
                 next_value += diff / double(square_size);
 
             }
