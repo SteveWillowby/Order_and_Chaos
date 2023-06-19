@@ -78,6 +78,7 @@ std::pair<long double, long double>
                   const long double log2_1_minus_p_plus,
                   const long double log2_1_minus_p_minus,
                   const size_t max_change,
+                  const double* precomputed_wl_diff,
                   double* cost_matrix,
                   ptrdiff_t* col_for_row, ptrdiff_t* row_for_col,
                   double* u, double* v,

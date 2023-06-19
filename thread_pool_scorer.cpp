@@ -3,9 +3,11 @@
 #include "nt_sparse_graph.h"
 #include "scoring_function.h"
 #include "thread_pool_scorer.h"
+#include "wl_measures.h"
 #include "Jonker_Volgenant/src/assignAlgs2D.h"
 
 #include<condition_variable>
+#include<cstring>
 #include<memory>
 #include<mutex>
 #include<thread>
@@ -45,6 +47,7 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
     pool = std::vector<std::thread>();
 
     size_t n = base_graph.num_nodes();
+    size_t matrix_size = ((n * (n - 1)) / 2) + n;
     if (use_heuristic) {
 
         start_indices = new size_t[n];
@@ -61,6 +64,8 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
         col_for_row_vec = std::vector<ptrdiff_t*>();
         row_for_col_vec = std::vector<ptrdiff_t*>();
         workspaces = std::vector<void*>();
+
+        precomputed_wl_diff = new double[matrix_size];
     }
 
     for (size_t i = 0; i < num_threads; i++) {
@@ -70,8 +75,8 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
         if (use_heuristic) {
             u_vec.push_back(new double[n]);
             v_vec.push_back(new double[n]);
-            difference_matrices_1.push_back(new double[n * n]);
-            difference_matrices_2.push_back(new double[n * n]);
+            difference_matrices_1.push_back(new double[matrix_size]);
+            difference_matrices_2.push_back(new double[matrix_size]);
             cost_matrices.push_back(new double[n * n]);
             col_for_row_vec.push_back(new ptrdiff_t[n]);
             row_for_col_vec.push_back(new ptrdiff_t[n]);
@@ -87,6 +92,17 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
         }
     }
 
+    if (use_heuristic) {
+        double* temp =
+            wl_node_differences(base_graph, NULL, NULL, cost_matrices[0],
+                                col_for_row_vec[0], row_for_col_vec[0],
+                                u_vec[0], v_vec[0], workspaces[0],
+                                difference_matrices_1[0],
+                                difference_matrices_2[0],
+                                start_indices);
+        std::memcpy(precomputed_wl_diff, temp, matrix_size * sizeof(double));
+    }
+
     std::unique_lock<std::mutex> launch_lock(m_launch);
     for (size_t i = 0; i < num_threads; i++) {
         pool.push_back(std::thread(&ThreadPoolScorer::run, this));
@@ -100,6 +116,7 @@ ThreadPoolScorer::~ThreadPoolScorer() {
 
     if (use_heuristic) {
         delete start_indices;
+        delete precomputed_wl_diff;
         for (size_t i = 0; i < num_threads; i++) {
             delete u_vec[i];
             delete v_vec[i];
@@ -206,6 +223,7 @@ void ThreadPoolScorer::run() {
                                            log2_1_minus_p_plus,
                                            log2_1_minus_p_minus,
                                            max_change_size,
+                                           precomputed_wl_diff,
                                            cost_matrices[thread_id],
                                            col_for_row_vec[thread_id],
                                            row_for_col_vec[thread_id],

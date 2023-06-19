@@ -55,6 +55,7 @@ protected:
     std::vector<ptrdiff_t*> col_for_row_vec;
     std::vector<ptrdiff_t*> row_for_col_vec;
     std::vector<void*> workspaces;
+    double* precomputed_wl_diff;
 
     std::vector<std::unique_ptr<EdgeSetPair>> *task_vec;
     std::vector<std::pair<long double, long double>> score_vec;

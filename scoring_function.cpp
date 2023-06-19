@@ -135,6 +135,7 @@ std::pair<long double, long double>
                   const long double log2_1_minus_p_plus,
                   const long double log2_1_minus_p_minus,
                   const size_t max_change,
+                  const double* precomputed_wl_diff,
                   double* cost_matrix,
                   ptrdiff_t* col_for_row, ptrdiff_t* row_for_col,
                   double* u, double* v, void* workspace,
@@ -198,7 +199,8 @@ std::pair<long double, long double>
 
     long double heuristic_log2_stabilizer_size =
                       wl_symmetry_measure(g, NULL,
-                                          &editable_edge_orbit_coloring, NULL,
+                                          &editable_edge_orbit_coloring,
+                                          precomputed_wl_diff,
                                           cost_matrix,
                                           col_for_row, row_for_col, u, v,
                                           workspace, pw_scores_1, pw_scores_2,
