@@ -7,6 +7,7 @@
 #include<memory>
 #include<mutex>
 #include<random>
+#include<string>
 #include<unordered_set>
 #include<utility>
 #include<vector>
@@ -48,6 +49,8 @@
 //  `legal_edges` is used if you want to constrain which edges can be part of
 //      the noise. If you want to include all edges as an option, make
 //      `legal_edges` an empty graph on the same number of nodes as `g`.
+//
+//  `file_base` says what to write the outputs to
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                  genetic_alg_search(const Graph& g,
                                     size_t num_iterations,
@@ -59,7 +62,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     const std::vector<long double>& log_probs,
                                     float max_change_factor,
                                     bool use_heuristic,
-                                    const Graph& legal_edges);
+                                    const Graph& legal_edges,
+                                    const std::string& file_base);
 
 class GenePool;
 class GeneEdgeSetPair;
@@ -131,7 +135,7 @@ public:
              bool use_heuristic);
 
     // Grows the population by 10x
-    //  (creates 5x matings and 4x mutations)
+    //  (creates 3x matings and 6x mutations)
     // Then scores the new entries
     // Lastly culls the pop back down to pop_size
     void evolve(ThreadPoolScorer& tps);

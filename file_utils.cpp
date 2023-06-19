@@ -82,18 +82,21 @@ SparseGraph read_graph(const bool directed,
 
 void write_graph(const Graph& g, const std::string& nodelist_filename,
                                  const std::string& edgelist_filename) {
-    std::ofstream nodelist(nodelist_filename);
-    if (!nodelist) {
-        throw std::invalid_argument("Error! Could not open file "
-                                    + nodelist_filename);
-    }
-    for (int i = 0; i < int(g.num_nodes()); i++) {
-        nodelist << i;
-        if (i < int(g.num_nodes() - 1)) {
-            nodelist << std::endl;
+    if (!nodelist_filename.empty()) {
+        // We have a nodelist filename
+        std::ofstream nodelist(nodelist_filename);
+        if (!nodelist) {
+            throw std::invalid_argument("Error! Could not open file "
+                                        + nodelist_filename);
         }
+        for (int i = 0; i < int(g.num_nodes()); i++) {
+            nodelist << i;
+            if (i < int(g.num_nodes() - 1)) {
+                nodelist << std::endl;
+            }
+        }
+        nodelist.close();
     }
-    nodelist.close();
 
     std::ofstream edgelist(edgelist_filename);
     if (!edgelist) {

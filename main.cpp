@@ -54,6 +54,14 @@ int main(int argc, char* argv[]) {
                  <<"will be 0, 1, 2, ..., X, where "<<std::endl
                  <<"\t\t\t\tX is the max node label in the edgelist."
                  <<std::endl<<std::endl
+                 <<"-o <arg>:\toutput filename base -- will append .txt "
+                 <<"automatically"<<std::endl<<"\t\t\t* For example, if you "
+                 <<"enter -o experiments/test_results/f"<<std::endl
+                 <<"\t\t\t\tthen every iteration the top noise will be written"
+                 <<std::endl<<"\t\t\t\tto experiments/test_results/f_noise.txt "
+                 <<"and the top"<<std::endl<<"\t\t\t\tgraph to experiments/"
+                 <<"test_results/f_graph.txt"
+                 <<std::endl<<std::endl
                  <<std::endl<<"OPTIONAL:"<<std::endl<<std::endl
                  <<"-nodes <arg>:\tnodelist filename (including path)"
                  <<std::endl<<std::endl
@@ -178,6 +186,9 @@ int main(int argc, char* argv[]) {
 
     std::string edgelist_file;
     edgelist_file = get_cmd_option(inputs, "-graph");
+
+    std::string output_file;
+    output_file = get_cmd_option(inputs, "-o");
 
     std::string nodelist_file = "";  // No nodelist
     if (cmd_flag_present(inputs, "-nodes")) {
@@ -443,7 +454,8 @@ std::to_string(legal_adds) + " options due to -legal_noise");
                                          log_probs,
                                          max_change_factor,
                                          use_heuristic,
-                                         legal_noise);
+                                         legal_noise,
+                                         output_file);
 
         // Report the results
         NTSparseGraph reporter = NTSparseGraph(g);

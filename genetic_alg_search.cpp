@@ -1,5 +1,6 @@
 #include "basic_edge_set.h"
 #include "edge.h"
+#include "file_utils.h"
 #include "genetic_alg_search.h"
 #include "graph.h"
 #include "int_edge_sampler.h"
@@ -12,6 +13,7 @@
 #include<memory>
 #include<mutex>
 #include<stdexcept>
+#include<string>
 #include<unordered_set>
 #include<utility>
 #include<vector>
@@ -27,7 +29,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     const std::vector<long double>& log_probs,
                                     float max_change_factor,
                                     bool use_heuristic,
-                                    const Graph& legal_edges) {
+                                    const Graph& legal_edges,
+                                    const std::string& file_base) {
     // Initialize Basics
 
     NTSparseGraph g_nt(g);
@@ -98,17 +101,42 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Initialization of Gene Population
 
-    size_t pop_size = (g.num_nodes() / 4 + 1) *
-                      (g.num_nodes() < 200 ? 200 : g.num_nodes());
+    // size_t pop_size = (g.num_nodes() / 4 + 1) *
+    //                   (g.num_nodes() < 200 ? 200 : g.num_nodes());
+    size_t pop_size = size_t(std::pow(g.num_nodes() + 400, 1.4));
     GenePool gp(g, iecas, gene_depth, pop_size, k, use_heuristic);
+
+    std::string output_graph_file = file_base + "_graph.txt";
+    std::string output_noise_file = file_base + "_noise.txt";
+    std::string output_nodes_file = file_base + "_nodes.txt";
+
+    SparseGraph noise_graph(g.directed, g.num_nodes());
+    SparseGraph modified_graph(g);
 
     for (size_t i = 0; i < num_iterations; i++) {
         std::cout<<"Beginning Iteration "<<(i + 1)<<"..."<<std::endl;
 
         gp.evolve(tps);
 
+        const std::vector<std::pair<std::unordered_set<Edge,EdgeHash>,
+                                    long double>>& top_k = gp.top_k_results();
+
         std::cout<<"...Finished iteration with a best score of "
-                 <<(gp.top_k_results()[0].second)<<std::endl<<std::endl;
+                 <<(top_k[0].second)<<std::endl<<std::endl;
+
+        // Write out the current best solutions
+        const std::unordered_set<Edge, EdgeHash>& noise = top_k[0].first;
+        for (auto edge_itr=noise.begin(); edge_itr != noise.end(); edge_itr++) {
+            noise_graph.add_edge(edge_itr->first, edge_itr->second);
+            modified_graph.flip_edge(edge_itr->first, edge_itr->second);
+        }
+        write_graph(noise_graph, output_nodes_file, output_noise_file);
+        write_graph(modified_graph, output_nodes_file, output_graph_file);
+        for (auto edge_itr=noise.begin(); edge_itr != noise.end(); edge_itr++) {
+            noise_graph.delete_edge(edge_itr->first, edge_itr->second);
+            modified_graph.flip_edge(edge_itr->first, edge_itr->second);
+        }
+
     }
 
     return gp.top_k_results();
@@ -360,13 +388,13 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
 }
 
 // Grows the population by 10x
-//  (creates 5x matings and 4x mutations)
+//  (creates 3x matings and 6x mutations)
 // Then scores the new entries
 // Lastly culls the pop back down to pop_size
 void GenePool::evolve(ThreadPoolScorer& tps) {
 
     // Figure out how many mutations to perform.
-    const size_t mutate_factor = 4;
+    const size_t mutate_factor = 6;
     size_t mutate_start_size = pool_vec[depth - 1].size();
     size_t mutate_end_size = pop_size * (mutate_factor + 1);
     if (mutate_start_size == 1) {
@@ -383,7 +411,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     }
 
     // Figure out how many matings to perform.
-    const size_t mate_factor = 5;
+    const size_t mate_factor = 3;
     size_t mate_start_size = mutate_end_size;
     size_t mate_end_size = mate_start_size * (mate_factor + 1);
     if (mate_start_size > pop_size) {

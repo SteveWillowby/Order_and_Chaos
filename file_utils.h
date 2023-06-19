@@ -17,6 +17,7 @@ SparseGraph read_graph(const bool directed,
                        const std::string& nodelist_filename,
                        const std::string& edgelist_filename);
 
+// Note: if nodelist is empty then no nodelist is written
 void write_graph(const Graph& g, const std::string& nodelist_filename,
                                  const std::string& edgelist_filename);
 

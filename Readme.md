@@ -68,26 +68,22 @@ To see the command-line options, run `executables/main -h`
 In the example below, we get the modified version of a college football season team-plays-team graph. Then we extract the modified graph from the result file and re-run the algorithm on the modified graph, this time more slowly (using the heuristic).
 
 ```
-nice -2 executables/main -graph experiments/real_world_graphs/season_4_undirected_edges.txt -nodes experiments/real_world_graphs/season_4_undirected_nodes.txt -n_itr=200 >> experiments/test_results/season_4_undir.txt
+nice -2 executables/main -graph experiments/real_world_graphs/season_4_undirected_edges.txt -nodes experiments/real_world_graphs/season_4_undirected_nodes.txt -n_itr=200 >> experiments/test_results/season_4_undir.txt -o experiments/test_results/season_4_undir
 
-cd experiments/plotting_code
+cd experiments
 
-python3 build_result_graph.py ../real_world_graphs/season_4_undirected_nodes.txt ../real_world_graphs/season_4_undirected_edges.txt ../test_results/season_4_undir.txt
-
-cd ..
-
-python3 make_node_list.py plotting_code/strucure_graph.txt
+python3 make_node_list.py test_results/season_4_undir_graph.txt
 
 cd ..
 
-nice -2 executables/main -graph experiments/plotting_code/structure_graph.txt -nodes experiments/plotting_code/structure_graph_nodes.txt -n_itr=50 -use_heuristic
+nice -2 executables/main -graph experiments/test_results/season_4_undir_graph.txt -nodes experiments/test_results/season_4_undir_graph_nodes.txt -n_itr=50 -use_heuristic -o experiments/test_results/season_4_core
 ```
 
 
 In the example below, we take a 120-node Johnson graph, randomly modify 1% of its connections (measured in terms of the number of its edges), and then see if the algorithm can find the original graph.
 
 ```
-time nice -2 executables/main -graph experiments/simple_test_graphs/johnson_10_3_120_edges.txt -nodes experiments/simple_test_graphs/johnson_10_3_120_nodes.txt -noise- 0.005 -noise+ 0.005 -n_itr 140
+time nice -2 executables/main -graph experiments/simple_test_graphs/johnson_10_3_120_edges.txt -nodes experiments/simple_test_graphs/johnson_10_3_120_nodes.txt -noise- 0.005 -noise+ 0.005 -n_itr 140 -o experiments/test_results/johnson_120
 ```
 
 (TODO: Fill in)
