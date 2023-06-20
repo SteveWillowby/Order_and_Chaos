@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
                  <<"-topk <arg>:\tnumber of best results to return"
                  <<std::endl<<"\t\t\t* defaults to 10"
                  <<std::endl<<std::endl
-                 <<"-gdepth <arg>:\tgene depth -- must be >= 1 -- defaults to 2"
+                 <<"-gdepth <arg>:\tgene depth -- must be >= 1 -- defaults to 1"
                  <<std::endl<<std::endl
                  <<"-n_itr <arg>:\tnumber of iterations for genetic algorithm"
                  <<" -- must be >= 1"<<std::endl<<"\t\t\t* defaults to 80"
@@ -166,7 +166,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    size_t gene_depth = 2;
+    size_t gene_depth = 1;
     if (cmd_flag_present(inputs, "-gdepth")) {
         gene_depth = std::stoul(get_cmd_option(inputs, "-gdepth"));
         if (gene_depth == 0) {
