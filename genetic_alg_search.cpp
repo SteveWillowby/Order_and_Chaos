@@ -394,6 +394,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
 
     size_t prev_generation_size = pool_vec[depth - 1].size();
 
+    std::cout<<"\tScoring"<<std::endl;
+
     // Get scores for new members, if any
     if (in_need_of_scores > 0) {
         size_t score_start = prev_generation_size - in_need_of_scores;
@@ -422,7 +424,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     size_t num_kept = 1;  // Always keep the top scorer
     size_t top_score_idx = 0;
 
-    const size_t NUM_MUTATIONS = pop_size / 2;
+    const size_t NUM_MUTATIONS = pop_size / 4;
     const size_t NUM_MATINGS = pop_size - NUM_MUTATIONS;
 
     // Get Selection Probabilities -- and save top k scorers
@@ -475,7 +477,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     //      (NORMALIZER + 1) / NORMALIZER times as likely to be
     //  selected. (e.g. (.25 + 1) / .25 = 5)
     //    (normalizer = (1 / k) --> (k + 1) times as likely)
-    const long double NORMALIZER = 0.125;
+    const long double NORMALIZER = 0.0625;
 
     for (size_t i = 0; i < prev_generation_size; i++) {
         cumulative_probs[i] = ((carry_over_scores[i].first - min_score) / gap)
@@ -500,6 +502,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     std::pair<bool, Gene*> made;
 
     // Perform Mutations
+    std::cout<<"\tMutating"<<std::endl;
 
     const size_t FAILURE_MAX = 12;
 
@@ -546,6 +549,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
             break;
         }
     }
+
+    std::cout<<"\tMating"<<std::endl;
 
     // Perform Matings iff we have a pop to work with.
     if (prev_generation_size > 1) {
@@ -603,13 +608,18 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
 
     // Relevant for the next time evolve() is called.
     in_need_of_scores = current_pop_size - num_kept;
-    std::cout<<(100.0 * double(in_need_of_scores) / current_pop_size)
+    std::cout<<"\t\t"<<(100.0 * double(in_need_of_scores) / current_pop_size)
              <<"\% of genes are new."<<std::endl;
     size_t size_total = 0;
     for (size_t x = 0; x < prev_generation_size; x++) {
-        size_total += pool_vec[depth - 1][x]->edge_ints().size();
+        if (depth == 1) {
+            size_total += pool_vec[depth - 1][x]->edge_ints().size();
+        } else {
+            size_total += pool_vec[depth - 1][x]->sub_edge_ints().size();
+        }
     }
-    std::cout<<(double(size_total) / prev_generation_size)<<std::endl;
+    std::cout<<"\t\tAverage gene size: "
+             <<(double(size_total) / prev_generation_size)<<std::endl;
 
     // Delete old generation
     size_t i = 0;
