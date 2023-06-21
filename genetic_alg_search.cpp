@@ -480,7 +480,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     const long double NORMALIZER = 0.0625;
 
     for (size_t i = 0; i < prev_generation_size; i++) {
-        cumulative_probs[i] = ((carry_over_scores[i].first - min_score) / gap)
+        cumulative_probs[i] = ((carry_over_scores[i].first - min_score) / gap);
+        cumulative_probs[i] = cumulative_probs[i] * cumulative_probs[i]
                             + NORMALIZER;
     }
     for (size_t i = 1; i < prev_generation_size; i++) {
