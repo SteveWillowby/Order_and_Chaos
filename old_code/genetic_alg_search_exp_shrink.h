@@ -201,16 +201,6 @@ protected:
     // Then goes through all sub-genes and removes all unused ones.
     void cull();
 
-    // high_idx should be the number of elements being considered
-    //  (the vec might be longer than that, so can't use cum_probs.size())
-    //
-    // dist should be a 0, 1 distribution
-    //
-    // Returns the idx of the sample
-    size_t weighted_sample(const std::vector<long double>& cum_probs,
-                           size_t high_idx, std::mt19937& gen,
-                std::uniform_real_distribution<long double>& dist) const;
-
     const IntEdgeConverterAndSampler iecas;
 
     const size_t depth;
@@ -219,15 +209,6 @@ protected:
     const size_t k;
     const size_t n;
     const bool use_heuristic;
-
-    // Number of noise sets that should be scored in the next round
-    size_t in_need_of_scores;
-
-    // Scores for noise sets that were scored in the last generation
-    std::vector<std::pair<long double, long double>> carry_over_scores;
-
-    // Probabilities when selecting who mates/mutates
-    std::vector<long double> cumulative_probs;
 
     // For each depth level, stores a list of each Gene
     std::vector<std::vector<std::unique_ptr<Gene>>> pool_vec;

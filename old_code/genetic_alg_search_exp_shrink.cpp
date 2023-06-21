@@ -8,7 +8,6 @@
 #include "noise_prob_choice.h"
 #include "thread_pool_scorer.h"
 
-#include<algorithm>
 #include<iostream>
 #include<map>
 #include<memory>
@@ -102,9 +101,9 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 
     // Initialization of Gene Population
 
-    // size_t pop_size = (g.num_nodes() / 4 + 1) * 10 * // Note the 10
+    // size_t pop_size = (g.num_nodes() / 4 + 1) *
     //                   (g.num_nodes() < 200 ? 200 : g.num_nodes());
-    size_t pop_size = 10 * size_t(std::pow(g.num_nodes() + 400, 1.4));
+    size_t pop_size = size_t(std::pow(g.num_nodes() + 400, 1.4));
     GenePool gp(g, iecas, gene_depth, pop_size, k, use_heuristic);
 
     std::string output_graph_file = file_base + "_graph.txt";
@@ -339,6 +338,10 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
     // For each depth level, stores a list of each Gene
     pool_vec = std::vector<std::vector<std::unique_ptr<Gene>>>();
 
+    // Stores how many times a gene is referenced
+    //  Used to know when to delete lower-level genes
+    // pool_counts = std::vector<std::vector<size_t>>(); // TODO: remove
+
     used = std::vector<std::vector<bool>>();
 
     // Scores for top-level genes - maps a score to a map of
@@ -354,21 +357,17 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
     // For each depth level, maps a hash of a Gene to its index in pool_vec
     pool_map = std::vector<std::unordered_map<size_t, size_t>>();
 
+    // For each depth level, the number of threads reading the pool map
+    // num_reading = std::vector<size_t>(depth, 0); // TODO: remove
+
     // A mutex for each depth level
     pool_locks = std::vector<std::mutex>(depth);
 
-    // Number of noise sets that should be scored in the next round
-    in_need_of_scores = 1;
-
-    // Scores for noise sets that were scored in the last generation
-    carry_over_scores = std::vector<std::pair<long double, long double>>(
-                            pop_size, {-INFINITY, -INFINITY});  // Dummy scores
-
-    // Probabilities when selecting who mates/mutates
-    cumulative_probs = std::vector<long double>(pop_size, 0.0);
-
     Gene* gene = NULL;
     for (size_t i = 0; i < depth; i++) {
+        // if (i < depth - 1) {
+        //     pool_counts.push_back(std::vector<size_t>()); // TODO: remove
+        // }
         used.push_back(std::vector<bool>());
         pool_map.push_back(std::unordered_map<size_t, size_t>());
         pool_vec.push_back(std::vector<std::unique_ptr<Gene>>());
@@ -384,288 +383,15 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
 
     top_k = std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
                                   long double>>();
+
+    // awaiting_scores = std::vector<size_t>(); TODO: remove
 }
 
-// Score the un-scored population
-//  Use scores to select who mutates and mates
-//  Delete the parent generation (unless a child equals a parent)
-//      (And make sure to keep the top scoring noise set)
+// Grows the population by 10x
+//  (creates 3x matings and 6x mutations)
+// Then scores the new entries
+// Lastly culls the pop back down to pop_size
 void GenePool::evolve(ThreadPoolScorer& tps) {
-
-    size_t prev_generation_size = pool_vec[depth - 1].size();
-
-    // Get scores for new members, if any
-    if (in_need_of_scores > 0) {
-        size_t score_start = prev_generation_size - in_need_of_scores;
-
-        std::vector<std::unique_ptr<EdgeSetPair>> tasks =
-                    std::vector<std::unique_ptr<EdgeSetPair>>();
-
-        for (size_t i = score_start; i < prev_generation_size; i++) {
-            tasks.push_back(std::unique_ptr<EdgeSetPair>(
-                    new GeneEdgeSetPair(iecas, *(pool_vec[depth - 1][i]))));
-        }
-
-        // Get scores for new members
-        const std::vector<std::pair<long double, long double>>& new_scores =
-                    tps.get_scores(&tasks);
-
-        for (size_t i = 0; i < in_need_of_scores; i++) {
-            carry_over_scores[score_start + i] = new_scores[i];
-        }
-    }
-
-    // Now all scores are in carry_over_scores
-
-    std::vector<bool> to_keep = std::vector<bool>(pop_size, false);
-    std::vector<size_t> keeper_indices = std::vector<size_t>();
-    size_t num_kept = 1;  // Always keep the top scorer
-    size_t top_score_idx = 0;
-
-    const size_t NUM_MUTATIONS = pop_size / 2;
-    const size_t NUM_MATINGS = pop_size - NUM_MUTATIONS;
-
-    // Get Selection Probabilities -- and save top k scorers
-
-    // NOTE: Right now the code simply ignores the heuristic values
-    std::set<std::pair<std::pair<long double, long double>, size_t>> top_ks;
-    top_ks.insert({carry_over_scores[0], 0});
-
-    long double max_score = carry_over_scores[0].first;
-    long double min_score = max_score;
-    for (size_t i = 1; i < prev_generation_size; i++) {
-        if (carry_over_scores[i].first > max_score) {
-            max_score = carry_over_scores[i].first;
-            top_score_idx = i;
-        } else if (carry_over_scores[i].first < min_score) {
-            min_score = carry_over_scores[i].first;
-        }
-
-        if (top_ks.size() < k) {
-            top_ks.insert({carry_over_scores[i], i});
-        } else if (top_ks.begin()->first < carry_over_scores[i]) {
-            top_ks.erase(top_ks.begin());
-            top_ks.insert({carry_over_scores[i], i});
-        }
-    }
-    to_keep[top_score_idx] = true;
-    keeper_indices.push_back(top_score_idx);
-
-    // Save the top k to the vector
-    top_k.clear();
-    for (auto tk_itr = top_ks.rbegin(); tk_itr != top_ks.rend(); tk_itr++) {
-        GeneEdgeSetPair gesp(iecas, *pool_vec[depth - 1][tk_itr->second]);
-        std::pair<std::unordered_set<Edge, EdgeHash>,
-                  std::unordered_set<Edge, EdgeHash>> e_ne =
-                                        gesp.edges_and_non_edges();
-        for (auto e = e_ne.second.begin();
-                  e != e_ne.second.end(); e++) {
-            e_ne.first.insert(*e);
-        }
-        top_k.push_back(std::pair<std::unordered_set<Edge,EdgeHash>,
-                                  long double>(e_ne.first,tk_itr->first.first));
-    }
-
-    long double gap = (max_score - min_score);
-    if (gap == 0.0) {
-        gap = 1.0;
-    }
-
-    // The best-scoring object will be
-    //      (NORMALIZER + 1) / NORMALIZER times as likely to be
-    //  selected. (e.g. (.25 + 1) / .25 = 5)
-    //    (normalizer = (1 / k) --> (k + 1) times as likely)
-    const long double NORMALIZER = 0.125;
-
-    for (size_t i = 0; i < prev_generation_size; i++) {
-        cumulative_probs[i] = ((carry_over_scores[i].first - min_score) / gap)
-                            + NORMALIZER;
-    }
-    for (size_t i = 1; i < prev_generation_size; i++) {
-        cumulative_probs[i] += cumulative_probs[i - 1];
-    }
-    for (size_t i = 0; i < prev_generation_size - 1; i++) {
-        cumulative_probs[i] /= cumulative_probs[prev_generation_size - 1];
-    }
-    cumulative_probs[prev_generation_size - 1] = 1.0; // Just in case x / x != 1
-
-    // Now we have probabilities that we can sample with
-
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<SYM__edge_int_type> disti(0, n * n - 1);
-    std::uniform_real_distribution<double> distl(0.0, 1.0);
-    std::uniform_real_distribution<long double> distll(0.0, 1.0);
-    std::uniform_int_distribution<uint8_t> distbool(0, 1);
-    std::pair<bool, Gene*> made;
-
-    // Perform Mutations
-
-    const size_t FAILURE_MAX = 12;
-
-    size_t selected_idx, placement_idx, second_sel_idx;
-
-    size_t current_pop_size = num_kept;
-    size_t failure_count = 0;
-    while (current_pop_size < NUM_MUTATIONS) {
-        // Select a gene to mutate
-        selected_idx = weighted_sample(cumulative_probs, prev_generation_size,
-                                        gen, distll);
-
-
-        // See if we get a new gene
-        made = mutated(*pool_vec[depth - 1][selected_idx],
-                       gen, disti, distl, distll);
-
-        if (made.first) {
-            // New
-            current_pop_size++;
-            failure_count = 0;
-        } else if (made.second != NULL) {
-            placement_idx = pool_map[depth - 1][made.second->hash_value()];
-            if (placement_idx >= prev_generation_size) {
-                // Re-created one that's new from this round.
-                failure_count++;
-            } else if (to_keep[placement_idx]) {
-                // Already re-created this once. Thus a failure.
-                failure_count++;
-            } else {
-                to_keep[placement_idx] = true;
-                keeper_indices.push_back(placement_idx);
-                current_pop_size++;
-                num_kept++;
-                failure_count = 0;
-            }
-        } else {
-            failure_count++;
-        }
-
-        if (failure_count == FAILURE_MAX) {
-            // Too hard to mutate -- quit early.
-            std::cout<<"Ran out of mutations."<<std::endl;
-            break;
-        }
-    }
-
-    // Perform Matings iff we have a pop to work with.
-    if (prev_generation_size > 1) {
-        // Mate
-
-        // Accounts for the possibility that some mutations failed.
-        size_t target_pop_size = current_pop_size + NUM_MATINGS;
-
-        failure_count = 0;
-        while (current_pop_size < target_pop_size) {
-            selected_idx = weighted_sample(cumulative_probs,
-                                           prev_generation_size,
-                                           gen, distll);
-            second_sel_idx = selected_idx;
-            while (second_sel_idx == selected_idx) {
-                second_sel_idx = weighted_sample(cumulative_probs,
-                                                 prev_generation_size,
-                                                 gen, distll);
-            }
-
-            // See if we get a new gene
-            made = mated(*pool_vec[depth - 1][selected_idx],
-                         *pool_vec[depth - 1][second_sel_idx], gen, distbool);
-
-            if (made.first) {
-                // New
-                current_pop_size++;
-                failure_count = 0;
-            } else if (made.second != NULL) {
-                placement_idx = pool_map[depth - 1][made.second->hash_value()];
-                if (placement_idx >= prev_generation_size) {
-                    // Re-created one that's new from this round.
-                    failure_count++;
-                } else if (to_keep[placement_idx]) {
-                    // Already re-created this once. Thus a failure.
-                    failure_count++;
-                } else {
-                    to_keep[placement_idx] = true;
-                    keeper_indices.push_back(placement_idx);
-                    current_pop_size++;
-                    num_kept++;
-                    failure_count = 0;
-                }
-            } else {
-                failure_count++;
-            }
-
-            if (failure_count == FAILURE_MAX) {
-                // Too hard to mate -- quit early.
-                std::cout<<"Ran out of matings."<<std::endl;
-                break;
-            }
-        }
-    }
-
-    // Relevant for the next time evolve() is called.
-    in_need_of_scores = current_pop_size - num_kept;
-    std::cout<<(100.0 * double(in_need_of_scores) / current_pop_size)
-             <<"\% of genes are new."<<std::endl;
-    size_t size_total = 0;
-    for (size_t x = 0; x < prev_generation_size; x++) {
-        size_total += pool_vec[depth - 1][x]->edge_ints().size();
-    }
-    std::cout<<(double(size_total) / prev_generation_size)<<std::endl;
-
-    // Delete old generation
-    size_t i = 0;
-    size_t j;
-    size_t i_hash, j_hash;
-
-
-    if (keeper_indices.size() > 0) {
-        std::sort(keeper_indices.begin(), keeper_indices.end());
-    }
-
-    // Put all the old keepers toward the front
-    for (auto idx_itr = keeper_indices.begin();
-              idx_itr != keeper_indices.end(); idx_itr++) {
-        j = *idx_itr;
-        if (i == j) {
-            i++;
-            continue;
-        }
-
-        carry_over_scores[i] = carry_over_scores[j];
-        i_hash = pool_vec[depth - 1][i]->hash_value();
-        j_hash = pool_vec[depth - 1][j]->hash_value();
-        std::swap(pool_vec[depth - 1][i], pool_vec[depth - 1][j]);
-        pool_map[depth - 1].erase(i_hash);
-        pool_map[depth - 1].erase(j_hash);
-        pool_map[depth - 1].insert(std::pair<size_t,size_t>(j_hash, i));
-
-        i++;
-    }
-
-    // Now move the new elements into the remaining slots
-    while (pool_vec[depth - 1].size() > current_pop_size) {
-
-        // Move the last element to overwrite idx i
-        j = pool_vec[depth - 1].size() - 1;
-        
-        i_hash = pool_vec[depth - 1][i]->hash_value();
-        j_hash = pool_vec[depth - 1][j]->hash_value();
-        std::swap(pool_vec[depth - 1][i], pool_vec[depth - 1][j]);
-        pool_vec[depth - 1].pop_back();
-        pool_map[depth - 1].erase(i_hash);
-        pool_map[depth - 1].erase(j_hash);
-        pool_map[depth - 1].insert(std::pair<size_t,size_t>(j_hash, i));
-
-        i++;
-    }
-
-    if (depth > 1) {
-        // Take census and cull lower-level genes if necessary.
-        cull();
-    }
-
-    //////////////////// OLD CODE /////////////////////
-
-    /*
 
     // Figure out how many mutations to perform.
     const size_t mutate_factor = 6;
@@ -949,7 +675,6 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     } else {
         std::cout<<"Unexpected! No new genes created by evolve()!"<<std::endl;
     }
-    */
 }
 
 // Takes a gene and flags it's (sub-) occurrences in `used`.
@@ -1028,31 +753,6 @@ void GenePool::cull() {
     }
 }
 
-size_t GenePool::weighted_sample(const std::vector<long double>& cum_probs,
-                                 size_t high_idx, std::mt19937& gen,
-                    std::uniform_real_distribution<long double>& dist) const {
-
-    // Sample a cumulative sum
-    long double sample = dist(gen);
-
-    // Use binary search to find the leftmost index i such that
-    //  cum_probs[i] > sample
-    size_t low = 0;
-    size_t high = high_idx;
-    size_t mid = ((high - low) / 2) + low;
-    while (mid > 0) {
-        if (cum_probs[mid] <= sample) {
-            low = mid;
-        } else if (cum_probs[mid - 1] <= sample) {
-            break;
-        } else {
-            high = mid;
-        }
-        mid = ((high - low) / 2) + low;
-    }
-    return mid;
-}
-
 const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
                             long double>>& GenePool::top_k_results() const {
     return top_k;
@@ -1075,7 +775,6 @@ const std::vector<std::pair<std::unordered_set<Edge, EdgeHash>,
 std::pair<bool, Gene*> GenePool::mated(const Gene& a, const Gene& b,
                                        std::mt19937& gen,
                             std::uniform_int_distribution<uint8_t>& dist) {
-
     if (a.depth() == 0) {
         std::vector<SYM__edge_int_type> elts =
             std::vector<SYM__edge_int_type>();
@@ -1188,6 +887,9 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
         // New
         new_idx = pool_vec[d].size();
         pool_vec[d].push_back(std::unique_ptr<Gene>(gene));
+        // if (d == depth - 1) { TODO: remove
+        //     awaiting_scores.push_back(new_idx);
+        // }
         pool_map[d].insert(std::pair<size_t, size_t>(hash, new_idx));
         l.unlock();
 
@@ -1218,7 +920,7 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
                 // for (size_t j = 0; j < edge_ints.size(); j++) {
                 //     std::cout<<"("<<hm_ei[j]<<" vs. "<<edge_ints[j]<<"), ";
                 // }
-                // std::cout<<std::endl;
+                std::cout<<std::endl;
                 delete gene;
                 return std::pair<bool, Gene*>(false, NULL);
             }
