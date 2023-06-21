@@ -2,6 +2,6 @@
 __pycache__/
 nauty27r4/*
 nauty27r4_modified/*
-executables/
+executables/*
 *.ods
 experiments/plotting_code/structure_graph*
