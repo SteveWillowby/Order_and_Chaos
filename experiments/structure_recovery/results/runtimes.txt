@@ -1,0 +1,110 @@
+Johnson 0.001
+
+real	1m17.930s
+user	51m5.159s
+sys	0m0.940s
+Johnson 0.002 t1
+
+real	1m3.761s
+user	40m21.161s
+sys	0m1.100s
+Johnson 0.002 t2
+
+real	1m21.256s
+user	53m44.650s
+sys	0m0.909s
+Johnson 0.002 t3
+
+real	1m17.993s
+user	51m3.131s
+sys	0m0.896s
+Johnson 0.003 t1
+
+real	2m3.072s
+user	81m46.950s
+sys	0m1.308s
+Johnson 0.003 t2
+
+real	1m10.899s
+user	42m15.311s
+sys	0m1.727s
+Johnson 0.003 t3
+
+real	1m9.600s
+user	41m16.152s
+sys	0m1.972s
+Bin Tree 0.01
+
+real	0m25.712s
+user	10m52.395s
+sys	0m25.349s
+Bin Tree 0.02
+
+real	0m29.237s
+user	12m16.549s
+sys	0m18.908s
+Bin Tree 0.03
+
+real	0m26.248s
+user	11m36.587s
+sys	0m17.511s
+Bin Tree 0.04
+
+real	0m49.280s
+user	21m10.630s
+sys	0m23.590s
+Bin Tree 0.05
+
+real	0m53.760s
+user	24m30.483s
+sys	0m18.452s
+Ring 0.01
+
+real	0m40.548s
+user	20m5.696s
+sys	0m10.117s
+Ring 0.02
+
+real	0m32.550s
+user	15m52.447s
+sys	0m14.416s
+Ring 0.03
+
+real	0m32.654s
+user	16m6.017s
+sys	0m9.519s
+Ring 0.04
+
+real	0m53.908s
+user	26m23.507s
+sys	0m17.509s
+Ring 0.05
+
+real	0m58.376s
+user	29m33.746s
+sys	0m13.998s
+Wreath 0.0025
+
+real	34m13.252s
+user	1559m37.048s
+sys	0m7.726s
+Wreath 0.005
+
+real	31m22.121s
+user	1429m25.066s
+sys	0m1.944s
+Wreath 0.01
+
+real	17m39.154s
+user	798m57.168s
+sys	0m1.680s
+Wreath 0.02
+
+real	3m37.263s
+user	154m32.778s
+sys	0m2.686s
+Wreath 0.04
+
+real	2m24.678s
+user	99m35.772s
+sys	0m2.304s

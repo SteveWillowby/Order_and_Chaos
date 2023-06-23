@@ -1,0 +1,785 @@
+Loading graph from files:
+    wreath_d7_128_nodes.txt
+    wreath_d7_128_edges.txt
+  ...graph loaded. It has 128 nodes and 512 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 8
+Running for 120 iterations per trial...
+Trial 0 for (noise-, noise+) = (0.04, 0.00268908)
+
+
+Adding: (0, 103), (2, 40), (5, 80), (9, 81), (15, 74), (24, 72), (27, 50), (29, 126), (33, 40), (35, 54), (38, 52), (38, 92), (40, 93), (46, 102), (58, 75), (63, 109), (72, 126), (76, 118), (95, 117), (113, 127), 
+
+Removing: (16, 17), (19, 23), (20, 23), (24, 28), (31, 34), (32, 33), (40, 44), (47, 51), (51, 55), (53, 57), (63, 67), (66, 69), (78, 79), (79, 80), (84, 86), (86, 88), (88, 89), (89, 92), (99, 103), (100, 103), (105, 108), (107, 111), (110, 113), (112, 115), (116, 120), (118, 121), (120, 121), (121, 122), (126, 127), 
+log2_p_plus:          -1.20078
+log2_1_minus_p_plus:  -0.823779
+log2_p_minus:         -1.20078
+log2_1_minus_p_minus: -0.823779
+p_plus:  0.43504
+p_minus: 0.43504
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of -6698.15
+
+Beginning Iteration 1...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6693.05
+
+Beginning Iteration 2...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6693.05
+
+Beginning Iteration 3...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6691.43
+
+Beginning Iteration 4...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6689.81
+
+Beginning Iteration 5...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6688.18
+
+Beginning Iteration 6...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6686.56
+
+Beginning Iteration 7...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6684.94
+
+Beginning Iteration 8...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6684.94
+
+Beginning Iteration 9...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6683.32
+
+Beginning Iteration 10...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6683.32
+
+Beginning Iteration 11...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6683.32
+
+Beginning Iteration 12...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6682.07
+
+Beginning Iteration 13...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6681.69
+
+Beginning Iteration 14...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6681.69
+
+Beginning Iteration 15...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6680.45
+
+Beginning Iteration 16...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6680.07
+
+Beginning Iteration 17...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6679.2
+
+Beginning Iteration 18...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6678.45
+
+Beginning Iteration 19...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6678.45
+
+Beginning Iteration 20...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6678.45
+
+Beginning Iteration 21...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6678.45
+
+Beginning Iteration 22...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6678.45
+
+Beginning Iteration 23...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6677.95
+
+Beginning Iteration 24...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6677.58
+
+Beginning Iteration 25...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6677.58
+
+Beginning Iteration 26...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6677.2
+
+Beginning Iteration 27...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6677.2
+
+Beginning Iteration 28...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6676.33
+
+Beginning Iteration 29...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6676.33
+
+Beginning Iteration 30...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6675.95
+
+Beginning Iteration 31...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6675.95
+
+Beginning Iteration 32...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6675.95
+
+Beginning Iteration 33...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6675.95
+
+Beginning Iteration 34...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6675.58
+
+Beginning Iteration 35...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6675.46
+
+Beginning Iteration 36...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6674.71
+
+Beginning Iteration 37...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6674.33
+
+Beginning Iteration 38...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6674.33
+
+Beginning Iteration 39...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6674.33
+
+Beginning Iteration 40...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6674.33
+
+Beginning Iteration 41...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6674.33
+
+Beginning Iteration 42...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6673.09
+
+Beginning Iteration 43...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6672.59
+
+Beginning Iteration 44...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6672.59
+
+Beginning Iteration 45...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6671.46
+
+Beginning Iteration 46...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6671.46
+
+Beginning Iteration 47...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6671.46
+
+Beginning Iteration 48...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6669.84
+
+Beginning Iteration 49...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6669.84
+
+Beginning Iteration 50...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6669.84
+
+Beginning Iteration 51...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6668.97
+
+Beginning Iteration 52...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6668.59
+
+Beginning Iteration 53...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6668.22
+
+Beginning Iteration 54...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6668.22
+
+Beginning Iteration 55...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6666.97
+
+Beginning Iteration 56...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6666.59
+
+Beginning Iteration 57...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6666.59
+
+Beginning Iteration 58...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6665.72
+
+Beginning Iteration 59...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6664.55
+
+Beginning Iteration 60...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6663.8
+
+Beginning Iteration 61...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6663.8
+
+Beginning Iteration 62...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6662.93
+
+Beginning Iteration 63...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6662.55
+
+Beginning Iteration 64...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6661.31
+
+Beginning Iteration 65...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6661.31
+
+Beginning Iteration 66...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6660.06
+
+Beginning Iteration 67...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6660.06
+
+Beginning Iteration 68...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6660.06
+
+Beginning Iteration 69...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6660.06
+
+Beginning Iteration 70...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6660.06
+
+Beginning Iteration 71...
+	Mutating
+Hash collision at depth 0 with hash value 28066200960
+	Mating
+	Scoring
+...Finished iteration with a best score of -6660.06
+
+Beginning Iteration 72...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6659.57
+
+Beginning Iteration 73...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6658.82
+
+Beginning Iteration 74...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6658.82
+
+Beginning Iteration 75...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6658.82
+
+Beginning Iteration 76...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6658.44
+
+Beginning Iteration 77...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6658.44
+
+Beginning Iteration 78...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6657.57
+
+Beginning Iteration 79...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6656.32
+
+Beginning Iteration 80...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6655.95
+
+Beginning Iteration 81...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6655.95
+
+Beginning Iteration 82...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6654.7
+
+Beginning Iteration 83...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6654.7
+
+Beginning Iteration 84...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6654.7
+
+Beginning Iteration 85...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6654.32
+
+Beginning Iteration 86...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6654.32
+
+Beginning Iteration 87...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6653.46
+
+Beginning Iteration 88...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6653.08
+
+Beginning Iteration 89...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6652.7
+
+Beginning Iteration 90...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6651.46
+
+Beginning Iteration 91...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6651.46
+
+Beginning Iteration 92...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6651.46
+
+Beginning Iteration 93...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6651.46
+
+Beginning Iteration 94...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6650.21
+
+Beginning Iteration 95...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6649.46
+
+Beginning Iteration 96...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6649.46
+
+Beginning Iteration 97...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6649.46
+
+Beginning Iteration 98...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6648.21
+
+Beginning Iteration 99...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6648.21
+
+Beginning Iteration 100...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6648.21
+
+Beginning Iteration 101...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6648.21
+
+Beginning Iteration 102...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6648.21
+
+Beginning Iteration 103...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6648.21
+
+Beginning Iteration 104...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6648.09
+
+Beginning Iteration 105...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6646.96
+
+Beginning Iteration 106...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6646.96
+
+Beginning Iteration 107...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6646.96
+
+Beginning Iteration 108...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6646.96
+
+Beginning Iteration 109...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6646.96
+
+Beginning Iteration 110...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6646.96
+
+Beginning Iteration 111...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6645.72
+
+Beginning Iteration 112...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6645.72
+
+Beginning Iteration 113...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6645.72
+
+Beginning Iteration 114...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6645.72
+
+Beginning Iteration 115...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6645.3
+
+Beginning Iteration 116...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6644.92
+
+Beginning Iteration 117...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6644.92
+
+Beginning Iteration 118...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6644.55
+
+Beginning Iteration 119...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6643.68
+
+Beginning Iteration 120...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -6642.51
+
+With a score of -6642.51 we have log2(|Aut(G_H)|) of 35.7549
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (32, 36), (37, 41), (38, 52), (40, 85), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (66, 70), (68, 72), (70, 74), (71, 74), (71, 75), (86, 91), (90, 95), (93, 97), (94, 99), (95, 117), (97, 102), (100, 105), (102, 106), (108, 113), (117, 122), (118, 121), (120, 122), (120, 125), (122, 126), 
+
+With a score of -6643.3 we have log2(|Aut(G_H)|) of 35.1699
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (27, 31), (27, 50), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (68, 72), (71, 74), (71, 75), (86, 91), (90, 95), (93, 97), (94, 99), (95, 117), (97, 102), (100, 105), (102, 106), (109, 113), (117, 122), (118, 121), (120, 122), (120, 125), (122, 126), 
+
+With a score of -6643.3 we have log2(|Aut(G_H)|) of 35.1699
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (27, 31), (27, 50), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (66, 70), (68, 72), (70, 74), (71, 74), (71, 75), (86, 91), (90, 95), (93, 97), (94, 99), (95, 117), (97, 102), (100, 105), (102, 106), (109, 113), (118, 121), (120, 122), (120, 125), 
+
+With a score of -6643.3 we have log2(|Aut(G_H)|) of 35.1699
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (27, 31), (27, 50), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (68, 72), (71, 74), (71, 75), (86, 91), (90, 95), (93, 97), (94, 99), (95, 117), (97, 102), (100, 105), (102, 106), (108, 113), (117, 122), (118, 121), (120, 122), (120, 125), (122, 126), 
+
+With a score of -6643.3 we have log2(|Aut(G_H)|) of 35.1699
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (27, 31), (27, 50), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (68, 72), (71, 74), (71, 75), (86, 91), (90, 95), (93, 97), (94, 99), (94, 117), (97, 102), (100, 105), (102, 106), (109, 113), (117, 122), (118, 121), (120, 122), (120, 125), (122, 126), 
+
+With a score of -6643.3 we have log2(|Aut(G_H)|) of 35.1699
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (27, 31), (27, 50), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (61, 66), (63, 109), (65, 69), (66, 70), (68, 72), (71, 75), (84, 126), (86, 91), (90, 95), (93, 97), (94, 99), (95, 117), (97, 102), (100, 105), (102, 106), (109, 113), (118, 121), (120, 122), (120, 125), 
+
+With a score of -6643.64 we have log2(|Aut(G_H)|) of 35.7549
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (27, 31), (27, 50), (32, 33), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (54, 126), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (66, 70), (68, 72), (70, 74), (71, 74), (71, 75), (86, 91), (90, 95), (93, 97), (94, 99), (97, 102), (100, 105), (102, 106), (103, 110), (109, 113), (117, 122), (118, 121), (120, 122), (120, 125), (122, 126), 
+
+With a score of -6643.68 we have log2(|Aut(G_H)|) of 35.1699
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (27, 31), (27, 50), (30, 39), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (68, 72), (71, 74), (71, 75), (86, 91), (90, 95), (93, 97), (94, 99), (95, 117), (97, 102), (100, 105), (102, 106), (108, 113), (117, 122), (118, 121), (120, 122), (120, 125), (122, 126), 
+
+With a score of -6643.68 we have log2(|Aut(G_H)|) of 35.1699
+With edges: 
+(1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (66, 70), (68, 72), (70, 74), (71, 74), (71, 75), (78, 82), (83, 87), (86, 91), (90, 95), (93, 97), (94, 99), (95, 117), (96, 123), (97, 102), (100, 105), (102, 106), (109, 113), (118, 121), (120, 122), (120, 125), 
+
+With a score of -6643.68 we have log2(|Aut(G_H)|) of 35.1699
+With edges: 
+(0, 35), (1, 124), (2, 7), (3, 127), (4, 8), (7, 11), (8, 81), (9, 13), (12, 16), (14, 18), (17, 21), (22, 26), (23, 28), (25, 29), (27, 31), (27, 50), (32, 36), (37, 41), (38, 52), (42, 46), (44, 49), (46, 102), (48, 53), (55, 60), (57, 75), (58, 62), (60, 64), (63, 109), (65, 69), (66, 70), (68, 72), (70, 74), (71, 74), (71, 75), (86, 91), (90, 95), (93, 97), (94, 99), (95, 117), (97, 102), (100, 105), (102, 106), (109, 113), (118, 121), (120, 122), (120, 125), 
+
