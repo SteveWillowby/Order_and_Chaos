@@ -13,7 +13,7 @@ time nice -2 ../../executables/main -graph karate.txt \
 echo "Foodweb"
 
 time nice -2 ../../executables/main -graph maayan-foodweb.txt \
-                                    -nodes maayan-foodweb_nodes.txt
+                                    -nodes maayan-foodweb_nodes.txt \
                                     -o results/foodweb \
                                     -n_itr 250 -d \
                                     >> results/foodweb.txt
@@ -32,7 +32,7 @@ time nice -2 ../../executables/main -graph season_4_undirected_edges.txt \
 echo "Political Blogs"
 
 time nice -2 ../../executables/main -graph pol_blogs.txt \
-                                    -nodes pol_blogs_nodes.txt
+                                    -nodes pol_blogs_nodes.txt \
                                     -o results/pol_blogs \
                                     -n_itr 250 -d \
                                     >> results/pol_blogs.txt
@@ -41,7 +41,7 @@ time nice -2 ../../executables/main -graph pol_blogs.txt \
 echo "EU-Core Emails"
 
 time nice -2 ../../executables/main -graph eucore.txt \
-                                    -nodes eucore_nodes.txt
+                                    -nodes eucore_nodes.txt \
                                     -o results/eucore \
                                     -n_itr 250 -d \
                                     >> results/eucore.txt
@@ -50,7 +50,7 @@ time nice -2 ../../executables/main -graph eucore.txt \
 echo "Cora Citations"
 
 time nice -2 ../../executables/main -graph cora.txt \
-                                    -nodes cora_nodes.txt
+                                    -nodes cora_nodes.txt \
                                     -o results/cora \
                                     -n_itr 250 -d \
                                     >> results/cora.txt
