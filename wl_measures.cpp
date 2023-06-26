@@ -484,6 +484,7 @@ void perform_wl_diff_iteration(const Graph& g,
     size_t num_rows, num_cols, r_, c_, square_size;
     const std::unordered_set<int>* unmatched_a_ish;
     const std::unordered_set<int>* unmatched_b_ish;
+    bool had_edges;
 
     // Fill in target_scores
     for (auto a_itr = source_pairs_to_calc.begin();
@@ -495,6 +496,7 @@ void perform_wl_diff_iteration(const Graph& g,
 
             // Calculate difference between a and b
             next_value = 0;
+            had_edges = true;
             for (size_t k = 0; k < 1 + size_t(g.directed); k++) {
                 // Get copies of the neighbor sets
                 //
@@ -528,8 +530,11 @@ void perform_wl_diff_iteration(const Graph& g,
                 num_rows = unmatched_a_ish->size();
                 num_cols = unmatched_b_ish->size();
                 if (num_rows == 0) {
-                    throw std::logic_error(
+                    if (!had_edges) {
+                        throw std::logic_error(
 "Error! Should not be calculating distance for a node with zero neighbors.");
+                    }
+                    had_edges = false;
                 }
                 square_size = num_cols;
                 for (size_t i = 0; i < num_rows; i++) {
