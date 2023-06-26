@@ -535,6 +535,7 @@ void perform_wl_diff_iteration(const Graph& g,
 "Error! Should not be calculating distance for a node with zero neighbors.");
                     }
                     had_edges = false;
+                    continue;
                 }
                 square_size = num_cols;
                 for (size_t i = 0; i < num_rows; i++) {
