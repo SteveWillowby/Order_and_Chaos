@@ -64,11 +64,15 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
             }
             edge_int = a * n + b;
             if (legal_edges.num_edges() == 0 || legal_edges.has_edge(a, b)) {
+                if (a == b) {
+                    score = 2.0 * fuzzy_orbit_sizes[0][a];
+                } else {
+                    score = (((long double) fuzzy_orbit_sizes[0][a]) * 
+                              ((long double) fuzzy_orbit_sizes[a+1][b]) +
+                             ((long double) fuzzy_orbit_sizes[0][b]) *
+                              ((long double) fuzzy_orbit_sizes[b+1][a]));
+                }
                 // TODO: Experiment with this further.
-                score = (((long double) fuzzy_orbit_sizes[0][a]) * 
-                          ((long double) fuzzy_orbit_sizes[a+1][b]) +
-                         ((long double) fuzzy_orbit_sizes[0][b]) *
-                          ((long double) fuzzy_orbit_sizes[b+1][a]));
                 score = 1.0 / std::sqrt(score);
             } else {
                 score = 0.0;
