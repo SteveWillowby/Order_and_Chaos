@@ -38,6 +38,14 @@ bool cmd_flag_present(const std::vector<std::string>& inputs,
 }
 
 int main(int argc, char* argv[]) {
+    if (2 * sizeof(int) > sizeof(long)) {
+        std::cout<<sizeof(int)<<std::endl;
+        std::cout<<"<<< Warning! 2 * sizeof(int) > sizeof(long)"
+                 <<std::endl<<"\tThis may cause problems if you use a node id "
+                 <<">= "<<(long(1) << ((sizeof(int) * 8) / 2))<<" >>>"
+                 <<std::endl;
+    }
+
     std::vector<std::string> inputs = std::vector<std::string>();
     for (int i = 1; i < argc; i++) {
         inputs.push_back(argv[i]);
@@ -281,6 +289,16 @@ int main(int argc, char* argv[]) {
     std::cout<<"  ...graph loaded. It has "<<g.num_nodes()<<" nodes and "
              <<g.num_edges()<<" edges, "<<g.num_loops()<<" of which are "
              <<"self-loops."<<std::endl<<std::endl;
+
+    if (g.num_loops() > 0) {
+        std::cout<<"<<< The current code cannot handle self-loops. "
+                 <<"Ignoring all. >>>"<<std::endl<<std::endl;
+        for (size_t i = 0; i < g.num_nodes(); i++) {
+            if (g.has_edge(i, i)) {
+                g.delete_edge(i, i);
+            }
+        }
+    }
 
     SparseGraph legal_noise(directed, g.num_nodes());
     bool has_legal_noise = !legal_noise_file.empty();

@@ -16,15 +16,15 @@ typedef uint32_t SYM__edge_int_type;
 
 typedef std::pair<int, int> Edge;
 
+// Note, if 2 * sizeof(int) > sizeof(long) and node ID's exceed
+//      2^(sizeof(int) * 4), then this will have issues.
 struct EdgeHash {
     size_t operator()(std::pair<int, int> const& p) const noexcept {
         if (2 * sizeof(int) > sizeof(long)) {
-            throw std::logic_error(
-"Error! Cannot currently hash an Edge when 2 * sizeof(int) > sizeof(long)");
-            // return std::hash<size_t>{}(std::hash<int>{}(p.first) ^ p.second);
+            return std::hash<size_t>{}(p.first << (sizeof(int) * 4) | p.second);
         }
         // Put the two integers in different halves of the long's bits.
-        long combo = long(p.first) << sizeof(int) | p.second;
+        long combo = long(p.first) << (sizeof(int) * 8) | p.second;
         return std::hash<long>{}(combo);
     }
 };
