@@ -18,8 +18,10 @@ typedef std::pair<int, int> Edge;
 
 struct EdgeHash {
     size_t operator()(std::pair<int, int> const& p) const noexcept {
-        if (2 * sizeof(int) >= sizeof(long)) {
-            return std::hash<size_t>{}(std::hash<int>{}(p.first) ^ p.second);
+        if (2 * sizeof(int) > sizeof(long)) {
+            throw std::logic_error(
+"Error! Cannot currently hash an Edge when 2 * sizeof(int) > sizeof(long)");
+            // return std::hash<size_t>{}(std::hash<int>{}(p.first) ^ p.second);
         }
         // Put the two integers in different halves of the long's bits.
         long combo = long(p.first) << sizeof(int) | p.second;
