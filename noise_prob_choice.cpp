@@ -71,7 +71,7 @@ std::vector<long double> log2_noise_probs_fancy_equality(NTSparseGraph& g,
                                                   max_E_no_SL, log2_n_fact,
                                                   directed);
 
-    log2_f_factor *= 2.0;  // square the un-logged fancy factor
+    log2_f_factor *= 4.0;  // raise the un-logged fancy factor to the power of 4
 
     // Equivalent to:
     //  log2_estimated_autos = max_E - (log2_n_fact - log2_f_factor);
