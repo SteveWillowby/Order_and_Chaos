@@ -79,8 +79,8 @@ if __name__ == "__main__":
     # Undirected Num Graphs:  1, 2, 4,  11,  34,   156,    1044, 12346, 274668
     #   Directed Num Graphs:  1, 3, 16, 218, 9608, 1540944
 
-    MAX_N = 8
     DIRECTED = 0
+    MAX_N = [8, 5][DIRECTED]
 
     for N in range(2, MAX_N + 1):
         MAX_E = int((N * (N - 1)) / (2 - DIRECTED))
