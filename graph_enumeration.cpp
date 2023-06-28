@@ -9,9 +9,9 @@
 #include<utility>
 #include<vector>
 
-std::vector<int> long_to_indices(long long l) {
+std::vector<int> long_to_indices(unsigned long l) {
     std::vector<int> result = {};
-    for (int i = 0; i < int(sizeof(long long)) * 8; i++) {
+    for (int i = 0; i < int(sizeof(unsigned long)) * 8; i++) {
         if (l & 0x1) {
             result.push_back(i);
         }
@@ -40,7 +40,7 @@ std::pair<int, int> index_to_edge(int i, int num_nodes, bool directed) {
     return {a, a + (i - x) + 1};
 }
 
-std::vector<std::pair<int, int>> number_to_edges(long long num, int num_nodes,
+std::vector<std::pair<int, int>> number_to_edges(unsigned long num, int num_nodes,
                                                  bool directed) {
     std::vector<std::pair<int, int>> result = {};
     std::vector<int> indices = std::move(long_to_indices(num));
@@ -115,14 +115,14 @@ int main(void) {
     std::unordered_set<std::string> graphs;
 
     for (int N = 3; N <= MAX_NUM_NODES; N++) {
-        long max_E = ((N * (N - 1)) / (2 - DIRECTED));
-        long max_l = 1 << max_E;
+        unsigned long max_E = ((N * (N - 1)) / (2 - DIRECTED));
+        unsigned long max_l = ((unsigned long) 1) << max_E;
         long num_graphs = 0;
 
         long double sum_aut = 0;
 
         graphs.clear();
-        for (long long l = 0; l < max_l; l++) {
+        for (unsigned long l = 0; l < max_l; l++) {
             std::vector<std::pair<int, int>> edges =
                 std::move(number_to_edges(l, N, DIRECTED));
 
