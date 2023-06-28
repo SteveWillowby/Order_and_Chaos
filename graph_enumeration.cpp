@@ -122,7 +122,7 @@ int main(void) {
         long double sum_aut = 0;
 
         graphs.clear();
-        for (long l = 0; l < max_l; l++) {
+        for (long long l = 0; l < max_l; l++) {
             std::vector<std::pair<int, int>> edges =
                 std::move(number_to_edges(l, N, DIRECTED));
 
