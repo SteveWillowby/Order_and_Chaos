@@ -32,4 +32,4 @@ See the `example.<xy,nodelist,edgelist>` files for how to format the input files
     - space-delimited file where line `i` contains the name of node `vᵢ`
 
 ## output
-A latex file named `output.tex`, where `output` is the value set by the `-o` flag, containing a .
+A latex file named `output.tex`, where `output` is the value set by the `-o` flag, containing a tikz picture of the graph defined by the input files.
