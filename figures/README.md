@@ -1,4 +1,4 @@
-# usage
+# Usage
 Demo with `python plot.py -f -i example -o example`.
 
 Call with
@@ -7,7 +7,7 @@ where `in` (optional) is the prefix for the input files described below.
 If `fn` is not provided, the prefix will default to `input`.
 See the `example.<xy,nodelist,edgelist>` files for how to format the input files.
 
-### options
+### Options
 - `-f --full`:
     - boolean flag
     - when set, makes a full, stand-alone document
@@ -22,7 +22,7 @@ See the `example.<xy,nodelist,edgelist>` files for how to format the input files
     - scaling factor on the inter-node separation of the resultant tikz picture
     - defaults to `1`
 
-## input file format
+## Input file formats
 - `fn.xy`:
     - space-delimited file where line `i` contains two real numbers `xᵢ yᵢ`
     - `xᵢ yᵢ` are the Cartesian coordinates of the node on line `i` in `fn.nodelist`
@@ -31,5 +31,5 @@ See the `example.<xy,nodelist,edgelist>` files for how to format the input files
 - `fn.edgelist`:
     - space-delimited file where line `i` contains the name of node `vᵢ`
 
-## output
-A latex file named `output.tex`, where `output` is the value set by the `-o` flag, containing a tikz picture of the graph defined by the input files.
+## Output
+A LaTeX file named `output.tex`, where `output` is the value set by the `-o` flag, containing a tikz picture of the graph defined by the input files.
