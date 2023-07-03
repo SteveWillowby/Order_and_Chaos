@@ -1,0 +1,16 @@
+
+Number of 3-node graphs: 16
+Number of automorphisms: 34
+Power: 2.85903
+
+Number of 4-node graphs: 218
+Number of automorphisms: 400
+Power: 3.47963
+
+Number of 5-node graphs: 9608
+Number of automorphisms: 12276
+Power: 3.58221
+
+Number of 6-node graphs: 1540944
+Number of automorphisms: 1.65905e+06
+Power: 3.25558

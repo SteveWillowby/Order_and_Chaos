@@ -2,26 +2,26 @@
 
 # Karate
 
-echo "Karate"
-
-time nice -2 ../../executables/main -graph karate.txt \
-                                    -o results/karate \
-                                    -n_itr 250 \
-                                    >> results/karate.txt
+# echo "Karate"
+# rm results/karate*
+# time nice -2 ../../executables/main -graph karate.txt \
+#                                     -o results/karate \
+#                                     -n_itr 250 \
+#                                     >> results/karate.txt
 # Maayan Foodweb -- Directed
 
-echo "Foodweb"
-
-time nice -2 ../../executables/main -graph maayan-foodweb.txt \
-                                    -nodes maayan-foodweb_nodes.txt \
-                                    -o results/foodweb \
-                                    -n_itr 250 -d \
-                                    >> results/foodweb.txt
+# echo "Foodweb"
+# rm results/foodweb*
+# time nice -2 ../../executables/main -graph maayan-foodweb.txt \
+#                                     -nodes maayan-foodweb_nodes.txt \
+#                                     -o results/foodweb \
+#                                     -n_itr 250 -d \
+#                                     >> results/foodweb.txt
 
 # College Football Season 4 -- Undirected
 
 echo "College Football Season 4"
-
+rm results/college_football_s4*
 time nice -2 ../../executables/main -graph season_4_undirected_edges.txt \
                                     -nodes season_4_undirected_nodes.txt \
                                     -o results/college_football_s4 \
@@ -30,7 +30,7 @@ time nice -2 ../../executables/main -graph season_4_undirected_edges.txt \
 # Political Blogs
 
 echo "Political Blogs"
-
+rm results/pol_blogs*
 time nice -2 ../../executables/main -graph pol_blogs.txt \
                                     -nodes pol_blogs_nodes.txt \
                                     -o results/pol_blogs \
@@ -39,7 +39,7 @@ time nice -2 ../../executables/main -graph pol_blogs.txt \
 # EU-Core Emails
 
 echo "EU-Core Emails"
-
+rm results/eucore*
 time nice -2 ../../executables/main -graph eucore.txt \
                                     -nodes eucore_nodes.txt \
                                     -o results/eucore \
@@ -48,7 +48,7 @@ time nice -2 ../../executables/main -graph eucore.txt \
 # Cora Citations
 
 echo "Cora Citations"
-
+rm results/cora*
 time nice -2 ../../executables/main -graph cora.txt \
                                     -nodes cora_nodes.txt \
                                     -o results/cora \

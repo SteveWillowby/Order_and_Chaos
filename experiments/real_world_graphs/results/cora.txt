@@ -1,0 +1,1792 @@
+Loading graph from files:
+    cora_nodes.txt
+    cora.txt
+  ...graph loaded. It has 2708 nodes and 5429 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 417.509
+Running for 250 iterations per trial...
+Trial 0 for (noise-, noise+) = (0, 0)
+
+log2_p_plus:          -1.0074
+log2_1_minus_p_plus:  -0.992639
+log2_p_minus:         -1.0074
+log2_1_minus_p_minus: -0.992639
+p_plus:  0.497442
+p_minus: 0.497442
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of -7.27618e+06
+
+Beginning Iteration 1...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 6664499
+	Scoring
+...Finished iteration with a best score of -7.27617e+06
+
+Beginning Iteration 2...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27617e+06
+
+Beginning Iteration 3...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 24856912488
+
+Hash collision at depth 0 with hash value 4872917
+Hash collision at depth 0 with hash value 43804389808
+
+Hash collision at depth 0 with hash value 1726456
+	Scoring
+...Finished iteration with a best score of -7.27616e+06
+
+Beginning Iteration 4...
+	Mutating
+Hash collision at depth 0 with hash value 77156832498
+
+Hash collision at depth 0 with hash value 7946891
+	Mating
+Hash collision at depth 0 with hash value 21525649775
+
+	Scoring
+...Finished iteration with a best score of -7.27616e+06
+
+Beginning Iteration 5...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 17638603701
+
+Hash collision at depth 0 with hash value 21525649775
+
+	Scoring
+...Finished iteration with a best score of -7.27615e+06
+
+Beginning Iteration 6...
+	Mutating
+Hash collision at depth 0 with hash value 50005356308
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27613e+06
+
+Beginning Iteration 7...
+	Mutating
+Hash collision at depth 0 with hash value 35598972562
+
+Hash collision at depth 0 with hash value 71613652479
+Hash collision at depth 0 with hash value 83638995671
+	Mating
+Hash collision at depth 0 with hash value 17882167520
+
+Hash collision at depth 0 with hash value 7141553666
+	Scoring
+...Finished iteration with a best score of -7.27612e+06
+
+Beginning Iteration 8...
+	Mutating
+Hash collision at depth 0 with hash value 38347800279
+Hash collision at depth 0 with hash value 48763092070
+	Mating
+Hash collision at depth 0 with hash value 21789466443
+Hash collision at depth 0 with hash value 57475055311
+	Scoring
+...Finished iteration with a best score of -7.2761e+06
+
+Beginning Iteration 9...
+	Mutating
+Hash collision at depth 0 with hash value 58348890399
+	Mating
+Hash collision at depth 0 with hash value 24880005976
+	Scoring
+...Finished iteration with a best score of -7.27609e+06
+
+Beginning Iteration 10...
+	Mutating
+Hash collision at depth 0 with hash value 43674689871
+
+Hash collision at depth 0 with hash value 63427032239
+Hash collision at depth 0 with hash value 44928944507
+	Mating
+Hash collision at depth 0 with hash value 19845965471
+
+Hash collision at depth 0 with hash value 25422678644
+
+Hash collision at depth 0 with hash value 1860949174
+	Scoring
+...Finished iteration with a best score of -7.27607e+06
+
+Beginning Iteration 11...
+	Mutating
+Hash collision at depth 0 with hash value 30446757459
+Hash collision at depth 0 with hash value 81372820278
+Hash collision at depth 0 with hash value 24730428652
+Hash collision at depth 0 with hash value 37448729908
+
+Hash collision at depth 0 with hash value 11933714996
+	Mating
+Hash collision at depth 0 with hash value 16857550254
+	Scoring
+...Finished iteration with a best score of -7.27605e+06
+
+Beginning Iteration 12...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 36800187000
+Hash collision at depth 0 with hash value 41942521265
+	Scoring
+...Finished iteration with a best score of -7.27603e+06
+
+Beginning Iteration 13...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 17542691690
+Hash collision at depth 0 with hash value 28421975088
+Hash collision at depth 0 with hash value 24783504027
+Hash collision at depth 0 with hash value 43187397149
+	Scoring
+...Finished iteration with a best score of -7.27603e+06
+
+Beginning Iteration 14...
+	Mutating
+Hash collision at depth 0 with hash value 80899500779
+Hash collision at depth 0 with hash value 59931802447
+Hash collision at depth 0 with hash value 30814579963
+	Mating
+Hash collision at depth 0 with hash value 3333376176
+Hash collision at depth 0 with hash value 2358124820
+Hash collision at depth 0 with hash value 83511826821
+	Scoring
+...Finished iteration with a best score of -7.27601e+06
+
+Beginning Iteration 15...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 10335463487
+	Scoring
+...Finished iteration with a best score of -7.27599e+06
+
+Beginning Iteration 16...
+	Mutating
+Hash collision at depth 0 with hash value 23207133375
+Hash collision at depth 0 with hash value 86412773375
+	Mating
+Hash collision at depth 0 with hash value 79704446181
+Hash collision at depth 0 with hash value 18635088186
+Hash collision at depth 0 with hash value 43660248066
+Hash collision at depth 0 with hash value 34059763822
+	Scoring
+...Finished iteration with a best score of -7.27598e+06
+
+Beginning Iteration 17...
+	Mutating
+Hash collision at depth 0 with hash value 47742858545
+Hash collision at depth 0 with hash value 79704446181
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27597e+06
+
+Beginning Iteration 18...
+	Mutating
+Hash collision at depth 0 with hash value 36742801691
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27596e+06
+
+Beginning Iteration 19...
+	Mutating
+Hash collision at depth 0 with hash value 10783051010
+Hash collision at depth 0 with hash value 79864223181
+Hash collision at depth 0 with hash value 2863299499
+	Mating
+Hash collision at depth 0 with hash value 18354148729
+
+Hash collision at depth 0 with hash value 81594256402
+Hash collision at depth 0 with hash value 87174190106
+Hash collision at depth 0 with hash value 61719982234
+	Scoring
+...Finished iteration with a best score of -7.27595e+06
+
+Beginning Iteration 20...
+	Mutating
+Hash collision at depth 0 with hash value 28335198914
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27592e+06
+
+Beginning Iteration 21...
+	Mutating
+Hash collision at depth 0 with hash value 27410861315
+Hash collision at depth 0 with hash value 955760487
+Hash collision at depth 0 with hash value 11827162082
+Hash collision at depth 0 with hash value 30469992351
+
+	Mating
+Hash collision at depth 0 with hash value 32629804690
+	Scoring
+...Finished iteration with a best score of -7.27592e+06
+
+Beginning Iteration 22...
+	Mutating
+Hash collision at depth 0 with hash value 85921182482
+	Mating
+Hash collision at depth 0 with hash value 86555314608
+Hash collision at depth 0 with hash value 58467974466
+
+Hash collision at depth 0 with hash value 60056060822
+Hash collision at depth 0 with hash value 12786221859
+Hash collision at depth 0 with hash value 52428438954
+	Scoring
+...Finished iteration with a best score of -7.27589e+06
+
+Beginning Iteration 23...
+	Mutating
+Hash collision at depth 0 with hash value 5577477102
+	Mating
+Hash collision at depth 0 with hash value 61140871851
+Hash collision at depth 0 with hash value 41591230817
+	Scoring
+...Finished iteration with a best score of -7.27587e+06
+
+Beginning Iteration 24...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 85855790028
+Hash collision at depth 0 with hash value 5090499888
+Hash collision at depth 0 with hash value 83719647180
+Hash collision at depth 0 with hash value 24235490345
+	Scoring
+...Finished iteration with a best score of -7.27585e+06
+
+Beginning Iteration 25...
+	Mutating
+Hash collision at depth 0 with hash value 66168439516
+	Mating
+Hash collision at depth 0 with hash value 68120468195
+Hash collision at depth 0 with hash value 65739870528
+Hash collision at depth 0 with hash value 13586776107
+Hash collision at depth 0 with hash value 80070732716
+Hash collision at depth 0 with hash value 8175244254
+	Scoring
+...Finished iteration with a best score of -7.27584e+06
+
+Beginning Iteration 26...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 48353268103
+Hash collision at depth 0 with hash value 84018097988
+
+	Scoring
+...Finished iteration with a best score of -7.27582e+06
+
+Beginning Iteration 27...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27581e+06
+
+Beginning Iteration 28...
+	Mutating
+Hash collision at depth 0 with hash value 4406396190
+	Mating
+Hash collision at depth 0 with hash value 40642995720
+Hash collision at depth 0 with hash value 85715875363
+Hash collision at depth 0 with hash value 10847418773
+Hash collision at depth 0 with hash value 26512261421
+	Scoring
+...Finished iteration with a best score of -7.27579e+06
+
+Beginning Iteration 29...
+	Mutating
+Hash collision at depth 0 with hash value 53423768599
+Hash collision at depth 0 with hash value 19653054335
+	Mating
+Hash collision at depth 0 with hash value 44505503375
+Hash collision at depth 0 with hash value 38222766459
+	Scoring
+...Finished iteration with a best score of -7.27578e+06
+
+Beginning Iteration 30...
+	Mutating
+Hash collision at depth 0 with hash value 12719270365
+	Mating
+Hash collision at depth 0 with hash value 59305626181
+Hash collision at depth 0 with hash value 70724945364
+	Scoring
+...Finished iteration with a best score of -7.27576e+06
+
+Beginning Iteration 31...
+	Mutating
+Hash collision at depth 0 with hash value 62839425949
+Hash collision at depth 0 with hash value 49472872995
+	Mating
+Hash collision at depth 0 with hash value 83098799193
+Hash collision at depth 0 with hash value 84427374468
+	Scoring
+...Finished iteration with a best score of -7.27575e+06
+
+Beginning Iteration 32...
+	Mutating
+Hash collision at depth 0 with hash value 68800948956
+
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27574e+06
+
+Beginning Iteration 33...
+	Mutating
+Hash collision at depth 0 with hash value 24318285341
+Hash collision at depth 0 with hash value 72263090302
+Hash collision at depth 0 with hash value 50376398911
+	Mating
+Hash collision at depth 0 with hash value 44173045532
+	Scoring
+...Finished iteration with a best score of -7.27573e+06
+
+Beginning Iteration 34...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 55189941457
+	Scoring
+...Finished iteration with a best score of -7.27572e+06
+
+Beginning Iteration 35...
+	Mutating
+Hash collision at depth 0 with hash value 49071526318
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.2757e+06
+
+Beginning Iteration 36...
+	Mutating
+Hash collision at depth 0 with hash value 43197386501
+Hash collision at depth 0 with hash value 38626172334
+Hash collision at depth 0 with hash value 47941970505
+	Mating
+Hash collision at depth 0 with hash value 40723456964
+Hash collision at depth 0 with hash value 32802827550
+	Scoring
+...Finished iteration with a best score of -7.27569e+06
+
+Beginning Iteration 37...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 74111655455
+Hash collision at depth 0 with hash value 29892221309
+	Scoring
+...Finished iteration with a best score of -7.27568e+06
+
+Beginning Iteration 38...
+	Mutating
+Hash collision at depth 0 with hash value 24776618751
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27567e+06
+
+Beginning Iteration 39...
+	Mutating
+Hash collision at depth 0 with hash value 20200875106
+	Mating
+Hash collision at depth 0 with hash value 42660207470
+
+Hash collision at depth 0 with hash value 79572291342
+Hash collision at depth 0 with hash value 74944636714
+	Scoring
+...Finished iteration with a best score of -7.27566e+06
+
+Beginning Iteration 40...
+	Mutating
+Hash collision at depth 0 with hash value 65675045348
+Hash collision at depth 0 with hash value 17718307195
+Hash collision at depth 0 with hash value 55161792144
+	Mating
+Hash collision at depth 0 with hash value 27197938518
+Hash collision at depth 0 with hash value 80368874152
+Hash collision at depth 0 with hash value 83783007634
+	Scoring
+...Finished iteration with a best score of -7.27564e+06
+
+Beginning Iteration 41...
+	Mutating
+Hash collision at depth 0 with hash value 48876679476
+Hash collision at depth 0 with hash value 48876679476
+	Mating
+Hash collision at depth 0 with hash value 29213820230
+	Scoring
+...Finished iteration with a best score of -7.27564e+06
+
+Beginning Iteration 42...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 7253771909
+Hash collision at depth 0 with hash value 84216532900
+	Scoring
+...Finished iteration with a best score of -7.27562e+06
+
+Beginning Iteration 43...
+	Mutating
+Hash collision at depth 0 with hash value 80004317413
+Hash collision at depth 0 with hash value 24882479338
+	Mating
+Hash collision at depth 0 with hash value 78580688659
+	Scoring
+...Finished iteration with a best score of -7.27561e+06
+
+Beginning Iteration 44...
+	Mutating
+Hash collision at depth 0 with hash value 55364968820
+Hash collision at depth 0 with hash value 24289415095
+	Mating
+Hash collision at depth 0 with hash value 1437737321
+	Scoring
+...Finished iteration with a best score of -7.2756e+06
+
+Beginning Iteration 45...
+	Mutating
+Hash collision at depth 0 with hash value 34908867321
+Hash collision at depth 0 with hash value 70864183942
+Hash collision at depth 0 with hash value 18568165325
+Hash collision at depth 0 with hash value 60206261077
+	Mating
+Hash collision at depth 0 with hash value 58053261492
+
+Hash collision at depth 0 with hash value 37882202629
+	Scoring
+...Finished iteration with a best score of -7.27559e+06
+
+Beginning Iteration 46...
+	Mutating
+Hash collision at depth 0 with hash value 23328959258
+	Mating
+Hash collision at depth 0 with hash value 18942268967
+	Scoring
+...Finished iteration with a best score of -7.27558e+06
+
+Beginning Iteration 47...
+	Mutating
+Hash collision at depth 0 with hash value 14907994463
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27556e+06
+
+Beginning Iteration 48...
+	Mutating
+Hash collision at depth 0 with hash value 56486976226
+Hash collision at depth 0 with hash value 69846739733
+Hash collision at depth 0 with hash value 35390528185
+	Mating
+Hash collision at depth 0 with hash value 34549222359
+	Scoring
+...Finished iteration with a best score of -7.27555e+06
+
+Beginning Iteration 49...
+	Mutating
+Hash collision at depth 0 with hash value 35825110496
+Hash collision at depth 0 with hash value 51416458067
+Hash collision at depth 0 with hash value 13842749118
+	Mating
+Hash collision at depth 0 with hash value 23200269716
+Hash collision at depth 0 with hash value 69971284235
+	Scoring
+...Finished iteration with a best score of -7.27553e+06
+
+Beginning Iteration 50...
+	Mutating
+Hash collision at depth 0 with hash value 67628878216
+Hash collision at depth 0 with hash value 22709383449
+	Mating
+Hash collision at depth 0 with hash value 31479491195
+	Scoring
+...Finished iteration with a best score of -7.27552e+06
+
+Beginning Iteration 51...
+	Mutating
+Hash collision at depth 0 with hash value 30865725844
+Hash collision at depth 0 with hash value 2132071493
+Hash collision at depth 0 with hash value 61017473409
+
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27551e+06
+
+Beginning Iteration 52...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 7360375535
+Hash collision at depth 0 with hash value 20554052311
+	Scoring
+...Finished iteration with a best score of -7.27549e+06
+
+Beginning Iteration 53...
+	Mutating
+Hash collision at depth 0 with hash value 34027530457
+	Mating
+Hash collision at depth 0 with hash value 61285457410
+Hash collision at depth 0 with hash value 62031520447
+Hash collision at depth 0 with hash value 13233016191
+Hash collision at depth 0 with hash value 57694995236
+	Scoring
+...Finished iteration with a best score of -7.27548e+06
+
+Beginning Iteration 54...
+	Mutating
+Hash collision at depth 0 with hash value 28405229760
+Hash collision at depth 0 with hash value 70904547711
+
+	Mating
+Hash collision at depth 0 with hash value 75964894707
+Hash collision at depth 0 with hash value 4463379452
+	Scoring
+...Finished iteration with a best score of -7.27546e+06
+
+Beginning Iteration 55...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27545e+06
+
+Beginning Iteration 56...
+	Mutating
+Hash collision at depth 0 with hash value 61195170796
+
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27544e+06
+
+Beginning Iteration 57...
+	Mutating
+Hash collision at depth 0 with hash value 65578397150
+Hash collision at depth 0 with hash value 32523506074
+	Mating
+Hash collision at depth 0 with hash value 2564710073
+Hash collision at depth 0 with hash value 70919684612
+Hash collision at depth 0 with hash value 9051573149
+Hash collision at depth 0 with hash value 1410210069
+	Scoring
+...Finished iteration with a best score of -7.27543e+06
+
+Beginning Iteration 58...
+	Mutating
+Hash collision at depth 0 with hash value 82417555617
+Hash collision at depth 0 with hash value 16112586988
+	Mating
+Hash collision at depth 0 with hash value 5558766128
+Hash collision at depth 0 with hash value 23478158473
+Hash collision at depth 0 with hash value 82425218440
+Hash collision at depth 0 with hash value 15392723828
+	Scoring
+...Finished iteration with a best score of -7.27541e+06
+
+Beginning Iteration 59...
+	Mutating
+Hash collision at depth 0 with hash value 1624967605
+	Mating
+Hash collision at depth 0 with hash value 53173653474
+	Scoring
+...Finished iteration with a best score of -7.2754e+06
+
+Beginning Iteration 60...
+	Mutating
+Hash collision at depth 0 with hash value 71527360591
+	Mating
+Hash collision at depth 0 with hash value 85049414487
+	Scoring
+...Finished iteration with a best score of -7.27539e+06
+
+Beginning Iteration 61...
+	Mutating
+Hash collision at depth 0 with hash value 53311211665
+Hash collision at depth 0 with hash value 48699895524
+Hash collision at depth 0 with hash value 77742387753
+Hash collision at depth 0 with hash value 47335940351
+	Mating
+Hash collision at depth 0 with hash value 80040677919
+	Scoring
+...Finished iteration with a best score of -7.27538e+06
+
+Beginning Iteration 62...
+	Mutating
+Hash collision at depth 0 with hash value 31049961507
+Hash collision at depth 0 with hash value 14025427595
+
+Hash collision at depth 0 with hash value 27989872209
+Hash collision at depth 0 with hash value 17042553100
+	Mating
+Hash collision at depth 0 with hash value 74330719719
+Hash collision at depth 0 with hash value 57121610342
+	Scoring
+...Finished iteration with a best score of -7.27536e+06
+
+Beginning Iteration 63...
+	Mutating
+Hash collision at depth 0 with hash value 45850751358
+Hash collision at depth 0 with hash value 48342198319
+Hash collision at depth 0 with hash value 61488503555
+	Mating
+Hash collision at depth 0 with hash value 6943645872
+Hash collision at depth 0 with hash value 37664650165
+	Scoring
+...Finished iteration with a best score of -7.27535e+06
+
+Beginning Iteration 64...
+	Mutating
+Hash collision at depth 0 with hash value 41442353521
+Hash collision at depth 0 with hash value 46199043393
+Hash collision at depth 0 with hash value 75712726850
+	Mating
+Hash collision at depth 0 with hash value 45491530198
+
+	Scoring
+...Finished iteration with a best score of -7.27534e+06
+
+Beginning Iteration 65...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 71940879639
+Hash collision at depth 0 with hash value 23484601343
+Hash collision at depth 0 with hash value 26454814104
+	Scoring
+...Finished iteration with a best score of -7.27533e+06
+
+Beginning Iteration 66...
+	Mutating
+Hash collision at depth 0 with hash value 73297056445
+	Mating
+Hash collision at depth 0 with hash value 20891156637
+Hash collision at depth 0 with hash value 66997773090
+Hash collision at depth 0 with hash value 15259918562
+	Scoring
+...Finished iteration with a best score of -7.27531e+06
+
+Beginning Iteration 67...
+	Mutating
+Hash collision at depth 0 with hash value 37613669658
+Hash collision at depth 0 with hash value 39949744204
+Hash collision at depth 0 with hash value 2980902069
+Hash collision at depth 0 with hash value 40235498191
+	Mating
+Hash collision at depth 0 with hash value 69080643934
+
+Hash collision at depth 0 with hash value 523542248
+Hash collision at depth 0 with hash value 40210746564
+	Scoring
+...Finished iteration with a best score of -7.2753e+06
+
+Beginning Iteration 68...
+	Mutating
+Hash collision at depth 0 with hash value 40905414002
+	Mating
+Hash collision at depth 0 with hash value 36221902247
+	Scoring
+...Finished iteration with a best score of -7.27529e+06
+
+Beginning Iteration 69...
+	Mutating
+Hash collision at depth 0 with hash value 50855726457
+Hash collision at depth 0 with hash value 28562134453
+Hash collision at depth 0 with hash value 1385616080
+	Mating
+Hash collision at depth 0 with hash value 24227591179
+	Scoring
+...Finished iteration with a best score of -7.27527e+06
+
+Beginning Iteration 70...
+	Mutating
+Hash collision at depth 0 with hash value 12781656899
+Hash collision at depth 0 with hash value 2849477780
+Hash collision at depth 0 with hash value 4512902078
+	Mating
+Hash collision at depth 0 with hash value 17310132602
+Hash collision at depth 0 with hash value 53565656626
+Hash collision at depth 0 with hash value 12398873914
+Hash collision at depth 0 with hash value 9332278621
+	Scoring
+...Finished iteration with a best score of -7.27526e+06
+
+Beginning Iteration 71...
+	Mutating
+Hash collision at depth 0 with hash value 6482013207
+Hash collision at depth 0 with hash value 2274955702
+Hash collision at depth 0 with hash value 43389541340
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27524e+06
+
+Beginning Iteration 72...
+	Mutating
+Hash collision at depth 0 with hash value 10429437229
+Hash collision at depth 0 with hash value 6612782616
+
+	Mating
+Hash collision at depth 0 with hash value 31459056408
+Hash collision at depth 0 with hash value 23515175552
+	Scoring
+...Finished iteration with a best score of -7.27523e+06
+
+Beginning Iteration 73...
+	Mutating
+Hash collision at depth 0 with hash value 81257154284
+	Mating
+Hash collision at depth 0 with hash value 36156090743
+	Scoring
+...Finished iteration with a best score of -7.27522e+06
+
+Beginning Iteration 74...
+	Mutating
+Hash collision at depth 0 with hash value 84098134568
+	Mating
+Hash collision at depth 0 with hash value 18285825948
+
+Hash collision at depth 0 with hash value 56997817553
+	Scoring
+...Finished iteration with a best score of -7.27519e+06
+
+Beginning Iteration 75...
+	Mutating
+Hash collision at depth 0 with hash value 41275781761
+	Mating
+Hash collision at depth 0 with hash value 11199362570
+	Scoring
+...Finished iteration with a best score of -7.27519e+06
+
+Beginning Iteration 76...
+	Mutating
+Hash collision at depth 0 with hash value 3840718073
+Hash collision at depth 0 with hash value 2937816600
+	Mating
+Hash collision at depth 0 with hash value 71754338019
+	Scoring
+...Finished iteration with a best score of -7.27516e+06
+
+Beginning Iteration 77...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 2397522411
+	Scoring
+...Finished iteration with a best score of -7.27514e+06
+
+Beginning Iteration 78...
+	Mutating
+Hash collision at depth 0 with hash value 73092111936
+Hash collision at depth 0 with hash value 34904773536
+	Mating
+Hash collision at depth 0 with hash value 75559655923
+	Scoring
+...Finished iteration with a best score of -7.27512e+06
+
+Beginning Iteration 79...
+	Mutating
+Hash collision at depth 0 with hash value 44408014342
+	Mating
+Hash collision at depth 0 with hash value 56336937733
+Hash collision at depth 0 with hash value 41940276698
+
+	Scoring
+...Finished iteration with a best score of -7.27512e+06
+
+Beginning Iteration 80...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 53138430153
+	Scoring
+...Finished iteration with a best score of -7.27508e+06
+
+Beginning Iteration 81...
+	Mutating
+Hash collision at depth 0 with hash value 2702199829
+	Mating
+Hash collision at depth 0 with hash value 45773043648
+Hash collision at depth 0 with hash value 26551239558
+Hash collision at depth 0 with hash value 76039138414
+	Scoring
+...Finished iteration with a best score of -7.27507e+06
+
+Beginning Iteration 82...
+	Mutating
+Hash collision at depth 0 with hash value 3083728362
+Hash collision at depth 0 with hash value 46770098635
+Hash collision at depth 0 with hash value 76994211480
+	Mating
+Hash collision at depth 0 with hash value 77691278006
+Hash collision at depth 0 with hash value 71421177256
+	Scoring
+...Finished iteration with a best score of -7.27505e+06
+
+Beginning Iteration 83...
+	Mutating
+Hash collision at depth 0 with hash value 57525459902
+Hash collision at depth 0 with hash value 86419311921
+	Mating
+Hash collision at depth 0 with hash value 8071524342
+Hash collision at depth 0 with hash value 17823225808
+Hash collision at depth 0 with hash value 62014108197
+Hash collision at depth 0 with hash value 19448804976
+	Scoring
+...Finished iteration with a best score of -7.27503e+06
+
+Beginning Iteration 84...
+	Mutating
+Hash collision at depth 0 with hash value 85277512530
+Hash collision at depth 0 with hash value 34823158393
+	Mating
+Hash collision at depth 0 with hash value 67806266538
+	Scoring
+...Finished iteration with a best score of -7.27502e+06
+
+Beginning Iteration 85...
+	Mutating
+Hash collision at depth 0 with hash value 82374045733
+Hash collision at depth 0 with hash value 21484391370
+	Mating
+Hash collision at depth 0 with hash value 79552858262
+Hash collision at depth 0 with hash value 71676887954
+	Scoring
+...Finished iteration with a best score of -7.275e+06
+
+Beginning Iteration 86...
+	Mutating
+Hash collision at depth 0 with hash value 81900325552
+Hash collision at depth 0 with hash value 75926416099
+	Mating
+Hash collision at depth 0 with hash value 46137947525
+	Scoring
+...Finished iteration with a best score of -7.27498e+06
+
+Beginning Iteration 87...
+	Mutating
+Hash collision at depth 0 with hash value 61453195912
+Hash collision at depth 0 with hash value 69429480431
+Hash collision at depth 0 with hash value 79443106414
+Hash collision at depth 0 with hash value 83369371717
+	Mating
+Hash collision at depth 0 with hash value 60834801223
+
+	Scoring
+...Finished iteration with a best score of -7.27496e+06
+
+Beginning Iteration 88...
+	Mutating
+Hash collision at depth 0 with hash value 28811253533
+Hash collision at depth 0 with hash value 38237691950
+Hash collision at depth 0 with hash value 47929795515
+
+	Mating
+Hash collision at depth 0 with hash value 81598015572
+Hash collision at depth 0 with hash value 11534160662
+Hash collision at depth 0 with hash value 6380916972
+	Scoring
+...Finished iteration with a best score of -7.27494e+06
+
+Beginning Iteration 89...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27493e+06
+
+Beginning Iteration 90...
+	Mutating
+Hash collision at depth 0 with hash value 80443388109
+Hash collision at depth 0 with hash value 21822243882
+Hash collision at depth 0 with hash value 50754778879
+Hash collision at depth 0 with hash value 36372693252
+	Mating
+Hash collision at depth 0 with hash value 52377628421
+	Scoring
+...Finished iteration with a best score of -7.27491e+06
+
+Beginning Iteration 91...
+	Mutating
+Hash collision at depth 0 with hash value 57842945217
+Hash collision at depth 0 with hash value 82243887535
+Hash collision at depth 0 with hash value 59267249131
+	Mating
+Hash collision at depth 0 with hash value 32419570000
+Hash collision at depth 0 with hash value 79625453579
+Hash collision at depth 0 with hash value 8033042936
+	Scoring
+...Finished iteration with a best score of -7.27488e+06
+
+Beginning Iteration 92...
+	Mutating
+Hash collision at depth 0 with hash value 64729977732
+Hash collision at depth 0 with hash value 58865915928
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27487e+06
+
+Beginning Iteration 93...
+	Mutating
+Hash collision at depth 0 with hash value 49435295704
+Hash collision at depth 0 with hash value 46506306904
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27485e+06
+
+Beginning Iteration 94...
+	Mutating
+Hash collision at depth 0 with hash value 16620435001
+Hash collision at depth 0 with hash value 52033299267
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27483e+06
+
+Beginning Iteration 95...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 7325377449
+Hash collision at depth 0 with hash value 62289715977
+Hash collision at depth 0 with hash value 86477588419
+	Scoring
+...Finished iteration with a best score of -7.27482e+06
+
+Beginning Iteration 96...
+	Mutating
+Hash collision at depth 0 with hash value 87134292666
+Hash collision at depth 0 with hash value 762973085
+	Mating
+Hash collision at depth 0 with hash value 82648488800
+Hash collision at depth 0 with hash value 72834798028
+
+	Scoring
+...Finished iteration with a best score of -7.27481e+06
+
+Beginning Iteration 97...
+	Mutating
+Hash collision at depth 0 with hash value 67326130232
+Hash collision at depth 0 with hash value 56656687521
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27479e+06
+
+Beginning Iteration 98...
+	Mutating
+Hash collision at depth 0 with hash value 11772075235
+Hash collision at depth 0 with hash value 20933328816
+Hash collision at depth 0 with hash value 20770986288
+Hash collision at depth 0 with hash value 68303023151
+Hash collision at depth 0 with hash value 19681496475
+Hash collision at depth 0 with hash value 70318244979
+	Mating
+Hash collision at depth 0 with hash value 16017944957
+	Scoring
+...Finished iteration with a best score of -7.27477e+06
+
+Beginning Iteration 99...
+	Mutating
+Hash collision at depth 0 with hash value 62185166427
+Hash collision at depth 0 with hash value 32775621248
+	Mating
+Hash collision at depth 0 with hash value 38664526005
+	Scoring
+...Finished iteration with a best score of -7.27476e+06
+
+Beginning Iteration 100...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 12462288575
+	Scoring
+...Finished iteration with a best score of -7.27473e+06
+
+Beginning Iteration 101...
+	Mutating
+Hash collision at depth 0 with hash value 16528754562
+Hash collision at depth 0 with hash value 27172972913
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27471e+06
+
+Beginning Iteration 102...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.2747e+06
+
+Beginning Iteration 103...
+	Mutating
+Hash collision at depth 0 with hash value 9472353187
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27467e+06
+
+Beginning Iteration 104...
+	Mutating
+Hash collision at depth 0 with hash value 63034549795
+
+	Mating
+Hash collision at depth 0 with hash value 53089817357
+Hash collision at depth 0 with hash value 22769650955
+	Scoring
+...Finished iteration with a best score of -7.27466e+06
+
+Beginning Iteration 105...
+	Mutating
+Hash collision at depth 0 with hash value 42114457753
+Hash collision at depth 0 with hash value 688055356
+	Mating
+Hash collision at depth 0 with hash value 25520182668
+Hash collision at depth 0 with hash value 447382411
+Hash collision at depth 0 with hash value 39326698601
+	Scoring
+...Finished iteration with a best score of -7.27464e+06
+
+Beginning Iteration 106...
+	Mutating
+Hash collision at depth 0 with hash value 76188017600
+	Mating
+Hash collision at depth 0 with hash value 73587471943
+Hash collision at depth 0 with hash value 85242361255
+	Scoring
+...Finished iteration with a best score of -7.27461e+06
+
+Beginning Iteration 107...
+	Mutating
+Hash collision at depth 0 with hash value 10608416254
+Hash collision at depth 0 with hash value 56813752773
+Hash collision at depth 0 with hash value 23193902829
+	Mating
+Hash collision at depth 0 with hash value 39387048765
+Hash collision at depth 0 with hash value 32488908636
+Hash collision at depth 0 with hash value 41529046755
+	Scoring
+...Finished iteration with a best score of -7.2746e+06
+
+Beginning Iteration 108...
+	Mutating
+Hash collision at depth 0 with hash value 22449348257
+Hash collision at depth 0 with hash value 32497518430
+Hash collision at depth 0 with hash value 86064647268
+	Mating
+Hash collision at depth 0 with hash value 54240946216
+Hash collision at depth 0 with hash value 79237433336
+	Scoring
+...Finished iteration with a best score of -7.27457e+06
+
+Beginning Iteration 109...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 3071725362
+Hash collision at depth 0 with hash value 43169440146
+	Scoring
+...Finished iteration with a best score of -7.27455e+06
+
+Beginning Iteration 110...
+	Mutating
+Hash collision at depth 0 with hash value 17960433957
+Hash collision at depth 0 with hash value 48597117211
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27452e+06
+
+Beginning Iteration 111...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 8446523116
+Hash collision at depth 0 with hash value 16069368985
+	Scoring
+...Finished iteration with a best score of -7.27451e+06
+
+Beginning Iteration 112...
+	Mutating
+Hash collision at depth 0 with hash value 8653136883
+	Mating
+Hash collision at depth 0 with hash value 22803080219
+Hash collision at depth 0 with hash value 2917092356
+	Scoring
+...Finished iteration with a best score of -7.27448e+06
+
+Beginning Iteration 113...
+	Mutating
+Hash collision at depth 0 with hash value 32994879020
+	Mating
+Hash collision at depth 0 with hash value 87139071563
+Hash collision at depth 0 with hash value 27470275540
+	Scoring
+...Finished iteration with a best score of -7.27445e+06
+
+Beginning Iteration 114...
+	Mutating
+Hash collision at depth 0 with hash value 78834073672
+Hash collision at depth 0 with hash value 42356226245
+	Mating
+Hash collision at depth 0 with hash value 23472639653
+Hash collision at depth 0 with hash value 81742293816
+Hash collision at depth 0 with hash value 64875147605
+Hash collision at depth 0 with hash value 71779059595
+Hash collision at depth 0 with hash value 63120186956
+	Scoring
+...Finished iteration with a best score of -7.27442e+06
+
+Beginning Iteration 115...
+	Mutating
+Hash collision at depth 0 with hash value 86611944634
+	Mating
+Hash collision at depth 0 with hash value 84180916847
+Hash collision at depth 0 with hash value 27598415396
+	Scoring
+...Finished iteration with a best score of -7.2744e+06
+
+Beginning Iteration 116...
+	Mutating
+Hash collision at depth 0 with hash value 47934685911
+	Mating
+Hash collision at depth 0 with hash value 17013994308
+	Scoring
+...Finished iteration with a best score of -7.27436e+06
+
+Beginning Iteration 117...
+	Mutating
+Hash collision at depth 0 with hash value 16228212043
+Hash collision at depth 0 with hash value 48986484977
+Hash collision at depth 0 with hash value 15345884133
+	Mating
+Hash collision at depth 0 with hash value 51158834626
+Hash collision at depth 0 with hash value 76472235932
+	Scoring
+...Finished iteration with a best score of -7.27435e+06
+
+Beginning Iteration 118...
+	Mutating
+Hash collision at depth 0 with hash value 45051012095
+Hash collision at depth 0 with hash value 78726061737
+	Mating
+Hash collision at depth 0 with hash value 81459271638
+Hash collision at depth 0 with hash value 46242609640
+Hash collision at depth 0 with hash value 40564368953
+Hash collision at depth 0 with hash value 63524773568
+	Scoring
+...Finished iteration with a best score of -7.27431e+06
+
+Beginning Iteration 119...
+	Mutating
+Hash collision at depth 0 with hash value 71148721329
+	Mating
+Hash collision at depth 0 with hash value 43198084883
+Hash collision at depth 0 with hash value 49416885017
+Hash collision at depth 0 with hash value 1577153153
+Hash collision at depth 0 with hash value 72079404341
+	Scoring
+...Finished iteration with a best score of -7.27429e+06
+
+Beginning Iteration 120...
+	Mutating
+Hash collision at depth 0 with hash value 31744366438
+Hash collision at depth 0 with hash value 22047821038
+Hash collision at depth 0 with hash value 23606401567
+	Mating
+Hash collision at depth 0 with hash value 3651219718
+Hash collision at depth 0 with hash value 4497090992
+Hash collision at depth 0 with hash value 26044911383
+	Scoring
+...Finished iteration with a best score of -7.27425e+06
+
+Beginning Iteration 121...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 82158353718
+	Scoring
+...Finished iteration with a best score of -7.27422e+06
+
+Beginning Iteration 122...
+	Mutating
+Hash collision at depth 0 with hash value 9314190125
+Hash collision at depth 0 with hash value 67465325511
+Hash collision at depth 0 with hash value 76740515359
+Hash collision at depth 0 with hash value 86922656627
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.2742e+06
+
+Beginning Iteration 123...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 51649650182
+Hash collision at depth 0 with hash value 61808360355
+Hash collision at depth 0 with hash value 2522217324
+	Scoring
+...Finished iteration with a best score of -7.27416e+06
+
+Beginning Iteration 124...
+	Mutating
+Hash collision at depth 0 with hash value 5579784231
+	Mating
+Hash collision at depth 0 with hash value 51741827283
+Hash collision at depth 0 with hash value 50999743036
+Hash collision at depth 0 with hash value 6920172494
+Hash collision at depth 0 with hash value 13655436657
+Hash collision at depth 0 with hash value 21886916247
+	Scoring
+...Finished iteration with a best score of -7.27414e+06
+
+Beginning Iteration 125...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 58449369213
+Hash collision at depth 0 with hash value 31069059330
+Hash collision at depth 0 with hash value 65285499749
+Hash collision at depth 0 with hash value 68138684359
+	Scoring
+...Finished iteration with a best score of -7.27412e+06
+
+Beginning Iteration 126...
+	Mutating
+Hash collision at depth 0 with hash value 36431830819
+
+	Mating
+Hash collision at depth 0 with hash value 36694823071
+Hash collision at depth 0 with hash value 19339768155
+Hash collision at depth 0 with hash value 28397740222
+	Scoring
+...Finished iteration with a best score of -7.27408e+06
+
+Beginning Iteration 127...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 61109970738
+	Scoring
+...Finished iteration with a best score of -7.27406e+06
+
+Beginning Iteration 128...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 41605348393
+Hash collision at depth 0 with hash value 5813852313
+	Scoring
+...Finished iteration with a best score of -7.27403e+06
+
+Beginning Iteration 129...
+	Mutating
+Hash collision at depth 0 with hash value 55497693522
+	Mating
+Hash collision at depth 0 with hash value 43983861121
+	Scoring
+...Finished iteration with a best score of -7.27401e+06
+
+Beginning Iteration 130...
+	Mutating
+Hash collision at depth 0 with hash value 65853818952
+Hash collision at depth 0 with hash value 51144673912
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27398e+06
+
+Beginning Iteration 131...
+	Mutating
+Hash collision at depth 0 with hash value 37054145209
+Hash collision at depth 0 with hash value 12877492286
+	Mating
+Hash collision at depth 0 with hash value 28171946414
+	Scoring
+...Finished iteration with a best score of -7.27397e+06
+
+Beginning Iteration 132...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 85944904610
+	Scoring
+...Finished iteration with a best score of -7.27394e+06
+
+Beginning Iteration 133...
+	Mutating
+Hash collision at depth 0 with hash value 56551767863
+Hash collision at depth 0 with hash value 4062944640
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27392e+06
+
+Beginning Iteration 134...
+	Mutating
+Hash collision at depth 0 with hash value 79203837423
+Hash collision at depth 0 with hash value 21993058674
+	Mating
+Hash collision at depth 0 with hash value 13781278533
+
+	Scoring
+...Finished iteration with a best score of -7.27389e+06
+
+Beginning Iteration 135...
+	Mutating
+Hash collision at depth 0 with hash value 33822226682
+Hash collision at depth 0 with hash value 38134440775
+Hash collision at depth 0 with hash value 44302585569
+	Mating
+Hash collision at depth 0 with hash value 75260988092
+Hash collision at depth 0 with hash value 6375903708
+	Scoring
+...Finished iteration with a best score of -7.27387e+06
+
+Beginning Iteration 136...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 84516247264
+
+Hash collision at depth 0 with hash value 77863785530
+	Scoring
+...Finished iteration with a best score of -7.27384e+06
+
+Beginning Iteration 137...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 19334432833
+Hash collision at depth 0 with hash value 49847245561
+	Scoring
+...Finished iteration with a best score of -7.27382e+06
+
+Beginning Iteration 138...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 20330494160
+	Scoring
+...Finished iteration with a best score of -7.2738e+06
+
+Beginning Iteration 139...
+	Mutating
+Hash collision at depth 0 with hash value 4411741430
+
+Hash collision at depth 0 with hash value 29563523607
+Hash collision at depth 0 with hash value 82919739544
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27377e+06
+
+Beginning Iteration 140...
+	Mutating
+Hash collision at depth 0 with hash value 17604385511
+Hash collision at depth 0 with hash value 51269540373
+	Mating
+Hash collision at depth 0 with hash value 19236606800
+
+	Scoring
+...Finished iteration with a best score of -7.27375e+06
+
+Beginning Iteration 141...
+	Mutating
+Hash collision at depth 0 with hash value 56671476971
+	Mating
+Hash collision at depth 0 with hash value 53115253607
+
+	Scoring
+...Finished iteration with a best score of -7.27373e+06
+
+Beginning Iteration 142...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.2737e+06
+
+Beginning Iteration 143...
+	Mutating
+Hash collision at depth 0 with hash value 43696588028
+Hash collision at depth 0 with hash value 58361295917
+	Mating
+Hash collision at depth 0 with hash value 8729558207
+Hash collision at depth 0 with hash value 66484171482
+	Scoring
+...Finished iteration with a best score of -7.27368e+06
+
+Beginning Iteration 144...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 18671393231
+Hash collision at depth 0 with hash value 4573891087
+	Scoring
+...Finished iteration with a best score of -7.27365e+06
+
+Beginning Iteration 145...
+	Mutating
+Hash collision at depth 0 with hash value 15842391766
+Hash collision at depth 0 with hash value 3435793587
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27364e+06
+
+Beginning Iteration 146...
+	Mutating
+Hash collision at depth 0 with hash value 832926861
+Hash collision at depth 0 with hash value 10172405428
+	Mating
+Hash collision at depth 0 with hash value 5169634282
+	Scoring
+...Finished iteration with a best score of -7.27361e+06
+
+Beginning Iteration 147...
+	Mutating
+Hash collision at depth 0 with hash value 27932038562
+Hash collision at depth 0 with hash value 24927923617
+Hash collision at depth 0 with hash value 55153488608
+	Mating
+Hash collision at depth 0 with hash value 41886823226
+Hash collision at depth 0 with hash value 76442753470
+Hash collision at depth 0 with hash value 30432573615
+Hash collision at depth 0 with hash value 37872989651
+	Scoring
+...Finished iteration with a best score of -7.2736e+06
+
+Beginning Iteration 148...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 10488954762
+Hash collision at depth 0 with hash value 23739279392
+Hash collision at depth 0 with hash value 55899588410
+Hash collision at depth 0 with hash value 48497896600
+	Scoring
+...Finished iteration with a best score of -7.27358e+06
+
+Beginning Iteration 149...
+	Mutating
+Hash collision at depth 0 with hash value 27358748969
+Hash collision at depth 0 with hash value 67939520930
+Hash collision at depth 0 with hash value 33319814666
+	Mating
+Hash collision at depth 0 with hash value 22247598503
+Hash collision at depth 0 with hash value 23956115778
+Hash collision at depth 0 with hash value 81983139212
+Hash collision at depth 0 with hash value 14755964576
+	Scoring
+...Finished iteration with a best score of -7.27356e+06
+
+Beginning Iteration 150...
+	Mutating
+Hash collision at depth 0 with hash value 49271323853
+Hash collision at depth 0 with hash value 41536817101
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27353e+06
+
+Beginning Iteration 151...
+	Mutating
+Hash collision at depth 0 with hash value 82548810032
+
+	Mating
+Hash collision at depth 0 with hash value 18746420889
+
+Hash collision at depth 0 with hash value 75410484726
+	Scoring
+...Finished iteration with a best score of -7.27351e+06
+
+Beginning Iteration 152...
+	Mutating
+Hash collision at depth 0 with hash value 72887814208
+Hash collision at depth 0 with hash value 57624043635
+	Mating
+Hash collision at depth 0 with hash value 26254960971
+Hash collision at depth 0 with hash value 28736648471
+	Scoring
+...Finished iteration with a best score of -7.27348e+06
+
+Beginning Iteration 153...
+	Mutating
+Hash collision at depth 0 with hash value 19640987850
+	Mating
+Hash collision at depth 0 with hash value 20446363883
+	Scoring
+...Finished iteration with a best score of -7.27346e+06
+
+Beginning Iteration 154...
+	Mutating
+Hash collision at depth 0 with hash value 64194217064
+	Mating
+Hash collision at depth 0 with hash value 11556563182
+	Scoring
+...Finished iteration with a best score of -7.27342e+06
+
+Beginning Iteration 155...
+	Mutating
+Hash collision at depth 0 with hash value 67781035246
+Hash collision at depth 0 with hash value 83266368858
+Hash collision at depth 0 with hash value 20629760009
+Hash collision at depth 0 with hash value 3021397165
+
+	Mating
+Hash collision at depth 0 with hash value 57449557182
+Hash collision at depth 0 with hash value 13858107158
+	Scoring
+...Finished iteration with a best score of -7.27338e+06
+
+Beginning Iteration 156...
+	Mutating
+Hash collision at depth 0 with hash value 82414998855
+	Mating
+Hash collision at depth 0 with hash value 58190126346
+	Scoring
+...Finished iteration with a best score of -7.27337e+06
+
+Beginning Iteration 157...
+	Mutating
+Hash collision at depth 0 with hash value 38011491075
+Hash collision at depth 0 with hash value 71240413585
+	Mating
+Hash collision at depth 0 with hash value 47111718494
+Hash collision at depth 0 with hash value 79476006967
+Hash collision at depth 0 with hash value 52657743082
+	Scoring
+...Finished iteration with a best score of -7.27335e+06
+
+Beginning Iteration 158...
+	Mutating
+Hash collision at depth 0 with hash value 58399677571
+
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27332e+06
+
+Beginning Iteration 159...
+	Mutating
+Hash collision at depth 0 with hash value 67052578842
+	Mating
+Hash collision at depth 0 with hash value 67775604098
+Hash collision at depth 0 with hash value 62037059418
+	Scoring
+...Finished iteration with a best score of -7.27328e+06
+
+Beginning Iteration 160...
+	Mutating
+Hash collision at depth 0 with hash value 26014944915
+Hash collision at depth 0 with hash value 22774803517
+Hash collision at depth 0 with hash value 42167369775
+	Mating
+Hash collision at depth 0 with hash value 11147469953
+Hash collision at depth 0 with hash value 85672526128
+Hash collision at depth 0 with hash value 75114865607
+	Scoring
+...Finished iteration with a best score of -7.27326e+06
+
+Beginning Iteration 161...
+	Mutating
+Hash collision at depth 0 with hash value 2513678220
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27324e+06
+
+Beginning Iteration 162...
+	Mutating
+Hash collision at depth 0 with hash value 29433770665
+Hash collision at depth 0 with hash value 28766509733
+Hash collision at depth 0 with hash value 71226616564
+Hash collision at depth 0 with hash value 10182587674
+	Mating
+Hash collision at depth 0 with hash value 64743346053
+
+Hash collision at depth 0 with hash value 37435281411
+	Scoring
+...Finished iteration with a best score of -7.27322e+06
+
+Beginning Iteration 163...
+	Mutating
+Hash collision at depth 0 with hash value 58168493786
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27319e+06
+
+Beginning Iteration 164...
+	Mutating
+Hash collision at depth 0 with hash value 85002080715
+
+Hash collision at depth 0 with hash value 56146937838
+
+	Mating
+Hash collision at depth 0 with hash value 81396013940
+Hash collision at depth 0 with hash value 22516110115
+Hash collision at depth 0 with hash value 30878447400
+	Scoring
+...Finished iteration with a best score of -7.27318e+06
+
+Beginning Iteration 165...
+	Mutating
+Hash collision at depth 0 with hash value 59539238393
+	Mating
+Hash collision at depth 0 with hash value 5800194586
+	Scoring
+...Finished iteration with a best score of -7.27315e+06
+
+Beginning Iteration 166...
+	Mutating
+Hash collision at depth 0 with hash value 34810237448
+Hash collision at depth 0 with hash value 58657074647
+	Mating
+Hash collision at depth 0 with hash value 41137329465
+Hash collision at depth 0 with hash value 23407443829
+Hash collision at depth 0 with hash value 4458622311
+	Scoring
+...Finished iteration with a best score of -7.27313e+06
+
+Beginning Iteration 167...
+	Mutating
+Hash collision at depth 0 with hash value 83391545426
+Hash collision at depth 0 with hash value 65290228536
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27311e+06
+
+Beginning Iteration 168...
+	Mutating
+Hash collision at depth 0 with hash value 29314729026
+
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27309e+06
+
+Beginning Iteration 169...
+	Mutating
+Hash collision at depth 0 with hash value 22055057594
+Hash collision at depth 0 with hash value 50786533346
+	Mating
+Hash collision at depth 0 with hash value 43377774615
+	Scoring
+...Finished iteration with a best score of -7.27307e+06
+
+Beginning Iteration 170...
+	Mutating
+Hash collision at depth 0 with hash value 2580533911
+	Mating
+Hash collision at depth 0 with hash value 35998372381
+	Scoring
+...Finished iteration with a best score of -7.27304e+06
+
+Beginning Iteration 171...
+	Mutating
+Hash collision at depth 0 with hash value 30557830322
+	Mating
+Hash collision at depth 0 with hash value 45335613999
+Hash collision at depth 0 with hash value 57198834109
+Hash collision at depth 0 with hash value 26215624871
+	Scoring
+...Finished iteration with a best score of -7.27302e+06
+
+Beginning Iteration 172...
+	Mutating
+Hash collision at depth 0 with hash value 84045993994
+Hash collision at depth 0 with hash value 79175873676
+Hash collision at depth 0 with hash value 21803013074
+	Mating
+Hash collision at depth 0 with hash value 70939337642
+Hash collision at depth 0 with hash value 76981666726
+	Scoring
+...Finished iteration with a best score of -7.27299e+06
+
+Beginning Iteration 173...
+	Mutating
+Hash collision at depth 0 with hash value 71004611754
+	Mating
+Hash collision at depth 0 with hash value 43483193744
+Hash collision at depth 0 with hash value 34702266873
+	Scoring
+...Finished iteration with a best score of -7.27297e+06
+
+Beginning Iteration 174...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 63904781286
+	Scoring
+...Finished iteration with a best score of -7.27294e+06
+
+Beginning Iteration 175...
+	Mutating
+Hash collision at depth 0 with hash value 17830574205
+Hash collision at depth 0 with hash value 85467347525
+	Mating
+	Scoring
+...Finished iteration with a best score of -7.27293e+06
+
+Beginning Iteration 176...
+	Mutating
+Hash collision at depth 0 with hash value 45219039398
+Hash collision at depth 0 with hash value 83693302095
+Hash collision at depth 0 with hash value 49996534520
+
+	Mating
+Hash collision at depth 0 with hash value 25219370389
+Hash collision at depth 0 with hash value 78419559166
+	Scoring
+...Finished iteration with a best score of -7.2729e+06
+
+Beginning Iteration 177...
+	Mutating
+Hash collision at depth 0 with hash value 40227431537
+Hash collision at depth 0 with hash value 73157059657
+	Mating
+Hash collision at depth 0 with hash value 9821473189
+	Scoring
+...Finished iteration with a best score of -7.27287e+06
+
+Beginning Iteration 178...
+	Mutating
+Hash collision at depth 0 with hash value 44791040135
+Hash collision at depth 0 with hash value 64193948018
+	Mating
+Hash collision at depth 0 with hash value 75681746443
+Hash collision at depth 0 with hash value 56059855598
+	Scoring
+...Finished iteration with a best score of -7.27285e+06
+
+Beginning Iteration 179...
+	Mutating
+Hash collision at depth 0 with hash value 71232918777
+	Mating
+Hash collision at depth 0 with hash value 27298939878
+Hash collision at depth 0 with hash value 39827105219
+Hash collision at depth 0 with hash value 17735264535
+Hash collision at depth 0 with hash value 64059248221
+	Scoring
+...Finished iteration with a best score of -7.27282e+06
+
+Beginning Iteration 180...
+	Mutating
+Hash collision at depth 0 with hash value 61132013821
+	Mating
+Hash collision at depth 0 with hash value 50596304749
+Hash collision at depth 0 with hash value 39323066705
+	Scoring
+...Finished iteration with a best score of -7.27279e+06
+
+Beginning Iteration 181...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 46582660139
+Hash collision at depth 0 with hash value 50372783684
+Hash collision at depth 0 with hash value 59803501127
+
+	Scoring
+...Finished iteration with a best score of -7.27276e+06
+
+Beginning Iteration 182...
+	Mutating
+Hash collision at depth 0 with hash value 15630061049
+	Mating
+Hash collision at depth 0 with hash value 61184009401
+Hash collision at depth 0 with hash value 26603526444
+Hash collision at depth 0 with hash value 28318830244
+
+	Scoring
+...Finished iteration with a best score of -7.27273e+06
+
+Beginning Iteration 183...
+	Mutating
+Hash collision at depth 0 with hash value 21086490690
+	Mating
+Hash collision at depth 0 with hash value 85675388925
+Hash collision at depth 0 with hash value 60114131038
+Hash collision at depth 0 with hash value 73918475863
+	Scoring
+...Finished iteration with a best score of -7.27269e+06
+
+Beginning Iteration 184...
+	Mutating
+Hash collision at depth 0 with hash value 50293672200
+Hash collision at depth 0 with hash value 4157020074
+	Mating
+Hash collision at depth 0 with hash value 31947648397
+Hash collision at depth 0 with hash value 46381017864
+	Scoring
+...Finished iteration with a best score of -7.27267e+06
+
+Beginning Iteration 185...
+	Mutating
+Hash collision at depth 0 with hash value 51029532710
+
+	Mating
+Hash collision at depth 0 with hash value 72693375257
+Hash collision at depth 0 with hash value 6036059107
+Hash collision at depth 0 with hash value 62949762587
+Hash collision at depth 0 with hash value 37247043643
+	Scoring
