@@ -1,0 +1,60 @@
+50 Nodes t1
+
+real	1m7.007s
+user	44m10.095s
+sys	0m3.759s
+50 Nodes t2
+
+real	1m7.217s
+user	44m23.788s
+sys	0m4.457s
+50 Nodes t3
+
+real	1m6.810s
+user	44m0.075s
+sys	0m5.174s
+100 Nodes t1
+
+real	5m16.391s
+user	272m46.175s
+sys	0m6.929s
+100 Nodes t2
+
+real	5m30.431s
+user	285m48.198s
+sys	0m7.778s
+100 Nodes t3
+
+real	4m59.817s
+user	255m49.704s
+sys	0m7.195s
+150 Nodes t1
+
+real	22m30.433s
+user	1267m58.827s
+sys	0m13.188s
+150 Nodes t2
+
+real	22m51.175s
+user	1287m20.879s
+sys	0m12.440s
+150 Nodes t3
+
+real	23m17.426s
+user	1313m0.990s
+sys	0m12.389s
+200 Nodes t1
+
+real	56m57.738s
+user	3234m33.738s
+sys	0m19.348s
+200 Nodes t2
+
+real	56m58.175s
+user	3236m58.062s
+sys	0m22.485s
+200 Nodes t3
+
+real	58m4.513s
+user	3296m37.166s
+sys	0m24.137s
