@@ -2,9 +2,9 @@
 Demo with `python plot.py -f -i example -o example`.
 
 Call with
-`python plot.py -f -i in -o out -s 1`,
-where `in` (optional) is the prefix for the input files described below.
-If `fn` is not provided, the prefix will default to `input`.
+`python plot.py -f -i filename -o out -s 1`,
+where `filename` (optional) is the prefix for the input files described below.
+If `filename` is not provided, the prefix will default to `input`.
 See the `example.<xy,nodelist,edgelist>` files for how to format the input files.
 
 ### Options
@@ -14,10 +14,10 @@ See the `example.<xy,nodelist,edgelist>` files for how to format the input files
     - otherwise, makes only the content between `\begin{tikzpicture}` `\end{tikzpicture}` tags
 - `-n --nodecolor`:
     - boolean flag
-    - when set, colors edges according to labels in the last column of the `fn.nodelist` input
+    - when set, colors edges according to labels in the last column of the `filename.nodelist` input
 - `-e --edgecolor`:
     - boolean flag
-    - when set, colors edges according to labels in the last column of the `fn.edgelist` input
+    - when set, colors edges according to labels in the last column of the `filename.edgelist` input
 - `-i --input`:
     - specifies the prefix for the input filename
     - defaults to `input`
@@ -29,16 +29,16 @@ See the `example.<xy,nodelist,edgelist>` files for how to format the input files
     - defaults to `1`
 
 ## Input file formats
-- `fn.xy`:
+- `filename.xy`:
     - space-delimited file where line `i` contains two real numbers `xᵢ yᵢ`
-    - `xᵢ yᵢ` are the Cartesian coordinates of the node on line `i` in `fn.nodelist`
-- `fn.nodelist`:
+    - `xᵢ yᵢ` are the Cartesian coordinates of the node on line `i` in `filename.nodelist`
+- `filename.nodelist`:
     - file where line `i` contains a string `vᵢ` and (optionally) a label `l ∈ {-1, 0, 1, 2, 3, 4, 5, 6}`
-    - the string `vᵢ` is the name of the node as used in the `fn.edgelist` file
+    - the string `vᵢ` is the name of the node as used in the `filename.edgelist` file
     - the label `l` is used for node coloring, if enabled
-- `fn.edgelist`:
+- `filename.edgelist`:
     - space-delimited file where line `i` two node names `vᵢ vⱼ` and (optionally) a label `l ∈ {-1, 0, 1}`
-    - the node names `vᵢ` and `vⱼ` should correspond to the names given in `fn.nodelist`
+    - the node names `vᵢ` and `vⱼ` should correspond to the names given in `filename.nodelist`
     - the label `l` is used for edge coloring, if enabled
 
 ## Output
