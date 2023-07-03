@@ -1,0 +1,5 @@
+https://github.com/fypc/Jonker-Volgenant
+
+https://github.com/yongyanghz/LAPJV-algorithm-c
+
+https://github.com/ryanjoneil/ap.cpp
