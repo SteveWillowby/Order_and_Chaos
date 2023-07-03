@@ -1,0 +1,20 @@
+College Football Season 4
+
+real	3m19.856s
+user	103m43.864s
+sys	0m17.739s
+Political Blogs
+
+real	1351m5.547s
+user	58926m18.686s
+sys	0m42.789s
+EU-Core Emails
+
+real	1352m1.162s
+user	59125m7.242s
+sys	0m42.989s
+Cora Citations
+
+real	4726m38.077s
+user	207483m22.848s
+sys	3m50.934s
