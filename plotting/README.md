@@ -12,6 +12,12 @@ See the `example.<xy,nodelist,edgelist>` files for how to format the input files
     - boolean flag
     - when set, makes a full, stand-alone document
     - otherwise, makes only the content between `\begin{tikzpicture}` `\end{tikzpicture}` tags
+- `-n --nodecolor`:
+    - boolean flag
+    - when set, colors edges according to labels in the last column of the `fn.nodelist` input
+- `-e --edgecolor`:
+    - boolean flag
+    - when set, colors edges according to labels in the last column of the `fn.edgelist` input
 - `-i --input`:
     - specifies the prefix for the input filename
     - defaults to `input`
@@ -27,9 +33,13 @@ See the `example.<xy,nodelist,edgelist>` files for how to format the input files
     - space-delimited file where line `i` contains two real numbers `xᵢ yᵢ`
     - `xᵢ yᵢ` are the Cartesian coordinates of the node on line `i` in `fn.nodelist`
 - `fn.nodelist`:
-    - file where line `i` contains the name of node `vᵢ` as a contiguous string
+    - file where line `i` contains a string `vᵢ` and (optionally) a label `l ∈ {-1, 0, 1, 2, 3, 4, 5, 6}`
+    - the string `vᵢ` is the name of the node as used in the `fn.edgelist` file
+    - the label `l` is used for node coloring, if enabled
 - `fn.edgelist`:
-    - space-delimited file where line `i` contains the name of node `vᵢ`
+    - space-delimited file where line `i` two node names `vᵢ vⱼ` and (optionally) a label `l ∈ {-1, 0, 1}`
+    - the node names `vᵢ` and `vⱼ` should correspond to the names given in `fn.nodelist`
+    - the label `l` is used for edge coloring, if enabled
 
 ## Output
 A LaTeX file named `output.tex`, where `output` is the value set by the `-o` flag, containing a tikz picture of the graph defined by the input files.
