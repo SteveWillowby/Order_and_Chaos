@@ -1,0 +1,16 @@
+\documentclass{standalone}
+\include{tikz.tex}
+\begin{document}
+    \begin{tikzpicture}[scale=1]
+        \node [node] at (0.0, 0.0) (a) {};
+        \node [node] at (1.0, 1.0) (b) {};
+        \node [node] at (-1.0, 1.0) (c) {};
+        \node [node] at (0.0, -1.0) (d) {};
+        \node [node] at (2.0, 0.0) (e) {};
+        \draw [edge, black] (a) to (b);
+        \draw [edge, black] (b) to (c);
+        \draw [edge, teal] (e) to (d);
+        \draw [edge, orange] (d) to (a);
+        \draw [edge, black] (e) to (b);
+    \end{tikzpicture}
+\end{document}
