@@ -1,0 +1,1140 @@
+Loading graph from files:
+    maayan-foodweb_nodes.txt
+    maayan-foodweb.txt
+  ...graph loaded. It has 183 nodes and 2452 edges, 18 of which are self-loops.
+
+<<< The current code cannot handle self-loops. Ignoring all. >>>
+
+The original graph has log2_aut = 208.948
+Running for 250 iterations per trial...
+Trial 0 for (noise-, noise+) = (0, 0)
+
+log2_p_plus:          -1.14783
+log2_1_minus_p_plus:  -0.865917
+log2_p_minus:         -1.14783
+log2_1_minus_p_minus: -0.865917
+p_plus:  0.451302
+p_minus: 0.451302
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of -14211.2
+
+Beginning Iteration 1...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14209.4
+
+Beginning Iteration 2...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14207.7
+
+Beginning Iteration 3...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14207.4
+
+Beginning Iteration 4...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14205.1
+
+Beginning Iteration 5...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14202.2
+
+Beginning Iteration 6...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14199.5
+
+Beginning Iteration 7...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14193.7
+
+Beginning Iteration 8...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14190
+
+Beginning Iteration 9...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14183.1
+
+Beginning Iteration 10...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14177.8
+
+Beginning Iteration 11...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14174.1
+
+Beginning Iteration 12...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14171
+
+Beginning Iteration 13...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14163.7
+
+Beginning Iteration 14...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14160.3
+
+Beginning Iteration 15...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14156.4
+
+Beginning Iteration 16...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14149.5
+
+Beginning Iteration 17...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14149.5
+
+Beginning Iteration 18...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14147.3
+
+Beginning Iteration 19...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14142.4
+
+Beginning Iteration 20...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14142.4
+
+Beginning Iteration 21...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14141.9
+
+Beginning Iteration 22...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14141.9
+
+Beginning Iteration 23...
+	Mutating
+Hash collision at depth 0 with hash value 28593271285
+	Mating
+	Scoring
+...Finished iteration with a best score of -14141.9
+
+Beginning Iteration 24...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14141.9
+
+Beginning Iteration 25...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14141.9
+
+Beginning Iteration 26...
+	Mutating
+Hash collision at depth 0 with hash value 57429132408
+
+	Mating
+	Scoring
+...Finished iteration with a best score of -14141.9
+
+Beginning Iteration 27...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 28...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 29...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 30...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 31...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 32...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 33...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 34...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 35...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 36...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 37...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14138.4
+
+Beginning Iteration 38...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 39...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 40...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 41...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 42...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 43...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 44...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 45...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 46...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 47...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 48...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 49...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 50...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 51...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 52...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 53...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 54...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 55...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 56...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 57...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 58...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 59...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 60...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 61...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 62...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 63...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 64...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 65...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 66...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 67...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 68...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 77943879819
+
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 69...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 70...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 71...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 72...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 73...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 74...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 75...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 76...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 77...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 78...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 77196909142
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 79...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 80...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 81...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 82...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 83...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 84...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 85...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 86...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 87...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 88...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 89...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 90...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 91...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 92...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 93...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 94...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 95...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 96...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 97...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 98...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 99...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 100...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 101...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 102...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 103...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 104...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 105...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 106...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 107...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 108...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 109...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 110...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 111...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 112...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 113...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 114...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 115...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 116...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 117...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14137
+
+Beginning Iteration 118...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 119...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 120...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 121...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 122...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 123...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 124...
+	Mutating
+Hash collision at depth 0 with hash value 71032900968
+
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 125...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 126...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 127...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 128...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 129...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 130...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 131...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 132...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 133...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 134...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 135...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 136...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 137...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 138...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 139...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 140...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 141...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 142...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 143...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 144...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 145...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 146...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 147...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 148...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 149...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 150...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 151...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 152...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 153...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 154...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 155...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 156...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 157...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 158...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 159...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 160...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 161...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 162...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 163...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 164...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 165...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 166...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 167...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 168...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 77956501374
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 169...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 170...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 171...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 172...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 173...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 174...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 175...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 176...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 68901846850
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 177...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 178...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 179...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 180...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 181...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 182...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 183...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 184...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -14135.5
+
+Beginning Iteration 185...
+	Mutating
+	Mating
+	Scoring
