@@ -43,8 +43,11 @@
 //      A set of changes with more than `max_change_factor` * g.num_edges()
 //          will receive an infinitely bad score.
 //
-//  `use_heuristic` determines whether or not noise sets get a heuristic score
-//      as a tiebreaker
+//  `scoring_heuristic` determines whether or not noise sets get a heuristic
+//      score as a tiebreaker
+//
+//  `sampling_heuristic` determines whether or not random edge sampling is
+//      weighted by a heuristic
 //
 //  `legal_edges` is used if you want to constrain which edges can be part of
 //      the noise. If you want to include all edges as an option, make
@@ -61,7 +64,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
                                     float max_change_factor,
-                                    bool use_heuristic,
+                                    bool scoring_heuristic,
+                                    bool sampling_heuristic,
                                     const Graph& legal_edges,
                                     const std::string& file_base);
 
@@ -132,7 +136,7 @@ public:
     //  continuously mutating it until we get to pop size.
     GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
              size_t gene_depth, size_t pop_size, size_t num_results,
-             bool use_heuristic);
+             bool scoring_heuristic, bool sampling_heuristic);
 
     // Grows the population by 10x
     //  (creates 3x matings and 6x mutations)
@@ -208,7 +212,8 @@ protected:
     const size_t pop_size;
     const size_t k;
     const size_t n;
-    const bool use_heuristic;
+    const bool scoring_heuristic;
+    const bool sampling_heuristic;
 
     // For each depth level, stores a list of each Gene
     std::vector<std::vector<std::unique_ptr<Gene>>> pool_vec;
