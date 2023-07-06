@@ -1,7 +1,4 @@
 #!/bin/bash
 
-# Delete ALL former results
-
-rm results/*
-
+rm results/runtimes.txt
 ./helper.sh &>> results/runtimes.txt
