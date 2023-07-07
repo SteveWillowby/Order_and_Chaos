@@ -10,9 +10,9 @@ def plot(full: bool, in_filename: str, out_filename: str,
         in_edges = [tuple(line.strip().split(' ')) for line in efile]
 
     indent = '    ' if full else ''
-    colormap = {'-1': 'red',
+    colormap = {'-1': 'red, dashed',
                 '0': 'black',
-                '1': 'blue',
+                '1': 'blue, dashed',
                 '2': 'green',
                 '3': 'teal',
                 '4': 'purple',
