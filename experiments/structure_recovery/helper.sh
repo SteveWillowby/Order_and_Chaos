@@ -2,6 +2,8 @@
 
 # Johnson Graph
 
+rm results/johnson_*
+
 echo "Johnson 0.001"
 
 time nice -2 ../../executables/main -graph johnson_10_3_120_edges.txt \
@@ -56,6 +58,8 @@ time nice -2 ../../executables/main -graph johnson_10_3_120_edges.txt \
 
 # Bin Tree
 
+rm results/bin_tree_*
+
 echo "Bin Tree 0.01"
 
 time nice -2 ../../executables/main -graph binary_tree_127_edges.txt \
@@ -95,6 +99,8 @@ time nice -2 ../../executables/main -graph binary_tree_127_edges.txt \
 
 # Ring
 
+rm results/ring_*
+
 echo "Ring 0.01"
 
 time nice -2 ../../executables/main -graph ring_128_edges.txt \
@@ -133,6 +139,8 @@ time nice -2 ../../executables/main -graph ring_128_edges.txt \
                                     >> results/ring_05.txt
 
 # Wreath
+
+rm results/wreath_*
 
 echo "Wreath 0.0025"
 

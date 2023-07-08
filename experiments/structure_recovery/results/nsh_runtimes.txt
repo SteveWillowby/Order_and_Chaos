@@ -1,0 +1,114 @@
+rm: cannot remove 'results/nsh_johnson_*': No such file or directory
+Johnson 0.001
+
+real	2m58.987s
+user	156m29.359s
+sys	0m3.536s
+Johnson 0.002 t1
+
+real	3m3.682s
+user	160m25.666s
+sys	0m4.621s
+Johnson 0.002 t2
+
+real	2m34.906s
+user	129m23.726s
+sys	0m4.856s
+Johnson 0.002 t3
+
+real	3m11.059s
+user	168m59.104s
+sys	0m4.328s
+Johnson 0.003 t1
+
+real	3m14.437s
+user	160m27.720s
+sys	0m6.410s
+Johnson 0.003 t2
+
+real	2m23.030s
+user	111m47.292s
+sys	0m5.412s
+Johnson 0.003 t3
+
+real	2m19.259s
+user	107m29.071s
+sys	0m4.509s
+rm: cannot remove 'results/nsh_bin_tree_*': No such file or directory
+Bin Tree 0.01
+
+real	0m54.219s
+user	30m34.959s
+sys	0m36.961s
+Bin Tree 0.02
+
+real	0m49.498s
+user	27m44.939s
+sys	0m32.167s
+Bin Tree 0.03
+
+real	1m6.632s
+user	39m41.310s
+sys	0m41.221s
+Bin Tree 0.04
+
+real	2m6.608s
+user	54m30.994s
+sys	1m23.225s
+Bin Tree 0.05
+
+real	2m3.997s
+user	62m4.714s
+sys	1m15.333s
+rm: cannot remove 'results/nsh_ring_*': No such file or directory
+Ring 0.01
+
+real	1m2.098s
+user	36m20.491s
+sys	0m42.587s
+Ring 0.02
+
+real	0m49.933s
+user	29m19.540s
+sys	0m35.098s
+Ring 0.03
+
+real	0m52.771s
+user	31m32.124s
+sys	0m33.323s
+Ring 0.04
+
+real	2m2.340s
+user	61m37.373s
+sys	1m16.172s
+Ring 0.05
+
+real	1m52.267s
+user	62m34.747s
+sys	1m12.063s
+rm: cannot remove 'results/nsh_wreath_*': No such file or directory
+Wreath 0.0025
+
+real	40m0.068s
+user	2356m43.734s
+sys	0m9.897s
+Wreath 0.005
+
+real	25m29.669s
+user	1489m0.134s
+sys	0m10.001s
+Wreath 0.01
+
+real	30m17.776s
+user	1776m39.437s
+sys	0m10.677s
+Wreath 0.02
+
+real	30m50.023s
+user	1808m22.463s
+sys	0m9.202s
+Wreath 0.04
+
+real	5m11.961s
+user	281m39.634s
+sys	0m8.445s

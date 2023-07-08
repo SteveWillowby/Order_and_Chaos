@@ -93,8 +93,11 @@ int main(int argc, char* argv[]) {
                  <<"-n_itr <arg>:\tnumber of iterations for genetic algorithm"
                  <<" -- must be >= 1"<<std::endl<<"\t\t\t* defaults to 80"
                  <<std::endl<<std::endl
-                 <<"-use_heuristic:\ttells genetic algorithm to use a heuristic"
-                 <<std::endl<<"\t\t\tscore as a tiebreaker"
+                 <<"-score_heuristic:\ttells genetic algorithm to use a"
+                 <<std::endl<<"\t\t\t\theuristic score as a tiebreaker"
+                 <<std::endl<<std::endl
+                 <<"-no_sample_heuristic:\ttells genetic algorithm to NOT use"
+                 <<std::endl<<"\t\t\t\tits edge sampling heuristic"
                  <<std::endl<<std::endl
                  <<"-noise- <arg>:\tfraction of input edges to randomly remove"
                  <<std::endl<<"\t\t\t* for example, with 0.05, randomly removes "
@@ -190,7 +193,8 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    bool use_heuristic = cmd_flag_present(inputs, "-use_heuristic");
+    bool score_heuristic = cmd_flag_present(inputs, "-score_heuristic");
+    bool sample_heuristic = !cmd_flag_present(inputs, "-no_sample_heuristic");
 
     std::string edgelist_file;
     edgelist_file = get_cmd_option(inputs, "-graph");
@@ -471,7 +475,8 @@ std::to_string(legal_adds) + " options due to -legal_noise");
                                          random_additions,
                                          log_probs,
                                          max_change_factor,
-                                         use_heuristic,
+                                         score_heuristic,
+                                         sample_heuristic,
                                          legal_noise,
                                          output_file);
 

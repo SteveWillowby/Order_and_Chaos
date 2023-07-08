@@ -26,7 +26,7 @@ public:
                 std::uniform_real_distribution<long double>& dist) const;
 
     // dist should be
-    //  std::uniform_int_distribution<SYM__edge_int_type>(0, n * n)
+    //  std::uniform_int_distribution<SYM__edge_int_type>(0, (n * n) - 1)
     SYM__edge_int_type unweighted_sample(std::mt19937& gen,
                 std::uniform_int_distribution<SYM__edge_int_type>& dist) const;
 

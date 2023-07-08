@@ -28,7 +28,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
                                     float max_change_factor,
-                                    bool use_heuristic,
+                                    bool scoring_heuristic,
+                                    bool sampling_heuristic,
                                     const Graph& legal_edges,
                                     const std::string& file_base) {
     // Initialize Basics
@@ -42,6 +43,12 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     size_t max_possible_edges =
             (num_nodes * (num_nodes - 1)) / (1 + size_t(!directed)) +
             (num_nodes * size_t(g.num_loops() > 0));
+
+    if (!sampling_heuristic && legal_edges.num_edges() > 0 &&
+                               legal_edges.num_edges() != max_possible_edges) {
+        throw std::logic_error(
+"Error! Cannot combine unweighted sampling with `legal_edges` restrictions.");
+    }
 
     if (num_edges == 0) {
         throw std::domain_error("Error! Cannot run on an empty graph.");
@@ -88,7 +95,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
                          log2_1_minus_p_plus, log2_1_minus_p_minus,
-                         max_change_size, use_heuristic);
+                         max_change_size, scoring_heuristic);
 
     std::vector<std::unique_ptr<EdgeSetPair>> start_task =
         std::vector<std::unique_ptr<EdgeSetPair>>();
@@ -104,7 +111,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     // size_t pop_size = (g.num_nodes() / 4 + 1) *
     //                   (g.num_nodes() < 200 ? 200 : g.num_nodes());
     size_t pop_size = size_t(std::pow(g.num_nodes() + 400, 1.4));
-    GenePool gp(g, iecas, gene_depth, pop_size, k, use_heuristic);
+    GenePool gp(g, iecas, gene_depth, pop_size, k, scoring_heuristic,
+                sampling_heuristic);
 
     std::string output_graph_file = file_base + "_graph.txt";
     std::string output_noise_file = file_base + "_noise.txt";
@@ -327,9 +335,10 @@ std::vector<SYM__edge_int_type> Gene::merged(
 //  continuously mutating it until we get to pop size.
 GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
                    size_t gene_depth, size_t pop_size, size_t num_results,
-                   bool use_heuristic) :
+                   bool scoring_heuristic, bool sampling_heuristic) :
             iecas(iecas), depth(gene_depth), pop_size(pop_size), k(num_results),
-            n(g.num_nodes()), use_heuristic(use_heuristic) {
+            n(g.num_nodes()), scoring_heuristic(scoring_heuristic),
+            sampling_heuristic(sampling_heuristic) {
 
     if (depth < 1) {
         throw std::domain_error("Error! Cannot make gene pool with depth < 1");
@@ -349,7 +358,7 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
     scores = std::map<std::pair<long double, long double>,
                       std::unordered_map<size_t, size_t>>();
 
-    if (use_heuristic) {
+    if (scoring_heuristic) {
         h_scores = std::map<std::pair<long double, long double>,
                             std::unordered_map<size_t, size_t>>();
     }
@@ -497,7 +506,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         num_already_scored += x->second.size();
     }
     size_t num_regular_scored = num_already_scored;
-    if (use_heuristic) {
+    if (scoring_heuristic) {
         for (auto x = h_scores.begin(); x != h_scores.end(); x++) {
             num_already_scored += x->second.size();
         }
@@ -524,7 +533,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
                              std::unordered_map<size_t, size_t>>*> score_maps;
         score_maps = {&scores};
 
-        if (use_heuristic) {
+        if (scoring_heuristic) {
             size_t to_keep = (pop_size * 3) / 4;
             keep_sizes = {to_keep + num_heuristic_scored, pop_size};
             score_maps = {&scores, &h_scores};
@@ -535,7 +544,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         std::pair<long double, long double> min_score;
         size_t hash_value, e_hash_value;
         size_t orig_num_already_scored = num_already_scored;
-        for (size_t smi = 0; smi < 1 + size_t(use_heuristic); smi++) {
+        for (size_t smi = 0; smi < 1 + size_t(scoring_heuristic); smi++) {
 
             auto score_map = score_maps[smi];
             size_t keep_size = keep_sizes[smi];
@@ -614,13 +623,13 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
         j = 0;
         size_t j_hash, i_hash;
         bool show_score;
-        for (size_t smi = 0; smi < 1 + size_t(use_heuristic); smi++) {
+        for (size_t smi = 0; smi < 1 + size_t(scoring_heuristic); smi++) {
             auto score_map = score_maps[smi];
             show_score = true;
             for (auto x = score_map->rbegin(); x != score_map->rend(); x++) {
                 const std::unordered_map<size_t, size_t>& hash_values =
                                                                     x->second;
-                if (show_score && use_heuristic) {
+                if (show_score && scoring_heuristic) {
                     show_score = false;
                     std::cout<<"\tTop Score & Heuristic Values: ";
                     if (smi == 0) {
@@ -998,7 +1007,11 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             while (!done) {
                 done = true;
                 next = std::vector<SYM__edge_int_type>(prev);
-                addition = iecas.weighted_sample(gen, distll);
+                if (sampling_heuristic) {
+                    addition = iecas.weighted_sample(gen, distll);
+                } else {
+                    addition = iecas.unweighted_sample(gen, disti);
+                }
                 for (spot = 0; spot < remove_idx; spot++) {
                     if (addition > next[spot]) {
                         continue;
@@ -1055,7 +1068,11 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             size_t spot;
             while (!done) {
                 done = true;
-                addition = iecas.weighted_sample(gen, distll);
+                if (sampling_heuristic) {
+                    addition = iecas.weighted_sample(gen, distll);
+                } else {
+                    addition = iecas.unweighted_sample(gen, disti);
+                }
                 for (spot = 0; spot < prev.size(); spot++) {
                     if (addition > prev[spot]) {
                         next[spot] = prev[spot];
