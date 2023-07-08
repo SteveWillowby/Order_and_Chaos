@@ -28,3 +28,9 @@ user	84087m20.192s
 sys	0m59.349s
 Undirected EU-Core Emails
 rm: cannot remove 'results/undir_eucore*': No such file or directory
+
+real	1219m51.805s
+user	53295m5.623s
+sys	0m34.277s
+Undirected Cora Citations
+rm: cannot remove 'results/undir_cora*': No such file or directory
