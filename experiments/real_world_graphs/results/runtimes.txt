@@ -18,3 +18,13 @@ Cora Citations
 real	4726m38.077s
 user	207483m22.848s
 sys	3m50.934s
+Undirected Foodweb
+rm: cannot remove 'results/undir_foodweb*': No such file or directory
+Undirected Political Blogs
+rm: cannot remove 'results/undir_pol_blogs*': No such file or directory
+
+real	1932m11.530s
+user	84087m20.192s
+sys	0m59.349s
+Undirected EU-Core Emails
+rm: cannot remove 'results/undir_eucore*': No such file or directory
