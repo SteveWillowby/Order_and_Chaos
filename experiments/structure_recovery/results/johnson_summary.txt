@@ -1,0 +1,22 @@
+Recovered with Heuristic:
+001     -- 4 edges
+002_1   -- 7 edges
+002_2   -- 3 edges
+002_3   -- 5 edges
+003_1   -- 3 edges
+
+Not Recovered with Heuristic:
+003_2   -- 9 edges
+003_3   -- 6 edges
+
+
+Recovered without Heuristic:
+001     -- 2 edges
+002_1   -- 4 edges
+002_2   -- 6 edges
+002_2   -- 2 edges
+003_1   -- 7 edges
+
+Not Recovered without Heuristic:
+003_2   -- 9 edges (found slight improvement with 2)
+003_3   -- 10 edges
