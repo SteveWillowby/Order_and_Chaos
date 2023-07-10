@@ -120,6 +120,9 @@ int main(int argc, char* argv[]) {
                  <<"added edges will be"<<std::endl<<"\t\t\t\ta subset of"
                  <<"-legal_noise."
                  <<std::endl<<std::endl
+                 <<"-use_g_as_ses:\t'Use G as Special Edge Set' rather than"
+                 <<std::endl<<"\t\t\t\tthe edges added/remove by noise+/-"
+                 <<std::endl<<std::endl
                  <<"-mcf <arg>:\taka 'max change factor' -- the candidate noise"
                  <<std::endl<<"\t\t\t\tset will have at most (mcf * num_edges)"
                  <<" elements"<<std::endl<<"\t\t\t* defaults to 1.0"
@@ -229,6 +232,8 @@ int main(int argc, char* argv[]) {
             throw std::invalid_argument("Error! noise+ must be >= 0");
         } // Check for an overly-large noise+ later
     }
+
+    bool use_g_as_ses = cmd_flag_present(inputs, "-use_g_as_ses");
 
     float max_change_factor = 1.0;
     if (cmd_flag_present(inputs, "-mcf")) {
@@ -402,6 +407,12 @@ std::to_string(legal_adds) + " options due to -legal_noise");
         noise_minus = expected_edge_dels / legal_dels;
     }
 
+    // Used to get a score for the "special edge set"
+    //  The special edge set is usually the noise added by noise+ and noise-,
+    //  but if -use_g_as_ses is specified, then the special edge set is g.
+    std::unordered_set<Edge, EdgeHash> se_del;
+    std::unordered_set<Edge, EdgeHash> se_add;
+
     for (size_t trial = 0; trial < trials; trial++) {
         std::cout<<"Trial "<<trial<<" for (noise-, noise+) = ("
                  <<og_noise_minus<<", "<<og_noise_plus<<")"
@@ -468,11 +479,25 @@ std::to_string(legal_adds) + " options due to -legal_noise");
             log_probs = default_log2_noise_probs(g_nt, comb_util);
         }
 
+        if (use_g_as_ses) {
+            se_add.clear();
+            se_del.clear();
+            for (size_t a = 0; a < g.num_nodes(); a++) {
+                for (auto b_itr = g.out_neighbors(a).begin();
+                          b_itr != g.out_neighbors(a).end(); b_itr++) {
+                    se_add.insert(EDGE((int) a, *b_itr, g.directed));
+                }
+            }
+        } else {
+            se_del = random_deletions;
+            se_add = random_additions;
+        }
+
         auto result = genetic_alg_search(g, num_iterations,
                                          top_k, nt,
                                          gene_depth,
-                                         random_deletions,
-                                         random_additions,
+                                         se_del,
+                                         se_add,
                                          log_probs,
                                          max_change_factor,
                                          score_heuristic,
