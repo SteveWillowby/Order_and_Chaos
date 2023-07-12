@@ -2,6 +2,6 @@
 
 # Delete ALL former results
 
-rm results/*
+rm results/run*
 
-./helper.sh &>> results/runtimes.txt
+./half_helper.sh &>> results/runtimes.txt
