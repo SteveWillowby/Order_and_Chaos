@@ -22,3 +22,7 @@ Power: 4.23391
 Number of 8-node graphs: 12346
 Number of automorphisms: 170510
 Power: 5.25128
+
+Number of 9-node graphs: 274668
+Number of automorphisms: 1.74228e+06
+Power: 5.96813
