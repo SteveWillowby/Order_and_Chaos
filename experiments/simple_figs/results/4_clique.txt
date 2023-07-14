@@ -1,0 +1,72 @@
+Loading graph from files:
+    
+    4_clique.txt
+  ...graph loaded. It has 4 nodes and 5 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 2
+Running for 2 iterations per trial...
+Trial 0 for (noise-, noise+) = (0, 0)
+
+log2_p_plus:          -2.3385
+log2_1_minus_p_plus:  -0.317815
+log2_p_minus:         -2.3385
+log2_1_minus_p_minus: -0.317815
+p_plus:  0.197716
+p_minus: 0.197716
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of 0.0931094
+
+Beginning Iteration 1...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 3.24235
+
+Beginning Iteration 2...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 3.24235
+
+With a score of 3.24235 we have log2(|Aut(G_H)|) of 4.58496
+With edges: 
+(1, 2), 
+
+With a score of 0.0931094 we have log2(|Aut(G_H)|) of 2
+With edges: 
+
+
+With a score of 0.0724262 we have log2(|Aut(G_H)|) of 3
+With edges: 
+(0, 3), 
+
+With a score of -1.92757 we have log2(|Aut(G_H)|) of 1
+With edges: 
+(0, 2), 
+
+With a score of -1.92757 we have log2(|Aut(G_H)|) of 1
+With edges: 
+(0, 1), 
+
+With a score of -1.92757 we have log2(|Aut(G_H)|) of 1
+With edges: 
+(2, 3), 
+
+With a score of -1.92757 we have log2(|Aut(G_H)|) of 1
+With edges: 
+(1, 3), 
+
+With a score of -inf we have log2(|Aut(G_H)|) of 1
+With edges: 
+(0, 1), (0, 2), (1, 2), (2, 3), 
+
+With a score of -inf we have log2(|Aut(G_H)|) of 3
+With edges: 
+(0, 1), (1, 2), (2, 3), 
+
+With a score of -inf we have log2(|Aut(G_H)|) of 2
+With edges: 
+(0, 1), (0, 2), (0, 3), (2, 3), 
+
