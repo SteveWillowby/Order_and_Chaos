@@ -1,0 +1,26 @@
+Karate
+rm: cannot remove 'results/nsh_karate*': No such file or directory
+
+real	1m50.261s
+user	63m8.394s
+sys	1m45.724s
+College Football Season 4
+rm: cannot remove 'results/nsh_college_football_s4*': No such file or directory
+
+real	7m2.999s
+user	302m44.393s
+sys	1m8.175s
+Political Blogs
+rm: cannot remove 'results/nsh_pol_blogs*': No such file or directory
+
+real	10002m45.653s
+user	593624m3.444s
+sys	72m19.876s
+EU-Core Emails
+rm: cannot remove 'results/nsh_eucore*': No such file or directory
+
+real	4099m48.234s
+user	243170m13.604s
+sys	10m36.177s
+Cora Citations
+rm: cannot remove 'results/nsh_cora*': No such file or directory
