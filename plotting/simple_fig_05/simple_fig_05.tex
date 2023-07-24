@@ -1,0 +1,37 @@
+\begin{tikzpicture}[scale=1]
+    \node [node] at (0.0, 0.0) (a1) {};
+    \node [node] at (0.5, 0.75) (b1) {};
+    \node [node] at (1.0, 0.0) (c1) {};
+    \node [node] at (0.0, 1.0) (d1) {};
+    \node [node] at (0.5, 1.75) (e1) {};
+    \node [node] at (1.0, 1.0) (f1) {};
+    \node [node] at (1.0, 0.5) (g1) {};
+    \node [node] at (1.5, 1.25) (h1) {};
+    \node [node] at (2.0, 0.5) (i1) {};
+    \node [node] at (3.5, 0.0) (a2) {};
+    \node [node] at (4.0, 0.75) (b2) {};
+    \node [node] at (4.5, 0.0) (c2) {};
+    \node [node] at (3.5, 1.0) (d2) {};
+    \node [node] at (4.0, 1.75) (e2) {};
+    \node [node] at (4.5, 1.0) (f2) {};
+    \node [node] at (4.5, 0.5) (g2) {};
+    \node [node] at (5.0, 1.25) (h2) {};
+    \node [node] at (5.5, 0.5) (i2) {};
+    \draw [edge] (a1) to (b1);
+    \draw [edge] (b1) to (c1);
+    \draw [edge] (c1) to (a1);
+    \draw [edge] (d1) to (e1);
+    \draw [edge] (e1) to (f1);
+    \draw [edge] (f1) to (d1);
+    \draw [edge] (g1) to (h1);
+    \draw [edge] (i1) to (g1);
+    \draw [edge] (a2) to (b2);
+    \draw [edge] (b2) to (c2);
+    \draw [edge] (c2) to (a2);
+    \draw [edge] (d2) to (e2);
+    \draw [edge] (e2) to (f2);
+    \draw [edge] (f2) to (d2);
+    \draw [edge] (g2) to (h2);
+    \draw [edge] (h2) to (i2);
+    \draw [edge] (i2) to (g2);
+\end{tikzpicture}

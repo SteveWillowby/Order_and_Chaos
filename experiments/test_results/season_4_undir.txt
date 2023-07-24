@@ -1264,3 +1264,21 @@ With a score of -15894.4 we have log2(|Aut(G_H)|) of 314.128
 With edges: 
 (0, 191), (1, 48), (3, 85), (4, 45), (5, 105), (6, 28), (8, 151), (9, 152), (11, 69), (11, 136), (13, 127), (18, 123), (19, 20), (21, 146), (22, 23), (23, 130), (25, 134), (26, 52), (27, 59), (29, 192), (30, 180), (31, 149), (34, 157), (35, 190), (37, 62), (38, 72), (40, 94), (41, 80), (44, 128), (46, 132), (47, 168), (49, 131), (50, 55), (51, 71), (54, 144), (55, 169), (57, 110), (58, 139), (60, 162), (61, 108), (63, 86), (64, 174), (65, 143), (66, 101), (67, 90), (70, 77), (73, 149), (75, 89), (76, 82), (77, 87), (81, 106), (84, 134), (88, 177), (91, 185), (92, 133), (95, 119), (99, 126), (100, 181), (109, 166), (112, 124), (113, 194), (118, 188), (121, 141), (122, 182), (125, 175), (130, 142), (135, 148), (142, 187), (147, 155), (150, 172), (151, 156), (153, 154), (160, 193), (165, 189), (176, 192), 
 
+Loading graph from files:
+    experiments/real_world_graphs/season_4_undirected_nodes.txt
+    experiments/real_world_graphs/season_4_undirected_edges.txt
+  ...graph loaded. It has 195 nodes and 804 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 2
+Running for 80 iterations per trial...
+Trial 0 for (noise-, noise+) = (0, 0)
+
+log2_p_plus:          -1.14005
+log2_1_minus_p_plus:  -0.872352
+log2_p_minus:         -1.14005
+log2_1_minus_p_minus: -0.872352
+p_plus:  0.453744
+p_minus: 0.453744
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.

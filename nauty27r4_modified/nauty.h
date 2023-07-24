@@ -66,7 +66,7 @@ it is necessary to check they are correct.
 
 /* Support of gcc extensions __builtin_clz, __builtin_clzl, __builtin_clzll */
 #ifndef HAVE_HWLZCNT
-#define HAVE_HWLZCNT 1
+#define HAVE_HWLZCNT 0
 #endif
 #define HAVE_CLZ 1
 #define HAVE_CLZL 1
@@ -81,11 +81,11 @@ it is necessary to check they are correct.
    for the Intel compiler icc.  These need no compiler switch.
 */
 #ifndef HAVE_HWPOPCNT
-#define HAVE_HWPOPCNT 1
+#define HAVE_HWPOPCNT 0
 #endif
-#define HAVE_POPCNT 1
-#define HAVE_POPCNTL 1
-#define HAVE_POPCNTLL 1
+#define HAVE_POPCNT 0
+#define HAVE_POPCNTL 0
+#define HAVE_POPCNTLL 0
 #define HAVE_MMPOP32 0
 #define HAVE_MMPOP64 0
 

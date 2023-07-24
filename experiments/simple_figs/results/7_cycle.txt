@@ -1,0 +1,150 @@
+Loading graph from files:
+    
+    7_cycle.txt
+  ...graph loaded. It has 7 nodes and 6 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 1
+Running for 15 iterations per trial...
+Trial 0 for (noise-, noise+) = (0, 0)
+
+log2_p_plus:          -3.95424
+log2_1_minus_p_plus:  -0.0962126
+log2_p_minus:         -3.95424
+log2_1_minus_p_minus: -0.0962126
+p_plus:  0.0645144
+p_minus: 0.0645144
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of -1.02046
+
+Beginning Iteration 1...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 2...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 3...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 4...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 5...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 6...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 7...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 8...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 9...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 10...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 11...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 12...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 13...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 14...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+Beginning Iteration 15...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 0.736222
+
+With a score of 0.736222 we have log2(|Aut(G_H)|) of 3.80735
+With edges: 
+(0, 6), 
+
+With a score of -1.02046 we have log2(|Aut(G_H)|) of 1
+With edges: 
+
+
+With a score of -1.09265 we have log2(|Aut(G_H)|) of 4.32193
+With edges: 
+(1, 2), (2, 6), 
+
+With a score of -1.09265 we have log2(|Aut(G_H)|) of 4.32193
+With edges: 
+(0, 4), (4, 5), 
+
+With a score of -1.57019 we have log2(|Aut(G_H)|) of 12.2992
+With edges: 
+(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), 
+
+With a score of -1.73651 we have log2(|Aut(G_H)|) of 4
+With edges: 
+(2, 3), (3, 6), 
+
+With a score of -1.73651 we have log2(|Aut(G_H)|) of 4
+With edges: 
+(0, 3), (3, 4), 
+
+With a score of -1.73651 we have log2(|Aut(G_H)|) of 4
+With edges: 
+(1, 2), (3, 4), 
+
+With a score of -1.73651 we have log2(|Aut(G_H)|) of 4
+With edges: 
+(2, 3), (4, 5), 
+
+With a score of -1.87849 we have log2(|Aut(G_H)|) of 2
+With edges: 
+(1, 2), 
+

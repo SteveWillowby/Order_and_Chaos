@@ -1,0 +1,90 @@
+Loading graph from files:
+    
+    6_cycle.txt
+  ...graph loaded. It has 6 nodes and 5 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 1
+Running for 5 iterations per trial...
+Trial 0 for (noise-, noise+) = (0, 0)
+
+log2_p_plus:          -3.44169
+log2_1_minus_p_plus:  -0.13929
+log2_p_minus:         -3.44169
+log2_1_minus_p_minus: -0.13929
+p_plus:  0.092034
+p_minus: 0.092034
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of -1.08935
+
+Beginning Iteration 1...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 1.47578
+
+Beginning Iteration 2...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 1.47578
+
+Beginning Iteration 3...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 1.47578
+
+Beginning Iteration 4...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 1.47578
+
+Beginning Iteration 5...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 1.47578
+
+With a score of 1.47578 we have log2(|Aut(G_H)|) of 5.58496
+With edges: 
+(1, 2), (3, 4), 
+
+With a score of 0.778178 we have log2(|Aut(G_H)|) of 3.58496
+With edges: 
+(0, 5), 
+
+With a score of -0.391747 we have log2(|Aut(G_H)|) of 3
+With edges: 
+(2, 3), 
+
+With a score of -0.617638 we have log2(|Aut(G_H)|) of 9.49185
+With edges: 
+(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), 
+
+With a score of -0.656695 we have log2(|Aut(G_H)|) of 6.16993
+With edges: 
+(0, 2), (2, 3), (3, 5), 
+
+With a score of -0.694146 we have log2(|Aut(G_H)|) of 4
+With edges: 
+(1, 2), (2, 5), 
+
+With a score of -0.694146 we have log2(|Aut(G_H)|) of 4
+With edges: 
+(0, 3), (3, 4), 
+
+With a score of -1.08935 we have log2(|Aut(G_H)|) of 1
+With edges: 
+
+
+With a score of -1.39175 we have log2(|Aut(G_H)|) of 2
+With edges: 
+(1, 2), 
+
+With a score of -1.39175 we have log2(|Aut(G_H)|) of 2
+With edges: 
+(3, 4), 
+
