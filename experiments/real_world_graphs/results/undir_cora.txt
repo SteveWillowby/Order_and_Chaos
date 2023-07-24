@@ -1,0 +1,2450 @@
+Loading graph from files:
+    cora_nodes.txt
+    cora.txt
+  ...graph loaded. It has 2708 nodes and 5278 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 579.365
+Running for 250 iterations per trial...
+Trial 0 for (noise-, noise+) = (0, 0)
+
+log2_p_plus:          -1.01487
+log2_1_minus_p_plus:  -0.985278
+log2_p_minus:         -1.01487
+log2_1_minus_p_minus: -0.985278
+p_plus:  0.494872
+p_minus: 0.494872
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The special edge set gets a score of -3.61074e+06
+
+Beginning Iteration 1...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 1619242
+Hash collision at depth 0 with hash value 3557903
+Hash collision at depth 0 with hash value 489598
+Hash collision at depth 0 with hash value 4982619
+	Scoring
+...Finished iteration with a best score of -3.61072e+06
+
+Beginning Iteration 2...
+	Mutating
+Hash collision at depth 0 with hash value 63074444695
+
+	Mating
+Hash collision at depth 0 with hash value 63682890782
+
+Hash collision at depth 0 with hash value 83307027601
+
+	Scoring
+...Finished iteration with a best score of -3.61072e+06
+
+Beginning Iteration 3...
+	Mutating
+Hash collision at depth 0 with hash value 73312027047
+
+Hash collision at depth 0 with hash value 1668935
+Hash collision at depth 0 with hash value 48696838648
+
+	Mating
+Hash collision at depth 0 with hash value 66228754418
+
+	Scoring
+...Finished iteration with a best score of -3.61071e+06
+
+Beginning Iteration 4...
+	Mutating
+Hash collision at depth 0 with hash value 4588678230
+
+	Mating
+Hash collision at depth 0 with hash value 14831722320
+Hash collision at depth 0 with hash value 79965694091
+	Scoring
+...Finished iteration with a best score of -3.6107e+06
+
+Beginning Iteration 5...
+	Mutating
+Hash collision at depth 0 with hash value 44296706766
+
+Hash collision at depth 0 with hash value 72103148234
+Hash collision at depth 0 with hash value 71432417899
+	Mating
+Hash collision at depth 0 with hash value 77762836925
+	Scoring
+...Finished iteration with a best score of -3.61069e+06
+
+Beginning Iteration 6...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 39332935202
+Hash collision at depth 0 with hash value 14805263025
+Hash collision at depth 0 with hash value 23603894847
+
+	Scoring
+...Finished iteration with a best score of -3.61067e+06
+
+Beginning Iteration 7...
+	Mutating
+Hash collision at depth 0 with hash value 17144793674
+
+Hash collision at depth 0 with hash value 54828489737
+	Mating
+Hash collision at depth 0 with hash value 69143608747
+	Scoring
+...Finished iteration with a best score of -3.61063e+06
+
+Beginning Iteration 8...
+	Mutating
+Hash collision at depth 0 with hash value 78297741318
+Hash collision at depth 0 with hash value 35331054209
+Hash collision at depth 0 with hash value 58808876199
+
+Hash collision at depth 0 with hash value 38290791013
+Hash collision at depth 0 with hash value 50976677596
+	Mating
+Hash collision at depth 0 with hash value 21057619448
+
+Hash collision at depth 0 with hash value 38718487553
+	Scoring
+...Finished iteration with a best score of -3.61059e+06
+
+Beginning Iteration 9...
+	Mutating
+Hash collision at depth 0 with hash value 5274520424
+
+	Mating
+Hash collision at depth 0 with hash value 40016287886
+	Scoring
+...Finished iteration with a best score of -3.61058e+06
+
+Beginning Iteration 10...
+	Mutating
+Hash collision at depth 0 with hash value 12600505100
+Hash collision at depth 0 with hash value 14724026862
+Hash collision at depth 0 with hash value 86848265766
+	Mating
+Hash collision at depth 0 with hash value 40891931806
+Hash collision at depth 0 with hash value 866862825
+
+	Scoring
+...Finished iteration with a best score of -3.61055e+06
+
+Beginning Iteration 11...
+	Mutating
+Hash collision at depth 0 with hash value 56444523540
+	Mating
+Hash collision at depth 0 with hash value 76897344154
+Hash collision at depth 0 with hash value 1980349247
+Hash collision at depth 0 with hash value 50494387576
+Hash collision at depth 0 with hash value 35326294417
+Hash collision at depth 0 with hash value 17482225306
+Hash collision at depth 0 with hash value 26818344205
+	Scoring
+...Finished iteration with a best score of -3.61052e+06
+
+Beginning Iteration 12...
+	Mutating
+Hash collision at depth 0 with hash value 63515671221
+Hash collision at depth 0 with hash value 18288231609
+Hash collision at depth 0 with hash value 53808716456
+Hash collision at depth 0 with hash value 86878211855
+	Mating
+Hash collision at depth 0 with hash value 78626906957
+Hash collision at depth 0 with hash value 40220310360
+
+	Scoring
+...Finished iteration with a best score of -3.61049e+06
+
+Beginning Iteration 13...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 25844384677
+Hash collision at depth 0 with hash value 58398432032
+	Scoring
+...Finished iteration with a best score of -3.61047e+06
+
+Beginning Iteration 14...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 58543329200
+Hash collision at depth 0 with hash value 8347442619
+Hash collision at depth 0 with hash value 8973292434
+Hash collision at depth 0 with hash value 41040616454
+Hash collision at depth 0 with hash value 18710936706
+Hash collision at depth 0 with hash value 7652173764
+Hash collision at depth 0 with hash value 4670168922
+	Scoring
+...Finished iteration with a best score of -3.61044e+06
+
+Beginning Iteration 15...
+	Mutating
+Hash collision at depth 0 with hash value 41716196615
+Hash collision at depth 0 with hash value 45809587698
+Hash collision at depth 0 with hash value 42979836924
+	Mating
+Hash collision at depth 0 with hash value 14752649328
+
+Hash collision at depth 0 with hash value 76267462898
+Hash collision at depth 0 with hash value 34055251183
+
+Hash collision at depth 0 with hash value 80042865357
+Hash collision at depth 0 with hash value 45440827262
+	Scoring
+...Finished iteration with a best score of -3.61041e+06
+
+Beginning Iteration 16...
+	Mutating
+Hash collision at depth 0 with hash value 75269289015
+
+	Mating
+Hash collision at depth 0 with hash value 35624996515
+Hash collision at depth 0 with hash value 41964233988
+	Scoring
+...Finished iteration with a best score of -3.61036e+06
+
+Beginning Iteration 17...
+	Mutating
+Hash collision at depth 0 with hash value 27550631841
+	Mating
+Hash collision at depth 0 with hash value 10226126981
+	Scoring
+...Finished iteration with a best score of -3.61034e+06
+
+Beginning Iteration 18...
+	Mutating
+Hash collision at depth 0 with hash value 38282225857
+	Mating
+Hash collision at depth 0 with hash value 80565258219
+Hash collision at depth 0 with hash value 37618383923
+Hash collision at depth 0 with hash value 45935707812
+	Scoring
+...Finished iteration with a best score of -3.61032e+06
+
+Beginning Iteration 19...
+	Mutating
+Hash collision at depth 0 with hash value 37540066104
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.61029e+06
+
+Beginning Iteration 20...
+	Mutating
+Hash collision at depth 0 with hash value 11830662350
+	Mating
+Hash collision at depth 0 with hash value 30027708979
+	Scoring
+...Finished iteration with a best score of -3.61027e+06
+
+Beginning Iteration 21...
+	Mutating
+Hash collision at depth 0 with hash value 54180277076
+
+Hash collision at depth 0 with hash value 73343885578
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.61025e+06
+
+Beginning Iteration 22...
+	Mutating
+Hash collision at depth 0 with hash value 1278309053
+	Mating
+Hash collision at depth 0 with hash value 10937543705
+Hash collision at depth 0 with hash value 63792893759
+	Scoring
+...Finished iteration with a best score of -3.61022e+06
+
+Beginning Iteration 23...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 51121509898
+	Scoring
+...Finished iteration with a best score of -3.61019e+06
+
+Beginning Iteration 24...
+	Mutating
+Hash collision at depth 0 with hash value 424866662
+	Mating
+Hash collision at depth 0 with hash value 23194285761
+Hash collision at depth 0 with hash value 86258370826
+Hash collision at depth 0 with hash value 19795462991
+Hash collision at depth 0 with hash value 20078311452
+Hash collision at depth 0 with hash value 6281481749
+	Scoring
+...Finished iteration with a best score of -3.61018e+06
+
+Beginning Iteration 25...
+	Mutating
+Hash collision at depth 0 with hash value 72096441054
+Hash collision at depth 0 with hash value 49015123730
+
+Hash collision at depth 0 with hash value 55076369004
+	Mating
+Hash collision at depth 0 with hash value 85105847346
+Hash collision at depth 0 with hash value 22572076124
+	Scoring
+...Finished iteration with a best score of -3.61015e+06
+
+Beginning Iteration 26...
+	Mutating
+Hash collision at depth 0 with hash value 10124781564
+
+Hash collision at depth 0 with hash value 60457499920
+	Mating
+Hash collision at depth 0 with hash value 35124899417
+	Scoring
+...Finished iteration with a best score of -3.61012e+06
+
+Beginning Iteration 27...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.61011e+06
+
+Beginning Iteration 28...
+	Mutating
+Hash collision at depth 0 with hash value 30209278735
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.61008e+06
+
+Beginning Iteration 29...
+	Mutating
+Hash collision at depth 0 with hash value 3680481149
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.61007e+06
+
+Beginning Iteration 30...
+	Mutating
+Hash collision at depth 0 with hash value 47731019576
+	Mating
+Hash collision at depth 0 with hash value 39618011261
+	Scoring
+...Finished iteration with a best score of -3.61004e+06
+
+Beginning Iteration 31...
+	Mutating
+Hash collision at depth 0 with hash value 53012496575
+Hash collision at depth 0 with hash value 19575137448
+Hash collision at depth 0 with hash value 81138488061
+
+	Mating
+Hash collision at depth 0 with hash value 19441802863
+Hash collision at depth 0 with hash value 63841932884
+	Scoring
+...Finished iteration with a best score of -3.61003e+06
+
+Beginning Iteration 32...
+	Mutating
+Hash collision at depth 0 with hash value 62963624667
+Hash collision at depth 0 with hash value 44654758816
+	Mating
+Hash collision at depth 0 with hash value 62075762441
+Hash collision at depth 0 with hash value 70111737799
+	Scoring
+...Finished iteration with a best score of -3.61001e+06
+
+Beginning Iteration 33...
+	Mutating
+Hash collision at depth 0 with hash value 56896443720
+Hash collision at depth 0 with hash value 23418547191
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.61e+06
+
+Beginning Iteration 34...
+	Mutating
+Hash collision at depth 0 with hash value 2591171201
+	Mating
+Hash collision at depth 0 with hash value 66903299761
+Hash collision at depth 0 with hash value 4106289858
+	Scoring
+...Finished iteration with a best score of -3.60998e+06
+
+Beginning Iteration 35...
+	Mutating
+Hash collision at depth 0 with hash value 23408123590
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60997e+06
+
+Beginning Iteration 36...
+	Mutating
+Hash collision at depth 0 with hash value 62656684294
+	Mating
+Hash collision at depth 0 with hash value 31827669154
+	Scoring
+...Finished iteration with a best score of -3.60995e+06
+
+Beginning Iteration 37...
+	Mutating
+Hash collision at depth 0 with hash value 83130412010
+	Mating
+Hash collision at depth 0 with hash value 70417544924
+Hash collision at depth 0 with hash value 65092871455
+	Scoring
+...Finished iteration with a best score of -3.60994e+06
+
+Beginning Iteration 38...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 22156655410
+	Scoring
+...Finished iteration with a best score of -3.60991e+06
+
+Beginning Iteration 39...
+	Mutating
+Hash collision at depth 0 with hash value 23910650740
+	Mating
+Hash collision at depth 0 with hash value 77657946285
+	Scoring
+...Finished iteration with a best score of -3.6099e+06
+
+Beginning Iteration 40...
+	Mutating
+Hash collision at depth 0 with hash value 38874655255
+Hash collision at depth 0 with hash value 37714653568
+Hash collision at depth 0 with hash value 78932648980
+	Mating
+Hash collision at depth 0 with hash value 15672583317
+	Scoring
+...Finished iteration with a best score of -3.60988e+06
+
+Beginning Iteration 41...
+	Mutating
+Hash collision at depth 0 with hash value 19194840753
+Hash collision at depth 0 with hash value 84297771291
+	Mating
+Hash collision at depth 0 with hash value 56906300727
+	Scoring
+...Finished iteration with a best score of -3.60987e+06
+
+Beginning Iteration 42...
+	Mutating
+Hash collision at depth 0 with hash value 74913221790
+Hash collision at depth 0 with hash value 14204297571
+Hash collision at depth 0 with hash value 66108306199
+
+Hash collision at depth 0 with hash value 64445014886
+	Mating
+Hash collision at depth 0 with hash value 14948057029
+Hash collision at depth 0 with hash value 59159814921
+
+Hash collision at depth 0 with hash value 33090418044
+	Scoring
+...Finished iteration with a best score of -3.60984e+06
+
+Beginning Iteration 43...
+	Mutating
+Hash collision at depth 0 with hash value 39612588524
+	Mating
+Hash collision at depth 0 with hash value 62719665024
+Hash collision at depth 0 with hash value 45378141125
+	Scoring
+...Finished iteration with a best score of -3.60983e+06
+
+Beginning Iteration 44...
+	Mutating
+Hash collision at depth 0 with hash value 56340002117
+Hash collision at depth 0 with hash value 67763666094
+Hash collision at depth 0 with hash value 1693309806
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60982e+06
+
+Beginning Iteration 45...
+	Mutating
+Hash collision at depth 0 with hash value 213664536
+Hash collision at depth 0 with hash value 74026310072
+
+Hash collision at depth 0 with hash value 35669969454
+	Mating
+Hash collision at depth 0 with hash value 4321128026
+	Scoring
+...Finished iteration with a best score of -3.6098e+06
+
+Beginning Iteration 46...
+	Mutating
+Hash collision at depth 0 with hash value 73825529410
+Hash collision at depth 0 with hash value 41839215127
+	Mating
+Hash collision at depth 0 with hash value 24965457170
+Hash collision at depth 0 with hash value 63004049028
+Hash collision at depth 0 with hash value 84778201309
+	Scoring
+...Finished iteration with a best score of -3.60979e+06
+
+Beginning Iteration 47...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 62439191216
+Hash collision at depth 0 with hash value 2696744484
+	Scoring
+...Finished iteration with a best score of -3.60978e+06
+
+Beginning Iteration 48...
+	Mutating
+Hash collision at depth 0 with hash value 57298524399
+	Mating
+Hash collision at depth 0 with hash value 15882154716
+	Scoring
+...Finished iteration with a best score of -3.60977e+06
+
+Beginning Iteration 49...
+	Mutating
+Hash collision at depth 0 with hash value 34100969820
+Hash collision at depth 0 with hash value 60056159592
+	Mating
+Hash collision at depth 0 with hash value 41998156606
+Hash collision at depth 0 with hash value 49703822961
+Hash collision at depth 0 with hash value 72968874004
+	Scoring
+...Finished iteration with a best score of -3.60975e+06
+
+Beginning Iteration 50...
+	Mutating
+Hash collision at depth 0 with hash value 24994307254
+Hash collision at depth 0 with hash value 39880021654
+Hash collision at depth 0 with hash value 13865813987
+Hash collision at depth 0 with hash value 67880375614
+Hash collision at depth 0 with hash value 62464313557
+	Mating
+Hash collision at depth 0 with hash value 43077521170
+Hash collision at depth 0 with hash value 33628418731
+	Scoring
+...Finished iteration with a best score of -3.60973e+06
+
+Beginning Iteration 51...
+	Mutating
+Hash collision at depth 0 with hash value 19265118857
+Hash collision at depth 0 with hash value 84267405013
+	Mating
+Hash collision at depth 0 with hash value 15736367367
+	Scoring
+...Finished iteration with a best score of -3.60972e+06
+
+Beginning Iteration 52...
+	Mutating
+Hash collision at depth 0 with hash value 82625854288
+Hash collision at depth 0 with hash value 6646982497
+Hash collision at depth 0 with hash value 75413646537
+	Mating
+Hash collision at depth 0 with hash value 44320655407
+Hash collision at depth 0 with hash value 69067040195
+Hash collision at depth 0 with hash value 23527301822
+	Scoring
+...Finished iteration with a best score of -3.60971e+06
+
+Beginning Iteration 53...
+	Mutating
+Hash collision at depth 0 with hash value 3274401210
+Hash collision at depth 0 with hash value 51629597695
+Hash collision at depth 0 with hash value 81805577842
+Hash collision at depth 0 with hash value 25340527562
+	Mating
+Hash collision at depth 0 with hash value 8283836803
+
+Hash collision at depth 0 with hash value 59524776871
+Hash collision at depth 0 with hash value 4405276872
+Hash collision at depth 0 with hash value 26061056188
+	Scoring
+...Finished iteration with a best score of -3.60969e+06
+
+Beginning Iteration 54...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 51934236394
+
+	Scoring
+...Finished iteration with a best score of -3.60967e+06
+
+Beginning Iteration 55...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60965e+06
+
+Beginning Iteration 56...
+	Mutating
+Hash collision at depth 0 with hash value 20846745021
+	Mating
+Hash collision at depth 0 with hash value 20877636341
+Hash collision at depth 0 with hash value 36941407839
+	Scoring
+...Finished iteration with a best score of -3.60963e+06
+
+Beginning Iteration 57...
+	Mutating
+Hash collision at depth 0 with hash value 39876111924
+	Mating
+Hash collision at depth 0 with hash value 33213549881
+	Scoring
+...Finished iteration with a best score of -3.60961e+06
+
+Beginning Iteration 58...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 31145214641
+Hash collision at depth 0 with hash value 28677073105
+Hash collision at depth 0 with hash value 21148768567
+	Scoring
+...Finished iteration with a best score of -3.60959e+06
+
+Beginning Iteration 59...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 54106329497
+	Scoring
+...Finished iteration with a best score of -3.60955e+06
+
+Beginning Iteration 60...
+	Mutating
+Hash collision at depth 0 with hash value 42383560557
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60952e+06
+
+Beginning Iteration 61...
+	Mutating
+Hash collision at depth 0 with hash value 42287574758
+Hash collision at depth 0 with hash value 37972415401
+
+	Mating
+Hash collision at depth 0 with hash value 66444952054
+	Scoring
+...Finished iteration with a best score of -3.6095e+06
+
+Beginning Iteration 62...
+	Mutating
+Hash collision at depth 0 with hash value 28321451720
+	Mating
+Hash collision at depth 0 with hash value 75285982405
+Hash collision at depth 0 with hash value 43650439304
+Hash collision at depth 0 with hash value 67087413957
+	Scoring
+...Finished iteration with a best score of -3.60949e+06
+
+Beginning Iteration 63...
+	Mutating
+Hash collision at depth 0 with hash value 9453912503
+Hash collision at depth 0 with hash value 44787836093
+Hash collision at depth 0 with hash value 73915332035
+	Mating
+Hash collision at depth 0 with hash value 18221963281
+Hash collision at depth 0 with hash value 33469007758
+Hash collision at depth 0 with hash value 75647464830
+Hash collision at depth 0 with hash value 57885640420
+	Scoring
+...Finished iteration with a best score of -3.60945e+06
+
+Beginning Iteration 64...
+	Mutating
+Hash collision at depth 0 with hash value 52417018717
+Hash collision at depth 0 with hash value 5269387213
+Hash collision at depth 0 with hash value 24582862416
+Hash collision at depth 0 with hash value 12943413477
+Hash collision at depth 0 with hash value 70235113490
+	Mating
+Hash collision at depth 0 with hash value 23687293445
+Hash collision at depth 0 with hash value 52679475513
+	Scoring
+...Finished iteration with a best score of -3.60942e+06
+
+Beginning Iteration 65...
+	Mutating
+Hash collision at depth 0 with hash value 81495099878
+	Mating
+Hash collision at depth 0 with hash value 43468231779
+Hash collision at depth 0 with hash value 18487888727
+Hash collision at depth 0 with hash value 3456738117
+	Scoring
+...Finished iteration with a best score of -3.6094e+06
+
+Beginning Iteration 66...
+	Mutating
+Hash collision at depth 0 with hash value 77751223144
+	Mating
+Hash collision at depth 0 with hash value 56294424964
+	Scoring
+...Finished iteration with a best score of -3.60937e+06
+
+Beginning Iteration 67...
+	Mutating
+Hash collision at depth 0 with hash value 21211604322
+	Mating
+Hash collision at depth 0 with hash value 66792629895
+	Scoring
+...Finished iteration with a best score of -3.60934e+06
+
+Beginning Iteration 68...
+	Mutating
+Hash collision at depth 0 with hash value 64263317584
+Hash collision at depth 0 with hash value 61800381741
+Hash collision at depth 0 with hash value 80552358973
+	Mating
+Hash collision at depth 0 with hash value 18545925299
+	Scoring
+...Finished iteration with a best score of -3.60932e+06
+
+Beginning Iteration 69...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 4824881961
+Hash collision at depth 0 with hash value 3937228384
+	Scoring
+...Finished iteration with a best score of -3.60928e+06
+
+Beginning Iteration 70...
+	Mutating
+Hash collision at depth 0 with hash value 79671871262
+	Mating
+Hash collision at depth 0 with hash value 27566920654
+	Scoring
+...Finished iteration with a best score of -3.60924e+06
+
+Beginning Iteration 71...
+	Mutating
+Hash collision at depth 0 with hash value 75254840782
+Hash collision at depth 0 with hash value 25227930656
+Hash collision at depth 0 with hash value 34149296235
+Hash collision at depth 0 with hash value 1731920391
+	Mating
+Hash collision at depth 0 with hash value 5879870135
+	Scoring
+...Finished iteration with a best score of -3.60922e+06
+
+Beginning Iteration 72...
+	Mutating
+Hash collision at depth 0 with hash value 8039402390
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.6092e+06
+
+Beginning Iteration 73...
+	Mutating
+Hash collision at depth 0 with hash value 42753242850
+	Mating
+Hash collision at depth 0 with hash value 56428875168
+	Scoring
+...Finished iteration with a best score of -3.60915e+06
+
+Beginning Iteration 74...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 86486900170
+
+Hash collision at depth 0 with hash value 26447979703
+	Scoring
+...Finished iteration with a best score of -3.60913e+06
+
+Beginning Iteration 75...
+	Mutating
+Hash collision at depth 0 with hash value 83041568200
+	Mating
+Hash collision at depth 0 with hash value 63236246738
+Hash collision at depth 0 with hash value 29150558948
+Hash collision at depth 0 with hash value 14479776660
+Hash collision at depth 0 with hash value 29108689823
+Hash collision at depth 0 with hash value 43504039039
+	Scoring
+...Finished iteration with a best score of -3.60909e+06
+
+Beginning Iteration 76...
+	Mutating
+Hash collision at depth 0 with hash value 84565859303
+Hash collision at depth 0 with hash value 57684308823
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60906e+06
+
+Beginning Iteration 77...
+	Mutating
+Hash collision at depth 0 with hash value 76300429539
+Hash collision at depth 0 with hash value 27715721104
+Hash collision at depth 0 with hash value 29322076846
+Hash collision at depth 0 with hash value 58290354333
+Hash collision at depth 0 with hash value 39155742009
+	Mating
+Hash collision at depth 0 with hash value 76359925527
+Hash collision at depth 0 with hash value 66912568782
+Hash collision at depth 0 with hash value 63632922085
+Hash collision at depth 0 with hash value 51431181839
+	Scoring
+...Finished iteration with a best score of -3.60903e+06
+
+Beginning Iteration 78...
+	Mutating
+Hash collision at depth 0 with hash value 39790736588
+	Mating
+Hash collision at depth 0 with hash value 17985165192
+	Scoring
+...Finished iteration with a best score of -3.60899e+06
+
+Beginning Iteration 79...
+	Mutating
+Hash collision at depth 0 with hash value 56025723546
+	Mating
+Hash collision at depth 0 with hash value 39390738542
+	Scoring
+...Finished iteration with a best score of -3.60895e+06
+
+Beginning Iteration 80...
+	Mutating
+Hash collision at depth 0 with hash value 31296485873
+	Mating
+Hash collision at depth 0 with hash value 71658016524
+	Scoring
+...Finished iteration with a best score of -3.60892e+06
+
+Beginning Iteration 81...
+	Mutating
+Hash collision at depth 0 with hash value 62158466342
+	Mating
+Hash collision at depth 0 with hash value 20008450009
+	Scoring
+...Finished iteration with a best score of -3.6089e+06
+
+Beginning Iteration 82...
+	Mutating
+Hash collision at depth 0 with hash value 323047989
+	Mating
+Hash collision at depth 0 with hash value 47756355992
+Hash collision at depth 0 with hash value 42530062993
+	Scoring
+...Finished iteration with a best score of -3.60886e+06
+
+Beginning Iteration 83...
+	Mutating
+Hash collision at depth 0 with hash value 76687473148
+Hash collision at depth 0 with hash value 53585396321
+	Mating
+Hash collision at depth 0 with hash value 63895152664
+Hash collision at depth 0 with hash value 56252728749
+Hash collision at depth 0 with hash value 17741837451
+	Scoring
+...Finished iteration with a best score of -3.60883e+06
+
+Beginning Iteration 84...
+	Mutating
+Hash collision at depth 0 with hash value 82650406808
+	Mating
+Hash collision at depth 0 with hash value 47928515822
+	Scoring
+...Finished iteration with a best score of -3.6088e+06
+
+Beginning Iteration 85...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 24578825104
+Hash collision at depth 0 with hash value 59350728128
+	Scoring
+...Finished iteration with a best score of -3.60876e+06
+
+Beginning Iteration 86...
+	Mutating
+Hash collision at depth 0 with hash value 54435324031
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60872e+06
+
+Beginning Iteration 87...
+	Mutating
+Hash collision at depth 0 with hash value 10681091272
+Hash collision at depth 0 with hash value 57800883994
+	Mating
+Hash collision at depth 0 with hash value 12545929967
+Hash collision at depth 0 with hash value 70958274999
+Hash collision at depth 0 with hash value 66733498321
+	Scoring
+...Finished iteration with a best score of -3.60871e+06
+
+Beginning Iteration 88...
+	Mutating
+Hash collision at depth 0 with hash value 55179261237
+Hash collision at depth 0 with hash value 1761319479
+Hash collision at depth 0 with hash value 33226379046
+Hash collision at depth 0 with hash value 72934292499
+Hash collision at depth 0 with hash value 22605661476
+Hash collision at depth 0 with hash value 64038986123
+	Mating
+Hash collision at depth 0 with hash value 5909248859
+Hash collision at depth 0 with hash value 2669539235
+
+	Scoring
+...Finished iteration with a best score of -3.60867e+06
+
+Beginning Iteration 89...
+	Mutating
+Hash collision at depth 0 with hash value 62725642605
+	Mating
+Hash collision at depth 0 with hash value 21420904926
+Hash collision at depth 0 with hash value 56220944529
+Hash collision at depth 0 with hash value 33845397463
+	Scoring
+...Finished iteration with a best score of -3.60864e+06
+
+Beginning Iteration 90...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 22532347506
+
+Hash collision at depth 0 with hash value 22691658129
+	Scoring
+...Finished iteration with a best score of -3.60861e+06
+
+Beginning Iteration 91...
+	Mutating
+Hash collision at depth 0 with hash value 14432620087
+	Mating
+Hash collision at depth 0 with hash value 46328066803
+
+	Scoring
+...Finished iteration with a best score of -3.60858e+06
+
+Beginning Iteration 92...
+	Mutating
+Hash collision at depth 0 with hash value 83725685575
+	Mating
+Hash collision at depth 0 with hash value 40435178206
+	Scoring
+...Finished iteration with a best score of -3.60854e+06
+
+Beginning Iteration 93...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 6024566107
+	Scoring
+...Finished iteration with a best score of -3.60851e+06
+
+Beginning Iteration 94...
+	Mutating
+Hash collision at depth 0 with hash value 7717597850
+	Mating
+Hash collision at depth 0 with hash value 14136448124
+Hash collision at depth 0 with hash value 73573692317
+	Scoring
+...Finished iteration with a best score of -3.60847e+06
+
+Beginning Iteration 95...
+	Mutating
+Hash collision at depth 0 with hash value 40028437882
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60846e+06
+
+Beginning Iteration 96...
+	Mutating
+Hash collision at depth 0 with hash value 70117391470
+Hash collision at depth 0 with hash value 32786576150
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60842e+06
+
+Beginning Iteration 97...
+	Mutating
+Hash collision at depth 0 with hash value 82586073330
+Hash collision at depth 0 with hash value 58466914815
+	Mating
+Hash collision at depth 0 with hash value 13047576569
+	Scoring
+...Finished iteration with a best score of -3.60838e+06
+
+Beginning Iteration 98...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 32708239442
+	Scoring
+...Finished iteration with a best score of -3.60836e+06
+
+Beginning Iteration 99...
+	Mutating
+Hash collision at depth 0 with hash value 86748146597
+Hash collision at depth 0 with hash value 51452957270
+	Mating
+Hash collision at depth 0 with hash value 86555857443
+	Scoring
+...Finished iteration with a best score of -3.60834e+06
+
+Beginning Iteration 100...
+	Mutating
+Hash collision at depth 0 with hash value 25722238546
+Hash collision at depth 0 with hash value 19616396819
+	Mating
+Hash collision at depth 0 with hash value 2338457724
+Hash collision at depth 0 with hash value 35649289595
+Hash collision at depth 0 with hash value 86262390940
+	Scoring
+...Finished iteration with a best score of -3.60831e+06
+
+Beginning Iteration 101...
+	Mutating
+Hash collision at depth 0 with hash value 10776990427
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60829e+06
+
+Beginning Iteration 102...
+	Mutating
+Hash collision at depth 0 with hash value 11815269798
+	Mating
+Hash collision at depth 0 with hash value 12372910971
+Hash collision at depth 0 with hash value 23661062482
+	Scoring
+...Finished iteration with a best score of -3.60825e+06
+
+Beginning Iteration 103...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 44632312852
+Hash collision at depth 0 with hash value 69823423029
+	Scoring
+...Finished iteration with a best score of -3.60822e+06
+
+Beginning Iteration 104...
+	Mutating
+Hash collision at depth 0 with hash value 38492639496
+Hash collision at depth 0 with hash value 13037544627
+	Mating
+Hash collision at depth 0 with hash value 10461659869
+
+Hash collision at depth 0 with hash value 73969723006
+	Scoring
+...Finished iteration with a best score of -3.6082e+06
+
+Beginning Iteration 105...
+	Mutating
+Hash collision at depth 0 with hash value 23602496491
+Hash collision at depth 0 with hash value 72347258670
+	Mating
+Hash collision at depth 0 with hash value 51658834687
+	Scoring
+...Finished iteration with a best score of -3.60816e+06
+
+Beginning Iteration 106...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60813e+06
+
+Beginning Iteration 107...
+	Mutating
+Hash collision at depth 0 with hash value 67721316441
+Hash collision at depth 0 with hash value 72044916039
+Hash collision at depth 0 with hash value 22644476280
+	Mating
+Hash collision at depth 0 with hash value 19739274869
+Hash collision at depth 0 with hash value 11153179754
+	Scoring
+...Finished iteration with a best score of -3.6081e+06
+
+Beginning Iteration 108...
+	Mutating
+Hash collision at depth 0 with hash value 82902565057
+	Mating
+Hash collision at depth 0 with hash value 1339955231
+Hash collision at depth 0 with hash value 38548491935
+Hash collision at depth 0 with hash value 2303679519
+Hash collision at depth 0 with hash value 41423623323
+Hash collision at depth 0 with hash value 85549973024
+	Scoring
+...Finished iteration with a best score of -3.60808e+06
+
+Beginning Iteration 109...
+	Mutating
+Hash collision at depth 0 with hash value 43317096265
+Hash collision at depth 0 with hash value 41841770253
+	Mating
+Hash collision at depth 0 with hash value 36889400511
+Hash collision at depth 0 with hash value 17508415171
+Hash collision at depth 0 with hash value 36244123528
+	Scoring
+...Finished iteration with a best score of -3.60805e+06
+
+Beginning Iteration 110...
+	Mutating
+Hash collision at depth 0 with hash value 7255142310
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.608e+06
+
+Beginning Iteration 111...
+	Mutating
+Hash collision at depth 0 with hash value 45529815472
+	Mating
+Hash collision at depth 0 with hash value 83089098962
+Hash collision at depth 0 with hash value 74906624605
+Hash collision at depth 0 with hash value 18249670304
+	Scoring
+...Finished iteration with a best score of -3.60797e+06
+
+Beginning Iteration 112...
+	Mutating
+Hash collision at depth 0 with hash value 42069051467
+Hash collision at depth 0 with hash value 25180781527
+	Mating
+Hash collision at depth 0 with hash value 39526907901
+Hash collision at depth 0 with hash value 23907463544
+Hash collision at depth 0 with hash value 80067989440
+Hash collision at depth 0 with hash value 2220745123
+	Scoring
+...Finished iteration with a best score of -3.60794e+06
+
+Beginning Iteration 113...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60791e+06
+
+Beginning Iteration 114...
+	Mutating
+Hash collision at depth 0 with hash value 8641522000
+Hash collision at depth 0 with hash value 58466244501
+	Mating
+Hash collision at depth 0 with hash value 63776600090
+Hash collision at depth 0 with hash value 74765841481
+	Scoring
+...Finished iteration with a best score of -3.60789e+06
+
+Beginning Iteration 115...
+	Mutating
+Hash collision at depth 0 with hash value 77298611016
+Hash collision at depth 0 with hash value 31621427172
+Hash collision at depth 0 with hash value 40159761163
+Hash collision at depth 0 with hash value 68337493235
+
+Hash collision at depth 0 with hash value 26367786303
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60786e+06
+
+Beginning Iteration 116...
+	Mutating
+Hash collision at depth 0 with hash value 33518569196
+	Mating
+Hash collision at depth 0 with hash value 16537907090
+Hash collision at depth 0 with hash value 68044315330
+	Scoring
+...Finished iteration with a best score of -3.60782e+06
+
+Beginning Iteration 117...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 58868974719
+	Scoring
+...Finished iteration with a best score of -3.6078e+06
+
+Beginning Iteration 118...
+	Mutating
+Hash collision at depth 0 with hash value 15077600274
+	Mating
+Hash collision at depth 0 with hash value 72853284011
+Hash collision at depth 0 with hash value 31786767988
+	Scoring
+...Finished iteration with a best score of -3.60778e+06
+
+Beginning Iteration 119...
+	Mutating
+Hash collision at depth 0 with hash value 24197622831
+Hash collision at depth 0 with hash value 75899224386
+
+Hash collision at depth 0 with hash value 5632570515
+Hash collision at depth 0 with hash value 3514899727
+	Mating
+Hash collision at depth 0 with hash value 21370680418
+Hash collision at depth 0 with hash value 13115524238
+	Scoring
+...Finished iteration with a best score of -3.60773e+06
+
+Beginning Iteration 120...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 29437033569
+Hash collision at depth 0 with hash value 60448726749
+	Scoring
+...Finished iteration with a best score of -3.60769e+06
+
+Beginning Iteration 121...
+	Mutating
+Hash collision at depth 0 with hash value 11768485403
+	Mating
+Hash collision at depth 0 with hash value 28238739606
+	Scoring
+...Finished iteration with a best score of -3.60767e+06
+
+Beginning Iteration 122...
+	Mutating
+Hash collision at depth 0 with hash value 21743730639
+Hash collision at depth 0 with hash value 57838232309
+Hash collision at depth 0 with hash value 7611311777
+	Mating
+Hash collision at depth 0 with hash value 15057471005
+Hash collision at depth 0 with hash value 47452560293
+Hash collision at depth 0 with hash value 80466424398
+	Scoring
+...Finished iteration with a best score of -3.60764e+06
+
+Beginning Iteration 123...
+	Mutating
+Hash collision at depth 0 with hash value 79301365150
+	Mating
+Hash collision at depth 0 with hash value 62472777243
+	Scoring
+...Finished iteration with a best score of -3.60759e+06
+
+Beginning Iteration 124...
+	Mutating
+Hash collision at depth 0 with hash value 72945149135
+Hash collision at depth 0 with hash value 25845431185
+Hash collision at depth 0 with hash value 49889774872
+
+Hash collision at depth 0 with hash value 2165053778
+	Mating
+Hash collision at depth 0 with hash value 52295153933
+	Scoring
+...Finished iteration with a best score of -3.60757e+06
+
+Beginning Iteration 125...
+	Mutating
+Hash collision at depth 0 with hash value 79594756610
+Hash collision at depth 0 with hash value 57856424517
+	Mating
+Hash collision at depth 0 with hash value 46787240200
+	Scoring
+...Finished iteration with a best score of -3.60755e+06
+
+Beginning Iteration 126...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 68152007529
+	Scoring
+...Finished iteration with a best score of -3.60751e+06
+
+Beginning Iteration 127...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 85644604021
+Hash collision at depth 0 with hash value 21594448397
+Hash collision at depth 0 with hash value 53047138486
+
+Hash collision at depth 0 with hash value 68955406574
+	Scoring
+...Finished iteration with a best score of -3.60747e+06
+
+Beginning Iteration 128...
+	Mutating
+Hash collision at depth 0 with hash value 44656937049
+Hash collision at depth 0 with hash value 19232004530
+Hash collision at depth 0 with hash value 28188805522
+	Mating
+Hash collision at depth 0 with hash value 62979766718
+
+	Scoring
+...Finished iteration with a best score of -3.60744e+06
+
+Beginning Iteration 129...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 18972975071
+Hash collision at depth 0 with hash value 36012265309
+Hash collision at depth 0 with hash value 1939359911
+	Scoring
+...Finished iteration with a best score of -3.60741e+06
+
+Beginning Iteration 130...
+	Mutating
+Hash collision at depth 0 with hash value 73704022064
+Hash collision at depth 0 with hash value 23430584800
+Hash collision at depth 0 with hash value 47640761307
+	Mating
+Hash collision at depth 0 with hash value 48288710844
+	Scoring
+...Finished iteration with a best score of -3.60737e+06
+
+Beginning Iteration 131...
+	Mutating
+Hash collision at depth 0 with hash value 62311264741
+Hash collision at depth 0 with hash value 42531591686
+	Mating
+Hash collision at depth 0 with hash value 33927557930
+Hash collision at depth 0 with hash value 72803906242
+	Scoring
+...Finished iteration with a best score of -3.60734e+06
+
+Beginning Iteration 132...
+	Mutating
+Hash collision at depth 0 with hash value 12437681224
+Hash collision at depth 0 with hash value 28095030158
+
+	Mating
+Hash collision at depth 0 with hash value 1236020468
+Hash collision at depth 0 with hash value 11739093899
+
+Hash collision at depth 0 with hash value 79982269147
+Hash collision at depth 0 with hash value 52213403837
+Hash collision at depth 0 with hash value 68005802673
+Hash collision at depth 0 with hash value 69432188368
+	Scoring
+...Finished iteration with a best score of -3.60729e+06
+
+Beginning Iteration 133...
+	Mutating
+Hash collision at depth 0 with hash value 79591325662
+Hash collision at depth 0 with hash value 22418827290
+Hash collision at depth 0 with hash value 17881514128
+	Mating
+Hash collision at depth 0 with hash value 33730356061
+Hash collision at depth 0 with hash value 48712414934
+Hash collision at depth 0 with hash value 44452077047
+Hash collision at depth 0 with hash value 7102215200
+	Scoring
+...Finished iteration with a best score of -3.60724e+06
+
+Beginning Iteration 134...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60721e+06
+
+Beginning Iteration 135...
+	Mutating
+Hash collision at depth 0 with hash value 41081943907
+Hash collision at depth 0 with hash value 66866719472
+Hash collision at depth 0 with hash value 3238130044
+Hash collision at depth 0 with hash value 6941127142
+	Mating
+Hash collision at depth 0 with hash value 27932138805
+	Scoring
+...Finished iteration with a best score of -3.60718e+06
+
+Beginning Iteration 136...
+	Mutating
+Hash collision at depth 0 with hash value 75805363516
+Hash collision at depth 0 with hash value 70213805991
+	Mating
+Hash collision at depth 0 with hash value 864960337
+	Scoring
+...Finished iteration with a best score of -3.60714e+06
+
+Beginning Iteration 137...
+	Mutating
+Hash collision at depth 0 with hash value 47830707521
+Hash collision at depth 0 with hash value 22256917920
+Hash collision at depth 0 with hash value 42279401091
+Hash collision at depth 0 with hash value 5492054934
+	Mating
+Hash collision at depth 0 with hash value 2256990061
+	Scoring
+...Finished iteration with a best score of -3.6071e+06
+
+Beginning Iteration 138...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 76683378775
+	Scoring
+...Finished iteration with a best score of -3.60706e+06
+
+Beginning Iteration 139...
+	Mutating
+Hash collision at depth 0 with hash value 27162320936
+Hash collision at depth 0 with hash value 55564286307
+	Mating
+Hash collision at depth 0 with hash value 31116180451
+Hash collision at depth 0 with hash value 81812435379
+	Scoring
+...Finished iteration with a best score of -3.60702e+06
+
+Beginning Iteration 140...
+	Mutating
+Hash collision at depth 0 with hash value 34503560750
+
+	Mating
+Hash collision at depth 0 with hash value 63251678377
+	Scoring
+...Finished iteration with a best score of -3.60698e+06
+
+Beginning Iteration 141...
+	Mutating
+Hash collision at depth 0 with hash value 34106446431
+	Mating
+Hash collision at depth 0 with hash value 47891700967
+Hash collision at depth 0 with hash value 48285086999
+	Scoring
+...Finished iteration with a best score of -3.60694e+06
+
+Beginning Iteration 142...
+	Mutating
+Hash collision at depth 0 with hash value 39027833762
+Hash collision at depth 0 with hash value 2169657841
+Hash collision at depth 0 with hash value 14819606837
+	Mating
+Hash collision at depth 0 with hash value 35394335799
+	Scoring
+...Finished iteration with a best score of -3.6069e+06
+
+Beginning Iteration 143...
+	Mutating
+Hash collision at depth 0 with hash value 67800394297
+
+Hash collision at depth 0 with hash value 10649998712
+Hash collision at depth 0 with hash value 4387751173
+Hash collision at depth 0 with hash value 58440321835
+	Mating
+Hash collision at depth 0 with hash value 83335737510
+	Scoring
+...Finished iteration with a best score of -3.60687e+06
+
+Beginning Iteration 144...
+	Mutating
+Hash collision at depth 0 with hash value 49513696803
+Hash collision at depth 0 with hash value 46055272858
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60685e+06
+
+Beginning Iteration 145...
+	Mutating
+Hash collision at depth 0 with hash value 53593249967
+Hash collision at depth 0 with hash value 50252706436
+Hash collision at depth 0 with hash value 44610553142
+	Mating
+Hash collision at depth 0 with hash value 4933037467
+Hash collision at depth 0 with hash value 1065519666
+Hash collision at depth 0 with hash value 15384555887
+Hash collision at depth 0 with hash value 49474131107
+	Scoring
+...Finished iteration with a best score of -3.60681e+06
+
+Beginning Iteration 146...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60676e+06
+
+Beginning Iteration 147...
+	Mutating
+Hash collision at depth 0 with hash value 52213563646
+	Mating
+Hash collision at depth 0 with hash value 37177304393
+Hash collision at depth 0 with hash value 67653643256
+
+	Scoring
+...Finished iteration with a best score of -3.60673e+06
+
+Beginning Iteration 148...
+	Mutating
+Hash collision at depth 0 with hash value 15866288872
+	Mating
+Hash collision at depth 0 with hash value 53741235466
+Hash collision at depth 0 with hash value 25269966564
+Hash collision at depth 0 with hash value 36384224182
+	Scoring
+...Finished iteration with a best score of -3.60669e+06
+
+Beginning Iteration 149...
+	Mutating
+Hash collision at depth 0 with hash value 23422184667
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60664e+06
+
+Beginning Iteration 150...
+	Mutating
+Hash collision at depth 0 with hash value 76553681098
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.6066e+06
+
+Beginning Iteration 151...
+	Mutating
+Hash collision at depth 0 with hash value 10527928729
+	Mating
+Hash collision at depth 0 with hash value 45608849547
+	Scoring
+...Finished iteration with a best score of -3.60657e+06
+
+Beginning Iteration 152...
+	Mutating
+Hash collision at depth 0 with hash value 51084077270
+Hash collision at depth 0 with hash value 4501674188
+Hash collision at depth 0 with hash value 63911165431
+Hash collision at depth 0 with hash value 61532776422
+	Mating
+Hash collision at depth 0 with hash value 4683075518
+	Scoring
+...Finished iteration with a best score of -3.60654e+06
+
+Beginning Iteration 153...
+	Mutating
+Hash collision at depth 0 with hash value 79766825382
+	Mating
+Hash collision at depth 0 with hash value 55742521792
+Hash collision at depth 0 with hash value 37737826977
+	Scoring
+...Finished iteration with a best score of -3.6065e+06
+
+Beginning Iteration 154...
+	Mutating
+Hash collision at depth 0 with hash value 25057676145
+	Mating
+Hash collision at depth 0 with hash value 72451745486
+	Scoring
+...Finished iteration with a best score of -3.60646e+06
+
+Beginning Iteration 155...
+	Mutating
+Hash collision at depth 0 with hash value 51645537042
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60642e+06
+
+Beginning Iteration 156...
+	Mutating
+Hash collision at depth 0 with hash value 81017861963
+Hash collision at depth 0 with hash value 36274172359
+Hash collision at depth 0 with hash value 27118749078
+	Mating
+Hash collision at depth 0 with hash value 57734289039
+Hash collision at depth 0 with hash value 73371504288
+Hash collision at depth 0 with hash value 62564974223
+Hash collision at depth 0 with hash value 23403620183
+	Scoring
+...Finished iteration with a best score of -3.60638e+06
+
+Beginning Iteration 157...
+	Mutating
+Hash collision at depth 0 with hash value 28315664758
+Hash collision at depth 0 with hash value 796238653
+	Mating
+Hash collision at depth 0 with hash value 38543930346
+Hash collision at depth 0 with hash value 17967930789
+	Scoring
+...Finished iteration with a best score of -3.60634e+06
+
+Beginning Iteration 158...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60633e+06
+
+Beginning Iteration 159...
+	Mutating
+Hash collision at depth 0 with hash value 85579044140
+Hash collision at depth 0 with hash value 47632862149
+	Mating
+Hash collision at depth 0 with hash value 3655504979
+	Scoring
+...Finished iteration with a best score of -3.60629e+06
+
+Beginning Iteration 160...
+	Mutating
+Hash collision at depth 0 with hash value 8171943156
+	Mating
+Hash collision at depth 0 with hash value 29189329883
+Hash collision at depth 0 with hash value 41476354226
+Hash collision at depth 0 with hash value 79098086606
+	Scoring
+...Finished iteration with a best score of -3.60627e+06
+
+Beginning Iteration 161...
+	Mutating
+Hash collision at depth 0 with hash value 79829938786
+Hash collision at depth 0 with hash value 3757250057
+Hash collision at depth 0 with hash value 36057463543
+	Mating
+Hash collision at depth 0 with hash value 79461454458
+Hash collision at depth 0 with hash value 1805500802
+Hash collision at depth 0 with hash value 65679345303
+	Scoring
+...Finished iteration with a best score of -3.60623e+06
+
+Beginning Iteration 162...
+	Mutating
+Hash collision at depth 0 with hash value 85544106166
+	Mating
+Hash collision at depth 0 with hash value 22743614063
+	Scoring
+...Finished iteration with a best score of -3.60621e+06
+
+Beginning Iteration 163...
+	Mutating
+Hash collision at depth 0 with hash value 54510957869
+Hash collision at depth 0 with hash value 75347511228
+	Mating
+Hash collision at depth 0 with hash value 29782617647
+Hash collision at depth 0 with hash value 65598135891
+Hash collision at depth 0 with hash value 70968310542
+
+	Scoring
+...Finished iteration with a best score of -3.60618e+06
+
+Beginning Iteration 164...
+	Mutating
+Hash collision at depth 0 with hash value 46477767922
+Hash collision at depth 0 with hash value 37314606608
+Hash collision at depth 0 with hash value 47626072549
+
+Hash collision at depth 0 with hash value 22820608017
+	Mating
+Hash collision at depth 0 with hash value 57698175479
+	Scoring
+...Finished iteration with a best score of -3.60615e+06
+
+Beginning Iteration 165...
+	Mutating
+Hash collision at depth 0 with hash value 9279610492
+Hash collision at depth 0 with hash value 63666768937
+Hash collision at depth 0 with hash value 68860819889
+	Mating
+Hash collision at depth 0 with hash value 31238042445
+Hash collision at depth 0 with hash value 84397345614
+	Scoring
+...Finished iteration with a best score of -3.60614e+06
+
+Beginning Iteration 166...
+	Mutating
+Hash collision at depth 0 with hash value 76873954983
+	Mating
+Hash collision at depth 0 with hash value 26653316761
+	Scoring
+...Finished iteration with a best score of -3.6061e+06
+
+Beginning Iteration 167...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 7573204062
+
+Hash collision at depth 0 with hash value 21494246943
+	Scoring
+...Finished iteration with a best score of -3.60607e+06
+
+Beginning Iteration 168...
+	Mutating
+Hash collision at depth 0 with hash value 83954492980
+Hash collision at depth 0 with hash value 39663406101
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60604e+06
+
+Beginning Iteration 169...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 85346110561
+Hash collision at depth 0 with hash value 413758028
+Hash collision at depth 0 with hash value 25993840684
+	Scoring
+...Finished iteration with a best score of -3.60603e+06
+
+Beginning Iteration 170...
+	Mutating
+Hash collision at depth 0 with hash value 74956606225
+Hash collision at depth 0 with hash value 64993906712
+	Mating
+Hash collision at depth 0 with hash value 74539382085
+Hash collision at depth 0 with hash value 54057141480
+	Scoring
+...Finished iteration with a best score of -3.60599e+06
+
+Beginning Iteration 171...
+	Mutating
+Hash collision at depth 0 with hash value 43232325237
+Hash collision at depth 0 with hash value 63565397563
+	Mating
+Hash collision at depth 0 with hash value 38502408511
+
+Hash collision at depth 0 with hash value 19062700238
+Hash collision at depth 0 with hash value 51898567386
+	Scoring
+...Finished iteration with a best score of -3.60597e+06
+
+Beginning Iteration 172...
+	Mutating
+Hash collision at depth 0 with hash value 34180517184
+	Mating
+Hash collision at depth 0 with hash value 75520508340
+	Scoring
+...Finished iteration with a best score of -3.60593e+06
+
+Beginning Iteration 173...
+	Mutating
+Hash collision at depth 0 with hash value 85759532353
+Hash collision at depth 0 with hash value 61816654093
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60589e+06
+
+Beginning Iteration 174...
+	Mutating
+Hash collision at depth 0 with hash value 48512082855
+Hash collision at depth 0 with hash value 24871109718
+	Mating
+Hash collision at depth 0 with hash value 7117003517
+	Scoring
+...Finished iteration with a best score of -3.60589e+06
+
+Beginning Iteration 175...
+	Mutating
+Hash collision at depth 0 with hash value 45940439788
+	Mating
+Hash collision at depth 0 with hash value 83931977077
+Hash collision at depth 0 with hash value 49077917930
+	Scoring
+...Finished iteration with a best score of -3.60586e+06
+
+Beginning Iteration 176...
+	Mutating
+Hash collision at depth 0 with hash value 40319585639
+Hash collision at depth 0 with hash value 55296240184
+Hash collision at depth 0 with hash value 3318163480
+	Mating
+Hash collision at depth 0 with hash value 29681449264
+	Scoring
+...Finished iteration with a best score of -3.60582e+06
+
+Beginning Iteration 177...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 64668598510
+
+	Scoring
+...Finished iteration with a best score of -3.6058e+06
+
+Beginning Iteration 178...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 7550493786
+Hash collision at depth 0 with hash value 17623194472
+	Scoring
+...Finished iteration with a best score of -3.60578e+06
+
+Beginning Iteration 179...
+	Mutating
+Hash collision at depth 0 with hash value 42807364506
+Hash collision at depth 0 with hash value 2821221905
+	Mating
+Hash collision at depth 0 with hash value 76152161430
+	Scoring
+...Finished iteration with a best score of -3.60574e+06
+
+Beginning Iteration 180...
+	Mutating
+Hash collision at depth 0 with hash value 40028905294
+	Mating
+Hash collision at depth 0 with hash value 83648394115
+Hash collision at depth 0 with hash value 7888397981
+	Scoring
+...Finished iteration with a best score of -3.60572e+06
+
+Beginning Iteration 181...
+	Mutating
+Hash collision at depth 0 with hash value 4648322663
+
+Hash collision at depth 0 with hash value 35936492652
+Hash collision at depth 0 with hash value 13143482768
+	Mating
+Hash collision at depth 0 with hash value 30985512830
+Hash collision at depth 0 with hash value 2911584162
+Hash collision at depth 0 with hash value 45555270186
+	Scoring
+...Finished iteration with a best score of -3.60568e+06
+
+Beginning Iteration 182...
+	Mutating
+Hash collision at depth 0 with hash value 41836966146
+	Mating
+Hash collision at depth 0 with hash value 25724907561
+	Scoring
+...Finished iteration with a best score of -3.60566e+06
+
+Beginning Iteration 183...
+	Mutating
+Hash collision at depth 0 with hash value 24895490650
+	Mating
+Hash collision at depth 0 with hash value 8717874153
+Hash collision at depth 0 with hash value 12939523579
+Hash collision at depth 0 with hash value 39859578296
+	Scoring
+...Finished iteration with a best score of -3.60563e+06
+
+Beginning Iteration 184...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 7873429769
+Hash collision at depth 0 with hash value 40934502845
+Hash collision at depth 0 with hash value 38507200303
+	Scoring
+...Finished iteration with a best score of -3.6056e+06
+
+Beginning Iteration 185...
+	Mutating
+Hash collision at depth 0 with hash value 70189441256
+Hash collision at depth 0 with hash value 34420696012
+Hash collision at depth 0 with hash value 41881937852
+	Mating
+Hash collision at depth 0 with hash value 61866505713
+	Scoring
+...Finished iteration with a best score of -3.60557e+06
+
+Beginning Iteration 186...
+	Mutating
+Hash collision at depth 0 with hash value 9216380966
+Hash collision at depth 0 with hash value 9602824366
+Hash collision at depth 0 with hash value 46208275597
+Hash collision at depth 0 with hash value 65693240889
+	Mating
+Hash collision at depth 0 with hash value 51118490835
+	Scoring
+...Finished iteration with a best score of -3.60554e+06
+
+Beginning Iteration 187...
+	Mutating
+Hash collision at depth 0 with hash value 4254478404
+Hash collision at depth 0 with hash value 82784275924
+	Mating
+Hash collision at depth 0 with hash value 51203618405
+Hash collision at depth 0 with hash value 61958726624
+Hash collision at depth 0 with hash value 61245627147
+	Scoring
+...Finished iteration with a best score of -3.60551e+06
+
+Beginning Iteration 188...
+	Mutating
+Hash collision at depth 0 with hash value 15154058232
+Hash collision at depth 0 with hash value 75547375676
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60548e+06
+
+Beginning Iteration 189...
+	Mutating
+Hash collision at depth 0 with hash value 81448606348
+
+	Mating
+Hash collision at depth 0 with hash value 5328545759
+Hash collision at depth 0 with hash value 5149241043
+
+	Scoring
+...Finished iteration with a best score of -3.60543e+06
+
+Beginning Iteration 190...
+	Mutating
+Hash collision at depth 0 with hash value 59460190302
+Hash collision at depth 0 with hash value 14287503020
+Hash collision at depth 0 with hash value 77532540237
+Hash collision at depth 0 with hash value 66206545990
+Hash collision at depth 0 with hash value 61535832519
+
+	Mating
+Hash collision at depth 0 with hash value 46862357114
+Hash collision at depth 0 with hash value 24383724223
+Hash collision at depth 0 with hash value 50168749557
+	Scoring
+...Finished iteration with a best score of -3.6054e+06
+
+Beginning Iteration 191...
+	Mutating
+Hash collision at depth 0 with hash value 14124473351
+
+Hash collision at depth 0 with hash value 49971793302
+Hash collision at depth 0 with hash value 53993949943
+	Mating
+Hash collision at depth 0 with hash value 26194356900
+Hash collision at depth 0 with hash value 50831478036
+	Scoring
+...Finished iteration with a best score of -3.60536e+06
+
+Beginning Iteration 192...
+	Mutating
+Hash collision at depth 0 with hash value 8923227815
+Hash collision at depth 0 with hash value 3886001239
+Hash collision at depth 0 with hash value 58759310533
+	Mating
+Hash collision at depth 0 with hash value 21729106908
+	Scoring
+...Finished iteration with a best score of -3.60532e+06
+
+Beginning Iteration 193...
+	Mutating
+Hash collision at depth 0 with hash value 47892015175
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60529e+06
+
+Beginning Iteration 194...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 85501070083
+Hash collision at depth 0 with hash value 77662735851
+Hash collision at depth 0 with hash value 70383903068
+Hash collision at depth 0 with hash value 64609760822
+	Scoring
+...Finished iteration with a best score of -3.60524e+06
+
+Beginning Iteration 195...
+	Mutating
+Hash collision at depth 0 with hash value 80361345861
+Hash collision at depth 0 with hash value 15445727902
+	Mating
+Hash collision at depth 0 with hash value 10674043931
+	Scoring
+...Finished iteration with a best score of -3.6052e+06
+
+Beginning Iteration 196...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60516e+06
+
+Beginning Iteration 197...
+	Mutating
+Hash collision at depth 0 with hash value 22549553143
+Hash collision at depth 0 with hash value 46950908704
+	Mating
+Hash collision at depth 0 with hash value 62388659352
+
+Hash collision at depth 0 with hash value 34014706103
+Hash collision at depth 0 with hash value 83874546737
+
+Hash collision at depth 0 with hash value 33438315397
+Hash collision at depth 0 with hash value 65920086411
+	Scoring
+...Finished iteration with a best score of -3.60513e+06
+
+Beginning Iteration 198...
+	Mutating
+Hash collision at depth 0 with hash value 53186207144
+Hash collision at depth 0 with hash value 10771403608
+	Mating
+Hash collision at depth 0 with hash value 79045901788
+	Scoring
+...Finished iteration with a best score of -3.60509e+06
+
+Beginning Iteration 199...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 21771644949
+Hash collision at depth 0 with hash value 59922725073
+	Scoring
+...Finished iteration with a best score of -3.60506e+06
+
+Beginning Iteration 200...
+	Mutating
+Hash collision at depth 0 with hash value 80481178856
+	Mating
+Hash collision at depth 0 with hash value 30318551920
+Hash collision at depth 0 with hash value 85199123716
+Hash collision at depth 0 with hash value 43931415971
+Hash collision at depth 0 with hash value 40527901120
+	Scoring
+...Finished iteration with a best score of -3.60504e+06
+
+Beginning Iteration 201...
+	Mutating
+Hash collision at depth 0 with hash value 34816685735
+Hash collision at depth 0 with hash value 2308142200
+	Mating
+Hash collision at depth 0 with hash value 25392971588
+	Scoring
+...Finished iteration with a best score of -3.60501e+06
+
+Beginning Iteration 202...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 52791259624
+
+Hash collision at depth 0 with hash value 65528820413
+Hash collision at depth 0 with hash value 42678134437
+	Scoring
+...Finished iteration with a best score of -3.60496e+06
+
+Beginning Iteration 203...
+	Mutating
+Hash collision at depth 0 with hash value 26196226056
+	Mating
+Hash collision at depth 0 with hash value 44950568964
+Hash collision at depth 0 with hash value 77780702918
+	Scoring
+...Finished iteration with a best score of -3.60493e+06
+
+Beginning Iteration 204...
+	Mutating
+Hash collision at depth 0 with hash value 8625626045
+	Mating
+Hash collision at depth 0 with hash value 41923323279
+	Scoring
+...Finished iteration with a best score of -3.60489e+06
+
+Beginning Iteration 205...
+	Mutating
+Hash collision at depth 0 with hash value 41969520362
+Hash collision at depth 0 with hash value 34618863526
+Hash collision at depth 0 with hash value 75302084655
+
+Hash collision at depth 0 with hash value 75922366138
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60488e+06
+
+Beginning Iteration 206...
+	Mutating
+Hash collision at depth 0 with hash value 5650429709
+	Mating
+Hash collision at depth 0 with hash value 25620336238
+Hash collision at depth 0 with hash value 46150375260
+Hash collision at depth 0 with hash value 81646570185
+	Scoring
+...Finished iteration with a best score of -3.60482e+06
+
+Beginning Iteration 207...
+	Mutating
+Hash collision at depth 0 with hash value 21651042739
+	Mating
+Hash collision at depth 0 with hash value 35340417792
+Hash collision at depth 0 with hash value 52678779671
+	Scoring
+...Finished iteration with a best score of -3.6048e+06
+
+Beginning Iteration 208...
+	Mutating
+Hash collision at depth 0 with hash value 55668627568
+Hash collision at depth 0 with hash value 21754542976
+	Mating
+Hash collision at depth 0 with hash value 55463981513
+	Scoring
+...Finished iteration with a best score of -3.60479e+06
+
+Beginning Iteration 209...
+	Mutating
+Hash collision at depth 0 with hash value 8404084276
+Hash collision at depth 0 with hash value 68468305756
+	Mating
+Hash collision at depth 0 with hash value 3916836993
+Hash collision at depth 0 with hash value 11640114067
+	Scoring
+...Finished iteration with a best score of -3.60474e+06
+
+Beginning Iteration 210...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 4237654018
+	Scoring
+...Finished iteration with a best score of -3.60473e+06
+
+Beginning Iteration 211...
+	Mutating
+Hash collision at depth 0 with hash value 48049269840
+Hash collision at depth 0 with hash value 40005049749
+	Mating
+Hash collision at depth 0 with hash value 66505100318
+Hash collision at depth 0 with hash value 74515359589
+	Scoring
+...Finished iteration with a best score of -3.60469e+06
+
+Beginning Iteration 212...
+	Mutating
+Hash collision at depth 0 with hash value 77626665331
+Hash collision at depth 0 with hash value 33076948547
+	Mating
+Hash collision at depth 0 with hash value 3438186471
+	Scoring
+...Finished iteration with a best score of -3.60465e+06
+
+Beginning Iteration 213...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 3925180901
+Hash collision at depth 0 with hash value 9041684485
+Hash collision at depth 0 with hash value 69370339273
+	Scoring
+...Finished iteration with a best score of -3.60461e+06
+
+Beginning Iteration 214...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 11961591561
+Hash collision at depth 0 with hash value 75531660583
+Hash collision at depth 0 with hash value 85595507302
+Hash collision at depth 0 with hash value 12471537747
+	Scoring
+...Finished iteration with a best score of -3.60457e+06
+
+Beginning Iteration 215...
+	Mutating
+Hash collision at depth 0 with hash value 13844770583
+
+	Mating
+Hash collision at depth 0 with hash value 71774290451
+Hash collision at depth 0 with hash value 45003031923
+Hash collision at depth 0 with hash value 44723844272
+Hash collision at depth 0 with hash value 40037911441
+Hash collision at depth 0 with hash value 42079086734
+	Scoring
+...Finished iteration with a best score of -3.60455e+06
+
+Beginning Iteration 216...
+	Mutating
+Hash collision at depth 0 with hash value 3288889294
+Hash collision at depth 0 with hash value 46291025486
+
+	Mating
+Hash collision at depth 0 with hash value 48708603702
+	Scoring
+...Finished iteration with a best score of -3.60451e+06
+
+Beginning Iteration 217...
+	Mutating
+Hash collision at depth 0 with hash value 48892779621
+Hash collision at depth 0 with hash value 50423138030
+	Mating
+Hash collision at depth 0 with hash value 23135758249
+Hash collision at depth 0 with hash value 36543542851
+	Scoring
+...Finished iteration with a best score of -3.60447e+06
+
+Beginning Iteration 218...
+	Mutating
+Hash collision at depth 0 with hash value 47459598674
+	Mating
+Hash collision at depth 0 with hash value 64998984960
+
+Hash collision at depth 0 with hash value 68972733689
+Hash collision at depth 0 with hash value 19853720378
+Hash collision at depth 0 with hash value 40161590800
+	Scoring
+...Finished iteration with a best score of -3.60445e+06
+
+Beginning Iteration 219...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 16635186994
+	Scoring
+...Finished iteration with a best score of -3.60442e+06
+
+Beginning Iteration 220...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60439e+06
+
+Beginning Iteration 221...
+	Mutating
+Hash collision at depth 0 with hash value 934308245
+Hash collision at depth 0 with hash value 75509708249
+	Mating
+Hash collision at depth 0 with hash value 22363133409
+Hash collision at depth 0 with hash value 54968927723
+
+	Scoring
+...Finished iteration with a best score of -3.60435e+06
+
+Beginning Iteration 222...
+	Mutating
+Hash collision at depth 0 with hash value 39569024987
+	Mating
+Hash collision at depth 0 with hash value 13495939550
+	Scoring
+...Finished iteration with a best score of -3.60432e+06
+
+Beginning Iteration 223...
+	Mutating
+Hash collision at depth 0 with hash value 28441401220
+	Mating
+Hash collision at depth 0 with hash value 780340835
+Hash collision at depth 0 with hash value 76243613723
+	Scoring
+...Finished iteration with a best score of -3.60427e+06
+
+Beginning Iteration 224...
+	Mutating
+Hash collision at depth 0 with hash value 74101240383
+	Mating
+Hash collision at depth 0 with hash value 57938097641
+	Scoring
+...Finished iteration with a best score of -3.60427e+06
+
+Beginning Iteration 225...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 81979077008
+	Scoring
+...Finished iteration with a best score of -3.60424e+06
+
+Beginning Iteration 226...
+	Mutating
+Hash collision at depth 0 with hash value 60218899479
+Hash collision at depth 0 with hash value 77946095020
+Hash collision at depth 0 with hash value 4452306695
+	Mating
+Hash collision at depth 0 with hash value 81018189900
+	Scoring
+...Finished iteration with a best score of -3.60422e+06
+
+Beginning Iteration 227...
+	Mutating
+Hash collision at depth 0 with hash value 7794974003
+	Mating
+Hash collision at depth 0 with hash value 7086768091
+	Scoring
+...Finished iteration with a best score of -3.6042e+06
+
+Beginning Iteration 228...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 58478330988
+Hash collision at depth 0 with hash value 22755479114
+	Scoring
+...Finished iteration with a best score of -3.60417e+06
+
+Beginning Iteration 229...
+	Mutating
+Hash collision at depth 0 with hash value 45582204689
+
+Hash collision at depth 0 with hash value 64055361356
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60416e+06
+
+Beginning Iteration 230...
+	Mutating
+Hash collision at depth 0 with hash value 7933842433
+Hash collision at depth 0 with hash value 75737661403
+Hash collision at depth 0 with hash value 80780230237
+	Mating
+Hash collision at depth 0 with hash value 44232970380
+Hash collision at depth 0 with hash value 70909333396
+	Scoring
+...Finished iteration with a best score of -3.60413e+06
+
+Beginning Iteration 231...
+	Mutating
+Hash collision at depth 0 with hash value 72698438501
+Hash collision at depth 0 with hash value 58287478189
+	Mating
+Hash collision at depth 0 with hash value 61920964503
+Hash collision at depth 0 with hash value 46951837633
+	Scoring
+...Finished iteration with a best score of -3.60411e+06
+
+Beginning Iteration 232...
+	Mutating
+	Mating
+Hash collision at depth 0 with hash value 47005327608
+Hash collision at depth 0 with hash value 62068406191
+Hash collision at depth 0 with hash value 48930646884
+Hash collision at depth 0 with hash value 18850474339
+	Scoring
+...Finished iteration with a best score of -3.60409e+06
+
+Beginning Iteration 233...
+	Mutating
+Hash collision at depth 0 with hash value 61931169654
+Hash collision at depth 0 with hash value 58346178946
+Hash collision at depth 0 with hash value 44612336815
+	Mating
+Hash collision at depth 0 with hash value 43025258531
+Hash collision at depth 0 with hash value 18937318236
+
+	Scoring
+...Finished iteration with a best score of -3.60407e+06
+
+Beginning Iteration 234...
+	Mutating
+Hash collision at depth 0 with hash value 64889037393
+Hash collision at depth 0 with hash value 73617976201
+Hash collision at depth 0 with hash value 1811365161
+	Mating
+Hash collision at depth 0 with hash value 42343121481
+	Scoring
+...Finished iteration with a best score of -3.60404e+06
+
+Beginning Iteration 235...
+	Mutating
+Hash collision at depth 0 with hash value 13451187072
+
+Hash collision at depth 0 with hash value 43809868956
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60403e+06
+
+Beginning Iteration 236...
+	Mutating
+Hash collision at depth 0 with hash value 60681634934
+	Mating
+Hash collision at depth 0 with hash value 9790564909
+	Scoring
+...Finished iteration with a best score of -3.60399e+06
+
+Beginning Iteration 237...
+	Mutating
+Hash collision at depth 0 with hash value 3068935409
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60397e+06
+
+Beginning Iteration 238...
+	Mutating
+Hash collision at depth 0 with hash value 27943472616
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60395e+06
+
+Beginning Iteration 239...
+	Mutating
+Hash collision at depth 0 with hash value 82933000327
+	Mating
+Hash collision at depth 0 with hash value 37566210757
+Hash collision at depth 0 with hash value 34002811358
+	Scoring
+...Finished iteration with a best score of -3.60392e+06
+
+Beginning Iteration 240...
+	Mutating
+Hash collision at depth 0 with hash value 52907716884
+Hash collision at depth 0 with hash value 46703681655
+	Mating
+Hash collision at depth 0 with hash value 30199748211
+	Scoring
+...Finished iteration with a best score of -3.60389e+06
+
+Beginning Iteration 241...
+	Mutating
+Hash collision at depth 0 with hash value 77714062686
+Hash collision at depth 0 with hash value 37012453540
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60386e+06
+
+Beginning Iteration 242...
+	Mutating
+Hash collision at depth 0 with hash value 69213486549
+Hash collision at depth 0 with hash value 2637292346
+	Mating
+Hash collision at depth 0 with hash value 7215532044
+Hash collision at depth 0 with hash value 68065435020
+Hash collision at depth 0 with hash value 32488686686
+Hash collision at depth 0 with hash value 22555260272
+Hash collision at depth 0 with hash value 27261361391
+	Scoring
+...Finished iteration with a best score of -3.60383e+06
+
+Beginning Iteration 243...
+	Mutating
+Hash collision at depth 0 with hash value 7866407166
+Hash collision at depth 0 with hash value 71855697457
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.6038e+06
+
+Beginning Iteration 244...
+	Mutating
+Hash collision at depth 0 with hash value 10170288054
+Hash collision at depth 0 with hash value 6373832103
+
+Hash collision at depth 0 with hash value 109794347
+Hash collision at depth 0 with hash value 32384594518
+	Mating
+Hash collision at depth 0 with hash value 74922582384
+	Scoring
+...Finished iteration with a best score of -3.60376e+06
+
+Beginning Iteration 245...
+	Mutating
+Hash collision at depth 0 with hash value 61209146088
+	Mating
+Hash collision at depth 0 with hash value 10880028959
+	Scoring
+...Finished iteration with a best score of -3.60373e+06
+
+Beginning Iteration 246...
+	Mutating
+Hash collision at depth 0 with hash value 4897225860
+Hash collision at depth 0 with hash value 63691233703
+Hash collision at depth 0 with hash value 22935799538
+Hash collision at depth 0 with hash value 81068935544
+Hash collision at depth 0 with hash value 28043938223
+Hash collision at depth 0 with hash value 31060820625
+	Mating
+Hash collision at depth 0 with hash value 14673239262
+Hash collision at depth 0 with hash value 78956734678
+	Scoring
+...Finished iteration with a best score of -3.6037e+06
+
+Beginning Iteration 247...
+	Mutating
+Hash collision at depth 0 with hash value 35577835044
+Hash collision at depth 0 with hash value 3828028189
+	Mating
+Hash collision at depth 0 with hash value 8510484549
+Hash collision at depth 0 with hash value 28972444620
+Hash collision at depth 0 with hash value 39922736007
+Hash collision at depth 0 with hash value 31916639959
+
+	Scoring
+...Finished iteration with a best score of -3.60366e+06
+
+Beginning Iteration 248...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of -3.60364e+06
+
+Beginning Iteration 249...
+	Mutating
+Hash collision at depth 0 with hash value 62182495205
+Hash collision at depth 0 with hash value 78974288507
+Hash collision at depth 0 with hash value 82035984064
+	Mating
+Hash collision at depth 0 with hash value 27760183002
+	Scoring
+...Finished iteration with a best score of -3.60361e+06
+
+Beginning Iteration 250...
+	Mutating
+Hash collision at depth 0 with hash value 5934687079
+Hash collision at depth 0 with hash value 25041348600
+	Mating
+Hash collision at depth 0 with hash value 24649002315
+Hash collision at depth 0 with hash value 77056937846
+	Scoring
+...Finished iteration with a best score of -3.60359e+06
+
+With a score of -3.60359e+06 we have log2(|Aut(G_H)|) of 4116.84
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (39, 82), (40, 761), (41, 94), (41, 533), (45, 1102), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (98, 945), (102, 404), (106, 597), (108, 570), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (169, 576), (170, 250), (177, 2192), (187, 462), (188, 721), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (284, 389), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (330, 574), (338, 627), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (413, 611), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (427, 2574), (430, 2033), (436, 635), (438, 720), (445, 2092), (447, 630), (450, 646), (453, 706), (461, 747), (468, 2219), (470, 638), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (516, 914), (517, 859), (525, 1624), (528, 678), (531, 1424), (531, 2187), (533, 777), (539, 883), (540, 543), (552, 1397), (553, 2459), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (583, 1377), (589, 1509), (591, 2155), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (612, 1514), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (642, 697), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (768, 772), (782, 1532), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (903, 1491), (904, 1733), (907, 1252), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1263, 2380), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1301, 1954), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1538, 1724), (1558, 2564), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1575, 2535), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1825, 1966), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1892, 2131), (1895, 2140), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2254, 2281), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+
+With a score of -3.60359e+06 we have log2(|Aut(G_H)|) of 4116.25
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (39, 82), (40, 761), (41, 94), (41, 533), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 342), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (121, 125), (122, 376), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (170, 250), (177, 2192), (187, 462), (188, 721), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (267, 324), (271, 718), (271, 2056), (275, 464), (279, 464), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (338, 627), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (430, 2033), (436, 635), (438, 720), (440, 1163), (447, 630), (450, 646), (453, 706), (461, 747), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (516, 914), (517, 859), (525, 1624), (528, 678), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (557, 1074), (566, 733), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (589, 1509), (591, 2155), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (642, 697), (648, 693), (650, 684), (666, 745), (668, 2473), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (741, 2467), (758, 2704), (768, 772), (782, 1532), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (903, 1491), (907, 1252), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1102, 1722), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1353, 2302), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1538, 1724), (1558, 2564), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1644, 2690), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1892, 2131), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2655), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1993, 2514), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2493), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2375, 2537), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2473, 2662), (2477, 2678), (2480, 2513), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+
+With a score of -3.60359e+06 we have log2(|Aut(G_H)|) of 4114.93
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (20, 791), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (39, 82), (40, 761), (41, 94), (41, 533), (45, 1102), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (63, 1854), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (169, 576), (170, 250), (177, 2192), (187, 462), (188, 721), (192, 1716), (221, 629), (227, 1813), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (338, 627), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (355, 2167), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (413, 611), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (430, 2033), (436, 635), (438, 720), (447, 630), (450, 646), (453, 706), (461, 747), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (495, 1775), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (516, 914), (517, 859), (520, 1657), (525, 1624), (528, 678), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (589, 1509), (591, 2155), (609, 719), (609, 747), (611, 1126), (611, 1265), (611, 1388), (611, 1755), (611, 2352), (612, 1514), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (642, 697), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (768, 772), (782, 1532), (784, 1613), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (903, 1491), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1068, 1462), (1069, 1096), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1181, 1952), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1647), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1300, 1531), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1353, 2302), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1538, 1724), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1825, 1966), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1892, 2131), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2655), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2127, 2140), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2206, 2662), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2543, 2638), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+
+With a score of -3.6036e+06 we have log2(|Aut(G_H)|) of 4114.38
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (39, 82), (40, 761), (41, 94), (41, 533), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (169, 576), (170, 250), (177, 2192), (187, 462), (188, 721), (204, 793), (209, 429), (215, 1136), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (338, 627), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (362, 2191), (364, 365), (365, 590), (373, 2649), (375, 518), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (411, 2182), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (427, 2574), (430, 2033), (436, 635), (438, 720), (447, 630), (450, 646), (453, 706), (461, 747), (470, 638), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (513, 1277), (516, 914), (517, 859), (525, 1624), (528, 678), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (558, 1823), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (589, 1509), (591, 2155), (604, 2046), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (612, 2347), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (642, 697), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (727, 2281), (733, 1966), (737, 2024), (747, 2615), (768, 772), (782, 1532), (784, 1613), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (887, 2577), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (899, 1719), (907, 1252), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (942, 2310), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1025, 2114), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1218, 2567), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1268, 2441), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1324, 1622), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1338, 1345), (1346, 1604), (1353, 2302), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1460, 2605), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1538, 1724), (1558, 2564), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1792, 2067), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1821, 1910), (1824, 2006), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2655), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2124, 2560), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2384, 2460), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+
+With a score of -3.6036e+06 we have log2(|Aut(G_H)|) of 4113.25
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (12, 1123), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (36, 1701), (39, 82), (40, 761), (41, 94), (41, 533), (42, 2317), (46, 867), (53, 1439), (53, 1567), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (170, 250), (177, 2192), (187, 462), (188, 721), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (338, 627), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (417, 2326), (420, 862), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (430, 2033), (436, 635), (438, 720), (447, 630), (450, 646), (453, 706), (454, 1732), (461, 747), (470, 638), (478, 568), (482, 1821), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (516, 914), (517, 859), (525, 1624), (528, 678), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (589, 1509), (591, 2155), (593, 1535), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (642, 697), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (752, 2171), (768, 772), (782, 1532), (784, 1613), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (861, 1835), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (903, 1491), (907, 1252), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1073, 2029), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1353, 2302), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1532, 2535), (1538, 1724), (1558, 2564), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1825, 1966), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1882, 1989), (1883, 2177), (1889, 2648), (1892, 2131), (1900, 2492), (1903, 2612), (1910, 2488), (1910, 2507), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2655), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2421, 2654), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+
+With a score of -3.6036e+06 we have log2(|Aut(G_H)|) of 4111.67
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (10, 1312), (14, 384), (14, 393), (14, 443), (14, 746), (15, 234), (17, 146), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (39, 82), (40, 761), (41, 94), (41, 533), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (149, 550), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (169, 576), (170, 250), (177, 2192), (187, 462), (188, 721), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (299, 1393), (299, 1470), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (323, 555), (338, 627), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (357, 2019), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (388, 1811), (395, 2518), (406, 2307), (407, 2439), (408, 630), (413, 611), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (430, 2033), (436, 635), (438, 720), (447, 630), (450, 646), (453, 706), (461, 747), (470, 638), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (503, 772), (504, 702), (506, 514), (507, 1378), (508, 523), (509, 669), (514, 1339), (516, 914), (517, 859), (525, 1624), (528, 678), (531, 1424), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (582, 2097), (589, 1509), (591, 2155), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (641, 986), (642, 697), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (748, 1747), (768, 772), (782, 1532), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (827, 957), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (907, 1252), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1353, 2302), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1476, 2106), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1538, 1724), (1558, 2564), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1825, 1966), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1892, 2131), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2655), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2038, 2065), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2254, 2369), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+
+With a score of -3.6036e+06 we have log2(|Aut(G_H)|) of 4113.52
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (9, 2046), (10, 1312), (12, 517), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (39, 82), (40, 761), (41, 94), (41, 533), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (109, 2606), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (169, 576), (170, 250), (177, 2192), (187, 462), (188, 721), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (284, 1503), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 344), (318, 1173), (338, 627), (344, 1087), (344, 2031), (345, 2389), (351, 1285), (353, 427), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (413, 611), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (427, 2574), (430, 2033), (436, 635), (438, 720), (447, 630), (450, 646), (453, 706), (456, 1240), (459, 614), (461, 747), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (516, 914), (517, 859), (525, 1624), (528, 678), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (589, 1509), (591, 2155), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (615, 1580), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (642, 697), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (738, 1545), (744, 2088), (768, 772), (772, 1393), (776, 1298), (782, 1532), (784, 1613), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1077, 1153), (1083, 1660), (1084, 1696), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1353, 2302), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1513, 2152), (1518, 1536), (1538, 1724), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1825, 1966), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1892, 2131), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2655), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+
+With a score of -3.6036e+06 we have log2(|Aut(G_H)|) of 4112.93
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (21, 2068), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (39, 82), (40, 761), (41, 94), (41, 533), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (152, 1383), (156, 172), (157, 393), (162, 1067), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (169, 576), (170, 250), (177, 2192), (187, 462), (188, 721), (196, 430), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (338, 627), (342, 2239), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (413, 611), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (430, 2033), (436, 635), (438, 720), (447, 630), (450, 646), (453, 706), (461, 747), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (516, 914), (517, 859), (518, 1790), (525, 1624), (528, 678), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (584, 852), (589, 1509), (591, 2155), (598, 971), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (628, 747), (632, 1339), (635, 660), (635, 1657), (636, 2233), (638, 1808), (638, 2045), (642, 697), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (768, 772), (782, 1532), (784, 1613), (788, 2419), (792, 2595), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1204), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (907, 1252), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (947, 2583), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1027, 1550), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1254, 1734), (1260, 2090), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1538, 1724), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1825, 1966), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1892, 2131), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2655), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2151, 2663), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+
+With a score of -3.6036e+06 we have log2(|Aut(G_H)|) of 4111.62
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (22, 1179), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (37, 732), (39, 82), (40, 761), (41, 94), (41, 533), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (147, 479), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (169, 576), (170, 250), (177, 2192), (187, 462), (188, 721), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (318, 1877), (338, 627), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (413, 611), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (427, 2574), (430, 2033), (436, 635), (438, 720), (447, 630), (450, 646), (453, 706), (459, 982), (461, 747), (470, 638), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (516, 914), (517, 859), (525, 1624), (528, 678), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (589, 1509), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (642, 697), (643, 1559), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (768, 772), (782, 1532), (784, 1613), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (899, 1694), (903, 1491), (907, 1252), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (939, 1242), (945, 2317), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1001, 1354), (1005, 1313), (1017, 2356), (1021, 1464), (1022, 1282), (1023, 1090), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1043, 1340), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1169, 1335), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1273, 2245), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1353, 2302), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1473, 1792), (1474, 1728), (1475, 1642), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1538, 1724), (1558, 2564), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1652, 1659), (1681, 1682), (1692, 2374), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1825, 1966), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1936, 2183), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2655), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2637, 2652), 
+
+With a score of -3.6036e+06 we have log2(|Aut(G_H)|) of 4111.93
+With edges: 
+(1, 344), (4, 170), (7, 1328), (8, 435), (9, 481), (14, 384), (14, 393), (14, 443), (14, 596), (14, 746), (15, 234), (17, 146), (24, 39), (24, 269), (26, 2612), (27, 84), (27, 532), (28, 586), (30, 679), (32, 679), (39, 82), (40, 761), (41, 94), (41, 533), (46, 867), (53, 1439), (55, 361), (58, 1762), (61, 240), (62, 2566), (63, 739), (66, 2359), (67, 729), (68, 2007), (71, 677), (74, 1634), (74, 2013), (74, 2654), (76, 131), (77, 337), (79, 438), (79, 2207), (81, 647), (84, 715), (88, 762), (90, 680), (94, 126), (97, 439), (102, 404), (106, 597), (109, 171), (109, 884), (110, 687), (111, 350), (113, 747), (114, 171), (119, 228), (122, 1094), (123, 553), (126, 2208), (132, 346), (135, 418), (135, 654), (140, 323), (145, 2012), (147, 479), (152, 1383), (157, 393), (163, 346), (163, 1650), (163, 1807), (163, 2177), (165, 432), (168, 475), (169, 576), (170, 250), (177, 2192), (187, 462), (188, 721), (221, 629), (229, 477), (236, 1271), (240, 2308), (240, 2652), (241, 763), (246, 560), (247, 1603), (259, 320), (271, 718), (271, 2056), (275, 464), (279, 464), (285, 1148), (287, 549), (291, 487), (293, 387), (293, 576), (299, 746), (313, 534), (314, 509), (315, 747), (316, 1519), (318, 1173), (338, 627), (344, 1087), (344, 2031), (345, 377), (345, 2389), (351, 1285), (353, 427), (362, 2191), (364, 365), (365, 590), (373, 2649), (376, 704), (378, 2447), (406, 2307), (407, 2439), (408, 630), (413, 611), (417, 2326), (424, 571), (427, 526), (427, 665), (427, 674), (427, 1399), (427, 1405), (427, 1760), (427, 1999), (427, 2383), (430, 2033), (436, 635), (438, 720), (447, 630), (450, 646), (453, 706), (461, 747), (478, 568), (484, 642), (485, 711), (487, 538), (493, 747), (496, 1896), (504, 702), (506, 514), (508, 523), (509, 669), (516, 914), (517, 859), (525, 1624), (528, 678), (531, 2187), (533, 777), (539, 883), (540, 543), (553, 2459), (568, 843), (570, 1922), (576, 726), (576, 874), (576, 1246), (589, 1509), (609, 719), (609, 747), (611, 1265), (611, 1755), (611, 2352), (628, 747), (635, 660), (636, 2233), (638, 1808), (638, 2045), (642, 697), (648, 693), (666, 745), (684, 1425), (689, 1826), (703, 2233), (723, 1459), (724, 747), (724, 2612), (737, 2024), (768, 772), (782, 1532), (784, 1613), (788, 2419), (793, 1330), (794, 795), (795, 865), (796, 1629), (797, 1645), (802, 973), (802, 1168), (803, 1439), (817, 1367), (821, 1421), (830, 1252), (834, 1520), (838, 1458), (839, 872), (840, 1196), (844, 1396), (849, 1720), (850, 917), (851, 1491), (857, 2060), (878, 1023), (878, 1472), (884, 1658), (886, 1295), (888, 1731), (894, 1255), (895, 1436), (899, 1565), (907, 1252), (908, 2304), (910, 1589), (915, 1172), (915, 1294), (918, 1252), (925, 1532), (929, 1924), (939, 1242), (947, 2583), (950, 1147), (952, 1064), (952, 1660), (954, 969), (955, 1280), (956, 2470), (958, 1409), (967, 1394), (967, 1561), (968, 1285), (973, 993), (977, 1234), (979, 1979), (980, 1488), (983, 1302), (984, 1048), (988, 1515), (992, 1354), (995, 1232), (995, 2139), (997, 1271), (1005, 1313), (1021, 1464), (1022, 1282), (1023, 1090), (1029, 1090), (1029, 2456), (1030, 1946), (1033, 1174), (1036, 1662), (1038, 1196), (1039, 1354), (1040, 1354), (1041, 1321), (1050, 1171), (1050, 1492), (1051, 1052), (1051, 2576), (1054, 1249), (1055, 1059), (1057, 1359), (1065, 1279), (1069, 1096), (1077, 1153), (1083, 1660), (1085, 1292), (1088, 1565), (1095, 1360), (1097, 1393), (1099, 1178), (1100, 1464), (1103, 1579), (1104, 1260), (1104, 1262), (1112, 1403), (1112, 2415), (1114, 1371), (1120, 1677), (1120, 2275), (1123, 1188), (1125, 1496), (1132, 1309), (1145, 1323), (1151, 1350), (1152, 1453), (1153, 1219), (1153, 1410), (1153, 1675), (1161, 1702), (1161, 2324), (1162, 1613), (1167, 1330), (1167, 1331), (1167, 1332), (1174, 1297), (1176, 2272), (1183, 1193), (1183, 1202), (1189, 2016), (1197, 2634), (1198, 1703), (1199, 1550), (1199, 1702), (1208, 1429), (1208, 1434), (1211, 2129), (1217, 1349), (1227, 1236), (1228, 1693), (1239, 1387), (1247, 2454), (1249, 2402), (1252, 1477), (1252, 1634), (1260, 2090), (1282, 1494), (1285, 1382), (1291, 1548), (1299, 1392), (1304, 1354), (1313, 1382), (1313, 1623), (1313, 1655), (1314, 1529), (1325, 2170), (1333, 1369), (1333, 1708), (1337, 2300), (1346, 1604), (1354, 1695), (1355, 1648), (1357, 1461), (1357, 1511), (1370, 2692), (1383, 1384), (1383, 1398), (1385, 1653), (1385, 1706), (1390, 1491), (1399, 1463), (1405, 1463), (1406, 1463), (1415, 1503), (1417, 1421), (1441, 1638), (1443, 1540), (1448, 1621), (1453, 1665), (1458, 1714), (1466, 1650), (1471, 1633), (1474, 1728), (1475, 1642), (1476, 2106), (1482, 1484), (1487, 1528), (1487, 1532), (1489, 2217), (1491, 1605), (1492, 1724), (1495, 2065), (1518, 1536), (1538, 1724), (1569, 1587), (1569, 1609), (1569, 1721), (1573, 2687), (1652, 1659), (1681, 1682), (1698, 2597), (1716, 1978), (1742, 2456), (1743, 2192), (1749, 2164), (1750, 2106), (1751, 2691), (1752, 2706), (1753, 2268), (1755, 2432), (1756, 2613), (1758, 2412), (1759, 2698), (1760, 1879), (1761, 2208), (1763, 2595), (1764, 1765), (1766, 1810), (1768, 2257), (1772, 2307), (1772, 2351), (1773, 2545), (1779, 2007), (1780, 2007), (1782, 2328), (1785, 2564), (1786, 2207), (1789, 2469), (1798, 2120), (1799, 2205), (1807, 2490), (1808, 2210), (1809, 2071), (1809, 2585), (1815, 2671), (1817, 2464), (1818, 2073), (1820, 2383), (1820, 2569), (1824, 2006), (1825, 1966), (1826, 2630), (1827, 2224), (1833, 2367), (1834, 1905), (1840, 2361), (1843, 2626), (1848, 2483), (1849, 2163), (1853, 1861), (1853, 2320), (1855, 2075), (1856, 2421), (1857, 2020), (1858, 2481), (1858, 2528), (1866, 2272), (1874, 1920), (1875, 2439), (1875, 2553), (1876, 2634), (1880, 2302), (1881, 2158), (1882, 1989), (1883, 2177), (1889, 2648), (1892, 2131), (1900, 2492), (1903, 2612), (1910, 2488), (1915, 1981), (1915, 2497), (1916, 2400), (1925, 2392), (1929, 2349), (1935, 2499), (1937, 2293), (1939, 2307), (1946, 2516), (1947, 2557), (1949, 1960), (1951, 2303), (1955, 2189), (1969, 2051), (1970, 2486), (1972, 2620), (1975, 2689), (1976, 2482), (1981, 2491), (1983, 2078), (1987, 2607), (1992, 2510), (1994, 2241), (1996, 1997), (2005, 2345), (2010, 2447), (2013, 2382), (2023, 2135), (2025, 2693), (2030, 2130), (2033, 2622), (2036, 2696), (2038, 2360), (2043, 2270), (2045, 2550), (2047, 2111), (2055, 2352), (2056, 2095), (2069, 2434), (2070, 2602), (2070, 2640), (2078, 2406), (2080, 2609), (2083, 2511), (2084, 2615), (2090, 2530), (2096, 2142), (2101, 2470), (2105, 2621), (2109, 2185), (2111, 2302), (2113, 2586), (2113, 2623), (2119, 2154), (2121, 2212), (2136, 2148), (2141, 2345), (2143, 2181), (2145, 2408), (2149, 2189), (2153, 2699), (2157, 2565), (2162, 2599), (2170, 2237), (2184, 2398), (2186, 2321), (2187, 2314), (2187, 2321), (2189, 2365), (2190, 2365), (2191, 2275), (2196, 2267), (2201, 2233), (2208, 2234), (2208, 2235), (2208, 2313), (2209, 2689), (2237, 2274), (2238, 2271), (2240, 2466), (2243, 2244), (2245, 2471), (2256, 2597), (2264, 2519), (2269, 2277), (2273, 2360), (2275, 2522), (2278, 2284), (2279, 2579), (2283, 2284), (2297, 2304), (2301, 2588), (2308, 2652), (2312, 2587), (2320, 2511), (2321, 2370), (2324, 2326), (2325, 2538), (2336, 2579), (2337, 2610), (2344, 2707), (2359, 2520), (2365, 2668), (2367, 2577), (2389, 2421), (2394, 2427), (2395, 2665), (2411, 2666), (2415, 2530), (2421, 2654), (2423, 2627), (2433, 2437), (2436, 2649), (2440, 2543), (2448, 2526), (2459, 2606), (2467, 2468), (2477, 2678), (2486, 2586), (2492, 2547), (2523, 2684), (2531, 2566), (2544, 2568), (2555, 2560), (2576, 2678), (2584, 2632), (2596, 2669), (2601, 2631), (2612, 2625), (2637, 2652), 
+

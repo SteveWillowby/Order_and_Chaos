@@ -34,3 +34,7 @@ user	53295m5.623s
 sys	0m34.277s
 Undirected Cora Citations
 rm: cannot remove 'results/undir_cora*': No such file or directory
+
+real	17234m17.225s
+user	758782m37.100s
+sys	10m31.181s
