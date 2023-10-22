@@ -107,6 +107,11 @@ if __name__ == '__main__':
     c_local = 1000
 #    generate_data(c_local)
     [data,item2lineno] = load_data()
+    x1 = [x[0] for x in data]
+    x2 = [x[1] for x in data]
+    nodes = set(x1 + x2)
+    largest_node = max(nodes)
+    # print("Largest Node: " + str(largest_node))
 
     # ----- CrossSpot Algorithm ------
     # best_accuracy = [0.0,0.0,0.0]
@@ -116,8 +121,8 @@ if __name__ == '__main__':
     for seedno in range(0,MAX_NUM_SEED):
         seed = [[set() for k in range(0,k_data)],[set() for k in range(0,k_data)],0,0.0]
         for k in range(0,k_data):
-            num_item = randint(1, vec_n_global[k])
-            list_item = [v for v in range(0, vec_n_global[k])]
+            num_item = randint(1, min(vec_n_global[k], largest_node + 1))
+            list_item = [v for v in range(0, min(vec_n_global[k], largest_node + 1))]
             shuffle(list_item)
             for j in range(0,num_item):
                 item = list_item[j]
