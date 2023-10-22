@@ -6,3 +6,9 @@ executables/*
 *.ods
 *.csv
 experiments/plotting_code/structure_graph*
+crossspot_code/nodes.txt
+crossspot_code/prepared.csv
+crossspot_code/line_graph.csv
+crossspot_code/chosen_edges.csv
+crossspot_code/no_edges.csv
+crossspot_code/results/*
