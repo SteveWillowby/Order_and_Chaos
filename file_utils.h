@@ -21,4 +21,12 @@ SparseGraph read_graph(const bool directed,
 void write_graph(const Graph& g, const std::string& nodelist_filename,
                                  const std::string& edgelist_filename);
 
+// Reads the edgelist file and makes a nodelist for it.
+//
+// If full_range is true, all nodes from 0 through max node in edgelist_filename
+// If full_range is false, only nodes in edgelist_filename
+void make_nodelist(const std::string& edgelist_filename,
+                   const std::string& nodelist_filename,
+                   bool full_range);
+
 #endif

@@ -111,6 +111,9 @@ int main(int argc, char* argv[]) {
     std::string nodelist_file = "";  // No nodelist
     if (cmd_flag_present(inputs, "-nodes")) {
         nodelist_file = get_cmd_option(inputs, "-nodes");
+    } else {
+        nodelist_file = "/tmp/__score_only_nodes.txt";
+        make_nodelist(graph_file, nodelist_file, false);
     }
 
     bool custom_p_values = false;
@@ -157,6 +160,7 @@ int main(int argc, char* argv[]) {
     SparseGraph g(directed);
     if (nodelist_file.empty()) {
         g = read_graph(directed, graph_file);
+        std::cout<<g.num_nodes()<<std::endl;
     } else {
         g = read_graph(directed, nodelist_file, graph_file);
     }
@@ -175,12 +179,8 @@ int main(int argc, char* argv[]) {
     }
 
     SparseGraph noise_candidate(directed, g.num_nodes());
-    if (nodelist_file.empty()) {
-        noise_candidate = read_graph(directed, edgelist_file);
-    } else {
-        noise_candidate = read_graph(directed, nodelist_file,
-                                     edgelist_file);
-    }
+    noise_candidate = read_graph(directed, nodelist_file,
+                                 edgelist_file);
 
     bool has_self_loops = g.num_loops() > 0;
 
@@ -212,7 +212,6 @@ int main(int argc, char* argv[]) {
     deletions = std::unordered_set<Edge, EdgeHash>();
     additions = std::unordered_set<Edge, EdgeHash>();
 
-    // Flip edges randomly
     for (size_t i = 0; i < g.num_nodes(); i++) {
         for (size_t j = i * (!directed); j < g.num_nodes(); j++) {
             if (i == j and !has_self_loops) {
@@ -227,31 +226,6 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    /*
-    additions_sorted= std::vector<Edge>(additions.begin(),
-                                        additions.end());
-    deletions_sorted= std::vector<Edge>(deletions.begin(),
-                                        deletions.end());
-    std::sort(additions_sorted.begin(),
-              additions_sorted.end());
-    std::sort(deletions_sorted.begin(),
-              deletions_sorted.end());
-
-    std::cout<<std::endl<<"Adding: ";
-    for (auto e = additions_sorted.begin();
-              e != additions_sorted.end(); e++) {
-        std::cout<<"("<<e->first<<", "<<e->second<<"), ";
-        g.add_edge(e->first, e->second);
-    }
-    std::cout<<std::endl;
-    std::cout<<std::endl<<"Removing: ";
-    for (auto e = deletions_sorted.begin();
-              e != deletions_sorted.end(); e++) {
-        std::cout<<"("<<e->first<<", "<<e->second<<"), ";
-        g.delete_edge(e->first, e->second);
-    }
-    std::cout<<std::endl;
-    */
 
     NTSparseGraph g_nt = NTSparseGraph(g);
     std::vector<long double> log_probs;

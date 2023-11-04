@@ -203,3 +203,44 @@ std::vector<std::pair<int, int>> _read_edgelist(const std::string& filename) {
 
     return result;
 }
+
+void make_nodelist(const std::string& edgelist_filename,
+                   const std::string& nodelist_filename,
+                   bool full_range) {
+
+    std::vector<std::pair<int, int>> edges = _read_edgelist(edgelist_filename);
+    std::set<int> nodes = std::set<int>();
+    int a, b;
+    for (auto itr = edges.begin(); itr != edges.end(); itr++) {
+        a = itr->first;
+        b = itr->second;
+        nodes.insert(a);
+        nodes.insert(b);
+    }
+
+    std::ofstream file = std::ofstream(nodelist_filename);
+    if (full_range) {
+        int max_node = 0;
+        for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+            if (*itr > max_node) {
+                max_node = *itr;
+            }
+        }
+
+        for (int i = 0; i <= max_node; i++) {
+            file << i;
+            if (i < max_node) {
+                file << std::endl;
+            }
+        }
+    } else {
+        for (auto itr = nodes.begin(); itr != nodes.end(); ) {
+            file<<*itr;
+            itr++;
+            if (itr != nodes.end()) {
+                file<<std::endl;
+            }
+        }
+    }
+    file.close();
+}
