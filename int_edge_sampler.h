@@ -32,6 +32,7 @@ public:
 
     bool is_edge(SYM__edge_int_type e) const;
     Edge edge(SYM__edge_int_type e) const;
+    SYM__edge_int_type edge(const Edge& e) const;
 
     // Maps an edge int to its weighted probability of being sampled
     const std::vector<long double>& get_heuristic_scores() const;

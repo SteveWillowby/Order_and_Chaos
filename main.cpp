@@ -76,11 +76,16 @@ int main(int argc, char* argv[]) {
                  <<"-d and -u:\tdirected and undirected respectively"
                  <<std::endl<<"\t\t\t* defaults to undirected"
                  <<std::endl<<std::endl
+                 <<"-seed <arg>:\tan edgelist filename (including path)"
+                 <<std::endl<<"\t\t\t* requires that -nodes be specified"
+                 <<std::endl<<std::endl
+                 <<std::endl<<"\t\t\t* used as the initial noise set"
                  <<"-legal_noise <arg>:\tan edgelist filename (including path)"
                  <<std::endl<<"\t\t\t* used to constrain which edges are "
                  <<"allowed to be part"<<std::endl<<"\t\t\t\tof the noise set."
                  <<std::endl<<"\t\t\t* uses the -nodes nodelist in the same way"
                  <<" as -graph"
+                 <<std::endl<<"\t\t\t* requires that -nodes be specified"
                  <<std::endl<<std::endl
                  <<"-trials <arg>:\tnumber of times to do a full trial"
                  <<std::endl<<"\t\t\t* defaults to 1"
@@ -210,6 +215,19 @@ int main(int argc, char* argv[]) {
         nodelist_file = get_cmd_option(inputs, "-nodes");
     }
 
+    if (nodelist_file.empty()) {
+        if (cmd_flag_present(inputs, "-seed") ||
+                cmd_flag_present(inputs, "-legal_noise")) {
+            throw std::invalid_argument(std::string("Error! Cannot use -seed") +
+                                        " or -legal_noise without -nodes");
+        }
+    }
+
+    std::string seed_file = "";  // Start with empty noise set
+    if (cmd_flag_present(inputs, "-seed")) {
+        seed_file = get_cmd_option(inputs, "-seed");
+    }
+
     std::string legal_noise_file = "";  // No limits on noise edge choice
     if (cmd_flag_present(inputs, "-legal_noise")) {
         legal_noise_file = get_cmd_option(inputs, "-legal_noise");
@@ -309,14 +327,28 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    SparseGraph seed_noise(directed, g.num_nodes());
+    bool has_seed = !legal_noise_file.empty();
+    if (has_seed) {
+        seed_noise = read_graph(directed, nodelist_file, seed_file);
+    }
+
     SparseGraph legal_noise(directed, g.num_nodes());
     bool has_legal_noise = !legal_noise_file.empty();
     if (has_legal_noise) {
-        if (nodelist_file.empty()) {
-            legal_noise = read_graph(directed, legal_noise_file);
-        } else {
-            legal_noise = read_graph(directed, nodelist_file,
-                                     legal_noise_file);
+        legal_noise = read_graph(directed, nodelist_file, legal_noise_file);
+
+        if (has_seed) {
+            for (size_t i = 0; i < seed_noise.num_nodes(); i++) {
+                for (auto nbr = seed_noise.out_neighbors(i).begin();
+                          nbr != seed_noise.out_neighbors(i).end(); nbr++) {
+                    if (!legal_noise.has_edge(i, *nbr)) {
+throw std::invalid_argument(std::string("Error! Seed graph has edge (") + 
+                            std::to_string(i) + ", " + std::to_string(*nbr) +
+                            ") which is not listed in -legal_noise");
+                    }
+                }
+            }
         }
     }
 
@@ -502,6 +534,7 @@ std::to_string(legal_adds) + " options due to -legal_noise");
                                          max_change_factor,
                                          score_heuristic,
                                          sample_heuristic,
+                                         seed_noise,
                                          legal_noise,
                                          output_file);
 

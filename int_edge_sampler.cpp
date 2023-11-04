@@ -165,6 +165,10 @@ Edge IntEdgeConverterAndSampler::edge(SYM__edge_int_type e) const {
     return EDGE(e / n, e % n, directed);
 }
 
+SYM__edge_int_type IntEdgeConverterAndSampler::edge(const Edge& e) const {
+    return (e.first * n) + e.second;
+}
+
 SYM__edge_int_type IntEdgeConverterAndSampler::weighted_sample(
                 std::mt19937& gen,
                 std::uniform_real_distribution<long double>& dist) const {

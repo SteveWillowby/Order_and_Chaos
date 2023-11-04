@@ -66,6 +66,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     float max_change_factor,
                                     bool scoring_heuristic,
                                     bool sampling_heuristic,
+                                    const Graph& seed_noise,
                                     const Graph& legal_edges,
                                     const std::string& file_base);
 
@@ -135,6 +136,7 @@ public:
     // Creates an initial population by starting with a single gene and
     //  continuously mutating it until we get to pop size.
     GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
+             const Graph& seed_noise,
              size_t gene_depth, size_t pop_size, size_t num_results,
              bool scoring_heuristic, bool sampling_heuristic);
 

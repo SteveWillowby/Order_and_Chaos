@@ -30,6 +30,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     float max_change_factor,
                                     bool scoring_heuristic,
                                     bool sampling_heuristic,
+                                    const Graph& seed_noise,
                                     const Graph& legal_edges,
                                     const std::string& file_base) {
     // Initialize Basics
@@ -111,8 +112,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     // size_t pop_size = (g.num_nodes() / 4 + 1) *
     //                   (g.num_nodes() < 200 ? 200 : g.num_nodes());
     size_t pop_size = size_t(std::pow(g.num_nodes() + 400, 1.4));
-    GenePool gp(g, iecas, gene_depth, pop_size, k, scoring_heuristic,
-                sampling_heuristic);
+    GenePool gp(g, iecas, seed_noise, gene_depth, pop_size, k,
+                scoring_heuristic, sampling_heuristic);
 
     std::string output_graph_file = file_base + "_graph.txt";
     std::string output_noise_file = file_base + "_noise.txt";
@@ -334,6 +335,7 @@ std::vector<SYM__edge_int_type> Gene::merged(
 // Creates an initial population by starting with a single gene and
 //  continuously mutating it until we get to pop size.
 GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
+                   const Graph& seed_noise,
                    size_t gene_depth, size_t pop_size, size_t num_results,
                    bool scoring_heuristic, bool sampling_heuristic) :
             iecas(iecas), depth(gene_depth), pop_size(pop_size), k(num_results),
@@ -381,9 +383,20 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
         pool_map.push_back(std::unordered_map<size_t, size_t>());
         pool_vec.push_back(std::vector<std::unique_ptr<Gene>>());
 
-        // Build the empty gene stack
+        // Build the initial gene stack
         if (i == 0) {
-            gene = new Gene();
+            std::vector<SYM__edge_int_type> seed_elts =
+                                std::vector<SYM__edge_int_type>();
+            for (size_t i = 0; i < seed_noise.num_nodes(); i++) {
+                for (auto nbr = seed_noise.out_neighbors(i).begin();
+                          nbr != seed_noise.out_neighbors(i).end(); nbr++) {
+                    if (g.directed || *nbr >= int(i)) {
+                        seed_elts.push_back(
+                            iecas.edge(EDGE(int(i), *nbr, g.directed)));
+                    }
+                }
+            }
+            gene = new Gene(seed_elts);
         } else {
             gene = new Gene(gene);
         }
