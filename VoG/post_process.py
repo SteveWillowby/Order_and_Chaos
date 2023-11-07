@@ -57,7 +57,8 @@ if __name__ == "__main__":
     output_base = sys.argv[4]
     output_name = output_base + ".txt"
     output_graph = output_base + "_og_graph.txt"
-    output_noise = output_base + "_noise.txt"
+    output_noise = output_base + "_og_noise.txt"
+    output_nodes = output_base + "_og_nodes.txt"
 
     f = open(model_file, "r")
     structures = f.readlines()
@@ -190,6 +191,14 @@ if __name__ == "__main__":
     n_list = list(noise_edges)
     for i in range(0, len(n_list)):
         f.write("%d %d" % n_list[i])
+        if i < len(n_list) - 1:
+            f.write("\n")
+    f.close()
+
+    f = open(output_nodes, "w")
+    n_list = list(nodes)
+    for i in range(0, len(n_list)):
+        f.write("%d" % n_list[i])
         if i < len(n_list) - 1:
             f.write("\n")
     f.close()
