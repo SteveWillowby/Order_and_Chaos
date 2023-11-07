@@ -12,3 +12,8 @@ crossspot_code/line_graph.csv
 crossspot_code/chosen_edges.txt
 crossspot_code/no_edges.txt
 crossspot_code/results/*
+VoG/results/*.txt
+VoG/*.model
+VoG/*.txt
+VoG/DATA/*.model
+VoG/DATA/*.txt
