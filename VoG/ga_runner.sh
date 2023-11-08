@@ -3,14 +3,14 @@
 
 # Karate
 
-echo "Karate"
-rm results/karate_ga*
-time nice -2 ../executables/main -graph results/karate_og_graph.txt \
-                                 -nodes results/karate_og_nodes.txt \
-                                 -seed  results/karate_og_noise.txt \
-                                 -o results/karate_ga \
-                                 -n_itr 250 -u \
-                                 >> results/karate_ga.txt
+#echo "Karate"
+#rm results/karate_ga*
+#time nice -2 ../executables/main -graph results/karate_og_graph.txt \
+#                                 -nodes results/karate_og_nodes.txt \
+#                                 -seed  results/karate_og_noise.txt \
+#                                 -o results/karate_ga \
+#                                 -n_itr 250 -u \
+#                                 >> results/karate_ga.txt
 
 # Maayan Foodweb
 
