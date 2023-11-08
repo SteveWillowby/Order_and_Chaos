@@ -72,7 +72,7 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     NTPartition stabilizer_coloring =
                     g.nauty_traces_coloring(node_orbit_coloring,
                                             editable_edge_orbit_coloring);
-    nt_results = traces(g, o, stabilizer_coloring);
+    nt_results = nauty(g, o, stabilizer_coloring);
     log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
                            ((long double)(nt_results.num_aut_exponent)) *
                                             comb_util.log2(10);

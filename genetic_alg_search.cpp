@@ -60,6 +60,16 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
             std::string("Error! (genetic_alg_search) `seed_noise` has ") +
                         "different number of nodes from the graph");
     }
+    if (legal_edges.directed != g_nt.directed) {
+        throw std::invalid_argument(
+            std::string("Error! (genetic_alg_search) `legal_edges` has ") +
+            "a directed status that `g_nt` does not.");
+    }
+    if (seed_noise.directed != g_nt.directed) {
+        throw std::invalid_argument(
+            std::string("Error! (genetic_alg_search) `seed_noise` has ") +
+            "a directed status that `g_nt` does not.");
+    }
 
     if (num_edges == 0) {
         throw std::domain_error("Error! Cannot run on an empty graph.");
@@ -116,9 +126,6 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
         for (auto nbr = seed_noise.out_neighbors(i).begin();
                   nbr != seed_noise.out_neighbors(i).end(); nbr++) {
             if (g_nt.directed || int(i) <= *nbr) {
-                if (int(i) == *nbr) {
-                    continue;  // TODO: Reconsider this
-                }
                 if (g_nt.has_edge(i, *nbr)) {
                     seed_del.insert(EDGE(int(i), *nbr, g_nt.directed));
                 } else {
@@ -127,14 +134,11 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
             }
         }
     }
-    std::cout<<"Seed Add Size: "<<seed_add.size()<<std::endl;  // TODO: Remove
-    std::cout<<"Seed Del Size: "<<seed_del.size()<<std::endl;
 
     std::vector<std::unique_ptr<EdgeSetPair>> start_task =
         std::vector<std::unique_ptr<EdgeSetPair>>();
     start_task.push_back(std::unique_ptr<EdgeSetPair>(
                             new BasicEdgeSetPair(seed_del, seed_add)));
-    std::cout<<"TEST MESSAGE"<<std::endl;  // TODO: Remove
     std::vector<std::pair<long double, long double>> start_score =
                     tps.get_scores(&start_task);
     std::cout<<"The seed edge set gets a score of "
@@ -571,13 +575,10 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     }
 
     if (tasks.size() > 0) {
-        std::cout<<"AA"<<std::endl;  // TODO: Remove
 
         // Get scores for new members
         const std::vector<std::pair<long double, long double>>& new_scores =
                     tps.get_scores(&tasks);
-
-        std::cout<<"BB"<<std::endl;  // TODO: Remove
 
         std::vector<size_t> keep_sizes = {pop_size};
         std::vector<std::map<std::pair<long double, long double>,

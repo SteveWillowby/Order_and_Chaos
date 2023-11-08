@@ -8,7 +8,6 @@
 
 #include<condition_variable>
 #include<cstring>
-#include<iostream>
 #include<memory>
 #include<mutex>
 #include<thread>
@@ -203,7 +202,6 @@ void ThreadPoolScorer::run() {
             if (tasks_begun < num_tasks) {
                 task_id = tasks_begun;
                 tasks_begun++;
-                std::cout<<tasks_begun<<std::endl;  // TODO: Remove
                 l.unlock();
             } else {
                 break;
@@ -251,9 +249,9 @@ void ThreadPoolScorer::run() {
                                            max_change_size),
                         0);
 
-                    //  This makes the program get stuck -- too many edges on
-                    //    the most unique nodes.
-                    // (*task_vec)[task_id]->heuristic_score());
+                //  This makes the program get stuck -- too many edges on
+                //    the most unique nodes.
+                // (*task_vec)[task_id]->heuristic_score());
             }
 
             l.lock();

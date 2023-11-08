@@ -332,6 +332,15 @@ int main(int argc, char* argv[]) {
     if (has_seed) {
         seed_noise = read_graph(directed, nodelist_file, seed_file);
     }
+    if (seed_noise.num_loops() > 0) {
+        std::cout<<"<<< The current code cannot handle self-loops. "
+                 <<"Ignoring all in seed noise. >>>"<<std::endl<<std::endl;
+        for (size_t i = 0; i < seed_noise.num_nodes(); i++) {
+            if (seed_noise.has_edge(i, i)) {
+                seed_noise.delete_edge(i, i);
+            }
+        }
+    }
 
     SparseGraph legal_noise(directed, g.num_nodes());
     bool has_legal_noise = !legal_noise_file.empty();
