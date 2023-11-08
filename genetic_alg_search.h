@@ -30,11 +30,6 @@
 //      A value of 3 means a gene is a set of sets of edge sets
 //          Etc.
 //
-//  `add` and `del` are purely for printing out initial information
-//      The code says what score would be obtained if the noise was that the
-//      edges removed from h to get `g` were in `add`, and the edges added to h
-//      to get `g` were in `del`.
-//
 //  `log_probs` should contain {log2(p+), log2(1-p+), log2(p-), log2(1-p-)}
 //      where p+ is the prob. a noise edge was added to get `g`, and p- is the
 //      prob. an edge was randomly removed to get `g`.
@@ -49,6 +44,9 @@
 //  `sampling_heuristic` determines whether or not random edge sampling is
 //      weighted by a heuristic
 //
+//  `seed_noise` is the initial noise that the genetic algorithm considers.
+//      If you want to start with no noise, just make it a graph with no edges.
+//
 //  `legal_edges` is used if you want to constrain which edges can be part of
 //      the noise. If you want to include all edges as an option, make
 //      `legal_edges` an empty graph on the same number of nodes as `g`.
@@ -60,8 +58,6 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     size_t k,
                                     size_t nt,
                                     size_t gene_depth,
-                                    std::unordered_set<Edge, EdgeHash> add,
-                                    std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
                                     float max_change_factor,
                                     bool scoring_heuristic,

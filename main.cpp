@@ -328,7 +328,7 @@ int main(int argc, char* argv[]) {
     }
 
     SparseGraph seed_noise(directed, g.num_nodes());
-    bool has_seed = !legal_noise_file.empty();
+    bool has_seed = !seed_file.empty();
     if (has_seed) {
         seed_noise = read_graph(directed, nodelist_file, seed_file);
     }
@@ -528,8 +528,6 @@ std::to_string(legal_adds) + " options due to -legal_noise");
         auto result = genetic_alg_search(g, num_iterations,
                                          top_k, nt,
                                          gene_depth,
-                                         se_del,
-                                         se_add,
                                          log_probs,
                                          max_change_factor,
                                          score_heuristic,

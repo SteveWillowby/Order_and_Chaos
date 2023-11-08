@@ -8,6 +8,7 @@
 #include "noise_prob_choice.h"
 #include "thread_pool_scorer.h"
 
+#include<algorithm>
 #include<iostream>
 #include<map>
 #include<memory>
@@ -24,8 +25,6 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     size_t k,
                                     size_t nt,
                                     size_t gene_depth,
-                                    std::unordered_set<Edge, EdgeHash> add,
-                                    std::unordered_set<Edge, EdgeHash> del,
                                     const std::vector<long double>& log_probs,
                                     float max_change_factor,
                                     bool scoring_heuristic,
@@ -98,13 +97,32 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                          log2_1_minus_p_plus, log2_1_minus_p_minus,
                          max_change_size, scoring_heuristic);
 
+    std::unordered_set<Edge, EdgeHash> seed_add =
+                                std::unordered_set<Edge, EdgeHash>();
+    std::unordered_set<Edge, EdgeHash> seed_del =
+                                std::unordered_set<Edge, EdgeHash>();
+    for (size_t i = 0; i < seed_noise.num_nodes(); i++) {
+        for (auto nbr = seed_noise.out_neighbors(i).begin();
+                  nbr != seed_noise.out_neighbors(i).end(); nbr++) {
+            if (g_nt.directed || int(i) <= *nbr) {
+                if (g_nt.has_edge(i, *nbr)) {
+                    seed_del.insert(EDGE(int(i), *nbr, g_nt.directed));
+                } else {
+                    seed_add.insert(EDGE(int(i), *nbr, g_nt.directed));
+                }
+            }
+        }
+    }
+    std::cout<<"Seed Add Size: "<<seed_add.size()<<std::endl;
+    std::cout<<"Seed Del Size: "<<seed_del.size()<<std::endl;
+
     std::vector<std::unique_ptr<EdgeSetPair>> start_task =
         std::vector<std::unique_ptr<EdgeSetPair>>();
     start_task.push_back(std::unique_ptr<EdgeSetPair>(
-                            new BasicEdgeSetPair(del, add)));
+                            new BasicEdgeSetPair(seed_del, seed_add)));
     std::vector<std::pair<long double, long double>> start_score =
                     tps.get_scores(&start_task);
-    std::cout<<"The special edge set gets a score of "
+    std::cout<<"The seed edge set gets a score of "
              <<start_score[0].first<<std::endl<<std::endl;
 
     // Initialization of Gene Population
@@ -396,6 +414,9 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
                     }
                 }
             }
+
+            std::sort(seed_elts.begin(), seed_elts.end());
+
             gene = new Gene(seed_elts);
         } else {
             gene = new Gene(gene);
@@ -535,6 +556,8 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
     }
 
     if (tasks.size() > 0) {
+        std::cout<<"Num Already Scored: "<<num_already_scored<<std::endl;
+
         // Get scores for new members
         const std::vector<std::pair<long double, long double>>& new_scores =
                     tps.get_scores(&tasks);
