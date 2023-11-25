@@ -46,13 +46,20 @@ if __name__ == "__main__":
     else:
         nodes = edges_to_nodes(edges)
 
+    all_noise_score  = run_scorer(edges, nodes, edges, directed)
+    all_struct_score = run_scorer(edges, nodes, set(), directed)
+
     noise_edges = set()
     struct_edges = set(edges)
 
     ga_itrs_per_cycle = 60
-    num_cycles = 6
+    num_cycles = 7
 
     scores = []
+    struct_size = []
+    num_added = []
+    num_removed = []
+
     for _ in range(0, num_cycles):
         vog_edges = struct_edges
 
@@ -63,6 +70,10 @@ if __name__ == "__main__":
         (struct_edges, noise_edges) = \
             run_VoG(vog_edges, directed=directed)
         scores.append(run_scorer(edges, nodes, noise_edges, directed))
+        struct_size.append(len(struct_edges))
+        print("There are %d struct edges after VoG." % len(struct_edges))
+        num_added.append(len(noise_edges - edges))
+        num_removed.append(len(edges & noise_edges))
 
         seed_noise = (edges - struct_edges) | (struct_edges - edges)
 
@@ -71,9 +82,39 @@ if __name__ == "__main__":
                    n_itr=ga_itrs_per_cycle, seed_noise=seed_noise)
 
         scores.append(run_scorer(edges, nodes, noise_edges, directed))
+        struct_size.append(len(struct_edges))
+        print("There are %d struct edges after GA." % len(struct_edges))
+        num_added.append(len(noise_edges - edges))
+        num_removed.append(len(edges & noise_edges))
+
+    num_runs = 10
+    rand_scores = []
+    for i in range(0, len(scores)):
+        na = num_added[i]
+        nr = num_removed[i]
+        avg_score = 0
+        for _ in range(0, num_runs):
+            rand_edges = rand_noise_set(edges, nodes, na, nr)
+            avg_score += run_scorer(edges, nodes, rand_edges, directed)
+        avg_score /= num_runs
+        rand_scores.append(avg_score)
 
     print("SCORES! %s" % str(scores))
-    plt.plot([i for i in range(0, len(scores))], scores)
+    print("SIZES!  %s" % str(struct_size))
+    print("Rand Scores! %s" % str(rand_scores))
+    x_axis = [i + 1 for i in range(0, len(scores))]
+    score_bot_ref = min(all_noise_score, all_struct_score)
+    score_top_ref = max(all_noise_score, all_struct_score)
+    plot_scores = [(s - score_bot_ref) / (score_top_ref - score_bot_ref) \
+                        for s in scores]
+    plot_rand_scores = [(s - score_bot_ref) / (score_top_ref - score_bot_ref) \
+                        for s in rand_scores]
+    plot_edges =  [ne / len(edges) for ne in struct_size]
+
+    plt.plot(x_axis, plot_scores, \
+             x_axis, plot_edges, \
+             x_axis, plot_rand_scores)
+    plt.legend(["Rel. Score", "S. E / O. E", "Rand. SS"])
     plt.title("Evolution of Decomp. Score")
     plt.xlabel("VoG + GA Decomps")
     plt.ylabel("Score")

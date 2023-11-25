@@ -186,7 +186,7 @@ def read_VoG_decomposition(graph_edges, nodes, file_base):
     return (struct_edges, noise_edges)
 
 
-def get_edgeset(edge_file, directed):
+def get_edgeset(edge_file, directed, remove_self_loops=True):
     f = open(edge_file, "r")
     lines = f.readlines()
     f.close()
@@ -201,6 +201,8 @@ def get_edgeset(edge_file, directed):
 
     edges = set()
     for (a, b) in lines:
+        if remove_self_loops and a == b:
+            continue
         if directed:
             edges.add((a, b))
         else:
@@ -254,7 +256,7 @@ def write_VoG_edgeset(edge_file, edges):
 
 
 # Returns a random set of noise edges
-def rand_noise_set(graph_edges, nodes, num_added, num_removed):
+def rand_noise_set(graph_edges, nodes, num_added, num_removed, directed=False):
     ge_list = list(graph_edges)
     removed = set()
     while len(removed) < num_removed:
@@ -267,7 +269,12 @@ def rand_noise_set(graph_edges, nodes, num_added, num_removed):
         b = nodes_list[random.randint(0, len(nodes) - 1)]
         if a == b:
             continue
-        e = (min(a, b), max(a, b))
+
+        if directed:
+            e = (a, b)
+        else:
+            e = (min(a, b), max(a, b))
+
         if e in graph_edges:
             continue
         added.add(e)
