@@ -1,0 +1,53 @@
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 1
+  Limit: 402
+  Max Size: 402
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 195 vertices, 804 edges
+402 patterns left
+384 patterns left
+383 patterns left
+380 patterns left
+376 patterns left
+372 patterns left
+368 patterns left
+364 patterns left
+360 patterns left
+356 patterns left
+352 patterns left
+348 patterns left
+344 patterns left
+340 patterns left
+336 patterns left
+332 patterns left
+328 patterns left
+324 patterns left
+320 patterns left
+316 patterns left
+312 patterns left
+308 patterns left
+304 patterns left
+300 patterns left
+296 patterns left
+292 patterns left
+288 patterns left
+284 patterns left
+280 patterns left
+276 patterns left
+272 patterns left
+268 patterns left
+264 patterns left

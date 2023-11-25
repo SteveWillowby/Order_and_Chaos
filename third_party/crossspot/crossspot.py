@@ -6,7 +6,7 @@ import sys
 MAX_NUM_SEED = 1000
 k_data = 2
 # vec_n_local = [3,5,8,10]
-vec_n_global = [100 for _ in range(0, k_data)]
+vec_n_global = [30 for _ in range(0, k_data)]
 c_global = 10000
 # ground_truth = [set(range(0,vec_n_local[k])) for k in range(0,k_data)]
 

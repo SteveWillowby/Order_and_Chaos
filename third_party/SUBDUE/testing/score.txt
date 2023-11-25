@@ -1,0 +1,11 @@
+Loading graph from files:
+    nodes.txt
+    ../experiments/real_world_graphs/karate.txt
+  ...graph loaded. It has 34 nodes and 78 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 8.90689
+
+The modified graph has log2_aut = 44.4428
+
+The score is:
+-290.876

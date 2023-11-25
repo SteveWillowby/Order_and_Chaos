@@ -24,20 +24,29 @@ if __name__ == "__main__":
     f.close()
 
     lines = [x.strip().split(" ") for x in lines]
+    graph_edges = set()
     nodes = set()
     for line in lines:
         if len(line) > 0:
-            nodes.add(int(line[0]))
-            nodes.add(int(line[1]))
+            a = int(line[0])
+            b = int(line[1])
+            nodes.add(a)
+            nodes.add(b)
+            if directed:
+                graph_edges.add((a, b))
+            else:
+                graph_edges.add((min(a, b), max(a, b)))
 
     un_chosen_1 = nodes - s1
     un_chosen_2 = nodes - s2
     if len(un_chosen_1) < len(s1):
-        print("Using complement for set 1")
-        s1 = un_chosen_1
+        print("Set 1 bigger than complement")
+        # print("Using complement for set 1")
+        # s1 = un_chosen_1
     if len(un_chosen_2) < len(s2):
-        print("Using complement for set 2")
-        s2 = un_chosen_2
+        print("Set 2 bigger than complement")
+        # print("Using complement for set 2")
+        # s2 = un_chosen_2
 
     empty = False
     if len(s1) == 0:
@@ -62,10 +71,14 @@ if __name__ == "__main__":
                 edges.add((n, n2))
             else:
                 edges.add((min(n, n2), max(n, n2)))
-    edges = list(edges)
+
+    # Treat the edges as the structure
+    noise_edges = graph_edges - edges
+    # Consider the following
+    noise_edges = (graph_edges - edges) | (edges - graph_edges)
 
     f = open("chosen_edges.txt", "w")
-    for (a, b) in edges:
+    for (a, b) in noise_edges:
         f.write("%d %d\n" % (a, b))
     f.close()
 
