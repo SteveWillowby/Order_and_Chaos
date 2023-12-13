@@ -87,7 +87,7 @@ if __name__ == "__main__":
             third_party_runner(vog_edges, directed=directed)
         scores.append(run_scorer(edges, nodes, noise_edges, directed))
         struct_size.append(len(struct_edges))
-        print("There are %d struct edges after VoG." % len(struct_edges))
+        print("There are %d struct edges after 3rd party." % len(struct_edges))
         num_added.append(len(noise_edges - edges))
         num_removed.append(len(edges & noise_edges))
 

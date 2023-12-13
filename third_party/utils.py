@@ -212,7 +212,7 @@ def run_C_SUBDUE(edges, directed=False, \
 
     os.system("rm " + temp_out_filename)
     os.system("C_SUBDUE/bin/subdue -compress -eval 1 -iterations 0 " \
-              + "-maxsize 5 -minsize 2 " + \
+              + "-maxsize 5 -minsize 2 " \
               + "-nsubs 1 -output 3 " + temp_in_filename + " >> " + \
               temp_out_filename)
 
