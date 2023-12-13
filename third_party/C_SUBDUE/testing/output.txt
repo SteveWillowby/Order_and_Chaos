@@ -1,0 +1,31 @@
+SUBDUE 5.2.2
+
+Parameters:
+  Input file..................... C_SUBDUE/testing/graph_file.txt
+  Predefined substructure file... none
+  Output file.................... none
+  Beam width..................... 4
+  Compress....................... true
+  Evaluation method.............. MDL
+  'e' edges directed............. true
+  Incremental.................... false
+  Iterations..................... 18446744073709551615
+  Limit.......................... 402
+  Minimum size of substructures.. 1
+  Maximum size of substructures.. 195
+  Number of best substructures... 1
+  Output level................... 3
+  Allow overlapping instances.... false
+  Prune.......................... false
+  Threshold...................... 0.000000
+  Value-based queue.............. false
+  Recursion...................... false
+
+Read 1 total positive graphs
+
+----- Iteration 1 -----
+
+1 positive graphs: 195 vertices, 804 edges, 7160 bits
+2 unique labels
+
+1 initial substructures

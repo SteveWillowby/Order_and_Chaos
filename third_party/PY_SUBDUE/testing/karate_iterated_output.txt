@@ -1,0 +1,1002 @@
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 804
+  Limit: 402
+  Max Size: 10
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 195 vertices, 804 edges
+402 patterns left
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 78
+  Limit: 39
+  Max Size: 10
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 34 vertices, 78 edges
+39 patterns left
+23 patterns left
+22 patterns left
+19 patterns left
+16 patterns left
+12 patterns left
+8 patterns left
+4 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.15384615384615385, instances=7):
+    Graph:
+      vertex "1": timestamp=0
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+    Instance 1:
+      vertex "0": timestamp=0
+      vertex "1": timestamp=0
+      vertex "7": timestamp=0
+      edge "0" (0--1): timestamp=0
+      edge "6" (0--7): timestamp=0
+    Instance 2:
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "13": timestamp=0
+      edge "24" (2--3): timestamp=0
+      edge "28" (2--13): timestamp=0
+    Instance 3:
+      vertex "5": timestamp=0
+      vertex "10": timestamp=0
+      vertex "4": timestamp=0
+      edge "38" (5--10): timestamp=0
+      edge "36" (4--10): timestamp=0
+    Instance 4:
+      vertex "8": timestamp=0
+      vertex "30": timestamp=0
+      vertex "33": timestamp=0
+      edge "41" (8--30): timestamp=0
+      edge "74" (30--33): timestamp=0
+    Instance 5:
+      vertex "14": timestamp=0
+      vertex "32": timestamp=0
+      vertex "20": timestamp=0
+      edge "46" (14--32): timestamp=0
+      edge "53" (20--32): timestamp=0
+    Instance 6:
+      vertex "24": timestamp=0
+      vertex "27": timestamp=0
+      vertex "25": timestamp=0
+      edge "63" (24--27): timestamp=0
+      edge "62" (24--25): timestamp=0
+    Instance 7:
+      vertex "26": timestamp=0
+      vertex "29": timestamp=0
+      vertex "23": timestamp=0
+      edge "66" (26--29): timestamp=0
+      edge "59" (23--29): timestamp=0
+
+Elapsed time for iteration 1 = 0.5374903678894043 seconds.
+
+----- Iteration 2 -----
+
+Graph: 20 vertices, 64 edges
+39 patterns left
+18 patterns left
+14 patterns left
+10 patterns left
+6 patterns left
+2 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.1875, instances=3):
+    Graph:
+      vertex "1": timestamp=0, label=PATTERN-1
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "4": timestamp=0, label=PATTERN-1
+      vertex "5": timestamp=0
+      vertex "6": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+      edge "3" (1--1): timestamp=0
+      edge "4" (1--4): timestamp=0
+      edge "5" (1--5): timestamp=0
+      edge "6" (4--6): timestamp=0
+    Instance 1:
+      vertex "PATTERN-1-1": timestamp=0, label=PATTERN-1
+      vertex "6": timestamp=0
+      vertex "17": timestamp=0
+      vertex "PATTERN-1-3": timestamp=0, label=PATTERN-1
+      vertex "11": timestamp=0
+      vertex "16": timestamp=0
+      edge "5" (PATTERN-1-1--6): timestamp=0
+      edge "12" (PATTERN-1-1--17): timestamp=0
+      edge "18" (PATTERN-1-1--PATTERN-1-1): timestamp=0
+      edge "4" (PATTERN-1-1--PATTERN-1-3): timestamp=0
+      edge "9" (PATTERN-1-1--11): timestamp=0
+      edge "39" (PATTERN-1-3--16): timestamp=0
+    Instance 2:
+      vertex "PATTERN-1-2": timestamp=0, label=PATTERN-1
+      vertex "9": timestamp=0
+      vertex "12": timestamp=0
+      vertex "PATTERN-1-6": timestamp=0, label=PATTERN-1
+      vertex "28": timestamp=0
+      vertex "31": timestamp=0
+      edge "27" (PATTERN-1-2--9): timestamp=0
+      edge "33" (PATTERN-1-2--12): timestamp=0
+      edge "34" (PATTERN-1-2--PATTERN-1-2): timestamp=0
+      edge "29" (PATTERN-1-2--PATTERN-1-6): timestamp=0
+      edge "30" (PATTERN-1-2--28): timestamp=0
+      edge "64" (PATTERN-1-6--31): timestamp=0
+    Instance 3:
+      vertex "18": timestamp=0
+      vertex "PATTERN-1-4": timestamp=0, label=PATTERN-1
+      vertex "19": timestamp=0
+      vertex "PATTERN-1-5": timestamp=0, label=PATTERN-1
+      vertex "15": timestamp=0
+      vertex "22": timestamp=0
+      edge "51" (18--PATTERN-1-4): timestamp=0
+      edge "52" (19--PATTERN-1-4): timestamp=0
+      edge "43" (PATTERN-1-4--PATTERN-1-4): timestamp=0
+      edge "47" (PATTERN-1-5--PATTERN-1-4): timestamp=0
+      edge "49" (15--PATTERN-1-4): timestamp=0
+      edge "55" (22--PATTERN-1-5): timestamp=0
+
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 78
+  Limit: 39
+  Max Size: 10
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 34 vertices, 78 edges
+39 patterns left
+23 patterns left
+22 patterns left
+19 patterns left
+16 patterns left
+12 patterns left
+8 patterns left
+4 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.15384615384615385, instances=7):
+    Graph:
+      vertex "1": timestamp=0
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+    Instance 1:
+      vertex "0": timestamp=0
+      vertex "1": timestamp=0
+      vertex "7": timestamp=0
+      edge "0" (0--1): timestamp=0
+      edge "6" (0--7): timestamp=0
+    Instance 2:
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "13": timestamp=0
+      edge "24" (2--3): timestamp=0
+      edge "28" (2--13): timestamp=0
+    Instance 3:
+      vertex "5": timestamp=0
+      vertex "10": timestamp=0
+      vertex "4": timestamp=0
+      edge "38" (5--10): timestamp=0
+      edge "36" (4--10): timestamp=0
+    Instance 4:
+      vertex "8": timestamp=0
+      vertex "30": timestamp=0
+      vertex "33": timestamp=0
+      edge "41" (8--30): timestamp=0
+      edge "74" (30--33): timestamp=0
+    Instance 5:
+      vertex "14": timestamp=0
+      vertex "32": timestamp=0
+      vertex "20": timestamp=0
+      edge "46" (14--32): timestamp=0
+      edge "53" (20--32): timestamp=0
+    Instance 6:
+      vertex "24": timestamp=0
+      vertex "27": timestamp=0
+      vertex "25": timestamp=0
+      edge "63" (24--27): timestamp=0
+      edge "62" (24--25): timestamp=0
+    Instance 7:
+      vertex "26": timestamp=0
+      vertex "29": timestamp=0
+      vertex "23": timestamp=0
+      edge "66" (26--29): timestamp=0
+      edge "59" (23--29): timestamp=0
+
+Elapsed time for iteration 1 = 0.5334980487823486 seconds.
+
+----- Iteration 2 -----
+
+Graph: 20 vertices, 64 edges
+39 patterns left
+18 patterns left
+14 patterns left
+10 patterns left
+6 patterns left
+2 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.1875, instances=3):
+    Graph:
+      vertex "1": timestamp=0, label=PATTERN-1
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "4": timestamp=0, label=PATTERN-1
+      vertex "5": timestamp=0
+      vertex "6": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+      edge "3" (1--1): timestamp=0
+      edge "4" (1--4): timestamp=0
+      edge "5" (1--5): timestamp=0
+      edge "6" (4--6): timestamp=0
+    Instance 1:
+      vertex "PATTERN-1-1": timestamp=0, label=PATTERN-1
+      vertex "6": timestamp=0
+      vertex "17": timestamp=0
+      vertex "PATTERN-1-3": timestamp=0, label=PATTERN-1
+      vertex "11": timestamp=0
+      vertex "16": timestamp=0
+      edge "5" (PATTERN-1-1--6): timestamp=0
+      edge "12" (PATTERN-1-1--17): timestamp=0
+      edge "18" (PATTERN-1-1--PATTERN-1-1): timestamp=0
+      edge "4" (PATTERN-1-1--PATTERN-1-3): timestamp=0
+      edge "9" (PATTERN-1-1--11): timestamp=0
+      edge "39" (PATTERN-1-3--16): timestamp=0
+    Instance 2:
+      vertex "PATTERN-1-2": timestamp=0, label=PATTERN-1
+      vertex "9": timestamp=0
+      vertex "12": timestamp=0
+      vertex "PATTERN-1-6": timestamp=0, label=PATTERN-1
+      vertex "28": timestamp=0
+      vertex "31": timestamp=0
+      edge "27" (PATTERN-1-2--9): timestamp=0
+      edge "33" (PATTERN-1-2--12): timestamp=0
+      edge "34" (PATTERN-1-2--PATTERN-1-2): timestamp=0
+      edge "29" (PATTERN-1-2--PATTERN-1-6): timestamp=0
+      edge "30" (PATTERN-1-2--28): timestamp=0
+      edge "64" (PATTERN-1-6--31): timestamp=0
+    Instance 3:
+      vertex "18": timestamp=0
+      vertex "PATTERN-1-4": timestamp=0, label=PATTERN-1
+      vertex "19": timestamp=0
+      vertex "PATTERN-1-5": timestamp=0, label=PATTERN-1
+      vertex "15": timestamp=0
+      vertex "22": timestamp=0
+      edge "51" (18--PATTERN-1-4): timestamp=0
+      edge "52" (19--PATTERN-1-4): timestamp=0
+      edge "43" (PATTERN-1-4--PATTERN-1-4): timestamp=0
+      edge "47" (PATTERN-1-5--PATTERN-1-4): timestamp=0
+      edge "49" (15--PATTERN-1-4): timestamp=0
+      edge "55" (22--PATTERN-1-5): timestamp=0
+
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 1
+  Limit: 39
+  Max Size: 10
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 34 vertices, 78 edges
+39 patterns left
+23 patterns left
+22 patterns left
+19 patterns left
+16 patterns left
+12 patterns left
+8 patterns left
+4 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.15384615384615385, instances=7):
+    Graph:
+      vertex "1": timestamp=0
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+    Instance 1:
+      vertex "0": timestamp=0
+      vertex "1": timestamp=0
+      vertex "7": timestamp=0
+      edge "0" (0--1): timestamp=0
+      edge "6" (0--7): timestamp=0
+    Instance 2:
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "13": timestamp=0
+      edge "24" (2--3): timestamp=0
+      edge "28" (2--13): timestamp=0
+    Instance 3:
+      vertex "5": timestamp=0
+      vertex "10": timestamp=0
+      vertex "4": timestamp=0
+      edge "38" (5--10): timestamp=0
+      edge "36" (4--10): timestamp=0
+    Instance 4:
+      vertex "8": timestamp=0
+      vertex "30": timestamp=0
+      vertex "33": timestamp=0
+      edge "41" (8--30): timestamp=0
+      edge "74" (30--33): timestamp=0
+    Instance 5:
+      vertex "14": timestamp=0
+      vertex "32": timestamp=0
+      vertex "20": timestamp=0
+      edge "46" (14--32): timestamp=0
+      edge "53" (20--32): timestamp=0
+    Instance 6:
+      vertex "24": timestamp=0
+      vertex "27": timestamp=0
+      vertex "25": timestamp=0
+      edge "63" (24--27): timestamp=0
+      edge "62" (24--25): timestamp=0
+    Instance 7:
+      vertex "26": timestamp=0
+      vertex "29": timestamp=0
+      vertex "23": timestamp=0
+      edge "66" (26--29): timestamp=0
+      edge "59" (23--29): timestamp=0
+
+SUBDUE done. Elapsed time = 0.5316352844238281 seconds
+
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 2
+  Limit: 39
+  Max Size: 10
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 34 vertices, 78 edges
+39 patterns left
+23 patterns left
+22 patterns left
+19 patterns left
+16 patterns left
+12 patterns left
+8 patterns left
+4 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.15384615384615385, instances=7):
+    Graph:
+      vertex "1": timestamp=0
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+    Instance 1:
+      vertex "0": timestamp=0
+      vertex "1": timestamp=0
+      vertex "7": timestamp=0
+      edge "0" (0--1): timestamp=0
+      edge "6" (0--7): timestamp=0
+    Instance 2:
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "13": timestamp=0
+      edge "24" (2--3): timestamp=0
+      edge "28" (2--13): timestamp=0
+    Instance 3:
+      vertex "5": timestamp=0
+      vertex "10": timestamp=0
+      vertex "4": timestamp=0
+      edge "38" (5--10): timestamp=0
+      edge "36" (4--10): timestamp=0
+    Instance 4:
+      vertex "8": timestamp=0
+      vertex "30": timestamp=0
+      vertex "33": timestamp=0
+      edge "41" (8--30): timestamp=0
+      edge "74" (30--33): timestamp=0
+    Instance 5:
+      vertex "14": timestamp=0
+      vertex "32": timestamp=0
+      vertex "20": timestamp=0
+      edge "46" (14--32): timestamp=0
+      edge "53" (20--32): timestamp=0
+    Instance 6:
+      vertex "24": timestamp=0
+      vertex "27": timestamp=0
+      vertex "25": timestamp=0
+      edge "63" (24--27): timestamp=0
+      edge "62" (24--25): timestamp=0
+    Instance 7:
+      vertex "26": timestamp=0
+      vertex "29": timestamp=0
+      vertex "23": timestamp=0
+      edge "66" (26--29): timestamp=0
+      edge "59" (23--29): timestamp=0
+
+Elapsed time for iteration 1 = 0.5662205219268799 seconds.
+
+----- Iteration 2 -----
+
+Graph: 20 vertices, 64 edges
+39 patterns left
+18 patterns left
+14 patterns left
+10 patterns left
+6 patterns left
+2 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.1875, instances=3):
+    Graph:
+      vertex "1": timestamp=0, label=PATTERN-1
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "4": timestamp=0, label=PATTERN-1
+      vertex "5": timestamp=0
+      vertex "6": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+      edge "3" (1--1): timestamp=0
+      edge "4" (1--4): timestamp=0
+      edge "5" (1--5): timestamp=0
+      edge "6" (4--6): timestamp=0
+    Instance 1:
+      vertex "PATTERN-1-1": timestamp=0, label=PATTERN-1
+      vertex "6": timestamp=0
+      vertex "17": timestamp=0
+      vertex "PATTERN-1-3": timestamp=0, label=PATTERN-1
+      vertex "11": timestamp=0
+      vertex "16": timestamp=0
+      edge "5" (PATTERN-1-1--6): timestamp=0
+      edge "12" (PATTERN-1-1--17): timestamp=0
+      edge "18" (PATTERN-1-1--PATTERN-1-1): timestamp=0
+      edge "4" (PATTERN-1-1--PATTERN-1-3): timestamp=0
+      edge "9" (PATTERN-1-1--11): timestamp=0
+      edge "39" (PATTERN-1-3--16): timestamp=0
+    Instance 2:
+      vertex "PATTERN-1-2": timestamp=0, label=PATTERN-1
+      vertex "9": timestamp=0
+      vertex "12": timestamp=0
+      vertex "PATTERN-1-6": timestamp=0, label=PATTERN-1
+      vertex "28": timestamp=0
+      vertex "31": timestamp=0
+      edge "27" (PATTERN-1-2--9): timestamp=0
+      edge "33" (PATTERN-1-2--12): timestamp=0
+      edge "34" (PATTERN-1-2--PATTERN-1-2): timestamp=0
+      edge "29" (PATTERN-1-2--PATTERN-1-6): timestamp=0
+      edge "30" (PATTERN-1-2--28): timestamp=0
+      edge "64" (PATTERN-1-6--31): timestamp=0
+    Instance 3:
+      vertex "18": timestamp=0
+      vertex "PATTERN-1-4": timestamp=0, label=PATTERN-1
+      vertex "19": timestamp=0
+      vertex "PATTERN-1-5": timestamp=0, label=PATTERN-1
+      vertex "15": timestamp=0
+      vertex "22": timestamp=0
+      edge "51" (18--PATTERN-1-4): timestamp=0
+      edge "52" (19--PATTERN-1-4): timestamp=0
+      edge "43" (PATTERN-1-4--PATTERN-1-4): timestamp=0
+      edge "47" (PATTERN-1-5--PATTERN-1-4): timestamp=0
+      edge "49" (15--PATTERN-1-4): timestamp=0
+      edge "55" (22--PATTERN-1-5): timestamp=0
+
+Elapsed time for iteration 2 = 0.6584920883178711 seconds.
+
+SUBDUE done. Elapsed time = 1.224717140197754 seconds
+
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 20
+  Limit: 39
+  Max Size: 10
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 34 vertices, 78 edges
+39 patterns left
+23 patterns left
+22 patterns left
+19 patterns left
+16 patterns left
+12 patterns left
+8 patterns left
+4 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.15384615384615385, instances=7):
+    Graph:
+      vertex "1": timestamp=0
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+    Instance 1:
+      vertex "0": timestamp=0
+      vertex "1": timestamp=0
+      vertex "7": timestamp=0
+      edge "0" (0--1): timestamp=0
+      edge "6" (0--7): timestamp=0
+    Instance 2:
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "13": timestamp=0
+      edge "24" (2--3): timestamp=0
+      edge "28" (2--13): timestamp=0
+    Instance 3:
+      vertex "5": timestamp=0
+      vertex "10": timestamp=0
+      vertex "4": timestamp=0
+      edge "38" (5--10): timestamp=0
+      edge "36" (4--10): timestamp=0
+    Instance 4:
+      vertex "8": timestamp=0
+      vertex "30": timestamp=0
+      vertex "33": timestamp=0
+      edge "41" (8--30): timestamp=0
+      edge "74" (30--33): timestamp=0
+    Instance 5:
+      vertex "14": timestamp=0
+      vertex "32": timestamp=0
+      vertex "20": timestamp=0
+      edge "46" (14--32): timestamp=0
+      edge "53" (20--32): timestamp=0
+    Instance 6:
+      vertex "24": timestamp=0
+      vertex "27": timestamp=0
+      vertex "25": timestamp=0
+      edge "63" (24--27): timestamp=0
+      edge "62" (24--25): timestamp=0
+    Instance 7:
+      vertex "26": timestamp=0
+      vertex "29": timestamp=0
+      vertex "23": timestamp=0
+      edge "66" (26--29): timestamp=0
+      edge "59" (23--29): timestamp=0
+
+Elapsed time for iteration 1 = 0.5304861068725586 seconds.
+
+----- Iteration 2 -----
+
+Graph: 20 vertices, 64 edges
+39 patterns left
+18 patterns left
+14 patterns left
+10 patterns left
+6 patterns left
+2 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.1875, instances=3):
+    Graph:
+      vertex "1": timestamp=0, label=PATTERN-1
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "4": timestamp=0, label=PATTERN-1
+      vertex "5": timestamp=0
+      vertex "6": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+      edge "3" (1--1): timestamp=0
+      edge "4" (1--4): timestamp=0
+      edge "5" (1--5): timestamp=0
+      edge "6" (4--6): timestamp=0
+    Instance 1:
+      vertex "PATTERN-1-1": timestamp=0, label=PATTERN-1
+      vertex "6": timestamp=0
+      vertex "17": timestamp=0
+      vertex "PATTERN-1-3": timestamp=0, label=PATTERN-1
+      vertex "11": timestamp=0
+      vertex "16": timestamp=0
+      edge "5" (PATTERN-1-1--6): timestamp=0
+      edge "12" (PATTERN-1-1--17): timestamp=0
+      edge "18" (PATTERN-1-1--PATTERN-1-1): timestamp=0
+      edge "4" (PATTERN-1-1--PATTERN-1-3): timestamp=0
+      edge "9" (PATTERN-1-1--11): timestamp=0
+      edge "39" (PATTERN-1-3--16): timestamp=0
+    Instance 2:
+      vertex "PATTERN-1-2": timestamp=0, label=PATTERN-1
+      vertex "9": timestamp=0
+      vertex "12": timestamp=0
+      vertex "PATTERN-1-6": timestamp=0, label=PATTERN-1
+      vertex "28": timestamp=0
+      vertex "31": timestamp=0
+      edge "27" (PATTERN-1-2--9): timestamp=0
+      edge "33" (PATTERN-1-2--12): timestamp=0
+      edge "34" (PATTERN-1-2--PATTERN-1-2): timestamp=0
+      edge "29" (PATTERN-1-2--PATTERN-1-6): timestamp=0
+      edge "30" (PATTERN-1-2--28): timestamp=0
+      edge "64" (PATTERN-1-6--31): timestamp=0
+    Instance 3:
+      vertex "18": timestamp=0
+      vertex "PATTERN-1-4": timestamp=0, label=PATTERN-1
+      vertex "19": timestamp=0
+      vertex "PATTERN-1-5": timestamp=0, label=PATTERN-1
+      vertex "15": timestamp=0
+      vertex "22": timestamp=0
+      edge "51" (18--PATTERN-1-4): timestamp=0
+      edge "52" (19--PATTERN-1-4): timestamp=0
+      edge "43" (PATTERN-1-4--PATTERN-1-4): timestamp=0
+      edge "47" (PATTERN-1-5--PATTERN-1-4): timestamp=0
+      edge "49" (15--PATTERN-1-4): timestamp=0
+      edge "55" (22--PATTERN-1-5): timestamp=0
+
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 20
+  Limit: 39
+  Max Size: 10
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 34 vertices, 78 edges
+39 patterns left
+23 patterns left
+22 patterns left
+19 patterns left
+16 patterns left
+12 patterns left
+8 patterns left
+4 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.15384615384615385, instances=7):
+    Graph:
+      vertex "1": timestamp=0
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+    Instance 1:
+      vertex "0": timestamp=0
+      vertex "1": timestamp=0
+      vertex "7": timestamp=0
+      edge "0" (0--1): timestamp=0
+      edge "6" (0--7): timestamp=0
+    Instance 2:
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "13": timestamp=0
+      edge "24" (2--3): timestamp=0
+      edge "28" (2--13): timestamp=0
+    Instance 3:
+      vertex "5": timestamp=0
+      vertex "10": timestamp=0
+      vertex "4": timestamp=0
+      edge "38" (5--10): timestamp=0
+      edge "36" (4--10): timestamp=0
+    Instance 4:
+      vertex "8": timestamp=0
+      vertex "30": timestamp=0
+      vertex "33": timestamp=0
+      edge "41" (8--30): timestamp=0
+      edge "74" (30--33): timestamp=0
+    Instance 5:
+      vertex "14": timestamp=0
+      vertex "32": timestamp=0
+      vertex "20": timestamp=0
+      edge "46" (14--32): timestamp=0
+      edge "53" (20--32): timestamp=0
+    Instance 6:
+      vertex "24": timestamp=0
+      vertex "27": timestamp=0
+      vertex "25": timestamp=0
+      edge "63" (24--27): timestamp=0
+      edge "62" (24--25): timestamp=0
+    Instance 7:
+      vertex "26": timestamp=0
+      vertex "29": timestamp=0
+      vertex "23": timestamp=0
+      edge "66" (26--29): timestamp=0
+      edge "59" (23--29): timestamp=0
+
+Elapsed time for iteration 1 = 0.48621368408203125 seconds.
+
+----- Iteration 2 -----
+
+Graph: 20 vertices, 64 edges
+39 patterns left
+18 patterns left
+14 patterns left
+10 patterns left
+6 patterns left
+2 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.1875, instances=3):
+    Graph:
+      vertex "1": timestamp=0, label=PATTERN-1
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "4": timestamp=0, label=PATTERN-1
+      vertex "5": timestamp=0
+      vertex "6": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+      edge "3" (1--1): timestamp=0
+      edge "4" (1--4): timestamp=0
+      edge "5" (1--5): timestamp=0
+      edge "6" (4--6): timestamp=0
+    Instance 1:
+      vertex "PATTERN-1-1": timestamp=0, label=PATTERN-1
+      vertex "6": timestamp=0
+      vertex "17": timestamp=0
+      vertex "PATTERN-1-3": timestamp=0, label=PATTERN-1
+      vertex "11": timestamp=0
+      vertex "16": timestamp=0
+      edge "5" (PATTERN-1-1--6): timestamp=0
+      edge "12" (PATTERN-1-1--17): timestamp=0
+      edge "18" (PATTERN-1-1--PATTERN-1-1): timestamp=0
+      edge "4" (PATTERN-1-1--PATTERN-1-3): timestamp=0
+      edge "9" (PATTERN-1-1--11): timestamp=0
+      edge "39" (PATTERN-1-3--16): timestamp=0
+    Instance 2:
+      vertex "PATTERN-1-2": timestamp=0, label=PATTERN-1
+      vertex "9": timestamp=0
+      vertex "12": timestamp=0
+      vertex "PATTERN-1-6": timestamp=0, label=PATTERN-1
+      vertex "28": timestamp=0
+      vertex "31": timestamp=0
+      edge "27" (PATTERN-1-2--9): timestamp=0
+      edge "33" (PATTERN-1-2--12): timestamp=0
+      edge "34" (PATTERN-1-2--PATTERN-1-2): timestamp=0
+      edge "29" (PATTERN-1-2--PATTERN-1-6): timestamp=0
+      edge "30" (PATTERN-1-2--28): timestamp=0
+      edge "64" (PATTERN-1-6--31): timestamp=0
+    Instance 3:
+      vertex "18": timestamp=0
+      vertex "PATTERN-1-4": timestamp=0, label=PATTERN-1
+      vertex "19": timestamp=0
+      vertex "PATTERN-1-5": timestamp=0, label=PATTERN-1
+      vertex "15": timestamp=0
+      vertex "22": timestamp=0
+      edge "51" (18--PATTERN-1-4): timestamp=0
+      edge "52" (19--PATTERN-1-4): timestamp=0
+      edge "43" (PATTERN-1-4--PATTERN-1-4): timestamp=0
+      edge "47" (PATTERN-1-5--PATTERN-1-4): timestamp=0
+      edge "49" (15--PATTERN-1-4): timestamp=0
+      edge "55" (22--PATTERN-1-5): timestamp=0
+
+SUBDUE v1.4 (python)
+
+Parameters:
+  Input File Name: graph_file.json
+  Output File Name: graph_file
+  Beam Width: 4
+  Iterations: 78
+  Limit: 39
+  Max Size: 10
+  Min Size: 2
+  Num Best: 1
+  Overlap: none
+  Prune: False
+  Value Based: False
+  Write Compressed: False
+  Write Pattern: False
+  Write Instances: False
+  Temporal: False
+
+Graph: 34 vertices, 78 edges
+39 patterns left
+23 patterns left
+22 patterns left
+19 patterns left
+16 patterns left
+12 patterns left
+8 patterns left
+4 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.15384615384615385, instances=7):
+    Graph:
+      vertex "1": timestamp=0
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+    Instance 1:
+      vertex "0": timestamp=0
+      vertex "1": timestamp=0
+      vertex "7": timestamp=0
+      edge "0" (0--1): timestamp=0
+      edge "6" (0--7): timestamp=0
+    Instance 2:
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "13": timestamp=0
+      edge "24" (2--3): timestamp=0
+      edge "28" (2--13): timestamp=0
+    Instance 3:
+      vertex "5": timestamp=0
+      vertex "10": timestamp=0
+      vertex "4": timestamp=0
+      edge "38" (5--10): timestamp=0
+      edge "36" (4--10): timestamp=0
+    Instance 4:
+      vertex "8": timestamp=0
+      vertex "30": timestamp=0
+      vertex "33": timestamp=0
+      edge "41" (8--30): timestamp=0
+      edge "74" (30--33): timestamp=0
+    Instance 5:
+      vertex "14": timestamp=0
+      vertex "32": timestamp=0
+      vertex "20": timestamp=0
+      edge "46" (14--32): timestamp=0
+      edge "53" (20--32): timestamp=0
+    Instance 6:
+      vertex "24": timestamp=0
+      vertex "27": timestamp=0
+      vertex "25": timestamp=0
+      edge "63" (24--27): timestamp=0
+      edge "62" (24--25): timestamp=0
+    Instance 7:
+      vertex "26": timestamp=0
+      vertex "29": timestamp=0
+      vertex "23": timestamp=0
+      edge "66" (26--29): timestamp=0
+      edge "59" (23--29): timestamp=0
+
+Elapsed time for iteration 1 = 0.48484086990356445 seconds.
+
+----- Iteration 2 -----
+
+Graph: 20 vertices, 64 edges
+39 patterns left
+18 patterns left
+14 patterns left
+10 patterns left
+6 patterns left
+2 patterns left
+
+Best 1 patterns:
+
+  Pattern (value=0.1875, instances=3):
+    Graph:
+      vertex "1": timestamp=0, label=PATTERN-1
+      vertex "2": timestamp=0
+      vertex "3": timestamp=0
+      vertex "4": timestamp=0, label=PATTERN-1
+      vertex "5": timestamp=0
+      vertex "6": timestamp=0
+      edge "1" (1--2): timestamp=0
+      edge "2" (1--3): timestamp=0
+      edge "3" (1--1): timestamp=0
+      edge "4" (1--4): timestamp=0
+      edge "5" (1--5): timestamp=0
+      edge "6" (4--6): timestamp=0
+    Instance 1:
+      vertex "PATTERN-1-1": timestamp=0, label=PATTERN-1
+      vertex "6": timestamp=0
+      vertex "17": timestamp=0
+      vertex "PATTERN-1-3": timestamp=0, label=PATTERN-1
+      vertex "11": timestamp=0
+      vertex "16": timestamp=0
+      edge "5" (PATTERN-1-1--6): timestamp=0
+      edge "12" (PATTERN-1-1--17): timestamp=0
+      edge "18" (PATTERN-1-1--PATTERN-1-1): timestamp=0
+      edge "4" (PATTERN-1-1--PATTERN-1-3): timestamp=0
+      edge "9" (PATTERN-1-1--11): timestamp=0
+      edge "39" (PATTERN-1-3--16): timestamp=0
+    Instance 2:
+      vertex "PATTERN-1-2": timestamp=0, label=PATTERN-1
+      vertex "9": timestamp=0
+      vertex "12": timestamp=0
+      vertex "PATTERN-1-6": timestamp=0, label=PATTERN-1
+      vertex "28": timestamp=0
+      vertex "31": timestamp=0
+      edge "27" (PATTERN-1-2--9): timestamp=0
+      edge "33" (PATTERN-1-2--12): timestamp=0
+      edge "34" (PATTERN-1-2--PATTERN-1-2): timestamp=0
+      edge "29" (PATTERN-1-2--PATTERN-1-6): timestamp=0
+      edge "30" (PATTERN-1-2--28): timestamp=0
+      edge "64" (PATTERN-1-6--31): timestamp=0
+    Instance 3:
+      vertex "18": timestamp=0
+      vertex "PATTERN-1-4": timestamp=0, label=PATTERN-1
+      vertex "19": timestamp=0
+      vertex "PATTERN-1-5": timestamp=0, label=PATTERN-1
+      vertex "15": timestamp=0
+      vertex "22": timestamp=0
+      edge "51" (18--PATTERN-1-4): timestamp=0
+      edge "52" (19--PATTERN-1-4): timestamp=0
+      edge "43" (PATTERN-1-4--PATTERN-1-4): timestamp=0
+      edge "47" (PATTERN-1-5--PATTERN-1-4): timestamp=0
+      edge "49" (15--PATTERN-1-4): timestamp=0
+      edge "55" (22--PATTERN-1-5): timestamp=0
+

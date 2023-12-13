@@ -1,0 +1,133 @@
+// Subdue 5.2.2 output in dot format
+
+digraph Subdue {
+
+  compound=true;
+
+subgraph cluster_SUB_1 {
+  1 [label="node_type_1",color=black,fontcolor=black];
+  2 [label="node_type_1",color=black,fontcolor=black];
+  1 -> 2 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_1";
+}
+
+subgraph cluster_SUB_2 {
+  3 [label="SUB_1",color=black,fontcolor=black];
+  4 [label="SUB_1",color=black,fontcolor=black];
+  5 [label="node_type_1",color=black,fontcolor=black];
+  5 -> 4 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  3 -> 4 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  3 -> 4 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  5 -> 3 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_2";
+}
+2 -> 3 [ltail=cluster_SUB_1,lhead=cluster_SUB_2];
+2 -> 3 [ltail=cluster_SUB_1,lhead=cluster_SUB_2];
+
+subgraph cluster_SUB_3 {
+  6 [label="SUB_2",color=black,fontcolor=black];
+  7 [label="SUB_1",color=black,fontcolor=black];
+  8 [label="node_type_1",color=black,fontcolor=black];
+  6 -> 8 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  6 -> 7 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_3";
+}
+5 -> 6 [ltail=cluster_SUB_2,lhead=cluster_SUB_3];
+2 -> 6 [ltail=cluster_SUB_1,lhead=cluster_SUB_3];
+
+subgraph cluster_SUB_4 {
+  9 [label="node_type_1",color=black,fontcolor=black];
+  label="SUB_4";
+}
+
+subgraph cluster_SUB_5 {
+  10 [label="SUB_4",color=black,fontcolor=black];
+  11 [label="SUB_2",color=black,fontcolor=black];
+  11 -> 10 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_5";
+}
+9 -> 10 [ltail=cluster_SUB_4,lhead=cluster_SUB_5];
+5 -> 10 [ltail=cluster_SUB_2,lhead=cluster_SUB_5];
+
+subgraph cluster_SUB_6 {
+  12 [label="SUB_1",color=black,fontcolor=black];
+  13 [label="SUB_1",color=black,fontcolor=black];
+  12 -> 13 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_6";
+}
+2 -> 12 [ltail=cluster_SUB_1,lhead=cluster_SUB_6];
+2 -> 12 [ltail=cluster_SUB_1,lhead=cluster_SUB_6];
+
+subgraph cluster_SUB_7 {
+  14 [label="SUB_6",color=black,fontcolor=black];
+  15 [label="SUB_4",color=black,fontcolor=black];
+  15 -> 14 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_7";
+}
+13 -> 14 [ltail=cluster_SUB_6,lhead=cluster_SUB_7];
+9 -> 14 [ltail=cluster_SUB_4,lhead=cluster_SUB_7];
+
+subgraph cluster_SUB_8 {
+  16 [label="SUB_7",color=black,fontcolor=black];
+  17 [label="SUB_4",color=black,fontcolor=black];
+  17 -> 16 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_8";
+}
+15 -> 16 [ltail=cluster_SUB_7,lhead=cluster_SUB_8];
+9 -> 16 [ltail=cluster_SUB_4,lhead=cluster_SUB_8];
+
+subgraph cluster_SUB_9 {
+  18 [label="SUB_8",color=black,fontcolor=black];
+  19 [label="SUB_4",color=black,fontcolor=black];
+  19 -> 18 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_9";
+}
+17 -> 18 [ltail=cluster_SUB_8,lhead=cluster_SUB_9];
+9 -> 18 [ltail=cluster_SUB_4,lhead=cluster_SUB_9];
+
+subgraph cluster_SUB_10 {
+  20 [label="SUB_9",color=black,fontcolor=black];
+  21 [label="SUB_4",color=black,fontcolor=black];
+  21 -> 20 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_10";
+}
+19 -> 20 [ltail=cluster_SUB_9,lhead=cluster_SUB_10];
+9 -> 20 [ltail=cluster_SUB_4,lhead=cluster_SUB_10];
+
+subgraph cluster_SUB_11 {
+  22 [label="SUB_10",color=black,fontcolor=black];
+  23 [label="SUB_4",color=black,fontcolor=black];
+  23 -> 22 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_11";
+}
+21 -> 22 [ltail=cluster_SUB_10,lhead=cluster_SUB_11];
+9 -> 22 [ltail=cluster_SUB_4,lhead=cluster_SUB_11];
+
+subgraph cluster_SUB_12 {
+  24 [label="SUB_11",color=black,fontcolor=black];
+  25 [label="SUB_4",color=black,fontcolor=black];
+  25 -> 24 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_12";
+}
+23 -> 24 [ltail=cluster_SUB_11,lhead=cluster_SUB_12];
+9 -> 24 [ltail=cluster_SUB_4,lhead=cluster_SUB_12];
+
+subgraph cluster_SUB_13 {
+  26 [label="SUB_12",color=black,fontcolor=black];
+  27 [label="SUB_4",color=black,fontcolor=black];
+  27 -> 26 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_13";
+}
+25 -> 26 [ltail=cluster_SUB_12,lhead=cluster_SUB_13];
+9 -> 26 [ltail=cluster_SUB_4,lhead=cluster_SUB_13];
+
+subgraph cluster_SUB_14 {
+  28 [label="SUB_13",color=black,fontcolor=black];
+  29 [label="SUB_4",color=black,fontcolor=black];
+  29 -> 28 [label="edge_type_1",arrowhead=none,color=black,fontcolor=black];
+  label="SUB_14";
+}
+27 -> 28 [ltail=cluster_SUB_13,lhead=cluster_SUB_14];
+9 -> 28 [ltail=cluster_SUB_4,lhead=cluster_SUB_14];
+
+}

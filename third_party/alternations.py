@@ -6,34 +6,50 @@ __graphs_base__ = "../experiments/real_world_graphs/"
 
 __graphs_list__ = ["karate.txt", "season_4_undirected_edges.txt", \
                    "maayan-foodweb.txt",       "pol_blogs.txt", \
-                   "eucore.txt",       "cora.txt"]
+                   "eucore.txt",       "cora.txt", \
+                   "test_graph.txt"]
 
 __graph_idxs__ = {"karate": 0, "season_4": 1, "foodweb": 2, \
-                  "pol_blogs": 3, "eucore": 4, "cora": 5}
+                  "pol_blogs": 3, "eucore": 4, "cora": 5, \
+                  "test": 6}
 
 __nodes_list__ =  [None,         None, \
                    "maayan-foodweb_nodes.txt", "pol_blogs_nodes.txt", \
-                   "eucore_nodes.txt", "cora_nodes.txt"]
+                   "eucore_nodes.txt", "cora_nodes.txt",
+                   None]
 
 __dir_list__ =    [False,        False, \
                    True,                       True, \
-                   True,               True]
-
+                   True,               True, \
+                   False]
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 3:
         print("Needs a graph argument:\n\tkarate\n\tseason_4\n\tfoodweb\n" + \
-              "\tpol_blogs\n\teucore\n\tcora")
+              "\tpol_blogs\n\teucore\n\tcora\n\ttest")
+
+        print("Also needs an alg name: vog or subdue")
 
     graph_name = sys.argv[1].lower()
     if graph_name in __graph_idxs__:
         idx = __graph_idxs__[graph_name]
     else:
         print("Needs a graph argument:\n\tkarate\n\tseason_4\n\tfoodweb\n" + \
-              "\tpol_blogs\n\teucore\n\tcora")
+              "\tpol_blogs\n\teucore\n\tcora\n\ttest")
         exit(1)
 
-    graph_file = __graphs_base__ + __graphs_list__[idx]
+    alg_name = sys.argv[2].lower()
+    if alg_name == "vog":
+        third_party_runner = run_VoG
+    elif alg_name == "subdue":
+        third_party_runner = run_C_SUBDUE
+    else:
+        print("Needs an alg name: vog or subdue")
+
+    if graph_name == "test":
+        graph_file = __graphs_list__[idx]
+    else:
+        graph_file = __graphs_base__ + __graphs_list__[idx]
     directed = __dir_list__[idx]
 
     # Hard reset directed to False
@@ -52,8 +68,8 @@ if __name__ == "__main__":
     noise_edges = set()
     struct_edges = set(edges)
 
-    ga_itrs_per_cycle = 60
-    num_cycles = 7
+    ga_itrs_per_cycle = 40
+    num_cycles = 6
 
     scores = []
     struct_size = []
@@ -68,7 +84,7 @@ if __name__ == "__main__":
             break
 
         (struct_edges, noise_edges) = \
-            run_VoG(vog_edges, directed=directed)
+            third_party_runner(vog_edges, directed=directed)
         scores.append(run_scorer(edges, nodes, noise_edges, directed))
         struct_size.append(len(struct_edges))
         print("There are %d struct edges after VoG." % len(struct_edges))
@@ -118,5 +134,5 @@ if __name__ == "__main__":
     plt.title("Evolution of Decomp. Score")
     plt.xlabel("VoG + GA Decomps")
     plt.ylabel("Score")
-    plt.savefig("%s_fig.png" % graph_name)
+    plt.savefig("%s_fig.png" % (graph_name + "_" + alg_name))
     plt.close()
