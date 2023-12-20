@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     algorithm = sys.argv[1]
 
-    preprocess = True  # If True, runs the GA before running a third-party alg.
+    preprocess = False # If True, runs the GA before running a third-party alg.
 
     always_undirected = False
     if algorithm.lower() == "vog":
@@ -57,6 +57,9 @@ if __name__ == "__main__":
             (edges, _) = run_GA(edges, directed=directed)
 
         (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
+
+        # TODO: Remove this swap
+        (struct_edges, noise_edges) = (noise_edges, struct_edges)
 
         assert len(struct_edges) + len(noise_edges) >= len(edges)
 
