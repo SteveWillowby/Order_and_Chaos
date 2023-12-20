@@ -91,8 +91,8 @@ if __name__ == "__main__":
         scores.append(run_scorer(edges, nodes, noise_edges, directed))
         struct_size.append(len(struct_edges))
         print("There are %d struct edges after 3rd party." % len(struct_edges))
-        print(struct_edges)
-        print(noise_edges)
+        # print(struct_edges)
+        # print(noise_edges)
 
         num_added.append(len(noise_edges - edges))
         num_removed.append(len(edges & noise_edges))
