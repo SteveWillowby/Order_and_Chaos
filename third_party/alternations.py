@@ -42,7 +42,9 @@ if __name__ == "__main__":
     if alg_name == "vog":
         third_party_runner = run_VoG
     elif alg_name == "subdue":
-        third_party_runner = run_C_SUBDUE
+        third_party_runner = (lambda edges, directed=False : \
+                                [(y, x) for (x, y) in \
+                                    [run_C_SUBDUE(edges, directed=directed)]][0])
     elif alg_name == "kcore":
         third_party_runner = (lambda edges, directed=False : \
                                 run_k_core(edges, directed=directed, k=3))
