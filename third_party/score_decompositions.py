@@ -26,6 +26,8 @@ if __name__ == "__main__":
 
     algorithm = sys.argv[1]
 
+    preprocess = True  # If True, runs the GA before running a third-party alg.
+
     always_undirected = False
     if algorithm.lower() == "vog":
         always_undirected = True
@@ -34,7 +36,7 @@ if __name__ == "__main__":
         decomp_fn = run_GA
     elif algorithm.lower() == "subdue":
         decomp_fn = (lambda edges, directed=False : \
-                     run_C_SUBDUE(edges, min_size=3, max_size=6, \
+                     run_C_SUBDUE(edges, min_size=2, max_size=6, \
                                   iterations=0, directed=directed))
     else:
         print("Error! Need to pass an algorithm as input: VoG, SUBDUE, or GA")
@@ -50,6 +52,9 @@ if __name__ == "__main__":
         else:
             nodes_file = __graphs_base__ + __nodes_list__[i]
             nodes = get_nodeset(nodes_file)
+
+        if preprocess and algorithm.lower() in ["vog", "subdue"]:
+            (edges, _) = run_GA(edges, directed=directed)
 
         (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
 
