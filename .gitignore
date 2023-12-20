@@ -17,6 +17,5 @@ third_party/VoG/*.model
 third_party/VoG/*.txt
 third_party/VoG/DATA/*.model
 third_party/VoG/DATA/*.txt
-third_party/*.png
 third_party/C_SUBDUE/bin/*
 third_party/C_SUBDUE/testing/*.txt
