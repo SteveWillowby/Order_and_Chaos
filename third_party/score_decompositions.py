@@ -15,10 +15,13 @@ __dir_list__ =    [False,        False, \
                    True,                       True, \
                    True,               True]
 
+__name_list__ =   ["karate", "season_4", "foodweb", "pol_blogs", "eucore", \
+                   "cora"]
+
 if __name__ == "__main__":
 
     if len(sys.argv) < 2:
-        print("Error! Need to pass an algorithm as input: VoG or GA")
+        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, or GA")
         exit(1)
 
     algorithm = sys.argv[1]
@@ -29,8 +32,10 @@ if __name__ == "__main__":
         decomp_fn = run_VoG
     elif algorithm.lower() == "ga":
         decomp_fn = run_GA
+    elif algorithm.lower() == "subdue":
+        decomp_fn = run_C_SUBDUE
     else:
-        print("Error! Need to pass an algorithm as input: VoG or GA")
+        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, or GA")
         exit(1)
 
 
@@ -49,15 +54,24 @@ if __name__ == "__main__":
         assert len(struct_edges) + len(noise_edges) >= len(edges)
 
         print("###")
+        print("#  %s" % __name_list__[i])
         print("#Edges:  %d" % len(edges))
         print("#Struct: %d" % len(struct_edges))
         print("#Noise:  %d" % len(noise_edges))
 
         score = run_scorer(edges, nodes, noise_edges, directed)
+        all_noise = run_scorer(edges, nodes, set(edges), directed)
+        no_noise = run_scorer(edges, nodes, set(), directed)
 
         # Get random scores
         num_added =   len(noise_edges - edges)
         num_removed = len(edges & noise_edges)
+
+        print("#Added:  %d" % num_added)
+        print("#Del:    %d" % num_removed)
+        print("\t#All Structure: %f" % no_noise)
+        print("\t#Score:         %f" % score)
+        print("\t#All Noise:     %f" % all_noise)
 
         num_rand_scores = 10
         avg_rand_score = 0
@@ -66,5 +80,4 @@ if __name__ == "__main__":
             avg_rand_score += run_scorer(edges, nodes, rand_noise, directed)
         avg_rand_score /= num_rand_scores
 
-        if i == 1:
-            break
+        print("\t#AR Score:      %f" % avg_rand_score)

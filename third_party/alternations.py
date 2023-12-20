@@ -7,26 +7,26 @@ __graphs_base__ = "../experiments/real_world_graphs/"
 __graphs_list__ = ["karate.txt", "season_4_undirected_edges.txt", \
                    "maayan-foodweb.txt",       "pol_blogs.txt", \
                    "eucore.txt",       "cora.txt", \
-                   "test_graph.txt"]
+                   "test_graph.txt", "collins_yeast_interactome.txt"]
 
 __graph_idxs__ = {"karate": 0, "season_4": 1, "foodweb": 2, \
                   "pol_blogs": 3, "eucore": 4, "cora": 5, \
-                  "test": 6}
+                  "test": 6, "yeast": 7}
 
 __nodes_list__ =  [None,         None, \
                    "maayan-foodweb_nodes.txt", "pol_blogs_nodes.txt", \
                    "eucore_nodes.txt", "cora_nodes.txt",
-                   None]
+                   None,             None]
 
 __dir_list__ =    [False,        False, \
                    True,                       True, \
                    True,               True, \
-                   False]
+                   False,            False]
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Needs a graph argument:\n\tkarate\n\tseason_4\n\tfoodweb\n" + \
-              "\tpol_blogs\n\teucore\n\tcora\n\ttest")
+              "\tpol_blogs\n\teucore\n\tcora\n\ttest\n\tyeast")
 
         print("Also needs an alg name: vog or subdue")
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         idx = __graph_idxs__[graph_name]
     else:
         print("Needs a graph argument:\n\tkarate\n\tseason_4\n\tfoodweb\n" + \
-              "\tpol_blogs\n\teucore\n\tcora\n\ttest")
+              "\tpol_blogs\n\teucore\n\tcora\n\ttest\n\tyeast")
         exit(1)
 
     alg_name = sys.argv[2].lower()
@@ -68,8 +68,8 @@ if __name__ == "__main__":
     noise_edges = set()
     struct_edges = set(edges)
 
-    ga_itrs_per_cycle = 40
-    num_cycles = 6
+    ga_itrs_per_cycle = 1
+    num_cycles = 1
 
     scores = []
     struct_size = []
@@ -77,17 +77,20 @@ if __name__ == "__main__":
     num_removed = []
 
     for _ in range(0, num_cycles):
-        vog_edges = struct_edges
+        third_party_edges = struct_edges
 
-        if len(vog_edges) == 0:
+        if len(third_party_edges) == 0:
             print("Quitting Early -- No Edges Left")
             break
 
         (struct_edges, noise_edges) = \
-            third_party_runner(vog_edges, directed=directed)
+            third_party_runner(third_party_edges, directed=directed)
         scores.append(run_scorer(edges, nodes, noise_edges, directed))
         struct_size.append(len(struct_edges))
         print("There are %d struct edges after 3rd party." % len(struct_edges))
+        print(struct_edges)
+        print(noise_edges)
+
         num_added.append(len(noise_edges - edges))
         num_removed.append(len(edges & noise_edges))
 
