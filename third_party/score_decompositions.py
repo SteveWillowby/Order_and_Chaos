@@ -33,7 +33,9 @@ if __name__ == "__main__":
     elif algorithm.lower() == "ga":
         decomp_fn = run_GA
     elif algorithm.lower() == "subdue":
-        decomp_fn = run_C_SUBDUE
+        decomp_fn = (lambda edges, directed=False : \
+                     run_C_SUBDUE(edges, min_size=3, max_size=6, \
+                                  iterations=0, directed=directed))
     else:
         print("Error! Need to pass an algorithm as input: VoG, SUBDUE, or GA")
         exit(1)

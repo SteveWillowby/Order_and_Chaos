@@ -189,6 +189,7 @@ def read_VoG_decomposition(graph_edges, nodes, file_base):
 # Returns:
 #   (struct_edges, noise_edges)
 def run_C_SUBDUE(edges, directed=False, \
+                 min_size=3, max_size=20, iterations=0, \
                  temp_in_filename="C_SUBDUE/testing/graph_file.txt", \
                  temp_out_filename="C_SUBDUE/testing/output.txt"):
 
@@ -211,8 +212,8 @@ def run_C_SUBDUE(edges, directed=False, \
     f.close()
 
     os.system("rm " + temp_out_filename)
-    os.system("C_SUBDUE/bin/subdue -compress -eval 1 -iterations 0 " \
-              + "-maxsize 20 -minsize 2 " \
+    os.system(("C_SUBDUE/bin/subdue -compress -eval 1 -minsize %d " % min_size)\
+              + ("-maxsize %d -iterations %d " % (max_size, iterations)) \
               + "-nsubs 1 -output 3 " + temp_in_filename + " >> " + \
               temp_out_filename)
 
