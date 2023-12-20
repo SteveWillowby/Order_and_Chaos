@@ -91,8 +91,6 @@ if __name__ == "__main__":
         scores.append(run_scorer(edges, nodes, noise_edges, directed))
         struct_size.append(len(struct_edges))
         print("There are %d struct edges after 3rd party." % len(struct_edges))
-        # print(struct_edges)
-        # print(noise_edges)
 
         num_added.append(len(noise_edges - edges))
         num_removed.append(len(edges & noise_edges))
@@ -108,6 +106,10 @@ if __name__ == "__main__":
         print("There are %d struct edges after GA." % len(struct_edges))
         num_added.append(len(noise_edges - edges))
         num_removed.append(len(edges & noise_edges))
+
+        if seed_noise == noise_edges:
+            print("Quitting Early -- No Changes from GA")
+            break
 
     num_runs = 10
     rand_scores = []
