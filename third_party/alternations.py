@@ -28,7 +28,7 @@ if __name__ == "__main__":
         print("Needs a graph argument:\n\tkarate\n\tseason_4\n\tfoodweb\n" + \
               "\tpol_blogs\n\teucore\n\tcora\n\ttest\n\tyeast")
 
-        print("Also needs an alg name: vog or subdue")
+        print("Also needs an alg name: vog, subdue, or kcore")
 
     graph_name = sys.argv[1].lower()
     if graph_name in __graph_idxs__:
@@ -43,8 +43,11 @@ if __name__ == "__main__":
         third_party_runner = run_VoG
     elif alg_name == "subdue":
         third_party_runner = run_C_SUBDUE
+    elif alg_name == "kcore":
+        third_party_runner = (lambda edges, directed=False : \
+                                run_k_core(edges, directed=directed, k=3))
     else:
-        print("Needs an alg name: vog or subdue")
+        print("Needs an alg name: vog, subdue, or kcore")
 
     if graph_name == "test":
         graph_file = __graphs_list__[idx]
@@ -68,8 +71,8 @@ if __name__ == "__main__":
     noise_edges = set()
     struct_edges = set(edges)
 
-    ga_itrs_per_cycle = 1
-    num_cycles = 1
+    ga_itrs_per_cycle = 60
+    num_cycles = 6
 
     scores = []
     struct_size = []

@@ -189,7 +189,7 @@ def read_VoG_decomposition(graph_edges, nodes, file_base):
 # Returns:
 #   (struct_edges, noise_edges)
 def run_C_SUBDUE(edges, directed=False, \
-                 min_size=3, max_size=20, iterations=0, \
+                 min_size=3, max_size=6, iterations=0, \
                  temp_in_filename="C_SUBDUE/testing/graph_file.txt", \
                  temp_out_filename="C_SUBDUE/testing/output.txt"):
 
@@ -354,6 +354,44 @@ def run_PY_SUBDUE(edges, directed=False, \
               ("-out %s" % temp_out_filename))
 
     # Get the result.
+
+
+def run_k_core(edges, directed=False, k=3):
+    # The code is actually the same whether directed or undirected.
+    #   The `directed` flag is included just to match a template of runners.
+
+    nodes = set([a for (a, b) in edges] + [b for (a, b) in edges])
+    nodes = list(nodes)
+
+    out_neighbors = {n: set() for n in nodes}
+    in_neighbors = {n: set() for n in nodes}
+
+    for (a, b) in edges:
+        out_neighbors[a].add(b)
+        in_neighbors[b].add(a)
+
+    done = False
+    while not done:
+        done = True
+        for i in range(0, len(nodes)):
+            node = nodes[i]
+            degree = len(out_neighbors[node]) + len(in_neighbors[node])
+            if degree > 0 and degree < k:
+                done = False
+                for nbr in out_neighbors[node]:
+                    in_neighbors[nbr].remove(node)
+                out_neighbors[node] = set()
+                for nbr in in_neighbors[node]:
+                    out_neighbors[nbr].remove(node)
+                in_neighbors[node] = set()
+
+    struct_edges = set()
+    for node in nodes:
+        for nbr in out_neighbors[node]:
+            struct_edges.add((node, nbr))
+
+    noise_edges = edges - struct_edges
+    return (struct_edges, noise_edges)
 
 
 def get_edgeset(edge_file, directed, remove_self_loops=True):

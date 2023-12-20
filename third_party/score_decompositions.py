@@ -21,7 +21,7 @@ __name_list__ =   ["karate", "season_4", "foodweb", "pol_blogs", "eucore", \
 if __name__ == "__main__":
 
     if len(sys.argv) < 2:
-        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, or GA")
+        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, GA, or kcore")
         exit(1)
 
     algorithm = sys.argv[1]
@@ -35,11 +35,16 @@ if __name__ == "__main__":
     elif algorithm.lower() == "ga":
         decomp_fn = run_GA
     elif algorithm.lower() == "subdue":
+        # Run SUBDUE but swap noise and structure
         decomp_fn = (lambda edges, directed=False : \
-                     run_C_SUBDUE(edges, min_size=2, max_size=6, \
-                                  iterations=0, directed=directed))
+                     [(y, x) for (x, y) in \
+                        [run_C_SUBDUE(edges, min_size=3, max_size=6, \
+                                      iterations=0, directed=directed)]][0])
+    elif algorithm.lower() == "kcore":
+        decomp_fn = (lambda edges, directed=False : \
+                        run_k_core(edges, directed=directed, k=4))
     else:
-        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, or GA")
+        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, GA, or kcore")
         exit(1)
 
 
@@ -53,13 +58,10 @@ if __name__ == "__main__":
             nodes_file = __graphs_base__ + __nodes_list__[i]
             nodes = get_nodeset(nodes_file)
 
-        if preprocess and algorithm.lower() in ["vog", "subdue"]:
+        if preprocess and algorithm.lower() != "ga":
             (edges, _) = run_GA(edges, directed=directed)
 
         (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
-
-        # TODO: Remove this swap
-        (struct_edges, noise_edges) = (noise_edges, struct_edges)
 
         assert len(struct_edges) + len(noise_edges) >= len(edges)
 
