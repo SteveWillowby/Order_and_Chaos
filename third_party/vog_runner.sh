@@ -1,13 +1,13 @@
 #!/bin/bash
 
-rm karate_deets.txt
-nice -2 python3 alternations.py karate >> karate_deets.txt
+rm results/karate_vog.txt
+nice -2 python3 alternations.py karate >> results/karate_vog.txt
 rm greedySelection*
 
-rm season_4_deets.txt
-nice -2 python3 alternations.py season_4 >> season_4_deets.txt
+rm results/season_4_vog.txt
+nice -2 python3 alternations.py season_4 >> results/season_4_vog.txt
 rm greedySelection*
 
-rm foodweb_deets.txt
-nice -2 python3 alternations.py foodweb >> foodweb_deets.txt
+rm results/foodweb_vog.txt
+nice -2 python3 alternations.py foodweb >> results/foodweb_vog.txt
 rm greedySelection*

@@ -140,5 +140,5 @@ if __name__ == "__main__":
     plt.title("Evolution of Decomp. Score")
     plt.xlabel("VoG + GA Decomps")
     plt.ylabel("Score")
-    plt.savefig("%s_fig.png" % (graph_name + "_" + alg_name))
+    plt.savefig("results/%s_fig.png" % (graph_name + "_" + alg_name))
     plt.close()
