@@ -28,7 +28,7 @@ if __name__ == "__main__":
         print("Needs a graph argument:\n\tkarate\n\tseason_4\n\tfoodweb\n" + \
               "\tpol_blogs\n\teucore\n\tcora\n\ttest\n\tyeast")
 
-        print("Also needs an alg name: vog, subdue, or kcore")
+        print("Also needs an alg name: vog, subdue, kcore, or ktruss")
 
     graph_name = sys.argv[1].lower()
     if graph_name in __graph_idxs__:
@@ -48,6 +48,9 @@ if __name__ == "__main__":
     elif alg_name == "kcore":
         third_party_runner = (lambda edges, directed=False : \
                                 run_k_core(edges, directed=directed, k=3))
+    elif alg_name == "ktruss":
+        third_party_runner = (lambda edges, directed=False : \
+                                run_k_truss(edges, directed=directed, k=3))
     else:
         print("Needs an alg name: vog, subdue, or kcore")
 

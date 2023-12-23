@@ -394,6 +394,86 @@ def run_k_core(edges, directed=False, k=3):
     return (struct_edges, noise_edges)
 
 
+# Keep maximal set of edges each part of at least k - 2 triangles.
+def run_k_truss(edges, directed=False, k=3):
+    # The code is actually the same whether directed or undirected.
+    #   The `directed` flag is included just to match a template of runners.
+
+    if k < 3:
+        k = 3
+
+    nodes = set([a for (a, b) in edges] + [b for (a, b) in edges])
+
+    # Ensure undirected
+    und_edges = set([(min(a, b), max(a, b)) for (a, b) in edges])
+
+    # Store all neighbors with larger IDs
+    greater_neighbors = {n: set() for n in nodes}
+
+    for (a, b) in und_edges:
+        assert a != b
+        greater_neighbors[a].add(b)
+
+
+    # Find all (undirected) triangles
+
+    edge_to_triangles = {}
+    nodes = sorted(list(nodes))
+
+    for a in nodes:
+        nbr_list = sorted(list(greater_neighbors[a]))
+        for i in range(0, len(nbr_list) - 1):
+            b = nbr_list[i]
+
+            for j in range(i + 1, len(nbr_list)):
+                c = nbr_list[j]
+                if (b, c) in und_edges:
+                    tri_edges = [(a, b), (a, c), (b, c)]
+                    triangle = (a, b, c)
+
+                    for edge in tri_edges:
+                        if edge not in edge_to_triangles:
+                            edge_to_triangles[edge] = set()
+
+                        edge_to_triangles[edge].add(triangle)
+
+    # Purge bad (undirected) edges
+
+    done = False
+    while not done:
+        done = True
+        for edge in und_edges:
+            if edge not in edge_to_triangles:
+                continue
+
+            triangles = edge_to_triangles[edge]
+            if len(triangles) == 0 or len(triangles) >= (k - 2):
+                continue
+
+            done = False
+
+            triangles = list(triangles)
+            for (a, b, c) in triangles:
+                tri_edges = [(a, b), (a, c), (b, c)]
+                for tri_edge in tri_edges:
+                    edge_to_triangles[tri_edge].remove((a, b, c))
+
+
+    # Convert back to graph
+    struct_edges = set()
+    for (a, b), triangles in edge_to_triangles.items():
+        assert len(triangles) == 0 or len(triangles) >= (k - 2)
+        if len(triangles) == 0:
+            continue
+        if (a, b) in edges:
+            struct_edges.add((a, b))
+        if (b, a) in edges:
+            struct_edges.add((b, a))
+
+    noise_edges = edges - struct_edges
+    return (struct_edges, noise_edges)
+
+
 def get_edgeset(edge_file, directed, remove_self_loops=True):
     f = open(edge_file, "r")
     lines = f.readlines()

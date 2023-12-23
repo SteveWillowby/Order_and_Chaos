@@ -21,7 +21,8 @@ __name_list__ =   ["karate", "season_4", "foodweb", "pol_blogs", "eucore", \
 if __name__ == "__main__":
 
     if len(sys.argv) < 2:
-        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, GA, or kcore")
+        print("Error! Need to pass an algorithm as input:\n" + \
+              "\tVoG, SUBDUE, GA, kcore, or ktruss")
         exit(1)
 
     algorithm = sys.argv[1]
@@ -38,11 +39,18 @@ if __name__ == "__main__":
         # Run SUBDUE but swap noise and structure
         decomp_fn = (lambda edges, directed=False : \
                      [(y, x) for (x, y) in \
-                        [run_C_SUBDUE(edges, min_size=3, max_size=6, \
+                        [run_C_SUBDUE(edges, min_size=3, max_size=10, \
                                       iterations=0, directed=directed)]][0])
     elif algorithm.lower() == "kcore":
+        k = 4
+        print("Using k = %d" % k)
         decomp_fn = (lambda edges, directed=False : \
-                        run_k_core(edges, directed=directed, k=4))
+                        run_k_core(edges, directed=directed, k=k))
+    elif algorithm.lower() == "ktruss":
+        k = 4
+        print("Using k = %d" % k)
+        decomp_fn = (lambda edges, directed=False : \
+                        run_k_truss(edges, directed=directed, k=k))
     else:
         print("Error! Need to pass an algorithm as input: VoG, SUBDUE, GA, or kcore")
         exit(1)
