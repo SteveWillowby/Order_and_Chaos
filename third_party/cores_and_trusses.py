@@ -38,14 +38,14 @@ if __name__ == "__main__":
         k = 2
         while len(core_data) == 0 or core_data[-1][1] < len(edges):
             (_, noise_edges) = run_k_core(edges, directed=directed, k=k)
-            score = run_scorer(edges, nodes, noise_edges, directed)
+            score = run_scorer(edges, nodes, noise_edges, directed)[0]
             core_data.append((score, len(noise_edges)))
             k = k + 1
 
         k = 3
         while len(truss_data) == 0 or truss_data[-1][1] < len(edges):
             (_, noise_edges) = run_k_truss(edges, directed=directed, k=k)
-            score = run_scorer(edges, nodes, noise_edges, directed)
+            score = run_scorer(edges, nodes, noise_edges, directed)[0]
             truss_data.append((score, len(noise_edges)))
             k = k + 1
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
             avg_rand_score = 0
             for _ in range(0, num_rand_scores):
                 rand_noise = rand_noise_set(edges, nodes, 0, size)
-                avg_rand_score += run_scorer(edges, nodes, rand_noise, directed)
+                avg_rand_score += run_scorer(edges, nodes, rand_noise, directed)[0]
             avg_rand_score /= num_rand_scores
 
             rand_data.append((avg_rand_score, size))

@@ -1,4 +1,5 @@
 #include<algorithm>
+#include<array>
 #include<cmath>
 #include<iostream>
 #include<random>
@@ -251,7 +252,8 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    long double s = score(g_nt, comb_util,
+    std::array<long double, 6> score_info =
+          score_breakdown(g_nt, comb_util,
                           nt_results.node_orbits,
                           nt_results.edge_orbits,
                           edge_coloring,
@@ -275,7 +277,16 @@ int main(int argc, char* argv[]) {
     std::cout<<std::endl;
     std::cout<<"The modified graph has log2_aut = "<<log2_aut<<std::endl;
 
-    std::cout<<std::endl<<"The score is:"<<std::endl<<s<<std::endl;
+    std::cout<<std::endl<<"Score Breakdown:"<<std::endl;
+    std::cout<<"Log(Aut from connected components)"<<std::endl<<score_info[1]
+             <<std::endl;
+    std::cout<<"Log(Aut from singletons)"<<std::endl<<score_info[2]<<std::endl;
+    std::cout<<"Log(AO ignoring singleton swaps)"<<std::endl<<score_info[3]
+             <<std::endl;
+    std::cout<<"Log(AO due to singleton swaps)"<<std::endl<<score_info[4]
+             <<std::endl;
+    std::cout<<"Log(Noise size prob)"<<std::endl<<score_info[5]<<std::endl;
+    std::cout<<"Total score:"<<std::endl<<score_info[0]<<std::endl;
 
     return 0;
 }

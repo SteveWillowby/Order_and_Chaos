@@ -2,7 +2,13 @@ import random
 import os
 
 
-# Returns the score
+# Returns a six-tuple containing:
+#   The total score
+#   The part of the score due to Aut of connected components
+#   The part of the score due to Aut of singletons
+#   The part of the score due to AO size excepting singleton swaps
+#   The part of the score due to AO size from singleton swaps
+#   The part of the score due to noise size probability
 def run_scorer(graph_edges, nodes, noise_edges, directed):
     nodes_file =  "/tmp/score_nodes.txt"
     graph_file =  "/tmp/score_graph.txt"
@@ -23,9 +29,13 @@ def run_scorer(graph_edges, nodes, noise_edges, directed):
     lines = f.readlines()
     f.close()
 
-    l = lines[-1].strip()
-    score = float(l)
-    return score
+    score_info = (float(lines[-1].strip()),
+                  float(lines[-11].strip()),
+                  float(lines[-9].strip()),
+                  float(lines[-7].strip()),
+                  float(lines[-5].strip()),
+                  float(lines[-3].strip()))
+    return score_info
 
 # Returns:
 #   (struct_edges, noise_edges)

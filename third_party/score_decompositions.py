@@ -79,9 +79,9 @@ if __name__ == "__main__":
         print("#Struct: %d" % len(struct_edges))
         print("#Noise:  %d" % len(noise_edges))
 
-        score = run_scorer(edges, nodes, noise_edges, directed)
-        all_noise = run_scorer(edges, nodes, set(edges), directed)
-        no_noise = run_scorer(edges, nodes, set(), directed)
+        score = run_scorer(edges, nodes, noise_edges, directed)[0]
+        all_noise = run_scorer(edges, nodes, set(edges), directed)[0]
+        no_noise = run_scorer(edges, nodes, set(), directed)[0]
 
         # Get random scores
         num_added =   len(noise_edges - edges)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
         avg_rand_score = 0
         for _ in range(0, num_rand_scores):
             rand_noise = rand_noise_set(edges, nodes, num_added, num_removed)
-            avg_rand_score += run_scorer(edges, nodes, rand_noise, directed)
+            avg_rand_score += run_scorer(edges, nodes, rand_noise, directed)[0]
         avg_rand_score /= num_rand_scores
 
         print("\t#AR Score:      %f" % avg_rand_score)

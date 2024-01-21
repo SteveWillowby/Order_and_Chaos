@@ -70,8 +70,8 @@ if __name__ == "__main__":
     else:
         nodes = edges_to_nodes(edges)
 
-    all_noise_score  = run_scorer(edges, nodes, edges, directed)
-    all_struct_score = run_scorer(edges, nodes, set(), directed)
+    all_noise_score  = run_scorer(edges, nodes, edges, directed)[0]
+    all_struct_score = run_scorer(edges, nodes, set(), directed)[0]
 
     noise_edges = set()
     struct_edges = set(edges)

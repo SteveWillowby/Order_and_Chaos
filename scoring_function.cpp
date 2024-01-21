@@ -6,6 +6,7 @@
 
 #include "scoring_function.h"
 
+#include<array>
 #include<cmath>
 #include<stdexcept>
 #include<string>
@@ -122,6 +123,157 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
 
     // Perform the probability calculations.
     return ((2.0 * log2_hypothesis_aut) - log2_stabilizer_size) + log2_sequence;
+}
+
+
+std::array<long double, 6>
+  score_breakdown(NTSparseGraph& g, const CombinatoricUtility& comb_util,
+                  const Coloring<int>& node_orbit_coloring,
+                  const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
+                  Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
+                  const std::unordered_set<Edge,EdgeHash>& edge_additions,
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals,
+                  const long double log2_p_plus, const long double log2_p_minus,
+                  const long double log2_1_minus_p_plus,
+                  const long double log2_1_minus_p_minus,
+                  const size_t max_change) {
+
+    if (edge_additions.size() + edge_removals.size() > max_change) {
+        // INFINITY is defined in cmath
+        return std::array<long double, 6>({-INFINITY, 0, 0, 0, 0, 0});
+    }
+
+    NautyTracesOptions o;
+    o.get_node_orbits = false;
+    o.get_edge_orbits = false;
+    o.get_canonical_node_order = false;
+
+    NautyTracesResults nt_results;
+
+    size_t n = g.num_nodes();
+    size_t m = g.num_edges();
+    size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
+
+    size_t num_additions = edge_additions.size();
+    size_t num_removals = edge_removals.size();
+
+    size_t m_prime = m + num_additions - num_removals;
+
+    long double log2_stabilizer_size, log2_hypothesis_aut;
+
+    long double log2_hypothesis_singleton_aut;
+    long double log2_combined_singleton_aut;
+    size_t num_singletons;
+
+    // Edge additions will be colored with a new color (max prev color + 1).
+    int addition_color = *(edge_orbit_coloring.colors().rend()) + 1;
+    // Edge deletions will be colored with a color that preserves their orbit
+    //  info: new color = old color + deletion_color_base.
+    int deletion_color_base = addition_color + 1;
+
+    // Perform the edge additions in actuality.
+    for (auto edge_itr = edge_additions.begin();
+              edge_itr != edge_additions.end(); edge_itr++) {
+        g.add_edge(edge_itr->first, edge_itr->second);
+        editable_edge_orbit_coloring.set(*edge_itr, addition_color);
+    }
+
+    // Perform the edge deletions in color only.
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
+        editable_edge_orbit_coloring.set(*edge_itr, deletion_color_base +
+                                            edge_orbit_coloring[*edge_itr]);
+    }
+
+    // Get the size of the stabilizer set for the changes.
+    //
+    // Remember that the stabilizer size is the same both in g and in the
+    //  hypothesis graph.
+    NTPartition stabilizer_coloring =
+                    g.nauty_traces_coloring(node_orbit_coloring,
+                                            editable_edge_orbit_coloring);
+    nt_results = nauty(g, o, stabilizer_coloring);
+    log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
+                           ((long double)(nt_results.num_aut_exponent)) *
+                                            comb_util.log2(10);
+
+    num_singletons = 0;
+    for (size_t n = 0; n < g.num_nodes(); n++) {
+        if (g.neighbors(n).size() == 0) {
+            num_singletons++;
+        }
+    }
+    log2_combined_singleton_aut = comb_util.log2_factorial(num_singletons);
+
+    // Perform the edge deletions in actuality.
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
+        g.delete_edge(edge_itr->first, edge_itr->second);
+    }
+
+    // Get the raw auto orbit size for the hypothesis graph.
+    nt_results = traces(g, o);
+    log2_hypothesis_aut = std::log2l(nt_results.num_aut_base) +
+                          ((long double)(nt_results.num_aut_exponent)) *
+                                           comb_util.log2(10);
+
+    num_singletons = 0;
+    for (size_t n = 0; n < g.num_nodes(); n++) {
+        if (g.neighbors(n).size() == 0) {
+            num_singletons++;
+        }
+    }
+    log2_hypothesis_singleton_aut = comb_util.log2_factorial(num_singletons);
+
+    // Restore the deleted edges.
+    for (auto edge_itr = edge_removals.begin();
+              edge_itr != edge_removals.end(); edge_itr++) {
+        g.add_edge(edge_itr->first, edge_itr->second);
+        editable_edge_orbit_coloring.set(*edge_itr,
+                                         edge_orbit_coloring[*edge_itr]);
+    }
+
+    // Un-color and un-add the added edges.
+    for (auto edge_itr = edge_additions.begin();
+              edge_itr != edge_additions.end(); edge_itr++) {
+        g.delete_edge(edge_itr->first, edge_itr->second);
+        editable_edge_orbit_coloring.erase(*edge_itr);
+    }
+
+    // Calculate the probability that this exact noise set would be chosen.
+
+    // Note that we ultimately want to calculate the probability that a noise
+    //  set of this SIZE would be chosen. However, that includes some
+    //  (a choose b) terms that cancel out with other aspects of our scoring,
+    //  formula, so we can do this simpler calculation instead.
+    long double log2_sequence;
+    if (log2_p_plus == -1.0 && log2_p_minus == -1.0) {
+        log2_sequence = 0;
+    } else {
+        log2_sequence = num_additions * log2_p_minus +
+                    (m_prime - num_additions) * log2_1_minus_p_minus +
+                    num_removals * log2_p_plus +
+               ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+    }
+
+    // long double log2_stabilizer_size, log2_hypothesis_aut;
+    // long double log2_hypothesis_singleton_aut;
+    // long double log2_combined_singleton_aut;
+
+    long double log2_orbit_size = log2_hypothesis_aut - log2_stabilizer_size;
+    long double log2_orbit_singleton_contribution =
+            log2_hypothesis_singleton_aut - log2_combined_singleton_aut;
+
+    long double total_score =
+            log2_hypothesis_aut + log2_orbit_size + log2_sequence;
+
+    return std::array<long double, 6>({
+                       total_score,
+                       log2_hypothesis_aut - log2_hypothesis_singleton_aut,
+                       log2_hypothesis_singleton_aut,
+                       log2_orbit_size - log2_orbit_singleton_contribution,
+                       log2_orbit_singleton_contribution,
+                       log2_sequence});
 }
 
 std::pair<long double, long double>

@@ -2,6 +2,7 @@
 #include "edge.h"
 #include "nt_sparse_graph.h"
 
+#include<array>
 #include<unordered_set>
 #include<vector>
 
@@ -57,6 +58,34 @@ class CombinatoricUtility;
 //
 // `log2_1_minus_p_plus` = log2(1 - p_plus)
 long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
+                  const Coloring<int>& node_orbit_coloring,
+                  const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
+                  Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
+                  const std::unordered_set<Edge,EdgeHash>& edge_additions,
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals,
+                  const long double log2_p_plus, const long double log2_p_minus,
+                  const long double log2_1_minus_p_plus,
+                  const long double log2_1_minus_p_minus,
+                  const size_t max_change);
+
+// This function is the exact same as the above, except it gives a breakdown
+//  of the score into components. Here 'H' means hypothesis graph, 'N' means
+//  the noise set, and 'H U N' means the edgeset union of the two.
+//
+// a[0] -- the full score
+// a[1] -- log(symmetry of connected components)             (positive number)
+//              i.e. log(symmetry) - a[2]
+// a[2] -- log(symmetry of singletons)                       (positive number)
+//              i.e. log((# singletons in H)!)
+// a[3] -- log(AO of noise ignoring singleton swapping)      (positive number)
+//              i.e. log(AO of noise) - a[4]
+// a[4] -- log(AO of noise due to connecting to singletons)  (positive number)
+//              i.e. log((# sing. in H)! / (# sing. in H U N)!)
+// a[5] -- log(probability of noise size)                    (negative number)
+//
+// a[0] should equal the sum of a[1] through a[5]
+std::array<long double, 6>
+  score_breakdown(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
