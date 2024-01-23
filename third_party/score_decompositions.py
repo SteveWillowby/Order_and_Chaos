@@ -79,9 +79,9 @@ if __name__ == "__main__":
         print("#Struct: %d" % len(struct_edges))
         print("#Noise:  %d" % len(noise_edges))
 
-        score = run_scorer(edges, nodes, noise_edges, directed)[0]
-        all_noise = run_scorer(edges, nodes, set(edges), directed)[0]
-        no_noise = run_scorer(edges, nodes, set(), directed)[0]
+        score = run_scorer(edges, nodes, noise_edges, directed)
+        all_noise = run_scorer(edges, nodes, set(edges), directed)
+        no_noise = run_scorer(edges, nodes, set(), directed)
 
         # Get random scores
         num_added =   len(noise_edges - edges)
@@ -89,15 +89,33 @@ if __name__ == "__main__":
 
         print("#Added:  %d" % num_added)
         print("#Del:    %d" % num_removed)
-        print("\t#All Structure: %f" % no_noise)
-        print("\t#Score:         %f" % score)
-        print("\t#All Noise:     %f" % all_noise)
+        print("\t#All Noise:     %f" % all_noise[0])
+        print("\t#All Structure: %f" % no_noise[0])
+        print("\t\t#From Aut (no singletons):    %f" % no_noise[1])
+        print("\t\t#From Aut (singletons only):  %f" % no_noise[2])
+        print("\t\t#From AO (no sing. swaps):    %f" % no_noise[3])
+        print("\t\t#From AO (sing. swaps only):  %f" % no_noise[4])
+        print("\t\t#From noise size probability: %f" % no_noise[5])
+        print("\t#Score:         %f" % score[0])
+        print("\t\t#From Aut (no singletons):    %f" % score[1])
+        print("\t\t#From Aut (singletons only):  %f" % score[2])
+        print("\t\t#From AO (no sing. swaps):    %f" % score[3])
+        print("\t\t#From AO (sing. swaps only):  %f" % score[4])
+        print("\t\t#From noise size probability: %f" % score[5])
 
         num_rand_scores = 10
-        avg_rand_score = 0
+        avg_rand_score = [0, 0, 0, 0, 0, 0]
         for _ in range(0, num_rand_scores):
             rand_noise = rand_noise_set(edges, nodes, num_added, num_removed)
-            avg_rand_score += run_scorer(edges, nodes, rand_noise, directed)[0]
-        avg_rand_score /= num_rand_scores
+            rand_score = run_scorer(edges, nodes, rand_noise, directed)
+            for i in range(0, 6):
+                avg_rand_score[i] += rand_score[i]
+        for i in range(0, 6):
+            avg_rand_score[i] /= num_rand_scores
 
-        print("\t#AR Score:      %f" % avg_rand_score)
+        print("\t#AR Score:      %f" % avg_rand_score[0])
+        print("\t\t#From Aut (no singletons):    %f" % avg_rand_score[1])
+        print("\t\t#From Aut (singletons only):  %f" % avg_rand_score[2])
+        print("\t\t#From AO (no sing. swaps):    %f" % avg_rand_score[3])
+        print("\t\t#From AO (sing. swaps only):  %f" % avg_rand_score[4])
+        print("\t\t#From noise size probability: %f" % avg_rand_score[5])
