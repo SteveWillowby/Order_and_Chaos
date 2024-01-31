@@ -1,4 +1,17 @@
+# Usage:
+#
+# python3 score_decompositions.py <alg_name> <core>
+#
+#   `alg_name` should be one of the following:
+#       vog, kcore, ktruss, subdue, ga
+#
+#   `core` is an optional argument. If you set it to core_only then
+#       the program will run the alg once, get all the non-singleton nodes,
+#       then re-run on the portion of the graph with only those nodes.
+
 from utils import *
+
+import matplotlib.pyplot as plt
 import sys
 
 __graphs_base__ = "../experiments/real_world_graphs/"
@@ -27,6 +40,10 @@ if __name__ == "__main__":
 
     algorithm = sys.argv[1]
 
+    core_only = False
+    if len(sys.argv) >= 3:
+        core_only = sys.argv[2] in ["core_only"]
+
     preprocess = False # If True, runs the GA before running a third-party alg.
 
     always_undirected = False
@@ -36,11 +53,16 @@ if __name__ == "__main__":
     elif algorithm.lower() == "ga":
         decomp_fn = run_GA
     elif algorithm.lower() == "subdue":
-        # Run SUBDUE but swap noise and structure
+        #   Run SUBDUE but swap noise and structure
+        # decomp_fn = (lambda edges, directed=False : \
+        #              [(y, x) for (x, y) in \
+        #                 [run_C_SUBDUE(edges, min_size=3, max_size=10, \
+        #                               iterations=0, directed=directed)]][0])
+
+        # Run SUBDUE like normal
         decomp_fn = (lambda edges, directed=False : \
-                     [(y, x) for (x, y) in \
-                        [run_C_SUBDUE(edges, min_size=3, max_size=10, \
-                                      iterations=0, directed=directed)]][0])
+                        run_C_SUBDUE(edges, min_size=3, max_size=10, \
+                                      iterations=0, directed=directed))
     elif algorithm.lower() == "kcore":
         k = 4
         print("Using k = %d" % k)
@@ -54,7 +76,6 @@ if __name__ == "__main__":
     else:
         print("Error! Need to pass an algorithm as input: VoG, SUBDUE, GA, or kcore")
         exit(1)
-
 
     for i in range(0, len(__graphs_list__)):
         graph_file = __graphs_base__ + __graphs_list__[i]
@@ -70,6 +91,14 @@ if __name__ == "__main__":
             (edges, _) = run_GA(edges, directed=directed)
 
         (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
+
+        if core_only:
+            nodes = edges_to_nodes(struct_edges)
+            if len(nodes) == 0:
+                continue
+            edges = limit_edges_by_nodeset(edges, nodes)
+            (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
+
 
         assert len(struct_edges) + len(noise_edges) >= len(edges)
 
@@ -108,10 +137,10 @@ if __name__ == "__main__":
         for _ in range(0, num_rand_scores):
             rand_noise = rand_noise_set(edges, nodes, num_added, num_removed)
             rand_score = run_scorer(edges, nodes, rand_noise, directed)
-            for i in range(0, 6):
-                avg_rand_score[i] += rand_score[i]
-        for i in range(0, 6):
-            avg_rand_score[i] /= num_rand_scores
+            for j in range(0, 6):
+                avg_rand_score[j] += rand_score[j]
+        for j in range(0, 6):
+            avg_rand_score[j] /= num_rand_scores
 
         print("\t#AR Score:      %f" % avg_rand_score[0])
         print("\t\t#From Aut (no singletons):    %f" % avg_rand_score[1])
@@ -119,3 +148,32 @@ if __name__ == "__main__":
         print("\t\t#From AO (no sing. swaps):    %f" % avg_rand_score[3])
         print("\t\t#From AO (sing. swaps only):  %f" % avg_rand_score[4])
         print("\t\t#From noise size probability: %f" % avg_rand_score[5])
+
+        bottoms      = [no_noise[5], score[5], avg_rand_score[5]]
+        aut_no_sing  = [no_noise[1], score[1], avg_rand_score[1]]
+        aut_sing     = [no_noise[2], score[2], avg_rand_score[2]]
+        ao_no_sing   = [no_noise[3], score[3], avg_rand_score[3]]
+        ao_sing      = [no_noise[4], score[4], avg_rand_score[4]]
+
+        bar_names = ["No Noise", "Alg's Choice", "Random"]
+        graph_name = __name_list__[i]
+        graph_disp_name = graph_name[0].upper() + graph_name[1:]
+        dir_str = ["Und", "D"][int(directed)] + "irected"
+        stacks = [aut_no_sing, aut_sing, ao_no_sing, ao_sing]
+        labels = ["Aut - No Sing.","Aut - Sing.","AO - No Sing.","AO - Sing."]
+        plt.figure(figsize=(9,6))
+        for j in range(0, len(stacks)):
+            s = stacks[j]
+            plt.bar(bar_names, s, bottom=bottoms, label=labels[j])
+            for i in range(0, len(bottoms)):
+                bottoms[i] += s[i]
+        plt.legend()
+        plt.suptitle("Score Decompositions - %s" % algorithm, size=20)
+        plt.title("%s %s" % (graph_disp_name, dir_str), size=18)
+        plt.xlabel("Models", size=18, labelpad=10)
+        plt.ylabel("Gains Above Edit Cost", size=18)
+        plt.savefig("results/%s_decomp_%s_%s%s.png" % \
+                        (algorithm.lower(), graph_name, dir_str.lower(), \
+                         ["", "_core"][int(core_only)]), \
+                    bbox_inches='tight', pad_inches=0.5)
+        plt.close()

@@ -578,3 +578,11 @@ def rand_noise_set(graph_edges, nodes, num_added, num_removed, directed=False):
         added.add(e)
 
     return added | removed
+
+
+def limit_edges_by_nodeset(edges, nodes):
+    new_edges = set()
+    for (a, b) in edges:
+        if a in nodes and b in nodes:
+            new_edges.add((a, b))
+    return new_edges
