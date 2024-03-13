@@ -366,6 +366,42 @@ def run_PY_SUBDUE(edges, directed=False, \
     # Get the result.
 
 
+def run_GraMi(edges, directed=False, min_support="auto"):
+    nodes = set([a for (a, b) in edges] + [b for (a, b) in edges])
+
+    relabels = {n: n for n in nodes}
+    if min(nodes) != 1 or max(nodes) != len(nodes):
+        nodes = sorted(list(nodes))
+        relabels = {nodes[i]: i for i in range(0, len(nodes))}
+        nodes = set([i for i in range(0, len(nodes))])
+        edges = [(relabels[a], relabels[b]) for (a, b) in edges]
+
+    if type(min_support) is str and min_support == "auto":
+        # TODO: Update this logic
+        min_support = int(len(edges) / len(nodes)) + int(len(nodes) / 2)
+    elif type(min_support) is int:
+        pass
+    else:
+        raise Exception("Error! min_support cannot have a non-integer value other than \"auto\"")
+
+    in_filename = "GraMi_input.lg"
+    nodes = sorted(list(nodes))
+    f = open("GraMi/Datasets/" + in_filename, "w")
+    f.write("# t 1\n")
+    for n in nodes:
+        f.write("v %d 1\n" % n)
+    for (a, b) in sorted(list(edges)):
+        f.write("e %d %d 1\n" % (a, b))
+    # f.write("t # -1\n")
+    f.close()
+
+    out_filename = "/tmp/GraMi_output.txt"
+
+    os.system("cd GraMi; ./grami -f %s -s %d -t %d -p 1 > %s" % \
+                (in_filename, min_support, int(directed), out_filename))
+
+    return (edges, set())
+
 def run_k_core(edges, directed=False, k=3):
     # The code is actually the same whether directed or undirected.
     #   The `directed` flag is included just to match a template of runners.

@@ -63,13 +63,17 @@ if __name__ == "__main__":
         decomp_fn = (lambda edges, directed=False : \
                         run_C_SUBDUE(edges, min_size=3, max_size=10, \
                                       iterations=0, directed=directed))
+    # elif algorithm.lower() == "grami":
+    #     decomp_fn = (lambda edges, directed=False : \
+    #                     run_GraMi(edges, directed=directed, \
+    #                               min_support="auto"))
     elif algorithm.lower() == "kcore":
-        k = 4
+        k = 3
         print("Using k = %d" % k)
         decomp_fn = (lambda edges, directed=False : \
                         run_k_core(edges, directed=directed, k=k))
     elif algorithm.lower() == "ktruss":
-        k = 4
+        k = 3
         print("Using k = %d" % k)
         decomp_fn = (lambda edges, directed=False : \
                         run_k_truss(edges, directed=directed, k=k))
@@ -97,7 +101,10 @@ if __name__ == "__main__":
             if len(nodes) == 0:
                 continue
             edges = limit_edges_by_nodeset(edges, nodes)
-            (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
+            noise_edges = limit_edges_by_nodeset(noise_edges, nodes)
+            # struct_edges is already limited to that set of nodes
+
+            # (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
 
 
         assert len(struct_edges) + len(noise_edges) >= len(edges)
@@ -118,14 +125,15 @@ if __name__ == "__main__":
 
         print("#Added:  %d" % num_added)
         print("#Del:    %d" % num_removed)
-        print("\t#All Noise:     %f" % all_noise[0])
-        print("\t#All Structure: %f" % no_noise[0])
+        print("\t#All Noise:      %f" % all_noise[0])
+        print("\t#All Structure:  %f" % no_noise[0])
         print("\t\t#From Aut (no singletons):    %f" % no_noise[1])
         print("\t\t#From Aut (singletons only):  %f" % no_noise[2])
         print("\t\t#From AO (no sing. swaps):    %f" % no_noise[3])
         print("\t\t#From AO (sing. swaps only):  %f" % no_noise[4])
         print("\t\t#From noise size probability: %f" % no_noise[5])
-        print("\t#Score:         %f" % score[0])
+        print("\t#Score:          %f" % score[0])
+        print("\t#W/O Singletons: %f" % (score[1] + score[3] + score[5]))
         print("\t\t#From Aut (no singletons):    %f" % score[1])
         print("\t\t#From Aut (singletons only):  %f" % score[2])
         print("\t\t#From AO (no sing. swaps):    %f" % score[3])
@@ -142,7 +150,9 @@ if __name__ == "__main__":
         for j in range(0, 6):
             avg_rand_score[j] /= num_rand_scores
 
-        print("\t#AR Score:      %f" % avg_rand_score[0])
+        print("\t#AR Score:       %f" % avg_rand_score[0])
+        print("\t#W/O Singletons: %f" % \
+                (avg_rand_score[1] + avg_rand_score[3] + avg_rand_score[5]))
         print("\t\t#From Aut (no singletons):    %f" % avg_rand_score[1])
         print("\t\t#From Aut (singletons only):  %f" % avg_rand_score[2])
         print("\t\t#From AO (no sing. swaps):    %f" % avg_rand_score[3])
@@ -172,8 +182,9 @@ if __name__ == "__main__":
         plt.title("%s %s" % (graph_disp_name, dir_str), size=18)
         plt.xlabel("Models", size=18, labelpad=10)
         plt.ylabel("Gains Above Edit Cost", size=18)
-        plt.savefig("results/%s_decomp_%s_%s%s.png" % \
-                        (algorithm.lower(), graph_name, dir_str.lower(), \
+        plt.savefig("results/%s%s_decomp_%s_%s%s.png" % \
+                        (["", "core_only/"][int(core_only)], \
+                         algorithm.lower(), graph_name, dir_str.lower(), \
                          ["", "_core"][int(core_only)]), \
                     bbox_inches='tight', pad_inches=0.5)
         plt.close()
