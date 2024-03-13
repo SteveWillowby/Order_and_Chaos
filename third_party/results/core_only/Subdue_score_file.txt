@@ -1,0 +1,168 @@
+###
+#  karate
+#Edges:  67
+#Struct: 36
+#Noise:  31
+#Added:  0
+#Del:    31
+	#All Noise:      -77.651100
+	#All Structure:  -180.112000
+		#From Aut (no singletons):    2.000000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -182.112000
+	#Score:          -210.489000
+	#W/O Singletons: -210.489000
+		#From Aut (no singletons):    7.000000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    6.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -223.489000
+	#AR Score:       -212.458200
+	#W/O Singletons: -217.055016
+		#From Aut (no singletons):    3.316992
+		#From Aut (singletons only):  2.298370
+		#From AO (no sing. swaps):    3.116992
+		#From AO (sing. swaps only):  2.298370
+		#From noise size probability: -223.489000
+###
+#  season_4
+#Edges:  756
+#Struct: 165
+#Noise:  591
+#Added:  0
+#Del:    591
+	#All Noise:      -9177.090000
+	#All Structure:  -10826.700000
+		#From Aut (no singletons):    2.000000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -10828.700000
+	#Score:          -10731.800000
+	#W/O Singletons: -10731.726000
+		#From Aut (no singletons):    142.387000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    140.387000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -11014.500000
+	#AR Score:       -10722.070000
+	#W/O Singletons: -11002.749024
+		#From Aut (no singletons):    6.375490
+		#From Aut (singletons only):  140.354000
+		#From AO (no sing. swaps):    5.375486
+		#From AO (sing. swaps only):  140.354000
+		#From noise size probability: -11014.500000
+###
+#  foodweb
+#Edges:  2150
+#Struct: 114
+#Noise:  2036
+#Added:  0
+#Del:    2036
+	#All Noise:      -16957.400000
+	#All Structure:  -18036.300000
+		#From Aut (no singletons):    87.362800
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -18123.700000
+	#Score:          -18103.000000
+	#W/O Singletons: -18102.991000
+		#From Aut (no singletons):    190.432000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    173.677000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -18467.100000
+	#AR Score:       -18135.130000
+	#W/O Singletons: -18461.112724
+		#From Aut (no singletons):    9.098547
+		#From Aut (singletons only):  163.014000
+		#From AO (no sing. swaps):    -3.111271
+		#From AO (sing. swaps only):  163.014000
+		#From noise size probability: -18467.100000
+###
+#  pol_blogs
+#Edges:  17379
+#Struct: 615
+#Noise:  16764
+#Added:  0
+#Del:    16764
+	#All Noise:      -675999.000000
+	#All Structure:  -689189.000000
+		#From Aut (no singletons):    4.000000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -689193.000000
+	#Score:          -686337.000000
+	#W/O Singletons: -686337.080000
+		#From Aut (no singletons):    1762.960000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    1759.960000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -689860.000000
+	#AR Score:       -684716.000000
+	#W/O Singletons: -689659.126610
+		#From Aut (no singletons):    102.386700
+		#From Aut (singletons only):  2471.420000
+		#From AO (no sing. swaps):    98.486690
+		#From AO (sing. swaps only):  2471.420000
+		#From noise size probability: -689860.000000
+###
+#  eucore
+#Edges:  24043
+#Struct: 595
+#Noise:  23448
+#Added:  0
+#Del:    23448
+	#All Noise:      -642319.000000
+	#All Structure:  -654824.000000
+		#From Aut (no singletons):    0.000000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -654824.000000
+	#Score:          -652626.000000
+	#W/O Singletons: -652625.960000
+		#From Aut (no singletons):    1575.520000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    1575.520000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -655777.000000
+	#AR Score:       -651097.100000
+	#W/O Singletons: -655612.910140
+		#From Aut (no singletons):    82.044930
+		#From Aut (singletons only):  2257.897000
+		#From AO (no sing. swaps):    82.044930
+		#From AO (sing. swaps only):  2257.897000
+		#From noise size probability: -655777.000000
+###
+#  cora
+#Edges:  4693
+#Struct: 2002
+#Noise:  2691
+#Added:  0
+#Del:    2691
+	#All Noise:      -4862440.000000
+	#All Structure:  -4905220.000000
+		#From Aut (no singletons):    106.341000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -4905320.000000
+	#Score:          -4901480.000000
+	#W/O Singletons: -4901478.780000
+		#From Aut (no singletons):    1987.240000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    1903.980000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -4905370.000000
+	#AR Score:       -4897502.000000
+	#W/O Singletons: -4904044.755600
+		#From Aut (no singletons):    678.973200
+		#From Aut (singletons only):  3271.745000
+		#From AO (no sing. swaps):    646.271200
+		#From AO (sing. swaps only):  3271.745000
+		#From noise size probability: -4905370.000000

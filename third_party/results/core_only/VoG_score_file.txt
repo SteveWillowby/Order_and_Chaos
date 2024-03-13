@@ -1,0 +1,158 @@
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+VOG -- THERE ARE 34 NODES
+VOG -- THERE ARE 78 EDGES
+VOG -- THERE ARE 195 NODES
+VOG -- THERE ARE 804 EDGES
+###
+#  season_4
+#Edges:  139
+#Struct: 129
+#Noise:  10
+#Added:  0
+#Del:    10
+	#All Noise:      -372.715000
+	#All Structure:  -612.842000
+		#From Aut (no singletons):    4.584960
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -617.427000
+	#Score:          -589.557000
+	#W/O Singletons: -589.557400
+		#From Aut (no singletons):    20.661800
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    16.076800
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -626.296000
+	#AR Score:       -622.420500
+	#W/O Singletons: -622.420512
+		#From Aut (no singletons):    2.975488
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.900000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -626.296000
+VOG -- THERE ARE 183 NODES
+VOG -- THERE ARE 2434 EDGES
+###
+#  foodweb
+#Edges:  2320
+#Struct: 1320
+#Noise:  1000
+#Added:  0
+#Del:    1000
+	#All Noise:      -12028.500000
+	#All Structure:  -13062.600000
+		#From Aut (no singletons):    209.363000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -13272.000000
+	#Score:          -13165.700000
+	#W/O Singletons: -13165.728900
+		#From Aut (no singletons):    303.317000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    93.954100
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -13563.000000
+	#AR Score:       -13532.120000
+	#W/O Singletons: -13537.234254
+		#From Aut (no singletons):    26.899730
+		#From Aut (singletons only):  2.566177
+		#From AO (no sing. swaps):    -1.133984
+		#From AO (sing. swaps only):  2.566177
+		#From noise size probability: -13563.000000
+VOG -- THERE ARE 1224 NODES
+VOG -- THERE ARE 16715 EDGES
+###
+#  pol_blogs
+#Edges:  16477
+#Struct: 10854
+#Noise:  5623
+#Added:  0
+#Del:    5623
+	#All Noise:      -553779.000000
+	#All Structure:  -571354.000000
+		#From Aut (no singletons):    83.739200
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -571437.000000
+	#Score:          -571306.000000
+	#W/O Singletons: -571306.539000
+		#From Aut (no singletons):    288.600000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    204.861000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -571800.000000
+	#AR Score:       -571410.400000
+	#W/O Singletons: -571659.554900
+		#From Aut (no singletons):    98.980060
+		#From Aut (singletons only):  124.497720
+		#From AO (no sing. swaps):    41.465040
+		#From AO (sing. swaps only):  124.497720
+		#From noise size probability: -571800.000000
+VOG -- THERE ARE 986 NODES
+VOG -- THERE ARE 16064 EDGES
+###
+#  eucore
+#Edges:  15673
+#Struct: 7450
+#Noise:  8223
+#Added:  0
+#Del:    8223
+	#All Noise:      -330649.000000
+	#All Structure:  -343392.000000
+		#From Aut (no singletons):    17.339900
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -343410.000000
+	#Score:          -343807.000000
+	#W/O Singletons: -343806.660000
+		#From Aut (no singletons):    137.340000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    120.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -344064.000000
+	#AR Score:       -343875.300000
+	#W/O Singletons: -344045.174824
+		#From Aut (no singletons):    14.009808
+		#From Aut (singletons only):  84.941770
+		#From AO (no sing. swaps):    4.815368
+		#From AO (sing. swaps only):  84.941770
+		#From noise size probability: -344064.000000
+VOG -- THERE ARE 2708 NODES
+VOG -- THERE ARE 5278 EDGES
+###
+#  cora
+#Edges:  1784
+#Struct: 1117
+#Noise:  667
+#Added:  0
+#Del:    667
+	#All Noise:      -353818.000000
+	#All Structure:  -367298.000000
+		#From Aut (no singletons):    486.511000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -367784.000000
+	#Score:          -363394.000000
+	#W/O Singletons: -363394.010000
+		#From Aut (no singletons):    2464.250000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    1977.740000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -367836.000000
+	#AR Score:       -365853.700000
+	#W/O Singletons: -367073.804000
+		#From Aut (no singletons):    529.135700
+		#From Aut (singletons only):  610.005600
+		#From AO (no sing. swaps):    233.060300
+		#From AO (sing. swaps only):  610.005600
+		#From noise size probability: -367836.000000
