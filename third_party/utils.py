@@ -366,6 +366,7 @@ def run_PY_SUBDUE(edges, directed=False, \
     # Get the result.
 
 
+"""
 def run_GraMi(edges, directed=False, min_support="auto"):
     nodes = set([a for (a, b) in edges] + [b for (a, b) in edges])
 
@@ -401,6 +402,7 @@ def run_GraMi(edges, directed=False, min_support="auto"):
                 (in_filename, min_support, int(directed), out_filename))
 
     return (edges, set())
+"""
 
 def run_k_core(edges, directed=False, k=3):
     # The code is actually the same whether directed or undirected.

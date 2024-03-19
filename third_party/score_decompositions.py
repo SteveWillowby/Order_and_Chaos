@@ -18,18 +18,21 @@ __graphs_base__ = "../experiments/real_world_graphs/"
 
 __graphs_list__ = ["karate.txt", "season_4_undirected_edges.txt", \
                    "maayan-foodweb.txt",       "pol_blogs.txt", \
-                   "eucore.txt",       "cora.txt"]
+                   "eucore.txt",       "cora.txt", \
+                   "flickr.txt", "epinions.txt", "enron_email.txt"]
 
 __nodes_list__ =  [None,         None, \
                    "maayan-foodweb_nodes.txt", "pol_blogs_nodes.txt", \
-                   "eucore_nodes.txt", "cora_nodes.txt"]
+                   "eucore_nodes.txt", "cora_nodes.txt", \
+                   None,         None,           None]
 
 __dir_list__ =    [False,        False, \
                    True,                       True, \
-                   True,               True]
+                   True,               True, \
+                   False,        False,           True]
 
 __name_list__ =   ["karate", "season_4", "foodweb", "pol_blogs", "eucore", \
-                   "cora"]
+                   "cora", "flickr", "epinions", "enron"]
 
 if __name__ == "__main__":
 

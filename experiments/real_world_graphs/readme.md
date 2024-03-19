@@ -1,4 +1,4 @@
-# description of datasets
+# Description of Datasets
 ## static
 - eucore
     - properties
@@ -61,8 +61,15 @@
         - directed
         - nodes: ``
         - edges: ``
-    - list of edges `(u, v, c)` where university `u` hires a graduate of university `v` a total of `c` times
-        - Note that edges can repeat.
+    - list of edges `(u, v, t)` where university `u` hires a graduate of university `v` as a faculty member of type `t`
+        - Types:
+            - "Asst-M": 0
+            - "Asst-F": 1
+            - "Assoc-M": 2
+            - "Assoc-F": 3
+            - "Full-M": 4
+            - "Full-F": 5
+        - Note that edges can repeat (there can be multi-edges).
     - `LINK`
 - roget thesaurus
     - properties
