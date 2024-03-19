@@ -21,33 +21,53 @@
         - edges: `5429`
     - list of edges `(u, v)` where paper `u` cites paper `v`
     - `http://networkrepository.com/cora.php`
-## temporal
-- eucore-temporal
+- season X (for X from 0 through 10)
     - properties
-        - directed, temporal
-        - nodes: `986`
-        - static edges: `24929`
-        - temporal edges: `332334`
-        - time span: `803` days
-    - list of attributed edges `(u, v, t)` where user `u` sent an email to user `v` at time `t`
-        - edge attributes `t` are natural number timestamps
-    - `https://snap.stanford.edu/data/email-Eu-core-temporal.html`
-- wiki-en-additions
+        - undirected and directed versions
+        - nodes: roughly `200`
+        - edges: roughly `850`
+    - list of edges `(u, v)` where team `u` plays against team `v` during a college football season
+        - Season zero corresponds to the 2005-2006 season
+    - `LINK`
+- flickr
     - properties
-        - directed, temporal
-        - nodes: `100312`
-        - temporal edges: `1186779`
-        - time span: `230940` distinct timestamps
-    - list of attributed edges `(u, v, t)` where page `u` added a link to page `v` at time `t`
-        - edge attributes `t` are natural number timestamps
-    - `http://konect.cc/networks/link-dynamic-simplewiki/`
-- college-temporal
+        - undirected
+        - nodes: `105938`
+        - edges: `2316948`
+    - list of edges `(u, v)` where `u` and `v` are both images related in some way
+    - `LINK`
+- epinions
     - properties
-        - directed, temporal
-        - nodes: `1899`
-        - static edges: `20296`
-        - temporal edges: `59835`
-        - time span: `193` days
-    - list of attributed edges `(u, v, t)` where student `u` sent student `v` a message at time `t`
-        - edge attributes `t` are natural number timestamps
-    - `https://snap.stanford.edu/data/CollegeMsg.html`
+        - directed
+        - nodes: `75879`
+        - edges: `508837`
+    - list of edges `(u, v)` where `u` and `v` are WHAT???
+    - `LINK`
+- enron email
+    - properties
+        - directed
+        - nodes: `36692`
+        - edges: `367662`
+    - list of edges `(u, v)` where `u` sent an email to `v` at least once
+- foodweb (Maayan foodweb)
+    - properties
+        - directed
+        - nodes: ``
+        - edges: ``
+    - list of edges `(u, v)` where species `u` eats species `v`
+    - `LINK`
+- faculty hiring (Business, Computer Science, and History)
+    - properties
+        - directed
+        - nodes: ``
+        - edges: ``
+    - list of edges `(u, v, c)` where university `u` hires a graduate of university `v` a total of `c` times
+        - Note that edges can repeat.
+    - `LINK`
+- roget thesaurus
+    - properties
+        - directed
+        - nodes: ``
+        - edges: ``
+    - list of edges `(u, v)` where concept `u` refers to concept `v` within Roget's thesaurus
+    - `LINK`
