@@ -68,7 +68,7 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const long double log2_1_minus_p_minus,
                   const size_t max_change);
 
-// This function is the exact same as the above, except it gives a breakdown
+// This function is similar to the above, except it gives a breakdown
 //  of the score into components. Here 'H' means hypothesis graph, 'N' means
 //  the noise set, and 'H U N' means the edgeset union of the two.
 //
@@ -84,8 +84,11 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
 // a[5] -- log(probability of noise size)                    (negative number)
 //
 // a[0] should equal the sum of a[1] through a[5]
+//
+// Further, this version does all its edits to the graph BEFORE turning the
+//  graph into an NTSparseGraph
 std::array<long double, 6>
-  score_breakdown(NTSparseGraph& g, const CombinatoricUtility& comb_util,
+  score_breakdown(SparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,

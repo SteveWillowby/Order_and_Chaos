@@ -186,6 +186,7 @@ int main(int argc, char* argv[]) {
     bool has_self_loops = g.num_loops() > 0;
 
     NTSparseGraph g_info = NTSparseGraph(g);
+    std::cout<<"Running `traces` on original graph."<<std::endl;
     nt_results = traces(g_info, o);
     double log2_aut = std::log2l(nt_results.num_aut_base) +
                      ((long double)(nt_results.num_aut_exponent)) *
@@ -253,7 +254,7 @@ int main(int argc, char* argv[]) {
     }
 
     std::array<long double, 6> score_info =
-          score_breakdown(g_nt, comb_util,
+          score_breakdown(g, comb_util,
                           nt_results.node_orbits,
                           nt_results.edge_orbits,
                           edge_coloring,
@@ -263,13 +264,15 @@ int main(int argc, char* argv[]) {
                           max_flip_or_edge);
 
     for (auto x = additions.begin(); x != additions.end(); x++) {
-        g_nt.flip_edge(x->first, x->second);
+        g.flip_edge(x->first, x->second);
     }
     for (auto x = deletions.begin(); x != deletions.end(); x++) {
-        g_nt.flip_edge(x->first, x->second);
+        g.flip_edge(x->first, x->second);
     }
 
-    nt_results = traces(g_nt, o);
+    NTSparseGraph g_nt_2(g);
+
+    nt_results = traces(g_nt_2, o);
     log2_aut   = std::log2l(nt_results.num_aut_base) +
                      ((long double)(nt_results.num_aut_exponent)) *
                                       std::log2l(10);

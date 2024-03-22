@@ -73,7 +73,7 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     NTPartition stabilizer_coloring =
                     g.nauty_traces_coloring(node_orbit_coloring,
                                             editable_edge_orbit_coloring);
-    nt_results = nauty(g, o, stabilizer_coloring);
+    nt_results = traces(g, o, stabilizer_coloring);
     log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
                            ((long double)(nt_results.num_aut_exponent)) *
                                             comb_util.log2(10);
@@ -127,7 +127,7 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
 
 
 std::array<long double, 6>
-  score_breakdown(NTSparseGraph& g, const CombinatoricUtility& comb_util,
+  score_breakdown(SparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
                   Coloring<Edge,EdgeHash>& editable_edge_orbit_coloring,
@@ -185,14 +185,16 @@ std::array<long double, 6>
                                             edge_orbit_coloring[*edge_itr]);
     }
 
+    NTSparseGraph g_nt(g);
+
     // Get the size of the stabilizer set for the changes.
     //
     // Remember that the stabilizer size is the same both in g and in the
     //  hypothesis graph.
     NTPartition stabilizer_coloring =
-                    g.nauty_traces_coloring(node_orbit_coloring,
-                                            editable_edge_orbit_coloring);
-    nt_results = nauty(g, o, stabilizer_coloring);
+                    g_nt.nauty_traces_coloring(node_orbit_coloring,
+                                               editable_edge_orbit_coloring);
+    nt_results = traces(g_nt, o, stabilizer_coloring);
     log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
                            ((long double)(nt_results.num_aut_exponent)) *
                                             comb_util.log2(10);
@@ -212,7 +214,8 @@ std::array<long double, 6>
     }
 
     // Get the raw auto orbit size for the hypothesis graph.
-    nt_results = traces(g, o);
+    g_nt = NTSparseGraph(g);
+    nt_results = traces(g_nt, o);
     log2_hypothesis_aut = std::log2l(nt_results.num_aut_base) +
                           ((long double)(nt_results.num_aut_exponent)) *
                                            comb_util.log2(10);
