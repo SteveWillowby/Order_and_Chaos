@@ -12,6 +12,7 @@
 from utils import *
 
 import matplotlib.pyplot as plt
+import random
 import sys
 
 __graphs_base__ = "../experiments/real_world_graphs/"
@@ -44,8 +45,16 @@ if __name__ == "__main__":
     algorithm = sys.argv[1]
 
     core_only = False
-    if len(sys.argv) >= 3:
-        core_only = sys.argv[2] in ["core_only"]
+    rand_graphs = False
+    for idx in range(2, len(sys.argv)):
+        core_only   |= sys.argv[idx].lower() in ["core_only"]
+        rand_graphs |= sys.argv[idx].lower() in ["rand", "rand_graphs"]
+
+    rand_rounds = 100
+    rand_min_p = 0.01
+    rand_max_p = 0.5
+    rand_n = 200
+    rand_results = []
 
     preprocess = False # If True, runs the GA before running a third-party alg.
 
@@ -84,15 +93,29 @@ if __name__ == "__main__":
         print("Error! Need to pass an algorithm as input: VoG, SUBDUE, GA, or kcore")
         exit(1)
 
-    for i in range(0, len(__graphs_list__)):
-        graph_file = __graphs_base__ + __graphs_list__[i]
-        directed = __dir_list__[i] and not always_undirected
-        edges = get_edgeset(graph_file, directed)
-        if __nodes_list__[i] is None:
-            nodes = edges_to_nodes(edges)
+    num_rounds = len(__graphs_list__)
+    if rand_graphs:
+        num_rounds = rand_rounds
+    for i in range(0, num_rounds):
+
+        if rand_graphs:
+            directed = False
+            rand_p = random.random() * (rand_max_p - rand_min_p) + rand_min_p
+            (nodes, edges) = get_ER_rand_graph(rand_n, rand_p, directed)
+
         else:
-            nodes_file = __graphs_base__ + __nodes_list__[i]
-            nodes = get_nodeset(nodes_file)
+            if __name_list__[i] in ["flickr", "epinions"]:
+                continue
+
+            graph_file = __graphs_base__ + __graphs_list__[i]
+            directed = __dir_list__[i] and not always_undirected
+
+            edges = get_edgeset(graph_file, directed)
+            if __nodes_list__[i] is None:
+                nodes = edges_to_nodes(edges)
+            else:
+                nodes_file = __graphs_base__ + __nodes_list__[i]
+                nodes = get_nodeset(nodes_file)
 
         if preprocess and algorithm.lower() != "ga":
             (edges, _) = run_GA(edges, directed=directed)
@@ -113,7 +136,10 @@ if __name__ == "__main__":
         assert len(struct_edges) + len(noise_edges) >= len(edges)
 
         print("###")
-        print("#  %s" % __name_list__[i])
+        if rand_graphs:
+            print("#  Random Graph with n = %d, p = %f" % (rand_n, rand_p))
+        else:
+            print("#  %s" % __name_list__[i])
         print("#Edges:  %d" % len(edges))
         print("#Struct: %d" % len(struct_edges))
         print("#Noise:  %d" % len(noise_edges))
@@ -168,26 +194,56 @@ if __name__ == "__main__":
         ao_no_sing   = [no_noise[3], score[3], avg_rand_score[3]]
         ao_sing      = [no_noise[4], score[4], avg_rand_score[4]]
 
-        bar_names = ["No Noise", "Alg's Choice", "Random"]
-        graph_name = __name_list__[i]
-        graph_disp_name = graph_name[0].upper() + graph_name[1:]
+        if rand_graphs:
+            rand_results.append((rand_p, all_noise[0], no_noise[0], \
+                                 score[0], avg_rand_score[0]))
+
+        else:
+
+            bar_names = ["No Noise", "Alg's Choice", "Random"]
+            graph_name = __name_list__[i]
+            graph_disp_name = graph_name[0].upper() + graph_name[1:]
+            dir_str = ["Und", "D"][int(directed)] + "irected"
+            stacks = [aut_no_sing, aut_sing, ao_no_sing, ao_sing]
+            labels = ["Aut - No Sing.","Aut - Sing.","AO - No Sing.","AO - Sing."]
+            plt.figure(figsize=(9,6))
+            for j in range(0, len(stacks)):
+                s = stacks[j]
+                plt.bar(bar_names, s, bottom=bottoms, label=labels[j])
+                for i in range(0, len(bottoms)):
+                    bottoms[i] += s[i]
+            plt.legend()
+            plt.suptitle("Score Decompositions - %s" % algorithm, size=20)
+            plt.title("%s %s" % (graph_disp_name, dir_str), size=18)
+            plt.xlabel("Models", size=18, labelpad=10)
+            plt.ylabel("Gains Above Edit Cost", size=18)
+            plt.savefig("results/%s%s_decomp_%s_%s%s.png" % \
+                            (["", "core_only/"][int(core_only)], \
+                             algorithm.lower(), graph_name, dir_str.lower(), \
+                             ["", "_core"][int(core_only)]), \
+                        bbox_inches='tight', pad_inches=0.5)
+            plt.close()
+
+    if rand_graphs:
         dir_str = ["Und", "D"][int(directed)] + "irected"
-        stacks = [aut_no_sing, aut_sing, ao_no_sing, ao_sing]
-        labels = ["Aut - No Sing.","Aut - Sing.","AO - No Sing.","AO - Sing."]
+
+        # Sort by rand prob used
+        rand_results.sort()
+        x_axis = [p for (p, _, __, ___, ____) in rand_results]
+        y_axis_1 = [alg - all_struct for \
+                        (_, __, all_struct, alg, ___) in rand_results]
+        y_axis_2 = [rand - all_struct for \
+                        (_, __, all_struct, ___, rand) in rand_results]
         plt.figure(figsize=(9,6))
-        for j in range(0, len(stacks)):
-            s = stacks[j]
-            plt.bar(bar_names, s, bottom=bottoms, label=labels[j])
-            for i in range(0, len(bottoms)):
-                bottoms[i] += s[i]
+        plt.scatter(x_axis, y_axis_1, label=algorithm)
+        plt.scatter(x_axis, y_axis_2, label="Random Changes")
         plt.legend()
-        plt.suptitle("Score Decompositions - %s" % algorithm, size=20)
-        plt.title("%s %s" % (graph_disp_name, dir_str), size=18)
-        plt.xlabel("Models", size=18, labelpad=10)
-        plt.ylabel("Gains Above Edit Cost", size=18)
-        plt.savefig("results/%s%s_decomp_%s_%s%s.png" % \
+        plt.suptitle("Score Decompositions of Noise - %s" % algorithm, size=20)
+        plt.title("%d-Node ER Graphs" % rand_n, size=18)
+        plt.xlabel("Edge Probability", size=18, labelpad=10)
+        plt.ylabel("Gains Above All Structure", size=18)
+        plt.savefig("results/%s%s_rand_decomp_%s%s.png" % \
                         (["", "core_only/"][int(core_only)], \
-                         algorithm.lower(), graph_name, dir_str.lower(), \
+                         algorithm.lower(), dir_str.lower(), \
                          ["", "_core"][int(core_only)]), \
                     bbox_inches='tight', pad_inches=0.5)
-        plt.close()

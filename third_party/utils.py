@@ -624,3 +624,13 @@ def limit_edges_by_nodeset(edges, nodes):
         if a in nodes and b in nodes:
             new_edges.add((a, b))
     return new_edges
+
+def get_ER_rand_graph(n, p, directed=False):
+    nodes = set([i for i in range(0, n)])
+    edges = set()
+    for i in range(0, n):
+        for j in range((i + 1) * (1 - int(directed)), n):
+            if random.random() < p:
+                edges.add((i, j))
+
+    return (nodes, edges)
