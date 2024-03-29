@@ -127,9 +127,9 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
 
         // Relative Calculation
         log2_sequence = num_additions * log2_p_minus +
-                       (-num_additions) * log2_1_minus_p_minus +
+                         -(num_additions * log2_1_minus_p_minus) +
                         num_removals * log2_p_plus +
-                       (-num_removals) * log2_1_minus_p_plus;
+                         -(num_removals * log2_1_minus_p_plus);
     }
 
     // Perform the probability calculations.
@@ -276,9 +276,9 @@ std::array<long double, 6>
 
         // Relative Calculation
         log2_sequence = num_additions * log2_p_minus +
-                       (-num_additions) * log2_1_minus_p_minus +
+                         -(num_additions * log2_1_minus_p_minus) +
                         num_removals * log2_p_plus +
-                       (-num_removals) * log2_1_minus_p_plus;
+                         -(num_removals * log2_1_minus_p_plus);
     }
 
     // long double log2_stabilizer_size, log2_hypothesis_aut;
@@ -438,9 +438,9 @@ std::pair<long double, long double>
 
         // Relative Calculation
         log2_sequence = num_additions * log2_p_minus +
-                       (-num_additions) * log2_1_minus_p_minus +
+                         -(num_additions * log2_1_minus_p_minus) +
                         num_removals * log2_p_plus +
-                       (-num_removals) * log2_1_minus_p_plus;
+                         -(num_removals * log2_1_minus_p_plus);
     }
 
     // Perform the probability calculations.
