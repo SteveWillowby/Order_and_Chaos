@@ -28,7 +28,7 @@ __nodes_list__ =  [None,         None, \
                    "maayan-foodweb_nodes.txt", "pol_blogs_nodes.txt", \
                    "eucore_nodes.txt", "cora_nodes.txt", \
                    None,         None,           None, \
-                   None                  None, \
+                   None,                 None, \
                    None]
 
 __dir_list__ =    [False,        False, \
