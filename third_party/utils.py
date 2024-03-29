@@ -10,10 +10,11 @@ import os
 #   The part of the score due to AO size from singleton swaps
 #   The part of the score due to noise size probability
 def run_scorer(graph_edges, nodes, noise_edges, directed):
-    nodes_file =  "/tmp/score_nodes.txt"
-    graph_file =  "/tmp/score_graph.txt"
-    noise_file =  "/tmp/score_noise.txt"
-    result_file = "/tmp/score_result.txt"
+    pid = os.getpid()
+    nodes_file =  "/tmp/score_nodes_%d.txt" % pid
+    graph_file =  "/tmp/score_graph_%d.txt" % pid
+    noise_file =  "/tmp/score_noise_%d.txt" % pid
+    result_file = "/tmp/score_result_%d.txt" % pid
 
     write_nodeset(nodes_file, nodes)
     write_edgeset(graph_file, graph_edges)

@@ -56,6 +56,13 @@
         - edges: ``
     - list of edges `(u, v)` where species `u` eats species `v`
     - `LINK`
+- fullerene molecule graphs
+    - properties
+        - undirected
+        - nodes: Depends on the file chosen
+        - edges: `1.5` edges per node
+    - Probably: list of edges `(u, v)` where atom `u` connects to atom `v`
+    - `LINK`
 - faculty hiring (Business, Computer Science, and History)
     - properties
         - directed

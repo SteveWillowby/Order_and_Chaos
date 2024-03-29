@@ -20,20 +20,27 @@ __graphs_base__ = "../experiments/real_world_graphs/"
 __graphs_list__ = ["karate.txt", "season_4_undirected_edges.txt", \
                    "maayan-foodweb.txt",       "pol_blogs.txt", \
                    "eucore.txt",       "cora.txt", \
-                   "flickr.txt", "epinions.txt", "enron_email.txt"]
+                   "flickr.txt", "epinions.txt", "enron_email.txt", \
+                   "Fullerene_C180.txt", "Fullerene_C720.txt", \
+                   "Fullerene_C6000.txt"]
 
 __nodes_list__ =  [None,         None, \
                    "maayan-foodweb_nodes.txt", "pol_blogs_nodes.txt", \
                    "eucore_nodes.txt", "cora_nodes.txt", \
-                   None,         None,           None]
+                   None,         None,           None, \
+                   None                  None, \
+                   None]
 
 __dir_list__ =    [False,        False, \
                    True,                       True, \
                    True,               True, \
-                   False,        False,           True]
+                   False,        False,           True, \
+                   False,                False, \
+                   False]
 
 __name_list__ =   ["karate", "season_4", "foodweb", "pol_blogs", "eucore", \
-                   "cora", "flickr", "epinions", "enron"]
+                   "cora", "flickr", "epinions", "enron", \
+                   "fullerene_c180", "fullerene_c720", "fullerene_c6000"]
 
 if __name__ == "__main__":
 
@@ -108,6 +115,9 @@ if __name__ == "__main__":
                 continue
             if __name_list__[i] in ["enron"] and \
                     algorithm.lower() not in ["vog"]:
+                continue
+            if __name_list__[i] in ["fullerene_c6000"] and \
+                    algorithm.lower() not in ["subdue"]:
                 continue
 
             graph_file = __graphs_base__ + __graphs_list__[i]
