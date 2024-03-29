@@ -36,6 +36,10 @@ def run_scorer(graph_edges, nodes, noise_edges, directed):
                   float(lines[-7].strip()),
                   float(lines[-5].strip()),
                   float(lines[-3].strip()))
+
+    os.system("rm %s; rm %s; rm %s; rm %s" % \
+                (nodes_file, graph_file, noise_file, result_file))
+
     return score_info
 
 # Returns:
