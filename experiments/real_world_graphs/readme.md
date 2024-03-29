@@ -61,6 +61,8 @@
         - undirected
         - nodes: Depends on the file chosen
         - edges: `1.5` edges per node
+        - regular -- every node has degree 3
+        - mostly a tiled hexagon pattern with a few pentagons
     - Probably: list of edges `(u, v)` where atom `u` connects to atom `v`
     - `LINK`
 - faculty hiring (Business, Computer Science, and History)
