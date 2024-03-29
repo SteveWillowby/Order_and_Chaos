@@ -81,6 +81,9 @@ int main(int argc, char* argv[]) {
                  <<" based on input graph"
                  <<std::endl<<"\t\t\t* if used, must also use p+"
                  <<std::endl<<std::endl
+                 <<"-no_extra:\tReduces number of automorphism calls and"
+                 <<" amount of non-score info"
+                 <<std::endl<<std::endl
                  ;
 
         return 0;
@@ -142,6 +145,8 @@ int main(int argc, char* argv[]) {
                 "Error! Cannot provide p+ without p- and vice versa");
     }
 
+    bool no_extra = cmd_flag_present(inputs, "-no_extra");
+
     // const bool corrupt_original = false;
     // Only used when corrupt_original is true.
     // const size_t num_additions = 0;
@@ -185,17 +190,8 @@ int main(int argc, char* argv[]) {
 
     bool has_self_loops = g.num_loops() > 0;
 
+    double log2_aut;
     NTSparseGraph g_info = NTSparseGraph(g);
-    std::cout<<"Running `traces` on original graph."<<std::endl;
-    nt_results = traces(g_info, o);
-    double log2_aut = std::log2l(nt_results.num_aut_base) +
-                     ((long double)(nt_results.num_aut_exponent)) *
-                                      std::log2l(10);
-    std::cout<<"The original graph has log2_aut = "<<log2_aut<<std::endl;
-
-    std::unordered_set<Edge, EdgeHash> deletions, additions;
-    std::vector<Edge> deletions_sorted, additions_sorted;
-    std::vector<Edge> flip_vec;
 
     size_t max_possible_edges =
             (g.num_nodes() * (g.num_nodes() - 1)) / (1 + size_t(!directed)) +
@@ -210,6 +206,35 @@ int main(int argc, char* argv[]) {
         max_flip_or_edge = g.num_nodes() * 2;
     }
     CombinatoricUtility comb_util(max_possible_edges, max_flip_or_edge);
+
+    std::vector<long double> log_probs;
+    if (custom_p_values) {
+        log_probs = {std::log2l(p_plus),
+                     std::log2l(1.0 - p_plus),
+                     std::log2l(p_minus),
+                     std::log2l(1.0 - p_minus)};
+    } else {
+        // log_probs = {-1.0, -1.0, -1.0, -1.0};
+        log_probs = default_log2_noise_probs(g_info, comb_util);
+    }
+
+    // TODO: Remove this printout
+    std::cout<<"Log2 Noise Probs:"<<std::endl
+             <<"\t Log2(p_plus) =      "<<log_probs[0]<<std::endl
+             <<"\t Log2(1 - p_plus) =  "<<log_probs[1]<<std::endl
+             <<"\t Log2(p_minus) =     "<<log_probs[2]<<std::endl
+             <<"\t Log2(1 - p_minus) = "<<log_probs[3]<<std::endl<<std::endl;
+
+    std::cout<<"Running `traces` on original graph."<<std::endl;
+    nt_results = traces(g_info, o);
+    log2_aut = std::log2l(nt_results.num_aut_base) +
+                 ((long double)(nt_results.num_aut_exponent)) *
+                                  std::log2l(10);
+    std::cout<<"The original graph has log2_aut = "<<log2_aut<<std::endl;
+
+    std::unordered_set<Edge, EdgeHash> deletions, additions;
+    std::vector<Edge> deletions_sorted, additions_sorted;
+    std::vector<Edge> flip_vec;
 
     deletions = std::unordered_set<Edge, EdgeHash>();
     additions = std::unordered_set<Edge, EdgeHash>();
@@ -228,18 +253,6 @@ int main(int argc, char* argv[]) {
         }
     }
 
-
-    NTSparseGraph g_nt = NTSparseGraph(g);
-    std::vector<long double> log_probs;
-    if (custom_p_values) {
-        log_probs = {std::log2l(p_plus),
-                     std::log2l(1.0 - p_plus),
-                     std::log2l(p_minus),
-                     std::log2l(1.0 - p_minus)};
-    } else {
-        // log_probs = {-1.0, -1.0, -1.0, -1.0};
-        log_probs = default_log2_noise_probs(g_nt, comb_util);
-    }
 
 //    se_del = deletions;
 //    se_add = additions;
@@ -263,22 +276,24 @@ int main(int argc, char* argv[]) {
                           log_probs[1], log_probs[3],
                           max_flip_or_edge);
 
-    for (auto x = additions.begin(); x != additions.end(); x++) {
-        g.flip_edge(x->first, x->second);
+    if (!no_extra) {
+        for (auto x = additions.begin(); x != additions.end(); x++) {
+            g.flip_edge(x->first, x->second);
+        }
+        for (auto x = deletions.begin(); x != deletions.end(); x++) {
+            g.flip_edge(x->first, x->second);
+        }
+
+        g_info = NTSparseGraph(g);
+
+        nt_results = traces(g_info, o);
+        log2_aut   = std::log2l(nt_results.num_aut_base) +
+                         ((long double)(nt_results.num_aut_exponent)) *
+                                          std::log2l(10);
+
+        std::cout<<std::endl;
+        std::cout<<"The modified graph has log2_aut = "<<log2_aut<<std::endl;
     }
-    for (auto x = deletions.begin(); x != deletions.end(); x++) {
-        g.flip_edge(x->first, x->second);
-    }
-
-    NTSparseGraph g_nt_2(g);
-
-    nt_results = traces(g_nt_2, o);
-    log2_aut   = std::log2l(nt_results.num_aut_base) +
-                     ((long double)(nt_results.num_aut_exponent)) *
-                                      std::log2l(10);
-
-    std::cout<<std::endl;
-    std::cout<<"The modified graph has log2_aut = "<<log2_aut<<std::endl;
 
     std::cout<<std::endl<<"Score Breakdown:"<<std::endl;
     std::cout<<"Log(Aut from connected components)"<<std::endl<<score_info[1]

@@ -22,7 +22,7 @@ def run_scorer(graph_edges, nodes, noise_edges, directed):
     dir_str = ["-u", "-d"][int(directed)]
 
     os.system(("../executables/score_only -graph %s " % graph_file) + \
-              ("-edges %s -nodes %s %s > %s" % \
+              ("-edges %s -nodes %s %s -no_extra > %s" % \
                 (noise_file, nodes_file, dir_str, result_file)))
 
     f = open(result_file, "r")
