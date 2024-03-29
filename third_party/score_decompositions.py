@@ -175,6 +175,7 @@ if __name__ == "__main__":
         print("\t\t#From AO (sing. swaps only):  %f" % no_noise[4])
         print("\t\t#From noise size probability: %f" % no_noise[5])
         print("\t#Score:          %f" % score[0])
+        print("\t#Gain Above All Structure:      %f" % (score[0] - no_noise[0]))
         print("\t#W/O Singletons: %f" % (score[1] + score[3] + score[5]))
         print("\t\t#From Aut (no singletons):    %f" % score[1])
         print("\t\t#From Aut (singletons only):  %f" % score[2])
@@ -193,6 +194,8 @@ if __name__ == "__main__":
             avg_rand_score[j] /= num_rand_scores
 
         print("\t#AR Score:       %f" % avg_rand_score[0])
+        print("\t#AR Gain Above All Structure:   %f" % \
+                (avg_rand_score[0] - no_noise[0]))
         print("\t#W/O Singletons: %f" % \
                 (avg_rand_score[1] + avg_rand_score[3] + avg_rand_score[5]))
         print("\t\t#From Aut (no singletons):    %f" % avg_rand_score[1])
