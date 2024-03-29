@@ -15,7 +15,6 @@
 #include "nauty_traces.h"
 #include "noise_prob_choice.h"
 #include "nt_sparse_graph.h"
-#include "simulated_annealing_search.h"
 #include "sparse_graph.h"
 
 std::string get_cmd_option(const std::vector<std::string>& inputs,

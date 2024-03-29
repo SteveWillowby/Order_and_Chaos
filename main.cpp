@@ -14,7 +14,6 @@
 #include "nauty_traces.h"
 #include "noise_prob_choice.h"
 #include "nt_sparse_graph.h"
-#include "simulated_annealing_search.h"
 #include "sparse_graph.h"
 
 std::string get_cmd_option(const std::vector<std::string>& inputs,
@@ -598,15 +597,6 @@ std::to_string(legal_adds) + " options due to -legal_noise");
             }
         }
     }
-
-    /*
-    size_t num_iterations = g.num_nodes() * g.num_nodes() *
-                            g.num_nodes();
-    num_iterations = (num_iterations < 1000000 ? 1000000 : num_iterations);
-    */
-
-    // auto result = simulated_annealing_search(g, num_iterations, top_k);
-
 
     return 0;
 }
