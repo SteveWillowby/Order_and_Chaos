@@ -110,6 +110,7 @@ def run_VoG(edges, directed=False):
     os.system("mv heuristic* VoG/DATA/")
 
     (s_e, n_e) = read_VoG_decomposition(edges, new_nodes, file_base)
+    os.system("rm greedySelection*.model")  # Wait until after reading.
 
     # Restore the node labels.
     return (set([(new_to_old[a], new_to_old[b]) for (a, b) in s_e]), \
@@ -228,7 +229,7 @@ def run_C_SUBDUE(edges, directed=False, \
               temp_out_filename)
 
     chosen_edges = \
-        read_C_SUBDUE_output_maybe(temp_out_filename, edges, nodes, directed)
+        read_C_SUBDUE_output(temp_out_filename, edges, nodes, directed)
 
     noise_edges = (edges - chosen_edges) | (chosen_edges - edges)
 
@@ -239,7 +240,7 @@ def run_C_SUBDUE(edges, directed=False, \
 
     return (chosen_edges, noise_edges)
 
-def read_C_SUBDUE_output_maybe(filename, edges, nodes, directed=False):
+def read_C_SUBDUE_output(filename, edges, nodes, directed=False):
 
     assert min(nodes) == 1
     assert max(nodes) == len(nodes)
@@ -325,6 +326,8 @@ def read_C_SUBDUE_output_maybe(filename, edges, nodes, directed=False):
     return chosen_edges
 
 
+# This function is unfinished.
+#
 # Returns:
 #   (struct_edges, noise_edges)
 def run_PY_SUBDUE(edges, directed=False, \
@@ -365,6 +368,7 @@ def run_PY_SUBDUE(edges, directed=False, \
 
     # Get the result.
 
+    # TODO: Consider finishing
 
 """
 def run_GraMi(edges, directed=False, min_support="auto"):

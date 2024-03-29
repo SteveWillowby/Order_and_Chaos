@@ -106,6 +106,9 @@ if __name__ == "__main__":
         else:
             if __name_list__[i] in ["flickr", "epinions"]:
                 continue
+            if __name_list__[i] in ["enron"] and \
+                    algorithm.lower() not in ["vog"]:
+                continue
 
             graph_file = __graphs_base__ + __graphs_list__[i]
             directed = __dir_list__[i] and not always_undirected
