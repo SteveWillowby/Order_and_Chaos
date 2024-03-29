@@ -35,14 +35,14 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
 
     NautyTracesResults nt_results;
 
-    size_t n = g.num_nodes();
-    size_t m = g.num_edges();
-    size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
+    // size_t n = g.num_nodes();
+    // size_t m = g.num_edges();
+    // size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
 
     size_t num_additions = edge_additions.size();
     size_t num_removals = edge_removals.size();
 
-    size_t m_prime = m + num_additions - num_removals;
+    // size_t m_prime = m + num_additions - num_removals;
 
     long double log2_stabilizer_size, log2_hypothesis_aut;
 
@@ -111,14 +111,25 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     //  set of this SIZE would be chosen. However, that includes some
     //  (a choose b) terms that cancel out with other aspects of our scoring,
     //  formula, so we can do this simpler calculation instead.
+
+    // FURTHER note that we return a value which is RELATIVE to what we would
+    //  have gotten if the noise size had been zero. This reduces floating
+    //  point errors.
     long double log2_sequence;
     if (log2_p_plus == -1.0 && log2_p_minus == -1.0) {
         log2_sequence = 0;
     } else {
+        // Absolute Calculation
+        // log2_sequence = num_additions * log2_p_minus +
+        //             (m_prime - num_additions) * log2_1_minus_p_minus +
+        //             num_removals * log2_p_plus +
+        //        ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+
+        // Relative Calculation
         log2_sequence = num_additions * log2_p_minus +
-                    (m_prime - num_additions) * log2_1_minus_p_minus +
-                    num_removals * log2_p_plus +
-               ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+                       (-num_additions) * log2_1_minus_p_minus +
+                        num_removals * log2_p_plus +
+                       (-num_removals) * log2_1_minus_p_plus;
     }
 
     // Perform the probability calculations.
@@ -150,14 +161,14 @@ std::array<long double, 6>
 
     NautyTracesResults nt_results;
 
-    size_t n = g.num_nodes();
-    size_t m = g.num_edges();
-    size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
+    // size_t n = g.num_nodes();
+    // size_t m = g.num_edges();
+    // size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
 
     size_t num_additions = edge_additions.size();
     size_t num_removals = edge_removals.size();
 
-    size_t m_prime = m + num_additions - num_removals;
+    // size_t m_prime = m + num_additions - num_removals;
 
     long double log2_stabilizer_size, log2_hypothesis_aut;
 
@@ -249,14 +260,25 @@ std::array<long double, 6>
     //  set of this SIZE would be chosen. However, that includes some
     //  (a choose b) terms that cancel out with other aspects of our scoring,
     //  formula, so we can do this simpler calculation instead.
+
+    // FURTHER note that we return a value which is RELATIVE to what we would
+    //  have gotten if the noise size had been zero. This reduces floating
+    //  point errors.
     long double log2_sequence;
     if (log2_p_plus == -1.0 && log2_p_minus == -1.0) {
         log2_sequence = 0;
     } else {
+        // Absolute Calculation
+        // log2_sequence = num_additions * log2_p_minus +
+        //             (m_prime - num_additions) * log2_1_minus_p_minus +
+        //             num_removals * log2_p_plus +
+        //        ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+
+        // Relative Calculation
         log2_sequence = num_additions * log2_p_minus +
-                    (m_prime - num_additions) * log2_1_minus_p_minus +
-                    num_removals * log2_p_plus +
-               ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+                       (-num_additions) * log2_1_minus_p_minus +
+                        num_removals * log2_p_plus +
+                       (-num_removals) * log2_1_minus_p_plus;
     }
 
     // long double log2_stabilizer_size, log2_hypothesis_aut;
@@ -309,14 +331,14 @@ std::pair<long double, long double>
 
     NautyTracesResults nt_results;
 
-    size_t n = g.num_nodes();
-    size_t m = g.num_edges();
-    size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
+    // size_t n = g.num_nodes();
+    // size_t m = g.num_edges();
+    // size_t max_num_edges = (n * (n - 1)) / (size_t(!g.directed) + 1);
 
     size_t num_additions = edge_additions.size();
     size_t num_removals = edge_removals.size();
 
-    size_t m_prime = m + num_additions - num_removals;
+    // size_t m_prime = m + num_additions - num_removals;
 
     long double log2_stabilizer_size, log2_hypothesis_aut;
 
@@ -400,14 +422,25 @@ std::pair<long double, long double>
     //  set of this SIZE would be chosen. However, that includes some
     //  (a choose b) terms that cancel out with other aspects of our scoring,
     //  formula, so we can do this simpler calculation instead.
+
+    // FURTHER note that we return a value which is RELATIVE to what we would
+    //  have gotten if the noise size had been zero. This reduces floating
+    //  point errors.
     long double log2_sequence;
     if (log2_p_plus == -1.0 && log2_p_minus == -1.0) {
         log2_sequence = 0;
     } else {
+        // Absolute Calculation
+        // log2_sequence = num_additions * log2_p_minus +
+        //             (m_prime - num_additions) * log2_1_minus_p_minus +
+        //             num_removals * log2_p_plus +
+        //        ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+
+        // Relative Calculation
         log2_sequence = num_additions * log2_p_minus +
-                    (m_prime - num_additions) * log2_1_minus_p_minus +
-                    num_removals * log2_p_plus +
-               ((max_num_edges - m_prime) - num_removals) * log2_1_minus_p_plus;
+                       (-num_additions) * log2_1_minus_p_minus +
+                        num_removals * log2_p_plus +
+                       (-num_removals) * log2_1_minus_p_plus;
     }
 
     // Perform the probability calculations.
