@@ -204,6 +204,11 @@ def read_VoG_decomposition(graph_edges, nodes, file_base):
 
 # Returns:
 #   (struct_edges, noise_edges)
+#
+# If iterations is 0, then SUBDUE continues heirarchically compressing
+#   until it can no longer compress.
+# If iterations is another number, SUBDUE will try to perform that many rounds
+#   of compression.
 def run_C_SUBDUE(edges, directed=False, \
                  min_size=3, max_size=6, iterations=0, \
                  temp_in_filename="C_SUBDUE/testing/graph_file.txt", \
