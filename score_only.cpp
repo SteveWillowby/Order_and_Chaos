@@ -83,6 +83,9 @@ int main(int argc, char* argv[]) {
                  <<"-no_extra:\tReduces number of automorphism calls and"
                  <<" amount of non-score info"
                  <<std::endl<<std::endl
+                 <<"-approx:\tUse an approximate ISO answer. Scores may be"
+                 <<" too high."
+                 <<std::endl<<std::endl
                  ;
 
         return 0;
@@ -145,6 +148,7 @@ int main(int argc, char* argv[]) {
     }
 
     bool no_extra = cmd_flag_present(inputs, "-no_extra");
+    bool full_iso = !cmd_flag_present(inputs, "-approx");
 
     // const bool corrupt_original = false;
     // Only used when corrupt_original is true.
@@ -224,8 +228,13 @@ int main(int argc, char* argv[]) {
              <<"\t Log2(p_minus) =     "<<log_probs[2]<<std::endl
              <<"\t Log2(1 - p_minus) = "<<log_probs[3]<<std::endl<<std::endl;
 
-    std::cout<<"Running `traces` on original graph."<<std::endl;
-    nt_results = traces(g_info, o);
+    if (full_iso) {
+        std::cout<<"Running `traces` on original graph."<<std::endl;
+        nt_results = traces(g_info, o);
+    } else {
+        std::cout<<"Running `fake_iso` on original graph."<<std::endl;
+        nt_results = fake_iso(g_info, o);
+    }
     log2_aut = std::log2l(nt_results.num_aut_base) +
                  ((long double)(nt_results.num_aut_exponent)) *
                                   std::log2l(10);
@@ -273,7 +282,8 @@ int main(int argc, char* argv[]) {
                           additions, deletions,
                           log_probs[0], log_probs[2],
                           log_probs[1], log_probs[3],
-                          max_flip_or_edge);
+                          max_flip_or_edge,
+                          full_iso);
 
     if (!no_extra) {
         for (auto x = additions.begin(); x != additions.end(); x++) {
@@ -285,7 +295,11 @@ int main(int argc, char* argv[]) {
 
         g_info = NTSparseGraph(g);
 
-        nt_results = traces(g_info, o);
+        if (full_iso) {
+            nt_results = traces(g_info, o);
+        } else {
+            nt_results = fake_iso(g_info, o);
+        }
         log2_aut   = std::log2l(nt_results.num_aut_base) +
                          ((long double)(nt_results.num_aut_exponent)) *
                                           std::log2l(10);

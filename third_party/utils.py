@@ -9,7 +9,7 @@ import os
 #   The part of the score due to AO size excepting singleton swaps
 #   The part of the score due to AO size from singleton swaps
 #   The part of the score due to noise size probability
-def run_scorer(graph_edges, nodes, noise_edges, directed):
+def run_scorer(graph_edges, nodes, noise_edges, directed, approximate=False):
     pid = os.getpid()
     nodes_file =  "/tmp/score_nodes_%d.txt" % pid
     graph_file =  "/tmp/score_graph_%d.txt" % pid
@@ -21,10 +21,11 @@ def run_scorer(graph_edges, nodes, noise_edges, directed):
     write_edgeset(noise_file, noise_edges)
 
     dir_str = ["-u", "-d"][int(directed)]
+    approx_str = ["", " -approx "][int(approximate)]
 
     os.system(("../executables/score_only -graph %s " % graph_file) + \
-              ("-edges %s -nodes %s %s -no_extra > %s" % \
-                (noise_file, nodes_file, dir_str, result_file)))
+              ("-edges %s -nodes %s %s -no_extra %s > %s" % \
+                (noise_file, nodes_file, dir_str, approx_str, result_file)))
 
     f = open(result_file, "r")
     lines = f.readlines()

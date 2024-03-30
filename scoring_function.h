@@ -87,6 +87,9 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
 //
 // Further, this version does all its edits to the graph BEFORE turning the
 //  graph into an NTSparseGraph
+//
+// If `full_iso` is set to true, the program will use traces like normal.
+// If it is set to false, then the program will use the WL-based "fake_iso".
 std::array<long double, 6>
   score_breakdown(SparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<int>& node_orbit_coloring,
@@ -97,7 +100,8 @@ std::array<long double, 6>
                   const long double log2_p_plus, const long double log2_p_minus,
                   const long double log2_1_minus_p_plus,
                   const long double log2_1_minus_p_minus,
-                  const size_t max_change);
+                  const size_t max_change,
+                  bool full_iso);
                   
 std::pair<long double, long double>
             score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
