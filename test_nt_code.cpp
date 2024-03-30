@@ -50,7 +50,7 @@ int main(void) {
 
     NTSparseGraph g_undir = NTSparseGraph(false, 7);
 
-    NautyTracesResults result = fake_iso(g_undir, options);
+    NautyTracesResults result = traces(g_undir, options);
     node_orbits.clear();
     for (size_t i = 0; i < g_undir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -66,7 +66,7 @@ int main(void) {
     g_undir.add_edge(0, 1);
     g_undir.add_edge(2, 1);
 
-    result = fake_iso(g_undir, options);
+    result = traces(g_undir, options);
     node_orbits.clear();
     for (size_t i = 0; i < g_undir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -82,7 +82,7 @@ int main(void) {
     NTSparseGraph g_dir = NTSparseGraph(true, 7);
     g_dir.add_edge(0, 1);
     g_dir.add_edge(2, 1);
-    result = fake_iso(g_dir, options);
+    result = traces(g_dir, options);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -96,7 +96,7 @@ int main(void) {
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir.add_edge(0, 0);
-    result = fake_iso(g_dir, options);
+    result = traces(g_dir, options);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -112,7 +112,7 @@ int main(void) {
     g_dir.delete_edge(0, 0);
     g_dir.delete_edge(2, 1);
     g_dir.add_edge(1, 2);
-    result = fake_iso(g_dir, options);
+    result = traces(g_dir, options);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -135,7 +135,7 @@ int main(void) {
     node_coloring.set(5, 0);
     node_coloring.set(6, 0);
     NTPartition partition = g_dir.nauty_traces_coloring(node_coloring);
-    result = fake_iso(g_dir, options, partition);
+    result = traces(g_dir, options, partition);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -150,7 +150,8 @@ int main(void) {
     std::cout<<"Canonical Order: "<<vec_as_string(result.canonical_node_order)<<std::endl;
 
     g_dir.add_edge(0, 0);
-    result = fake_iso(g_dir, options, partition);
+    partition = g_dir.nauty_traces_coloring(node_coloring);
+    result = traces(g_dir, options, partition);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -201,7 +202,7 @@ int main(void) {
     std::cout<<"\n\nStarting Partition: "<<vec_as_string(partition.get_cell_list())<<std::endl;
     std::cout<<vec_as_string(std::vector<int>(partition.get_node_ids(), partition.get_node_ids() + partition.size()))<<std::endl;
     std::cout<<vec_as_string(std::vector<int>(partition.get_partition_ints(), partition.get_partition_ints() + partition.size()))<<std::endl;
-    result = fake_iso(g_dir, options, partition);
+    result = traces(g_dir, options, partition);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -221,7 +222,7 @@ int main(void) {
     edge_coloring.set(EDGE(1, 2, true), 7);
     edge_coloring.set(EDGE(2, 0, true), 7);
     partition = g_dir.nauty_traces_coloring(edge_coloring);
-    result = fake_iso(g_dir, options, partition);
+    result = traces(g_dir, options, partition);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -268,7 +269,7 @@ int main(void) {
 
     partition = g_dir.nauty_traces_coloring(node_coloring, edge_coloring);
 
-    result = fake_iso(g_dir, options, partition);
+    result = traces(g_dir, options, partition);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -294,7 +295,7 @@ int main(void) {
     edge_coloring.set(EDGE(5,4,true), 1);
 
     partition = g_dir.nauty_traces_coloring(node_coloring, edge_coloring);
-    result = fake_iso(g_dir, options, partition);
+    result = traces(g_dir, options, partition);
     node_orbits.clear();
     for (size_t i = 0; i < g_dir.num_nodes(); i++) {
         node_orbits.push_back(result.node_orbits[i]);
@@ -333,7 +334,7 @@ int main(void) {
         std::cout<<std::endl;
         std::cout<<"// Running on "<<graph_name<<" as a directed graph."<<std::endl;
         std::cout<<"// Num Nodes: "<<real_graph.num_nodes()<<"   Num Edges: "<<real_graph.num_edges()<<std::endl;
-        result = fake_iso(real_graph, options);
+        result = traces(real_graph, options);
         std::cout<<"|Aut(G)| = "<<result.num_aut_base<<" x 10^"<<result.num_aut_exponent<<std::endl;
         std::cout<<"Num Orbits: "<<result.num_node_orbits<<std::endl;
         std::cout<<"Error Status: "<<result.error_status<<std::endl;

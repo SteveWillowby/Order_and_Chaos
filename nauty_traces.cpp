@@ -193,6 +193,7 @@ NautyTracesResults __iso_program(int program, NTSparseGraph& g,
     } else {  // Fake ISO
         long double aut_base;
         long double aut_exp;
+
         __fake_iso(&g_nt, p.get_node_ids(), p.get_partition_ints(),
                    orbits, &aut_base, &aut_exp);
 
@@ -486,10 +487,13 @@ void __fake_iso(sparsegraph* g, int* partition_node_ids, int* partition_ints,
         naive_aut *= cell_ptr->size();
 
         // Calculate Affected Cells
-        for (auto nbr_itr = cell_ptr->begin();
-                  nbr_itr != cell_ptr->end(); nbr_itr++) {
-            neighbor = *nbr_itr;
-            affected_labels.insert(node_to_label[neighbor]);
+        for (auto node_itr = cell_ptr->begin();
+                  node_itr != cell_ptr->end(); node_itr++) {
+            for (auto nbr_itr = neighbor_lists[*node_itr].begin();
+                      nbr_itr != neighbor_lists[*node_itr].end(); nbr_itr++) {
+                neighbor = *nbr_itr;
+                affected_labels.insert(node_to_label[neighbor]);
+            }
         }
 
         // Ok, now erase it.
