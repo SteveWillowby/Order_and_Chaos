@@ -7,14 +7,11 @@
 #include<string>
 #include<vector>
 
-#include "edge.h"
 #include "edge_sampler.h"
 #include "file_utils.h"
 #include "genetic_alg_search.h"
 #include "nauty_traces.h"
 #include "noise_prob_choice.h"
-#include "nt_sparse_graph.h"
-#include "sparse_graph.h"
 
 std::string get_cmd_option(const std::vector<std::string>& inputs,
                            const std::string& option) {
