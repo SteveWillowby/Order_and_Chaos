@@ -39,13 +39,13 @@
 #include<utility>
 #include<vector>
 
-#ifndef SYM__NT_SPARSE_GRAPH_H
-#define SYM__NT_SPARSE_GRAPH_H
+#ifndef SCHENO__NT_SPARSE_GRAPH_H
+#define SCHENO__NT_SPARSE_GRAPH_H
 
 // Only define full debug mode to fully test out the class in nt_graph_test
 //  When this flag is defined, the protected members of the class become public.
 //  Comment out for normal use.
-// #define SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+// #define SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 
 const size_t NAUTY_TRACES_MAXN = 2000000000;
 
@@ -171,7 +171,7 @@ public:
     // NOTE: This label is subject to change if the graph is modified.
     virtual int edge_node(const int a, const int b) const;
 
-#ifndef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+#ifndef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 protected:
 #endif
 

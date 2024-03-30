@@ -1,8 +1,8 @@
 #include "nt_sparse_graph.h"
 #include "scoring_function.h"
 
-#ifndef SYM__NOISE_PROB_CHOICE_H
-#define SYM__NOISE_PROB_CHOICE_H
+#ifndef SCHENO__NOISE_PROB_CHOICE_H
+#define SCHENO__NOISE_PROB_CHOICE_H
 #define default_log2_noise_probs log2_noise_probs_fancy_equality
 
 

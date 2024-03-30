@@ -9,7 +9,7 @@
 
 int main(void) {
 
-#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+#ifdef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
     std::cout<<"###################################################"<<std::endl
              <<"Checking internal consistency of NT representation."<<std::endl
              <<"###################################################"<<std::endl;
@@ -320,18 +320,14 @@ int main(void) {
     bool directed = true;
 
     NTSparseGraph real_graph(directed);
-    // not_real_01 is a (directed) 6-cycle
-    // not_real_02 is just 101 nodes where 1 has a self-loop
-    // not_real_03 is 101 nodes where all nodes connect to a hub node
-    // not_real_04 is 100 nodes which all have self-loops
-    std::vector<std::string> graph_names = {"not_real_01.g", "karate.g", "convote.g", "cora.g",
-                                            "not_real_03.g", "not_real_04.g", "not_real_02.g"};
+    std::vector<std::string> graph_names =
+                        {"karate.txt", "convote.txt", "cora.txt"};
     std::string graph_name;
     
     for (auto gn_itr = graph_names.begin(); gn_itr != graph_names.end(); gn_itr++) {
         graph_name = *gn_itr;
-        real_graph = read_graph(directed, "real_world_graphs/" + graph_name);
-        #ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+        real_graph = read_graph(directed, "nt_test_graphs/" + graph_name);
+        #ifdef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
         consistency_check(real_graph);
         #endif
         std::cout<<std::endl;

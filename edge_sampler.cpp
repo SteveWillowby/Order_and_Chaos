@@ -21,23 +21,23 @@ EdgeSampler::EdgeSampler(const Graph& g, std::mt19937& gen) :
     size_t max_num_edges = (n * size_t(has_self_loops)) +
                            (n * (n - 1)) / (size_t(!directed) + 1);
 
-    if (n * n > SYM__MAX_EDGE_LABEL) {
+    if (n * n > SCHENO__MAX_EDGE_LABEL) {
         throw std::range_error(std::string("Error! An EdgeSampler for a ") + 
                                "graph with " + std::to_string(n) + " nodes " +
                                "requires a larger edge-int type. "
-                               "Redefine SYM__edge_int_type " +
-                               "and SYM__MAX_EDGE_LABEL in edge.h.");
+                               "Redefine SCHENO__edge_int_type " +
+                               "and SCHENO__MAX_EDGE_LABEL in edge.h.");
     }
 
-    edges_un_sampled = std::vector<SYM__edge_int_type>(num_edges, 0);
+    edges_un_sampled = std::vector<SCHENO__edge_int_type>(num_edges, 0);
     non_edges_un_sampled =
-        std::vector<SYM__edge_int_type>(max_num_edges - num_edges, 0);
-    edges_sampled = std::vector<SYM__edge_int_type>();
-    non_edges_sampled = std::vector<SYM__edge_int_type>();
+        std::vector<SCHENO__edge_int_type>(max_num_edges - num_edges, 0);
+    edges_sampled = std::vector<SCHENO__edge_int_type>();
+    non_edges_sampled = std::vector<SCHENO__edge_int_type>();
 
     size_t next_edge_idx = 0;
     size_t next_non_edge_idx = 0;
-    SYM__edge_int_type edge_id;
+    SCHENO__edge_int_type edge_id;
     for (size_t a = 0; a < n; a++) {
         for (size_t b = size_t(!directed) * a; b < n; b++) {
             if (a == b && !has_self_loops) {
@@ -67,7 +67,7 @@ Edge EdgeSampler::sample_edge() {
     last_op = 1;
 
     size_t idx = dist(generator) * edges_un_sampled.size();
-    SYM__edge_int_type e = edges_un_sampled[idx];
+    SCHENO__edge_int_type e = edges_un_sampled[idx];
     edges_un_sampled[idx] = edges_un_sampled[edges_un_sampled.size() - 1];
     edges_un_sampled.pop_back();
 
@@ -84,7 +84,7 @@ Edge EdgeSampler::sample_non_edge() {
     last_op = 2;
 
     size_t idx = dist(generator) * non_edges_un_sampled.size();
-    SYM__edge_int_type e = non_edges_un_sampled[idx];
+    SCHENO__edge_int_type e = non_edges_un_sampled[idx];
     non_edges_un_sampled[idx] =
         non_edges_un_sampled[non_edges_un_sampled.size() - 1];
     non_edges_un_sampled.pop_back();
@@ -103,7 +103,7 @@ Edge EdgeSampler::un_sample_edge() {
     last_op = 3;
 
     size_t idx = dist(generator) * edges_sampled.size();
-    SYM__edge_int_type e = edges_sampled[idx];
+    SCHENO__edge_int_type e = edges_sampled[idx];
     edges_sampled[idx] = edges_sampled[edges_sampled.size() - 1];
     edges_sampled.pop_back();
 
@@ -120,7 +120,7 @@ Edge EdgeSampler::un_sample_non_edge() {
     last_op = 4;
 
     size_t idx = dist(generator) * non_edges_sampled.size();
-    SYM__edge_int_type e = non_edges_sampled[idx];
+    SCHENO__edge_int_type e = non_edges_sampled[idx];
     non_edges_sampled[idx] = non_edges_sampled[non_edges_sampled.size() - 1];
     non_edges_sampled.pop_back();
 
@@ -143,8 +143,8 @@ std::pair<Edge, Edge> EdgeSampler::swap_edge_samples() {
     size_t idx_old = dist(generator) * edges_sampled.size();
     size_t idx_new = dist(generator) * edges_un_sampled.size();
 
-    SYM__edge_int_type old_edge = edges_sampled[idx_old];
-    SYM__edge_int_type new_edge = edges_un_sampled[idx_new];
+    SCHENO__edge_int_type old_edge = edges_sampled[idx_old];
+    SCHENO__edge_int_type new_edge = edges_un_sampled[idx_new];
 
     edges_sampled[idx_old] = edges_sampled[edges_sampled.size() - 1];
     edges_sampled[edges_sampled.size() - 1] = new_edge;
@@ -169,8 +169,8 @@ std::pair<Edge, Edge> EdgeSampler::swap_non_edge_samples() {
     size_t idx_old = dist(generator) * non_edges_sampled.size();
     size_t idx_new = dist(generator) * non_edges_un_sampled.size();
 
-    SYM__edge_int_type old_edge = non_edges_sampled[idx_old];
-    SYM__edge_int_type new_edge = non_edges_un_sampled[idx_new];
+    SCHENO__edge_int_type old_edge = non_edges_sampled[idx_old];
+    SCHENO__edge_int_type new_edge = non_edges_un_sampled[idx_new];
 
     non_edges_sampled[idx_old] = non_edges_sampled[non_edges_sampled.size()-1];
     non_edges_sampled[non_edges_sampled.size() - 1] = new_edge;
@@ -200,12 +200,12 @@ void EdgeSampler::undo() {
         non_edges_sampled.push_back(*(non_edges_un_sampled.rbegin()));
         non_edges_un_sampled.pop_back();
     } else if (last_op == 5) {
-        SYM__edge_int_type temp = edges_sampled[edges_sampled.size() - 1];
+        SCHENO__edge_int_type temp = edges_sampled[edges_sampled.size() - 1];
         edges_sampled[edges_sampled.size() - 1] =
             edges_un_sampled[edges_un_sampled.size() - 1];
         edges_un_sampled[edges_un_sampled.size() - 1] = temp;
     } else {
-        SYM__edge_int_type temp = non_edges_sampled[non_edges_sampled.size()-1];
+        SCHENO__edge_int_type temp = non_edges_sampled[non_edges_sampled.size()-1];
         non_edges_sampled[non_edges_sampled.size() - 1] =
             non_edges_un_sampled[non_edges_un_sampled.size() - 1];
         non_edges_un_sampled[non_edges_un_sampled.size() - 1] = temp;
@@ -215,12 +215,12 @@ void EdgeSampler::undo() {
     last_op = 0;
 }
 
-Edge EdgeSampler::int_to_edge(SYM__edge_int_type e) const {
+Edge EdgeSampler::int_to_edge(SCHENO__edge_int_type e) const {
     return EDGE(e / n, e % n, directed);
 }
 
 /*
-SYM__edge_int_type EdgeSampler::edge_to_int(const Edge& e) const {
+SCHENO__edge_int_type EdgeSampler::edge_to_int(const Edge& e) const {
     return (e.first * n) + e.second;
 }
 */

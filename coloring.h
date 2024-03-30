@@ -4,8 +4,8 @@
 #include<unordered_map>
 #include<unordered_set>
 
-#ifndef SYM__COLORING_H
-#define SYM__COLORING_H
+#ifndef SCHENO__COLORING_H
+#define SCHENO__COLORING_H
 
 template<class T, class THash=std::hash<T>> class Coloring {
 public:

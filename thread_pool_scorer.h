@@ -11,8 +11,8 @@
 #include<unordered_set>
 #include<vector>
 
-#ifndef SYM__THREAD_POOL_SCORER_H
-#define SYM__THREAD_POOL_SCORER_H
+#ifndef SCHENO__THREAD_POOL_SCORER_H
+#define SCHENO__THREAD_POOL_SCORER_H
 
 class ThreadPoolScorer {
 public:

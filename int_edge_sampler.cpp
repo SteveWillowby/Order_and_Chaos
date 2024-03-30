@@ -16,7 +16,7 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
               const Graph& g, const Graph& legal_edges) :
         directed(g.directed), n(g.num_nodes()), self_loops(g.num_loops() > 0) {
 
-    edges = std::unordered_set<SYM__edge_int_type>();
+    edges = std::unordered_set<SCHENO__edge_int_type>();
     for (size_t a = 0; a < n; a++) {
         const auto& nbrs = g.out_neighbors(a);
         for (auto b = nbrs.begin(); b != nbrs.end(); b++) {
@@ -154,22 +154,22 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
     }
 }
 
-bool IntEdgeConverterAndSampler::is_edge(SYM__edge_int_type e) const {
+bool IntEdgeConverterAndSampler::is_edge(SCHENO__edge_int_type e) const {
     return edges.find(e) != edges.end();
 }
 
-Edge IntEdgeConverterAndSampler::edge(SYM__edge_int_type e) const {
+Edge IntEdgeConverterAndSampler::edge(SCHENO__edge_int_type e) const {
     if (e >= n*n) {
         throw std::domain_error("Error! Edge int too large (i.e. >= n * n )");
     }
     return EDGE(e / n, e % n, directed);
 }
 
-SYM__edge_int_type IntEdgeConverterAndSampler::edge(const Edge& e) const {
+SCHENO__edge_int_type IntEdgeConverterAndSampler::edge(const Edge& e) const {
     return (e.first * n) + e.second;
 }
 
-SYM__edge_int_type IntEdgeConverterAndSampler::weighted_sample(
+SCHENO__edge_int_type IntEdgeConverterAndSampler::weighted_sample(
                 std::mt19937& gen,
                 std::uniform_real_distribution<long double>& dist) const {
 
@@ -197,11 +197,11 @@ SYM__edge_int_type IntEdgeConverterAndSampler::weighted_sample(
     return mid;
 }
 
-SYM__edge_int_type IntEdgeConverterAndSampler::unweighted_sample(
+SCHENO__edge_int_type IntEdgeConverterAndSampler::unweighted_sample(
                 std::mt19937& gen,
-                std::uniform_int_distribution<SYM__edge_int_type>& dist) const {
+                std::uniform_int_distribution<SCHENO__edge_int_type>& dist) const {
 
-    SYM__edge_int_type x, a, b;
+    SCHENO__edge_int_type x, a, b;
     while (true) {
         x = dist(gen);  // Decompose as x = a * n + b
         a = x / n;

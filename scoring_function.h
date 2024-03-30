@@ -6,8 +6,8 @@
 #include<unordered_set>
 #include<vector>
 
-#ifndef SYM__SCORING_FUNCTION_H
-#define SYM__SCORING_FUNCTION_H
+#ifndef SCHENO__SCORING_FUNCTION_H
+#define SCHENO__SCORING_FUNCTION_H
 
 // WARNING: THE IMPLEMENTATION CURRENTLY USES A LOT OF SPACE
 //  It does so for the sake of memoizing log and factorial computations.

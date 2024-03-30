@@ -15,9 +15,9 @@
 // Define this if you want deterministic behavior for testing purposes.
 //  When this is defined, the set of values is a set rather than an
 //  unordered_set, meaning that whenever a 
-#define SYM__AUGMENTED_MULTIMAP_FULLY_SORTED
+#define SCHENO__AUGMENTED_MULTIMAP_FULLY_SORTED
 
-#ifdef SYM__AUGMENTED_MULTIMAP_FULLY_SORTED
+#ifdef SCHENO__AUGMENTED_MULTIMAP_FULLY_SORTED
 #include<set>
 #define augmented_multimap_values std::set
 #else
@@ -25,8 +25,8 @@
 #define augmented_multimap_values std::unordered_set
 #endif
 
-#ifndef SYM__AUGMENTED_MULTIMAP_H
-#define SYM__AUGMENTED_MULTIMAP_H
+#ifndef SCHENO__AUGMENTED_MULTIMAP_H
+#define SCHENO__AUGMENTED_MULTIMAP_H
 
 template<class K, class V> class KeyValuePair {
 public:

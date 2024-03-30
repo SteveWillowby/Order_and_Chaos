@@ -14,16 +14,16 @@
 #include "wl_measures.h"
 
 // Returns the absolute value of the difference between x and y
-inline double SYM__abs_diff(double x, double y) {
+inline double SCHENO__abs_diff(double x, double y) {
     return (x - y >= 0.0 ? x - y : -(x - y));
 }
 
-inline double SYM__max(double x, double y) {
+inline double SCHENO__max(double x, double y) {
     return (x > y ? x : y);
 }
 
 // Adds a pair to the set of sets (really a map of sets)
-void SYM__pair_insert(std::unordered_map<int, std::unordered_set<int>>& pairs,
+void SCHENO__pair_insert(std::unordered_map<int, std::unordered_set<int>>& pairs,
                       int x, int y) {
     auto x_itr = pairs.find(x);
     if (x_itr == pairs.end()) {
@@ -100,7 +100,7 @@ double* wl_node_differences(const Graph& g,
                 // Distance to node is always 1.0 (or 0.0). Don't recalculate.
                 continue;
             }
-            SYM__pair_insert(pairs_to_calc, a, b);
+            SCHENO__pair_insert(pairs_to_calc, a, b);
         }
     }
 
@@ -249,7 +249,7 @@ long double wl_symmetry_measure(const Graph& g,
                     max = b;
                 }
                 if (old_mat[start_indices[min] + (max - min)] < 1.0) {
-                    SYM__pair_insert(pairs_to_calc, min, max);
+                    SCHENO__pair_insert(pairs_to_calc, min, max);
                 }
             }
         }
@@ -443,7 +443,7 @@ void initialize_wl_diff_matrix(const Graph& g,
                 }
             } else {
                 // Both have edges
-                o = SYM__abs_diff(aon, bon) / SYM__max(aon, bon);
+                o = SCHENO__abs_diff(aon, bon) / SCHENO__max(aon, bon);
             }
             if (ain == 0.0 || bin == 0.0) {
                 if (ain  == 0.0 && bin == 0.0) {
@@ -453,7 +453,7 @@ void initialize_wl_diff_matrix(const Graph& g,
                 }
             } else {
                 // Both have edges
-                i = SYM__abs_diff(ain, bin) / SYM__max(ain, bin);
+                i = SCHENO__abs_diff(ain, bin) / SCHENO__max(ain, bin);
             }
             the_matrix[start_indices[a] + (b - a)] = (i + o) / 2.0;
         }
@@ -608,7 +608,7 @@ void perform_wl_diff_iteration(const Graph& g,
             //
             // If so, we will recalculate for pairs (x, y) where x is a's
             //  neighbor and y is b's neighbor.
-            if (SYM__abs_diff(next_value, prev_value) / next_value >
+            if (SCHENO__abs_diff(next_value, prev_value) / next_value >
                     CONVERGENCE_FACTOR) {
 
                 for (auto x_itr = g.neighbors(a).begin();
@@ -631,7 +631,7 @@ void perform_wl_diff_iteration(const Graph& g,
                             continue;
                         }
 
-                        SYM__pair_insert(target_pairs_to_calc, x, y);
+                        SCHENO__pair_insert(target_pairs_to_calc, x, y);
                     }
                 }
             }

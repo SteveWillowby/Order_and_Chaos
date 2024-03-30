@@ -7,7 +7,7 @@
 std::string vec_as_string(const std::vector<int> &v);
 
 
-#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+#ifdef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 bool consistency_check(const NTSparseGraph &g);
 
 std::vector<int> cleaned_out_N_vec(const NTSparseGraph &g);

@@ -191,35 +191,35 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
 Gene::Gene() : d(0) {
     w = 0;
     hash = 0;
-    e = std::vector<SYM__edge_int_type>();
+    e = std::vector<SCHENO__edge_int_type>();
 }
 
-Gene::Gene(SYM__edge_int_type elt) : d(0) {
+Gene::Gene(SCHENO__edge_int_type elt) : d(0) {
     w = 1;
-    hash = elt % SYM__HASH_PRIME;
-    e = std::vector<SYM__edge_int_type>(1, elt);
+    hash = elt % SCHENO__HASH_PRIME;
+    e = std::vector<SCHENO__edge_int_type>(1, elt);
 }
 
 // Assumes elts is in sorted order
-Gene::Gene(const std::vector<SYM__edge_int_type>& elts) : d(0) {
+Gene::Gene(const std::vector<SCHENO__edge_int_type>& elts) : d(0) {
     w = elts.size();
     hash = 0;
     for (size_t i = 0; i < elts.size(); i++) {
         // This works because the elts are in the same order each time
         //  If they could come in a different order, the hash would be different
-        hash *= SYM__HASH_FACTOR;
-        hash = hash % SYM__HASH_PRIME;
-        hash += elts[i] % SYM__HASH_PRIME;
-        hash = hash % SYM__HASH_PRIME;
+        hash *= SCHENO__HASH_FACTOR;
+        hash = hash % SCHENO__HASH_PRIME;
+        hash += elts[i] % SCHENO__HASH_PRIME;
+        hash = hash % SCHENO__HASH_PRIME;
     }
     e = elts;
 }
 
 Gene::Gene(Gene* elt) : d(elt->depth() + 1) {
     w = elt->weight() + 1;
-    hash = ((size_t) elt) % SYM__HASH_PRIME;
+    hash = ((size_t) elt) % SCHENO__HASH_PRIME;
     sub_g = std::vector<Gene*>(1, elt);
-    e = std::vector<SYM__edge_int_type>();
+    e = std::vector<SCHENO__edge_int_type>();
 }
 
 // Assumes elts is in sorted order
@@ -230,13 +230,13 @@ Gene::Gene(const std::vector<Gene*>& elts) : d(elts[0]->depth() + 1) {
         w += elts[i]->weight();
         // This works because the elts are in the same order each time
         //  If they could come in a different order, the hash would be different
-        hash *= SYM__HASH_FACTOR;
-        hash = hash % SYM__HASH_PRIME;
-        hash += ((size_t) elts[i]) % SYM__HASH_PRIME;
-        hash = hash % SYM__HASH_PRIME;
+        hash *= SCHENO__HASH_FACTOR;
+        hash = hash % SCHENO__HASH_PRIME;
+        hash += ((size_t) elts[i]) % SCHENO__HASH_PRIME;
+        hash = hash % SCHENO__HASH_PRIME;
     }
     sub_g = elts;
-    e = std::vector<SYM__edge_int_type>();
+    e = std::vector<SCHENO__edge_int_type>();
 }
 
 // 0 means it contains edge ints
@@ -259,14 +259,14 @@ size_t Gene::weight() const {
     return w;
 }
 
-const std::vector<SYM__edge_int_type>& Gene::edge_ints() const {
+const std::vector<SCHENO__edge_int_type>& Gene::edge_ints() const {
     if (d != 0) {
         throw std::logic_error("Error! Call edge_ints() only when d = 0");
     }
     return e;
 }
 
-std::vector<SYM__edge_int_type> Gene::sub_edge_ints() {
+std::vector<SCHENO__edge_int_type> Gene::sub_edge_ints() {
     if (d == 0) {
         throw std::logic_error("Error! Call sub_edge_ints() only when d > 0");
     }
@@ -275,7 +275,7 @@ std::vector<SYM__edge_int_type> Gene::sub_edge_ints() {
         return e;
     }
 
-    auto sub_vecs = std::vector<std::vector<SYM__edge_int_type>>(sub_g.size());
+    auto sub_vecs = std::vector<std::vector<SCHENO__edge_int_type>>(sub_g.size());
     for (size_t i = 0; i < sub_g.size(); i++) {
         if (d == 1) {
             sub_vecs[i] = sub_g[i]->edge_ints();
@@ -290,10 +290,10 @@ std::vector<SYM__edge_int_type> Gene::sub_edge_ints() {
     for (size_t i = 0; i < e.size(); i++) {
         // This works because the elts are in the same order each time
         //  If they could come in a different order, the hash would be different
-        e_hash *= SYM__HASH_FACTOR;
-        e_hash = e_hash % SYM__HASH_PRIME;
-        e_hash += e[i] % SYM__HASH_PRIME;
-        e_hash = e_hash % SYM__HASH_PRIME;
+        e_hash *= SCHENO__HASH_FACTOR;
+        e_hash = e_hash % SCHENO__HASH_PRIME;
+        e_hash += e[i] % SCHENO__HASH_PRIME;
+        e_hash = e_hash % SCHENO__HASH_PRIME;
     }
     return e;
 }
@@ -321,8 +321,8 @@ size_t Gene::edge_int_hash_value() {
 }
 
 // Note: modifies lists
-std::vector<SYM__edge_int_type> Gene::merged(
-        std::vector<std::vector<SYM__edge_int_type>>& lists) {
+std::vector<SCHENO__edge_int_type> Gene::merged(
+        std::vector<std::vector<SCHENO__edge_int_type>>& lists) {
     // Aggregates the lists in a binary tree fashion
     size_t step_size = 1;
     while (step_size < lists.size()) {
@@ -334,10 +334,10 @@ std::vector<SYM__edge_int_type> Gene::merged(
     return lists[0];
 }
 
-std::vector<SYM__edge_int_type> Gene::merged(
-        const std::vector<SYM__edge_int_type>& a,
-        const std::vector<SYM__edge_int_type>& b) {
-    auto result = std::vector<SYM__edge_int_type>();
+std::vector<SCHENO__edge_int_type> Gene::merged(
+        const std::vector<SCHENO__edge_int_type>& a,
+        const std::vector<SCHENO__edge_int_type>& b) {
+    auto result = std::vector<SCHENO__edge_int_type>();
     size_t i = 0;
     size_t j = 0;
     while (i < a.size() && j < b.size()) {
@@ -422,8 +422,8 @@ GenePool::GenePool(const Graph& g, const IntEdgeConverterAndSampler& iecas,
 
         // Build the initial gene stack
         if (i == 0) {
-            std::vector<SYM__edge_int_type> seed_elts =
-                                std::vector<SYM__edge_int_type>();
+            std::vector<SCHENO__edge_int_type> seed_elts =
+                                std::vector<SCHENO__edge_int_type>();
             for (size_t i = 0; i < seed_noise.num_nodes(); i++) {
                 for (auto nbr = seed_noise.out_neighbors(i).begin();
                           nbr != seed_noise.out_neighbors(i).end(); nbr++) {
@@ -490,7 +490,7 @@ void GenePool::evolve(ThreadPoolScorer& tps) {
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<SYM__edge_int_type> disti(0, n * n - 1);
+    std::uniform_int_distribution<SCHENO__edge_int_type> disti(0, n * n - 1);
     std::uniform_real_distribution<double> distl(0.0, 1.0);
     std::uniform_real_distribution<long double> distll(0.0, 1.0);
     std::uniform_int_distribution<uint8_t> distbool(0, 1);
@@ -837,10 +837,10 @@ std::pair<bool, Gene*> GenePool::mated(const Gene& a, const Gene& b,
                                        std::mt19937& gen,
                             std::uniform_int_distribution<uint8_t>& dist) {
     if (a.depth() == 0) {
-        std::vector<SYM__edge_int_type> elts =
-            std::vector<SYM__edge_int_type>();
-        const std::vector<SYM__edge_int_type>& a_elts = a.edge_ints();
-        const std::vector<SYM__edge_int_type>& b_elts = b.edge_ints();
+        std::vector<SCHENO__edge_int_type> elts =
+            std::vector<SCHENO__edge_int_type>();
+        const std::vector<SCHENO__edge_int_type>& a_elts = a.edge_ints();
+        const std::vector<SCHENO__edge_int_type>& b_elts = b.edge_ints();
 
         size_t i, j;
         while (elts.size() == 0) {
@@ -961,9 +961,9 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
     l.unlock();
 
     if (d == 0) {
-        const std::vector<SYM__edge_int_type>& edge_ints =
+        const std::vector<SCHENO__edge_int_type>& edge_ints =
                 gene->edge_ints();
-        const std::vector<SYM__edge_int_type>& hm_ei =
+        const std::vector<SCHENO__edge_int_type>& hm_ei =
                 hash_match->edge_ints();
         if (hm_ei.size() != edge_ints.size()) {
             // New but hash matches
@@ -1024,7 +1024,7 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 // Requires random generators (and dists) to be passed into it for
 //  thread-safety purposes
 // disti should be
-//  std::uniform_int_distribution<SYM__edge_int_type>(0, (n * n) - 1)
+//  std::uniform_int_distribution<SCHENO__edge_int_type>(0, (n * n) - 1)
 // distl should be std::uniform_real_distribution<double>(0, 1)
 // distll should be std::uniform_real_distribution<long double>(0, 1)
 //
@@ -1036,17 +1036,17 @@ std::pair<bool, Gene*> GenePool::add(Gene* gene) {
 //  can be added or remove something when nothing can be removed.
 std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
                     std::mt19937& gen,
-                    std::uniform_int_distribution<SYM__edge_int_type>& disti,
+                    std::uniform_int_distribution<SCHENO__edge_int_type>& disti,
                     std::uniform_real_distribution<double>& distl,
                     std::uniform_real_distribution<long double>& distll) {
 
     double rand;
 
     if (g.depth() == 0) {
-        const std::vector<SYM__edge_int_type>& prev = g.edge_ints();
+        const std::vector<SCHENO__edge_int_type>& prev = g.edge_ints();
 
-        SYM__edge_int_type addition;
-        std::vector<SYM__edge_int_type> next;
+        SCHENO__edge_int_type addition;
+        std::vector<SCHENO__edge_int_type> next;
         rand = distl(gen);
 
         if (g.size() > 1 && rand < 0.6) {
@@ -1058,7 +1058,7 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
 
             while (!done) {
                 done = true;
-                next = std::vector<SYM__edge_int_type>(prev);
+                next = std::vector<SCHENO__edge_int_type>(prev);
                 if (sampling_heuristic) {
                     addition = iecas.weighted_sample(gen, distll);
                 } else {
@@ -1115,7 +1115,7 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             }
         } else {
             // Add edge int
-            next = std::vector<SYM__edge_int_type>(prev.size() + 1, 0);
+            next = std::vector<SCHENO__edge_int_type>(prev.size() + 1, 0);
             bool done = false;  // Keep generating until it's new.
             size_t spot;
             while (!done) {
@@ -1327,7 +1327,7 @@ std::pair<std::unordered_set<Edge, EdgeHash>,
                             std::unordered_set<Edge, EdgeHash>(),
                             std::unordered_set<Edge, EdgeHash>());
 
-    std::vector<SYM__edge_int_type> e_ints;
+    std::vector<SCHENO__edge_int_type> e_ints;
     if (g.depth() == 0) {
         e_ints = g.edge_ints();
     } else {
@@ -1339,7 +1339,7 @@ std::pair<std::unordered_set<Edge, EdgeHash>,
     if (s == 0) {
         h_score = 1.0;
     } else {
-        SYM__edge_int_type e;
+        SCHENO__edge_int_type e;
         h_score = 0.0;
         const std::vector<long double>& h_scores = iecas.get_heuristic_scores();
 

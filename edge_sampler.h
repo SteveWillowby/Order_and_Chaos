@@ -4,8 +4,8 @@
 #include<cstdint>
 #include<random>
 
-#ifndef SYM__EDGE_SAMPLER_H
-#define SYM__EDGE_SAMPLER_H
+#ifndef SCHENO__EDGE_SAMPLER_H
+#define SCHENO__EDGE_SAMPLER_H
 
 class EdgeSampler {
 public:
@@ -53,13 +53,13 @@ protected:
     // 6 -- swap non-edge
     uint8_t last_op;
 
-    std::vector<SYM__edge_int_type> edges_un_sampled;
-    std::vector<SYM__edge_int_type> edges_sampled;
-    std::vector<SYM__edge_int_type> non_edges_un_sampled;
-    std::vector<SYM__edge_int_type> non_edges_sampled;
+    std::vector<SCHENO__edge_int_type> edges_un_sampled;
+    std::vector<SCHENO__edge_int_type> edges_sampled;
+    std::vector<SCHENO__edge_int_type> non_edges_un_sampled;
+    std::vector<SCHENO__edge_int_type> non_edges_sampled;
 
-    Edge int_to_edge(SYM__edge_int_type e) const;
-    // SYM__edge_int_type edge_to_int(const Edge& e) const;
+    Edge int_to_edge(SCHENO__edge_int_type e) const;
+    // SCHENO__edge_int_type edge_to_int(const Edge& e) const;
 };
 
 #endif

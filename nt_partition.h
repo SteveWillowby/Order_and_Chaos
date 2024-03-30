@@ -1,8 +1,8 @@
 #include<cstddef>
 #include<vector>
 
-#ifndef SYM__NT_PARTITION_H
-#define SYM__NT_PARTITION_H
+#ifndef SCHENO__NT_PARTITION_H
+#define SCHENO__NT_PARTITION_H
 
 class NTPartition {
 public:

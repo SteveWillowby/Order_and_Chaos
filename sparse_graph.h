@@ -11,14 +11,14 @@
 #include<unordered_set>
 #include<vector>
 
-#ifndef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+#ifndef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
 // Comment out this next line if you want this class's input error checks to
 //  be ignored by the compiler.
-#define SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+#define SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
 #endif
 
-#ifndef SYM__SPARSE_GRAPH_H
-#define SYM__SPARSE_GRAPH_H
+#ifndef SCHENO__SPARSE_GRAPH_H
+#define SCHENO__SPARSE_GRAPH_H
 
 class SparseGraph : public Graph {
 
@@ -72,7 +72,7 @@ protected:
     std::vector<std::unordered_set<int>> _out_neighbors;
     std::vector<std::unordered_set<int>> _in_neighbors;
 
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
 private:
     inline void range_check(const int a) const;
     #endif

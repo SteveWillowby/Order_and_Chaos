@@ -9,8 +9,8 @@
 #include<cstddef>
 #include<unordered_set>
 
-#ifndef SYM__GRAPH_H
-#define SYM__GRAPH_H
+#ifndef SCHENO__GRAPH_H
+#define SCHENO__GRAPH_H
 
 class Graph {
 

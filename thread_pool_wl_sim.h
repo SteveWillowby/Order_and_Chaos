@@ -9,8 +9,8 @@
 #include<unordered_set>
 #include<vector>
 
-#ifndef SYM__THREAD_POOL_WL_SIM_H
-#define SYM__THREAD_POOL_WL_SIM_H
+#ifndef SCHENO__THREAD_POOL_WL_SIM_H
+#define SCHENO__THREAD_POOL_WL_SIM_H
 
 class ThreadPoolWLSim {
 public:

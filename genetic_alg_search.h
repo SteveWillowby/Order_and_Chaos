@@ -12,8 +12,8 @@
 #include<utility>
 #include<vector>
 
-#ifndef SYM__GENETIC_ALG_SEARCH_H
-#define SYM__GENETIC_ALG_SEARCH_H
+#ifndef SCHENO__GENETIC_ALG_SEARCH_H
+#define SCHENO__GENETIC_ALG_SEARCH_H
 
 // Given a graph `g`, does a search to find good candidates for noise.
 //
@@ -75,9 +75,9 @@ public:
     // Basic constructors
 
     Gene();  // The empty, depth-0 gene
-    Gene(SYM__edge_int_type elt);
+    Gene(SCHENO__edge_int_type elt);
     // Assumes elts is in sorted order
-    Gene(const std::vector<SYM__edge_int_type>& elts);
+    Gene(const std::vector<SCHENO__edge_int_type>& elts);
     Gene(Gene* elt);
     // Assumes elts is in sorted order
     // Assumes each elt is of the same depth
@@ -92,8 +92,8 @@ public:
     //  Used to help figure out where to mutate
     size_t weight() const;
 
-    const std::vector<SYM__edge_int_type>& edge_ints() const;
-    std::vector<SYM__edge_int_type> sub_edge_ints();
+    const std::vector<SCHENO__edge_int_type>& edge_ints() const;
+    std::vector<SCHENO__edge_int_type> sub_edge_ints();
     // Throws an error if d == 0
     const std::vector<Gene*>& sub_genes() const;
 
@@ -108,18 +108,18 @@ protected:
     size_t e_hash;  // Assigned a value when sub_edge_ints() is called
 
     // Keep in sorted order for efficiency
-    std::vector<SYM__edge_int_type> e;
+    std::vector<SCHENO__edge_int_type> e;
     // Keep in sorted order for efficiency
     //  Used only if d > 0
     std::vector<Gene*> sub_g;
 
     // Note: modifies lists
-    static std::vector<SYM__edge_int_type> merged(
-        std::vector<std::vector<SYM__edge_int_type>>& lists);
+    static std::vector<SCHENO__edge_int_type> merged(
+        std::vector<std::vector<SCHENO__edge_int_type>>& lists);
 
-    static std::vector<SYM__edge_int_type> merged(
-            const std::vector<SYM__edge_int_type>& a,
-            const std::vector<SYM__edge_int_type>& b);
+    static std::vector<SCHENO__edge_int_type> merged(
+            const std::vector<SCHENO__edge_int_type>& a,
+            const std::vector<SCHENO__edge_int_type>& b);
 };
 
 // Contains a record of each distinct gene and a hash ID for them
@@ -171,7 +171,7 @@ protected:
     // Requires random generators (and dists) to be passed into it for
     //  thread-safety purposes
     // disti should be
-    //  std::uniform_int_distribution<SYM__edge_int_type>(0, (n * n) - 1)
+    //  std::uniform_int_distribution<SCHENO__edge_int_type>(0, (n * n) - 1)
     // distl should be std::uniform_real_distribution<double>(0, 1)
     // distll should be std::uniform_real_distribution<long double>(0, 1)
     //
@@ -183,7 +183,7 @@ protected:
     //  can be added or remove something when nothing can be removed.
     std::pair<bool, Gene*> mutated(const Gene& g,
                   std::mt19937& gen,
-                  std::uniform_int_distribution<SYM__edge_int_type>& disti,
+                  std::uniform_int_distribution<SCHENO__edge_int_type>& disti,
                   std::uniform_real_distribution<double>& distl,
                   std::uniform_real_distribution<long double>& distll);
 
@@ -243,9 +243,9 @@ protected:
                           long double>> top_k;
 };
 
-// Make sure that SYM__HASH_PRIME * SYM__HASH_FACTOR < 0xFFFFFFFFFFFFFFFF
-#define SYM__HASH_PRIME 87178291199
-#define SYM__HASH_FACTOR 700001
+// Make sure that SCHENO__HASH_PRIME * SCHENO__HASH_FACTOR < 0xFFFFFFFFFFFFFFFF
+#define SCHENO__HASH_PRIME 87178291199
+#define SCHENO__HASH_FACTOR 700001
 // More primes: 233, 1597, 28657, 514229, 700001, 2971215073,
 //              87178291199, 3314192745739
 

@@ -3,8 +3,8 @@
 
 #include<string>
 
-#ifndef SYM__FILE_UTILS_H
-#define SYM__FILE_UTILS_H
+#ifndef SCHENO__FILE_UTILS_H
+#define SCHENO__FILE_UTILS_H
 
 // This function assumes that the nodes are numbered 0 through the largest
 //  node ID found in the edge list.

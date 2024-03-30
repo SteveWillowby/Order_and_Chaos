@@ -2,8 +2,8 @@
 #include "edge.h"
 #include "graph.h"
 
-#ifndef SYM__WL_MEASURES_H
-#define SYM__WL_MEASURES_H
+#ifndef SCHENO__WL_MEASURES_H
+#define SCHENO__WL_MEASURES_H
 
 // Returns either pw_scores_1 or pw_scores_2, whichever contain the result
 //

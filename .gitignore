@@ -5,6 +5,7 @@ nauty27r4_modified/*
 executables/*
 *.ods
 *.csv
+test_nt_code
 experiments/plotting_code/structure_graph*
 third_party/crossspot/nodes.txt
 third_party/crossspot/prepared.csv

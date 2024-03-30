@@ -4,13 +4,13 @@
 #include<unordered_set>
 #include<utility>
 
-#ifndef SYM__EDGE_H
-#define SYM__EDGE_H
+#ifndef SCHENO__EDGE_H
+#define SCHENO__EDGE_H
 
-// Note: if 2^32 < n^2, increase this size and adjust SYM__MAX_EDGE_LABEL
+// Note: if 2^32 < n^2, increase this size and adjust SCHENO__MAX_EDGE_LABEL
 //  (that's when n > 65536)
-typedef uint32_t SYM__edge_int_type;
-#define SYM__MAX_EDGE_LABEL 0xFFFFFFFF
+typedef uint32_t SCHENO__edge_int_type;
+#define SCHENO__MAX_EDGE_LABEL 0xFFFFFFFF
 
 #define EDGE(s, t, d) std::pair<int, int>((d || s < t ? s : t), (d || s < t ? t : s))
 

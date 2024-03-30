@@ -5,8 +5,8 @@
 #include<unordered_map>
 #include<vector>
 
-#ifndef SYM__TRACES_H
-#define SYM__TRACES_H
+#ifndef SCHENO__TRACES_H
+#define SCHENO__TRACES_H
 
 struct NautyTracesOptions {
     // Set to true to collect the orbits of the nodes and the number of distinct

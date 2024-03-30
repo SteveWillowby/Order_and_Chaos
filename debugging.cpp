@@ -5,7 +5,7 @@
 
 #include "nt_sparse_graph.h"
 
-#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+#ifdef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 bool consistency_check(const NTSparseGraph &g) {
     // First, check the SparseGraph code for consistency.
     size_t num_self_loops = 0;
@@ -513,7 +513,7 @@ bool consistency_check(const NTSparseGraph &g) {
 }
 #endif
 
-#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+#ifdef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 std::vector<int> cleaned_out_N_vec(const NTSparseGraph &g) {
     std::vector<int> result = std::vector<int>(g.out_neighbors_vec.size(), 0);
 
@@ -536,7 +536,7 @@ std::string vec_as_string(const std::vector<int> &v) {
     return s;
 }
 
-#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+#ifdef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 std::string nt_graph_as_string(const NTSparseGraph &g) {
     std::string s = "";
 
@@ -578,7 +578,7 @@ std::string nt_graph_as_string(const NTSparseGraph &g) {
 }
 #endif
 
-#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+#ifdef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 void print_graph(const NTSparseGraph &g) {
     std::cout<<"A Graph:"<<std::endl;
     std::cout<<"n: "<<g.num_nodes()<<"  m: "<<g.num_edges()
@@ -590,7 +590,7 @@ void print_graph(const NTSparseGraph &g) {
 #endif
 
 
-#ifdef SYM__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
+#ifdef SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE
 // If reconstruct_frequency is greater than 0, then every
 //  reconstruct_frequency iterations, the code will replace the graph with a
 //  new version of it made with a constructor.

@@ -23,7 +23,7 @@ SparseGraph::SparseGraph(const bool directed) : Graph(directed) {
 }
 
 SparseGraph::SparseGraph(const bool directed, size_t n) : Graph(directed) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     if (n == 0) {
         throw std::domain_error("Error! Cannot make a graph with 0 nodes.");
     }
@@ -133,7 +133,7 @@ int SparseGraph::add_node() {
 }
 
 int SparseGraph::delete_node(const int a) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     #endif
 
@@ -241,7 +241,7 @@ int SparseGraph::delete_node(const int a) {
 
 
 bool SparseGraph::add_edge(const int a, const int b) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     range_check(b);
     #endif
@@ -277,7 +277,7 @@ bool SparseGraph::add_edge(const int a, const int b) {
 }
 
 bool SparseGraph::delete_edge(const int a, const int b) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     range_check(b);
     #endif
@@ -309,7 +309,7 @@ bool SparseGraph::delete_edge(const int a, const int b) {
 }
 
 void SparseGraph::flip_edge(const int a, const int b) {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     range_check(b);
     #endif
@@ -337,7 +337,7 @@ bool SparseGraph::has_edge(const int a, const int b) const {
 }
 
 const std::unordered_set<int> &SparseGraph::neighbors(const int a) const {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     #endif
 
@@ -345,7 +345,7 @@ const std::unordered_set<int> &SparseGraph::neighbors(const int a) const {
 }
 
 const std::unordered_set<int> &SparseGraph::out_neighbors(const int a) const {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     #endif
 
@@ -356,7 +356,7 @@ const std::unordered_set<int> &SparseGraph::out_neighbors(const int a) const {
 }
 
 const std::unordered_set<int> &SparseGraph::in_neighbors(const int a) const {
-    #ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+    #ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
     range_check(a);
     #endif
 
@@ -366,7 +366,7 @@ const std::unordered_set<int> &SparseGraph::in_neighbors(const int a) const {
     return _neighbors[a];
 }
 
-#ifdef SYM__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
+#ifdef SCHENO__SPARSE_GRAPH_INCLUDE_ERROR_CHECKS
 void SparseGraph::range_check(const int a) const {
     if (a < 0 || size_t(a) >= n) {
         throw std::out_of_range("Error! Node " + std::to_string(a) +
