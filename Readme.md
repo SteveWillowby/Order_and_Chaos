@@ -1,12 +1,14 @@
-# Order and Chaos
+# SCHENO, the SCHEma NOise scoring function
+
+Also includes a pattern-finding genetic algorithm guided by SCHENO as its fitness function.
 
 ## About
 
-This code is associated with the research paper (TODO: Title) currently on arXiv at (TODO: link).
+Given two graphs, SCHENO measures how well the first graph represents the underlying pattern(s) in the second graph.
 
-It allows for taking a directed or undirected graph and decomposing it into order and chaos, structure and noise.
+This code also contains some useful C++ wrappers around the C implementation of Nauty and Traces. In addition to offering a more convenient interface, the wrappers offer the following features: Adding edge colorings to the graph before running Nauty/Traces, running Traces efficiently on directed graphs by creating undirected graphs equivalent to the directed ones behind the scenes, amortized constant-time edits to a graph stored in the Nauty/Traces input format (a non-trivial feature), and a slightly modified version of the Nauty/Traces code that can compile without error for C++ multithreaded use.
 
-This code also contains some useful C++ wrappers around the C implementation of Nauty and Traces. In addition to offering a more convenient interface, the wrappers offer the following features: Adding edge colorings to the graph before running Nauty/Traces, running Traces efficiently on directed graphs by creating undirected graphs equivalent to the directed ones behind the scenes, constant-time edits to a graph stored in the Nauty/Traces input format (a non-trivial feature), and a slightly modified version of the Nauty/Traces code that can compile without error for C++ multithreaded use.
+We have a separate respository containing only the relevant Nauty and Traces code here (TODO: Link).
 
 The complete list of files and folders needed for the wrappers is:
 
@@ -28,13 +30,13 @@ edge.h
 coloring.h
 ```
 
-
+This code is associated with the research paper (TODO: Title) currently on arXiv at (TODO: link).
 
 ## Installation
 
-### Main Binary
+### Main Binaries
 
-The code for the main binary is all self-contained in this repository, so no outside libraries or packages should be necessary.
+The code for the main binaries is all contained in this repository, so no outside libraries or packages should be necessary.
 
 To compile, run:
 
@@ -44,7 +46,7 @@ and then run:
 
 `./compile.sh`
 
-That's it! The main program should be ready to run.
+That's it! The programs should be ready to run.
 
 
 ### Other Experiments
