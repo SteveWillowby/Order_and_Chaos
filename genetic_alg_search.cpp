@@ -31,7 +31,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     bool sampling_heuristic,
                                     const Graph& seed_noise,
                                     const Graph& legal_edges,
-                                    const std::string& file_base) {
+                                    const std::string& file_base,
+                                    bool full_iso) {
     // Initialize Basics
 
     NTSparseGraph g_nt(g);
@@ -116,7 +117,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
                          log2_1_minus_p_plus, log2_1_minus_p_minus,
-                         max_change_size, scoring_heuristic);
+                         max_change_size, scoring_heuristic, full_iso);
 
     std::unordered_set<Edge, EdgeHash> seed_add =
                                 std::unordered_set<Edge, EdgeHash>();

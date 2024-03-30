@@ -24,7 +24,7 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
                                    long double log2_1_minus_p_plus,
                                    long double log2_1_minus_p_minus,
                                    size_t max_change_size,
-                                   bool use_heuristic) : 
+                                   bool use_heuristic, bool full_iso) : 
                                       num_threads(
                          (nt == 0 ? std::thread::hardware_concurrency() : nt)),
                                       comb_util(comb_util),
@@ -35,7 +35,8 @@ ThreadPoolScorer::ThreadPoolScorer(size_t nt, const Graph& base_graph,
                                       log2_1_minus_p_plus(log2_1_minus_p_plus),
                                       log2_1_minus_p_minus(log2_1_minus_p_minus),
                                       max_change_size(max_change_size),
-                                      use_heuristic(use_heuristic)
+                                      use_heuristic(use_heuristic),
+                                      full_iso(full_iso)
 {
     terminate_pool = false;
     tasks_begun = 0;
@@ -231,7 +232,7 @@ void ThreadPoolScorer::run() {
                                            workspaces[thread_id],
                                            difference_matrices_1[thread_id],
                                            difference_matrices_2[thread_id],
-                                           start_indices);
+                                           start_indices, full_iso);
             } else {
 
                 // No heuristic is used at all.
@@ -246,7 +247,7 @@ void ThreadPoolScorer::run() {
                                            log2_p_plus, log2_p_minus,
                                            log2_1_minus_p_plus,
                                            log2_1_minus_p_minus,
-                                           max_change_size),
+                                           max_change_size, full_iso),
                         0);
 
                 //  This makes the program get stuck -- too many edges on

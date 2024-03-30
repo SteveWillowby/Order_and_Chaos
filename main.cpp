@@ -141,6 +141,9 @@ int main(int argc, char* argv[]) {
                  <<"-nt <arg>:\tnumber of threads -- 0 means all available"
                  <<std::endl<<"\t\t\t* defaults to 0."
                  <<std::endl<<std::endl
+                 <<"-approx_iso:\tif set, uses a fast, inexact automorphisms"
+                 <<" algorithm"
+                 <<std::endl<<std::endl
                  ;
 
         return 0;
@@ -281,6 +284,8 @@ int main(int argc, char* argv[]) {
         throw std::invalid_argument(
                 "Error! Cannot provide p+ without p- and vice versa");
     }
+
+    bool full_iso = !cmd_flag_present(inputs, "-approx_iso");
 
     // const bool corrupt_original = false;
     // Only used when corrupt_original is true.
@@ -539,7 +544,8 @@ std::to_string(legal_adds) + " options due to -legal_noise");
                                          sample_heuristic,
                                          seed_noise,
                                          legal_noise,
-                                         output_file);
+                                         output_file,
+                                         full_iso);
 
         // Report the results
         NTSparseGraph reporter = NTSparseGraph(g);

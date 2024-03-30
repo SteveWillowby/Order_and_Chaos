@@ -93,7 +93,7 @@ int main(void) {
                          nt_result.node_orbits, nt_result.edge_orbits,
                          log2_p_plus, log2_p_minus,
                          log2_1_minus_p_plus, log2_1_minus_p_minus,
-                         (size_t) -1, true);
+                         (size_t) -1, true, true);
 
     std::cout<<" ...Finished Creating Thread Pool Scorer"<<std::endl;
     

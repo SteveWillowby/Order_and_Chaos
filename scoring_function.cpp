@@ -22,7 +22,8 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const long double log2_p_plus, const long double log2_p_minus,
                   const long double log2_1_minus_p_plus,
                   const long double log2_1_minus_p_minus,
-                  const size_t max_change) {
+                  const size_t max_change,
+                  bool full_iso) {
 
     if (edge_additions.size() + edge_removals.size() > max_change) {
         return -INFINITY;  // INFINITY is defined in cmath
@@ -73,7 +74,11 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     NTPartition stabilizer_coloring =
                     g.nauty_traces_coloring(node_orbit_coloring,
                                             editable_edge_orbit_coloring);
-    nt_results = traces(g, o, stabilizer_coloring);
+    if (full_iso) {
+        nt_results = traces(g, o, stabilizer_coloring);
+    } else {
+        nt_results = fake_iso(g, o, stabilizer_coloring);
+    }
     log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
                            ((long double)(nt_results.num_aut_exponent)) *
                                             comb_util.log2(10);
@@ -85,7 +90,11 @@ long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
     }
 
     // Get the raw auto orbit size for the hypothesis graph.
-    nt_results = traces(g, o);
+    if (full_iso) {
+        nt_results = traces(g, o);
+    } else {
+        nt_results = fake_iso(g, o);
+    }
     log2_hypothesis_aut = std::log2l(nt_results.num_aut_base) +
                           ((long double)(nt_results.num_aut_exponent)) *
                                            comb_util.log2(10);
@@ -326,7 +335,8 @@ std::pair<long double, long double>
                   ptrdiff_t* col_for_row, ptrdiff_t* row_for_col,
                   double* u, double* v, void* workspace,
                   double* pw_scores_1, double* pw_scores_2,
-                  size_t* start_indices) {
+                  size_t* start_indices,
+                  bool full_iso) {
 
     if (edge_additions.size() + edge_removals.size() > max_change) {
         // INFINITY is defined in cmath
@@ -378,7 +388,11 @@ std::pair<long double, long double>
     NTPartition stabilizer_coloring =
                     g.nauty_traces_coloring(node_orbit_coloring,
                                             editable_edge_orbit_coloring);
-    nt_results = traces(g, o, stabilizer_coloring);
+    if (full_iso) {
+        nt_results = traces(g, o, stabilizer_coloring);
+    } else {
+        nt_results = fake_iso(g, o, stabilizer_coloring);
+    }
     log2_stabilizer_size = std::log2l(nt_results.num_aut_base) +
                            ((long double)(nt_results.num_aut_exponent)) *
                                             comb_util.log2(10);
@@ -399,7 +413,11 @@ std::pair<long double, long double>
     }
 
     // Get the raw auto orbit size for the hypothesis graph.
-    nt_results = traces(g, o);
+    if (full_iso) {
+        nt_results = traces(g, o);
+    } else {
+        nt_results = fake_iso(g, o);
+    }
     log2_hypothesis_aut = std::log2l(nt_results.num_aut_base) +
                           ((long double)(nt_results.num_aut_exponent)) *
                                            comb_util.log2(10);
@@ -459,6 +477,7 @@ std::pair<long double, long double>
             ((2.0 * heuristic_log2_symmetry) - heuristic_log2_stabilizer_size));
 }
 
+// Outdated
 long double score(NTSparseGraph& g, const CombinatoricUtility& comb_util,
                   const Coloring<int>& node_orbit_coloring,
                   const Coloring<Edge,EdgeHash>& edge_orbit_coloring,

@@ -25,7 +25,8 @@ public:
                      long double log2_p_plus, long double log2_p_minus,
                      long double log2_1_minus_p_plus,
                      long double log2_1_minus_p_minus,
-                     size_t max_change_size, bool use_heuristic);
+                     size_t max_change_size, bool use_heuristic,
+                     bool full_iso);
 
     ~ThreadPoolScorer();
 
@@ -75,6 +76,7 @@ protected:
     const size_t max_change_size;
 
     const bool use_heuristic;
+    const bool full_iso;
 
     // Used by running workers to select the next task
     std::mutex m_worker_queue;

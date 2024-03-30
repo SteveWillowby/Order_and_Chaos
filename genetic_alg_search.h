@@ -52,6 +52,10 @@
 //      `legal_edges` an empty graph on the same number of nodes as `g`.
 //
 //  `file_base` says what to write the outputs to
+//
+//  `full_iso` means to use an algorithm like `traces`
+//      if `full_iso` is set to false, then an approximate algorithm is used
+//      for automorphism calculations
 std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                  genetic_alg_search(const Graph& g,
                                     size_t num_iterations,
@@ -64,7 +68,8 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
                                     bool sampling_heuristic,
                                     const Graph& seed_noise,
                                     const Graph& legal_edges,
-                                    const std::string& file_base);
+                                    const std::string& file_base,
+                                    bool full_iso);
 
 class GenePool;
 class GeneEdgeSetPair;
