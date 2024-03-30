@@ -111,9 +111,7 @@ if __name__ == "__main__":
             (nodes, edges) = get_ER_rand_graph(rand_n, rand_p, directed)
 
         else:
-            if __name_list__[i] in ["flickr", "epinions"]:
-                continue
-            if __name_list__[i] in ["enron"] and \
+            if __name_list__[i] in ["enron", "flickr", "epinions"] and \
                     algorithm.lower() not in ["vog"]:
                 continue
             if __name_list__[i] in ["fullerene_c6000"] and \
@@ -129,6 +127,8 @@ if __name__ == "__main__":
             else:
                 nodes_file = __graphs_base__ + __nodes_list__[i]
                 nodes = get_nodeset(nodes_file)
+
+        approximate = len(nodes) > 8000
 
         if preprocess and algorithm.lower() != "ga":
             (edges, _) = run_GA(edges, directed=directed)
@@ -157,9 +157,12 @@ if __name__ == "__main__":
         print("#Struct: %d" % len(struct_edges))
         print("#Noise:  %d" % len(noise_edges))
 
-        score = run_scorer(edges, nodes, noise_edges, directed)
-        all_noise = run_scorer(edges, nodes, set(edges), directed)
-        no_noise = run_scorer(edges, nodes, set(), directed)
+        score = run_scorer(edges, nodes, noise_edges, directed, \
+                           approximate=approximate)
+        all_noise = run_scorer(edges, nodes, set(edges), directed, \
+                               approximate=approximate)
+        no_noise = run_scorer(edges, nodes, set(), directed, \
+                              approximate=approximate)
 
         # Get random scores
         num_added =   len(noise_edges - edges)
@@ -187,7 +190,8 @@ if __name__ == "__main__":
         avg_rand_score = [0, 0, 0, 0, 0, 0]
         for _ in range(0, num_rand_scores):
             rand_noise = rand_noise_set(edges, nodes, num_added, num_removed)
-            rand_score = run_scorer(edges, nodes, rand_noise, directed)
+            rand_score = run_scorer(edges, nodes, rand_noise, directed, \
+                                    approximate=approximate)
             for j in range(0, 6):
                 avg_rand_score[j] += rand_score[j]
         for j in range(0, 6):
