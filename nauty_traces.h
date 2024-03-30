@@ -78,6 +78,20 @@ NautyTracesResults traces(NTSparseGraph& g, const NautyTracesOptions& o);
 NautyTracesResults traces(NTSparseGraph& g, const NautyTracesOptions& o,
                           NTPartition& p);
 
+// fake_iso() is a Weisfeiler-Lehman-based algorithm that is not guaranteed to
+// produce correct results. However, it is faster and will work for most graphs.
+//
+// It is not part of the original nauty/traces code. Rather it was added by
+//  Justus Hibshman.
+
+// Even though g is not passed as a const, it is left un-modified.
+NautyTracesResults fake_iso(NTSparseGraph& g, const NautyTracesOptions& o);
+
+// Even though g is not passed as a const, it is left un-modified.
+//  However, p might be modified.
+NautyTracesResults fake_iso(NTSparseGraph& g, const NautyTracesOptions& o,
+                            NTPartition& p);
+
 
 ////////////////// These Variables are for Internal Use Only ///////////////////
 

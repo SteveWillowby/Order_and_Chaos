@@ -6,8 +6,11 @@
 #include "nt_sparse_graph.h"
 #include "nauty_traces.h"
 
+#include<algorithm>
+#include<cmath>
 #include<set>
 #include<unordered_map>
+#include<unordered_set>
 #include<vector>
 
 TracesOptions default_traces_options() {
@@ -100,35 +103,53 @@ optionblk default_nauty_options() {
     return no;
 }
 
-// If true is passed, runs traces. Otherwise, runs nauty.
-NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
-                                     const NautyTracesOptions& o,
-                                     NTPartition& p);
+// 0 --> traces
+// 1 --> nauty
+// 2 --> fake_iso
+NautyTracesResults __iso_program(int program, NTSparseGraph& g,
+                                 const NautyTracesOptions& o,
+                                 NTPartition& p);
 
 NautyTracesResults nauty(NTSparseGraph& g, const NautyTracesOptions& o) {
     NTPartition partition = g.nauty_traces_coloring();
-    return __traces_or_nauty(false, g, o, partition);
+    return __iso_program(1, g, o, partition);
 }
 
 NautyTracesResults nauty(NTSparseGraph& g, const NautyTracesOptions& o,
                          NTPartition& p) {
-    return __traces_or_nauty(false, g, o, p);
+    return __iso_program(1, g, o, p);
 }
 
 NautyTracesResults traces(NTSparseGraph& g, const NautyTracesOptions& o) {
     NTPartition partition = g.nauty_traces_coloring();
-    return __traces_or_nauty(true, g, o, partition);
+    return __iso_program(0, g, o, partition);
 }
 
 NautyTracesResults traces(NTSparseGraph& g, const NautyTracesOptions& o,
                           NTPartition& p) {
-    return __traces_or_nauty(true, g, o, p);
+    return __iso_program(0, g, o, p);
 }
 
-// If true is passed, runs traces. Otherwise, runs nauty.
-NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
-                                     const NautyTracesOptions& o,
-                                     NTPartition& p) {
+NautyTracesResults fake_iso(NTSparseGraph& g, const NautyTracesOptions& o) {
+    NTPartition partition = g.nauty_traces_coloring();
+    return __iso_program(2, g, o, partition);
+}
+
+NautyTracesResults fake_iso(NTSparseGraph& g, const NautyTracesOptions& o,
+                            NTPartition& p) {
+    return __iso_program(2, g, o, p);
+}
+
+void __fake_iso(sparsegraph* g, int* partition_node_ids, int* partition_ints,
+                int *orbits, long double* aut_base, long double* aut_exp);
+
+// 0 --> traces
+// 1 --> nauty
+// 2 --> fake_iso
+NautyTracesResults __iso_program(int program, NTSparseGraph& g,
+                                 const NautyTracesOptions& o,
+                                 NTPartition& p) {
+
     NautyTracesResults results;
 
     sparsegraph g_nt = g.as_nauty_traces_graph();
@@ -139,7 +160,7 @@ NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
 
     int* orbits = __nt_run_space.orbits;
 
-    if (traces) {
+    if (program == 0) {  // Traces
         TracesOptions to = default_traces_options();
         if (o.get_canonical_node_order) {
             to.getcanon = true;
@@ -154,7 +175,7 @@ NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
         results.error_status = ts.errstatus;
         results.num_aut_base = ts.grpsize1;
         results.num_aut_exponent = ts.grpsize2;
-    } else {
+    } else if (program == 1) {  // Nauty
         optionblk no = default_nauty_options();
         if (o.get_canonical_node_order) {
             no.getcanon = true;
@@ -169,6 +190,15 @@ NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
         results.error_status = ns.errstatus;
         results.num_aut_base = ns.grpsize1;
         results.num_aut_exponent = ns.grpsize2;
+    } else {  // Fake ISO
+        long double aut_base;
+        long double aut_exp;
+        __fake_iso(&g_nt, p.get_node_ids(), p.get_partition_ints(),
+                   orbits, &aut_base, &aut_exp);
+
+        results.error_status = 0;
+        results.num_aut_base = aut_base;
+        results.num_aut_exponent = aut_exp;
     }
 
     results.num_node_orbits = 0;
@@ -233,6 +263,7 @@ NautyTracesResults __traces_or_nauty(bool traces, NTSparseGraph& g,
 
     if (o.get_canonical_node_order) {
         // TODO: Verify whether the regular nodes are always listed first.
+        //  (as opposed to the augmented edge nodes)
         results.canonical_node_order = std::vector<int>(g.num_nodes(), 0);
         int *canon = p.get_node_ids();
         for (size_t i = 0; i < g.num_nodes(); i++) {
@@ -287,4 +318,207 @@ void __NTRunSpace::set_size(size_t n, size_t nde) {
         g.elen = actual_elen;
     }
     g.nde = nde;
+}
+
+void __fake_iso(sparsegraph* g, int* partition_node_ids, int* partition_ints,
+                int *orbits, long double* aut_base, long double* aut_exp) {
+
+    long double log2_aut = 0.0;
+    long naive_aut = 1;
+
+    // Initialize the Data Structures
+
+    int n = g->nv;
+    int* degrees = g->d;
+    size_t* nbr_start = g->v;
+    int* neighbors = g->e;
+
+    std::vector<int> node_to_label = std::vector<int>(n);
+    std::unordered_map<int, std::unordered_set<int>> label_to_nodes;
+    std::vector<std::vector<int>> neighbor_lists =
+        std::vector<std::vector<int>>();
+
+    int node, neighbor;
+    int label = 0;
+    label_to_nodes.insert(
+        std::pair<int, std::unordered_set<int>>(0, std::unordered_set<int>()));
+
+    for (int idx = 0; idx < n; idx++) {
+        node = partition_node_ids[idx];
+        node_to_label[node] = label;
+        label_to_nodes[label].insert(node);
+
+        neighbor_lists.push_back(std::vector<int>(degrees[idx]));
+        for (int j = 0; j < degrees[idx]; j++) {
+            neighbor_lists[idx][j] = neighbors[nbr_start[idx] + j];
+        }
+
+        if (partition_ints[idx] == 0) {
+            if (idx < n - 1) {
+                label++;
+                label_to_nodes.insert(std::pair<int, std::unordered_set<int>>(
+                                        label, std::unordered_set<int>()));
+            }
+        }
+    }
+
+    std::set<int> affected_labels = std::set<int>();
+    for (auto itr = label_to_nodes.begin(); itr != label_to_nodes.end(); itr++){
+        if (itr->second.size() > 1) {
+            affected_labels.insert(itr->first);
+        }
+    }
+
+    std::vector<std::pair<std::vector<int>, int>> cell =
+                    std::vector<std::pair<std::vector<int>, int>>();
+
+    // Begin the WL Refinement Process
+    int round = 0;
+    int next_label = label_to_nodes.size();
+    while (true) {  // Continue until all nodes have their own cell/label
+
+        while (affected_labels.size() > 0) {  // Run WL
+
+            // Pick the cell with the smallest ID and see if it splits.
+            label = *(affected_labels.begin());
+
+            // Fill Cell
+            cell.clear();
+            for (auto cell_itr = label_to_nodes[label].begin();
+                      cell_itr != label_to_nodes[label].end(); cell_itr++) {
+                node = *cell_itr;
+
+
+                // Collect node's neighbor labels
+                cell.push_back({std::vector<int>(), node});
+                for (auto nbr_itr = neighbor_lists[node].begin();
+                          nbr_itr != neighbor_lists[node].end(); nbr_itr++) {
+                    neighbor = *nbr_itr;
+                    cell[cell.size() - 1].first.push_back(node_to_label[neighbor]);
+                }
+
+                // Sort node's neighbor labels
+                std::sort(cell[cell.size() - 1].first.begin(),
+                          cell[cell.size() - 1].first.end());
+
+                // Append node's old label
+                cell[cell.size() - 1].first.push_back(node_to_label[node]);
+            }
+
+
+            // Sort Cell
+            std::sort(cell.begin(), cell.end());
+
+
+            bool cell_split = false;
+            // Relabel Cell Nodes
+            for (size_t j = 0; j < cell.size(); j++) {
+                node = cell[j].second;
+                label_to_nodes[node_to_label[node]].erase(node);
+                if (label_to_nodes[node_to_label[node]].size() == 0) {
+                    label_to_nodes.erase(node_to_label[node]);
+                }
+                if (label_to_nodes.find(next_label) == label_to_nodes.end()) {
+                    label_to_nodes.insert({next_label,
+                                           std::unordered_set<int>()});
+                }
+                node_to_label[node] = next_label;
+                label_to_nodes[next_label].insert(node);
+
+                if (j < cell.size() - 1 && cell[j].first <
+                                           cell[j + 1].first) {
+                    next_label++;
+                    cell_split = true;
+                }
+            }
+            next_label++;
+
+
+            affected_labels.erase(label);
+
+            if (cell_split) {
+                // Add affected cells (i.e. labels).
+                for (size_t j = 0; j < cell.size(); j++) {
+                    node = cell[j].second;
+                    for (auto nbr_itr = neighbor_lists[node].begin();
+                              nbr_itr != neighbor_lists[node].end(); nbr_itr++){
+                        neighbor = *nbr_itr;
+                        affected_labels.insert(node_to_label[neighbor]);
+                    }
+                }
+            }
+        }
+
+
+        round++;
+        if (round == 1) {
+            // TODO: Consider zero-indexing these outputs.
+            for (int node = 0; node < n; node++) {
+                orbits[node] = node_to_label[node];
+            }
+        }
+
+        if (label_to_nodes.size() == (size_t) n) {
+            // Every node has its own cell/label
+            break;
+        }
+
+        // Select a single node to have its own color.
+        std::unordered_set<int> *cell_ptr;
+        for (auto cell_itr = label_to_nodes.begin();
+                  cell_itr != label_to_nodes.end(); cell_itr++) {
+            if (cell_itr->second.size() == 1) {
+                continue;
+            }
+            cell_ptr = &(cell_itr->second);
+            break;
+        }
+        node = *(cell_ptr->begin());
+
+        // Create new spot for node, but don't erase it from the old spot yet
+        label_to_nodes.insert({next_label, std::unordered_set<int>()});
+        label_to_nodes[next_label].insert(node);
+        node_to_label[node] = next_label;
+        next_label++;
+
+        // Update automorphism estimate.
+        log2_aut += std::log2l(cell_ptr->size());
+        naive_aut *= cell_ptr->size();
+
+        // Calculate Affected Cells
+        for (auto nbr_itr = cell_ptr->begin();
+                  nbr_itr != cell_ptr->end(); nbr_itr++) {
+            neighbor = *nbr_itr;
+            affected_labels.insert(node_to_label[neighbor]);
+        }
+
+        // Ok, now erase it.
+        cell_ptr->erase(node);
+    }
+
+    // At the very end, convert the labeling into an NT partition
+    std::vector<int> labels = std::vector<int>();
+    for (auto lbl_itr = label_to_nodes.begin();
+              lbl_itr != label_to_nodes.end(); lbl_itr++) {
+        labels.push_back(lbl_itr->first);
+    }
+    std::sort(labels.begin(), labels.end());
+
+    int idx = 0;
+    for (auto lbl_itr = labels.begin(); lbl_itr != labels.end(); lbl_itr++) {
+        label = *lbl_itr;
+        for (auto node_itr = label_to_nodes[label].begin();
+                  node_itr != label_to_nodes[label].end(); node_itr++) {
+            node = *node_itr;
+            partition_node_ids[idx] = node;
+            partition_ints[idx] = 1;
+            idx++;
+        }
+        partition_ints[idx - 1] = 0;
+    }
+
+    long double log10_aut = log2_aut / std::log2l(10);
+    *aut_exp = std::floor(log10_aut);
+    long double what_remains = log10_aut - *aut_exp;
+    *aut_base = std::exp2l(what_remains * std::log2l(10));
 }

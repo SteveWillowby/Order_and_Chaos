@@ -69,10 +69,10 @@ public:
     //  Traces do not modify the graph structure, so as long as you also do not
     //  use this info to modify the graph, then this function is safe.
     //
-    // NOTE: traces.cpp assumes details about this class's output for this
+    // NOTE: nauty_traces.cpp assumes details about this class's output for this
     //  function. If the details of this output change, traces.cpp must change
     //  too.
-    //  In particular, traces.cpp assumes the following:
+    //  In particular, nauty_traces.cpp assumes the following:
     //      * The first n nodes in v are the regular nodes.
     //      * There are at most 3 nt edges per edge in the graph when the graph
     //          is directed and at most 2 nt edges per edge when the undirected.
