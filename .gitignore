@@ -1,7 +1,7 @@
 ~$*
 __pycache__/
-nauty27r4/*
-nauty27r4_modified/*
+nt_wrappers/nauty27r4/*
+nt_wrappers/nauty27r4_modified/*
 executables/*
 *.o
 *.a
