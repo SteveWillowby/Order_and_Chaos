@@ -1,7 +1,6 @@
 // minimal_nt_example.cpp
 
-#include "file_utils.h"
-#include "nauty_traces.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<cmath>
 #include<iostream>

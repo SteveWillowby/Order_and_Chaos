@@ -32,10 +32,10 @@ echo "###      Compiling CPP Wrappers & Utilities        ###"
 echo "######################################################"
 
 # Create the .o files
-g++ -c nauty_traces.cpp file_utils.cpp
+g++ -c nauty_traces.cpp file_utils.cpp debugging.cpp graph.cpp nt_partition.cpp sparse_graph.cpp nt_sparse_graph.cpp
 
 # Create a library
-ar rvs nt_wrappers_only.a nauty_traces.o file_utils.o nt_partition.o graph.o sparse_graph.o nt_sparse_graph.o debugging.o
+ar rvs nt_wrappers_only.a nauty_traces.o file_utils.o debugging.o graph.o nt_partition.o sparse_graph.o nt_sparse_graph.o
 
 # Combine nauty.a and nt_wrappers_only.a into a single library
 ar -M <nt_wrappers.mri
