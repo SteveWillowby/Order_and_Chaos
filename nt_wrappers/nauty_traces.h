@@ -1,5 +1,8 @@
 #include "coloring.h"
 #include "edge.h"
+// file_utils.h is not needed for this code, but is included to that all
+//  references to this library can be included in a single header file
+#include "file_utils.h"
 #include "nt_sparse_graph.h"
 
 #include<unordered_map>

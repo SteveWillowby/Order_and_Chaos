@@ -1,0 +1,5 @@
+create nt_wrappers.a
+addlib nauty27r4_modified/nauty.a
+addlib nt_wrappers_only.a
+save
+end
