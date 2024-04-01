@@ -10,7 +10,6 @@
 
 #include "nt_wrappers/nauty_traces.h"
 
-#include "edge_sampler.h"
 #include "genetic_alg_search.h"
 #include "noise_prob_choice.h"
 
@@ -60,6 +59,7 @@ int main(int argc, char* argv[]) {
                  <<"\t\t\t\tX is the max node label in the edgelist."
                  <<std::endl<<std::endl
                  <<"-edges <arg>:\tedgelist filename (including path)"
+                 <<std::endl<<"\t\t\t* These edges are the noise to be scored."
                  <<std::endl<<std::endl
                  <<std::endl<<"OPTIONAL:"<<std::endl<<std::endl
                  <<"-nodes <arg>:\tnodelist filename (including path)"
@@ -80,8 +80,9 @@ int main(int argc, char* argv[]) {
                  <<"-no_extra:\tReduces number of automorphism calls and"
                  <<" amount of non-score info"
                  <<std::endl<<std::endl
-                 <<"-approx:\tUse an approximate ISO answer. Scores may be"
-                 <<" too high."
+                 <<"-approx:\tUse an \"approximate\" isomorphism algorithm to" 
+                 <<" calculate answer."
+                 <<std::endl<<"\t\t\t* Scores may be too high but are often exactly correct."
                  <<std::endl<<std::endl
                  ;
 
@@ -97,8 +98,6 @@ int main(int argc, char* argv[]) {
     } else if (cmd_flag_present(inputs, "-u")) {
         directed = false;
     } else {
-        // std::cout<<"No (un)directed flag passed. Assuming undirected."
-        //          <<std::endl;
         directed = false;
     }
 
@@ -107,9 +106,6 @@ int main(int argc, char* argv[]) {
 
     std::string edgelist_file;
     edgelist_file = get_cmd_option(inputs, "-edges");
-
-//    std::string output_file;
-//    output_file = get_cmd_option(inputs, "-o");
 
     std::string nodelist_file = "";  // No nodelist
     if (cmd_flag_present(inputs, "-nodes")) {
@@ -146,12 +142,6 @@ int main(int argc, char* argv[]) {
 
     bool no_extra = cmd_flag_present(inputs, "-no_extra");
     bool full_iso = !cmd_flag_present(inputs, "-approx");
-
-    // const bool corrupt_original = false;
-    // Only used when corrupt_original is true.
-    // const size_t num_additions = 0;
-    // Only used when corrupt_original is true.
-    // const size_t num_removals = 0;
 
     NautyTracesOptions o;
     o.get_node_orbits = true;
@@ -214,16 +204,8 @@ int main(int argc, char* argv[]) {
                      std::log2l(p_minus),
                      std::log2l(1.0 - p_minus)};
     } else {
-        // log_probs = {-1.0, -1.0, -1.0, -1.0};
         log_probs = default_log2_noise_probs(g_info, comb_util);
     }
-
-    // TODO: Remove this printout
-    std::cout<<"Log2 Noise Probs:"<<std::endl
-             <<"\t Log2(p_plus) =      "<<log_probs[0]<<std::endl
-             <<"\t Log2(1 - p_plus) =  "<<log_probs[1]<<std::endl
-             <<"\t Log2(p_minus) =     "<<log_probs[2]<<std::endl
-             <<"\t Log2(1 - p_minus) = "<<log_probs[3]<<std::endl<<std::endl;
 
     if (full_iso) {
         std::cout<<"Running `traces` on original graph."<<std::endl;
@@ -257,10 +239,6 @@ int main(int argc, char* argv[]) {
             }
         }
     }
-
-
-//    se_del = deletions;
-//    se_add = additions;
 
     Coloring<Edge, EdgeHash> edge_coloring;
     for (auto x =  nt_results.edge_orbits.colors().begin();
