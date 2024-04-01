@@ -38,7 +38,7 @@ it is necessary to check they are correct.
    and HAVE_TLS=0.  USE_TLS can be defined on the command line or by
    configuring with --enable-tls. */
 #ifndef USE_TLS
-
+#define USE_TLS
 #endif
 #ifdef USE_TLS
 #if !TLS_SUPPORTED

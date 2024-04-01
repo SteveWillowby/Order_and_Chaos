@@ -2,6 +2,7 @@
 __pycache__/
 nt_wrappers/nauty27r4/*
 nt_wrappers/nauty27r4_modified/*
+nt_wrappers/nauty27r4_modified/nauty.h
 executables/*
 *.o
 *.a
