@@ -1,10 +1,9 @@
-#include "coloring.h"
-#include "edge.h"
-#include "nt_sparse_graph.h"
 #include "scoring_function.h"
 #include "thread_pool_scorer.h"
 #include "wl_measures.h"
 #include "Jonker_Volgenant/src/assignAlgs2D.h"
+
+#include "nt_wrappers/nauty_traces.h"
 
 #include<condition_variable>
 #include<cstring>

@@ -1,6 +1,4 @@
-#include "coloring.h"
-#include "edge.h"
-#include "graph.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #ifndef SCHENO__WL_MEASURES_H
 #define SCHENO__WL_MEASURES_H

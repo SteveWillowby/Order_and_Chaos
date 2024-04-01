@@ -1,5 +1,4 @@
-#include "nt_sparse_graph.h"
-#include "nauty_traces.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<algorithm>
 #include<cmath>

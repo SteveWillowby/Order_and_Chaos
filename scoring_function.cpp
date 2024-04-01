@@ -1,8 +1,6 @@
-#include "coloring.h"
-#include "edge.h"
-#include "nauty_traces.h"
-#include "nt_sparse_graph.h"
 #include "wl_measures.h"
+
+#include "nt_wrappers/nauty_traces.h"
 
 #include "scoring_function.h"
 

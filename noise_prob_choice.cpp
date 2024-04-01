@@ -2,8 +2,8 @@
 
 #include "noise_prob_choice.h"
 
-#include "nauty_traces.h"
-#include "nt_sparse_graph.h"
+#include "nt_wrappers/nauty_traces.h"
+
 #include "scoring_function.h"
 
 long double log2_fancy_factor(long double n, long double max_E_no_SL,

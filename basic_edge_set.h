@@ -1,4 +1,4 @@
-#include "edge.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<unordered_set>
 

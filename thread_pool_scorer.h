@@ -1,8 +1,7 @@
-#include "coloring.h"
-#include "edge.h"
 #include "int_edge_sampler.h"
-#include "nt_sparse_graph.h"
 #include "scoring_function.h"
+
+#include "nt_wrappers/nauty_traces.h"
 
 #include<condition_variable>
 #include<memory>

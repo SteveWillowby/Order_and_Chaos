@@ -1,9 +1,8 @@
-#include "coloring.h"
-#include "edge.h"
-#include "nt_sparse_graph.h"
 #include "Jonker_Volgenant/src/assignAlgs2D.h"
 #include "wl_measures.h"
 #include "thread_pool_wl_sim.h"
+
+#include "nt_wrappers/nauty_traces.h"
 
 #include<condition_variable>
 #include<memory>

@@ -1,6 +1,5 @@
-#include "edge.h"
-#include "graph.h"
 #include "int_edge_sampler.h"
+#include "nt_wrappers/nauty_traces.h"
 #include "thread_pool_scorer.h"
 
 #include<map>

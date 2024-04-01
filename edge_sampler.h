@@ -1,5 +1,4 @@
-#include "edge.h"
-#include "sparse_graph.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<cstdint>
 #include<random>

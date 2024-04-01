@@ -1,5 +1,4 @@
-#include "edge.h"
-#include "graph.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<random>
 #include<unordered_set>

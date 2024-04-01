@@ -1,6 +1,4 @@
-#include "coloring.h"
-#include "edge.h"
-#include "nt_sparse_graph.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<array>
 #include<unordered_set>

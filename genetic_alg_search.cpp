@@ -1,12 +1,10 @@
 #include "basic_edge_set.h"
-#include "edge.h"
-#include "file_utils.h"
 #include "genetic_alg_search.h"
-#include "graph.h"
 #include "int_edge_sampler.h"
-#include "nauty_traces.h"
 #include "noise_prob_choice.h"
 #include "thread_pool_scorer.h"
+
+#include "nt_wrappers/nauty_traces.h"
 
 #include<algorithm>
 #include<iostream>

@@ -3,13 +3,11 @@
 #include<random>
 #include<string>
 
+#include "nt_wrappers/nauty_traces.h"
+
 #include "basic_edge_set.h"
-#include "edge.h"
 #include "edge_sampler.h"
 #include "int_edge_sampler.h"
-#include "file_utils.h"
-#include "nt_sparse_graph.h"
-#include "nauty_traces.h"
 #include "scoring_function.h"
 #include "thread_pool_scorer.h"
 
