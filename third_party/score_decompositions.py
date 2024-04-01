@@ -114,8 +114,9 @@ if __name__ == "__main__":
             if __name_list__[i] in ["enron", "flickr", "epinions"] and \
                     algorithm.lower() not in ["vog"]:
                 continue
-            if __name_list__[i] in ["fullerene_c6000"] and \
-                    algorithm.lower() not in ["subdue"]:
+            if __name_list__[i] in \
+                    ["fullerene_c180","fullerene_c720","fullerene_c6000"] and \
+                        algorithm.lower() not in ["subdue"]:
                 continue
 
             graph_file = __graphs_base__ + __graphs_list__[i]
