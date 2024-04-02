@@ -41,6 +41,85 @@ The graph can be directed or undirected.
 
 To see the full help menu, run `executables/SCHENO_ga -h`
 
+Example:
+
+```
+~/Documents/SCHENO$ cat example_graphs/almost_7_cycle.txt
+0 1
+1 2
+2 3
+3 4
+4 5
+5 6
+~/Documents/SCHENO$ executables/SCHENO_ga \
+                        -graph example_graphs/almost_7_cycle.txt \
+                        -o example_graphs/almost_7_cycle \
+                        -n_itr 4 -topk 3
+Loading graph from files:
+    
+    example_graphs/almost_7_cycle.txt
+  ...graph loaded. It has 7 nodes and 6 edges, 0 of which are self-loops.
+
+The original graph has log2_aut = 1
+Running for 4 iterations per trial...
+Trial 0 for (noise-, noise+) = (0, 0)
+
+log2_p_plus:          -3.95424
+log2_1_minus_p_plus:  -0.0962126
+log2_p_minus:         -3.95424
+log2_1_minus_p_minus: -0.0962126
+p_plus:  0.0645144
+p_minus: 0.0645144
+
+  Beginning edge heuristic pre-computation...
+  ...Finished edge heuristic pre-computation.
+The seed edge set gets a score of 1
+
+Beginning Iteration 1...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 2.75669
+
+Beginning Iteration 2...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 2.75669
+
+Beginning Iteration 3...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 2.75669
+
+Beginning Iteration 4...
+	Mutating
+	Mating
+	Scoring
+...Finished iteration with a best score of 2.75669
+
+With a score of 2.75669 we have log2(|Aut(G_H)|) of 3.80735
+With edges: 
+(0, 6), 
+
+With a score of 1 we have log2(|Aut(G_H)|) of 1
+With edges: 
+
+
+With a score of 0.927809 we have log2(|Aut(G_H)|) of 4.32193
+With edges: 
+(1, 2), (2, 6),
+~/Documents/SCHENO$ cat example_graphs/almost_7_cycle_graph.txt
+0 6
+0 1
+1 2
+2 3
+3 4
+4 5
+5 6
+```
+
 
 ## Including SCHENO Scores in Your Own Program
 
