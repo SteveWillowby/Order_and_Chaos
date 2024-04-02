@@ -1,12 +1,20 @@
 # `SCHENO`, the SCHEma-NOise scoring function
 
-###...Also includes a pattern-finding genetic algorithm guided by SCHENO as its fitness function.
+### ...Also includes a pattern-finding genetic algorithm guided by SCHENO as its fitness function.
 
 ## About
 
-The core idea behind `SCHENO` is that real-world graphs are messy manifestations of underlying patterns. `SCHENO` offers a principled way to measure how well you've done at uncovering those patterns.
+The core idea behind `SCHENO` is that real-world graphs are messy manifestations of underlying patterns ("schemas"). `SCHENO` offers a principled way to measure how well you've done at uncovering those patterns.
 
-Given two graphs, `SCHENO` measures how well the first graph represents the underlying pattern(s) in the second graph.
+Given a graph and a "noise set" (a list of node-pairs), `SCHENO` measures how well the graph "minus" the noise set represents the underlying patterns (i.e. schema) of the graph. We put "minus" in scarequotes because if an edge is in the noise set, `SCHENO` considers the graph without that edge, but if a non-edge is in the noise set, `SCHENO` considers the graph with that edge added.
+
+`SCHENO` factors three things into a single numeric score:
+
+- How patterned or structural is the schema?
+- How random or noisy is the noise?
+- How different is the schema from the original graph?
+
+Much more information is available in the dissertation [here](https://www.proquest.com/docview/2916028057).
 
 ### Isomorphism and Automorphism Calculations
 
@@ -24,7 +32,7 @@ The binaries will be located in the `executables` folder.
 
 You can find a PDF manual describing the use of this repository's code inside the `documentation` folder.
 
-For a full theoretical description of SCHENO, see the research paper located [here (TODO: Add Link)](https://github.com/schemanoise/SCHENO).
+For a full theoretical description of `SCHENO`, see the dissertation located [here](https://www.proquest.com/docview/2916028057).
 
 ### `SCHENO_score`
 
@@ -40,6 +48,12 @@ To see the full help menu, run `executables/SCHENO_score -h`
 This program takes a graph (expressed as an edgelist) and tries to find the best schema-noise decomposition for that graph using a simple genetic algorithm. The genetic algorithm uses the SCHENO score as its fitness function.
 
 The graph can be directed or undirected.
+
+`SCHENO_ga` will output three files:
+
+- The `graph` file, which represents the pattern (aka "schema") -- given as an edgelist
+- The `noise` file, which represents the noise -- given as an edgelist
+- the `nodes` file (this one is unimportant -- just the list of the graph's nodes)
 
 To see the full help menu, run `executables/SCHENO_ga -h`
 
@@ -143,6 +157,26 @@ For scoring a bunch of candidate noise sets in parallel, consider using the `Thr
 
 This repository contains code from several sources, some of which have licenses or copyrights of their own. In particular, see `scheno/Jonker_Volgenant/LICENSE.md`, `scheno/nt_wrappers/nauty27r4/COPYRIGHT`, and `scheno/nt_wrappers/nauty27r4_modified/COPYRIGHT`.
 
-The rest of the code was written by Justus Hibshman and is licensed as follows:
+.
 
-*Insert Standard MIT License*
+The rest of the code is licensed as follows:
+
+Copyright (c) 2024 Justus Hibshman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
