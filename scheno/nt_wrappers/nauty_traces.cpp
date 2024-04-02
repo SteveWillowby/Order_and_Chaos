@@ -336,8 +336,6 @@ void __fake_iso(sparsegraph* g, int* partition_node_ids, int* partition_ints,
 
     std::vector<int> node_to_label = std::vector<int>(n);
     std::unordered_map<int, std::unordered_set<int>> label_to_nodes;
-    std::vector<std::vector<int>> neighbor_lists =
-        std::vector<std::vector<int>>();
 
     int node, neighbor;
     int label = 0;
@@ -348,11 +346,6 @@ void __fake_iso(sparsegraph* g, int* partition_node_ids, int* partition_ints,
         node = partition_node_ids[idx];
         node_to_label[node] = label;
         label_to_nodes[label].insert(node);
-
-        neighbor_lists.push_back(std::vector<int>(degrees[idx]));
-        for (int j = 0; j < degrees[idx]; j++) {
-            neighbor_lists[idx][j] = neighbors[nbr_start[idx] + j];
-        }
 
         if (partition_ints[idx] == 0) {
             if (idx < n - 1) {
@@ -392,9 +385,9 @@ void __fake_iso(sparsegraph* g, int* partition_node_ids, int* partition_ints,
 
                 // Collect node's neighbor labels
                 cell.push_back({std::vector<int>(), node});
-                for (auto nbr_itr = neighbor_lists[node].begin();
-                          nbr_itr != neighbor_lists[node].end(); nbr_itr++) {
-                    neighbor = *nbr_itr;
+                for (int k = nbr_start[node];
+                         k < nbr_start[node] + degrees[node]; k++) {
+                    neighbor = neighbors[k];
                     cell[cell.size() - 1].first.push_back(node_to_label[neighbor]);
                 }
 
@@ -441,9 +434,9 @@ void __fake_iso(sparsegraph* g, int* partition_node_ids, int* partition_ints,
                 // Add affected cells (i.e. labels).
                 for (size_t j = 0; j < cell.size(); j++) {
                     node = cell[j].second;
-                    for (auto nbr_itr = neighbor_lists[node].begin();
-                              nbr_itr != neighbor_lists[node].end(); nbr_itr++){
-                        neighbor = *nbr_itr;
+                    for (int k = nbr_start[node];
+                             k < nbr_start[node] + degrees[node]; k++) {
+                        neighbor = neighbors[k];
                         affected_labels.insert(node_to_label[neighbor]);
                     }
                 }
@@ -489,9 +482,9 @@ void __fake_iso(sparsegraph* g, int* partition_node_ids, int* partition_ints,
         // Calculate Affected Cells
         for (auto node_itr = cell_ptr->begin();
                   node_itr != cell_ptr->end(); node_itr++) {
-            for (auto nbr_itr = neighbor_lists[*node_itr].begin();
-                      nbr_itr != neighbor_lists[*node_itr].end(); nbr_itr++) {
-                neighbor = *nbr_itr;
+            for (int k = nbr_start[*node_itr];
+                     k < nbr_start[*node_itr] + degrees[*node_itr]; k++) {
+                neighbor = neighbors[k];
                 affected_labels.insert(node_to_label[neighbor]);
             }
         }
