@@ -12,7 +12,6 @@ scheno/nt_wrappers
 test_nt_code
 minimal_nt_example
 experiments/plotting_code/structure_graph*
-documentation/LaTeX
 third_party/crossspot/nodes.txt
 third_party/crossspot/prepared.csv
 third_party/crossspot/line_graph.csv
