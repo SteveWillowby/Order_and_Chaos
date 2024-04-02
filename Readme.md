@@ -1,91 +1,61 @@
-# SCHENO, the SCHEma NOise scoring function
+# SCHENO, the SCHEma-NOise scoring function
 
-Also includes a pattern-finding genetic algorithm guided by SCHENO as its fitness function.
+###...Also includes a pattern-finding genetic algorithm guided by SCHENO as its fitness function.
 
 ## About
 
 Given two graphs, SCHENO measures how well the first graph represents the underlying pattern(s) in the second graph.
 
-This code also contains some useful C++ wrappers around the C implementation of Nauty and Traces. In addition to offering a more convenient interface, the wrappers offer the following features: Adding edge colorings to the graph before running Nauty/Traces, running Traces efficiently on directed graphs by creating undirected graphs equivalent to the directed ones behind the scenes, amortized constant-time edits to a graph stored in the Nauty/Traces input format (a non-trivial feature), and a slightly modified version of the Nauty/Traces code that can compile without error for C++ multithreaded use.
+### Isomorphism and Automorphism Calculations
 
-We have a separate respository containing only the relevant Nauty and Traces code here (TODO: Link).
+If you are simply interested in this project's handy `C++` wrappers surrounding the `nauty` and `traces` isomorphism code, those wrappers are available in a standalone repository [here](https://github.com/schemanoise/Nauty_and_Traces).
 
-The complete list of files and folders needed for the wrappers is:
-
-```
-nauty27r4
-nauty27r4_modified
-nauty_traces_setup.sh
-nauty_traces.h
-nauty_traces.cpp
-graph.h
-graph.cpp
-sparse_graph.h
-sparse_graph.cpp
-nt_sparse_graph.h
-nt_sparse_graph.cpp
-nt_partition.h
-nt_partition.cpp
-edge.h
-coloring.h
-```
-
-This code is associated with the research paper (TODO: Title) currently on arXiv at (TODO: link).
-
-## Installation
-
-### Main Binaries
+## Setup
 
 The code for the main binaries is all contained in this repository, so no outside libraries or packages should be necessary.
 
-To compile, run:
+Run `setup.sh` to compile the utilities. Then run `compile.sh` to compile the executables.
 
-`./nauty_traces_setup.sh`
+The binaries will be located in the `executables` folder.
 
-and then run:
+## Using the Two Programs
 
-`./compile.sh`
+You can find a PDF manual describing the use of this repository's code inside the `documentation` folder.
 
-That's it! The programs should be ready to run.
+For a full theoretical description of SCHENO, see the research paper located [here (TODO: Add Link)](https://github.com/schemanoise/SCHENO).
 
+### `SCHENO_score`
 
-### Other Experiments
+This program takes a graph (expressed as an edgelist) and a noise set (also expressed as an edgelist). It reports how well the graph without the noise represents the underlying structure of the graph.
 
-Much of the experimental code that uses the main binary is coded in Python.
+The graph can be directed or undirected.
 
-Necessary Python packages are: (TODO: Fill in)
-
-You can install these with the commands: (TODO: Fill in) 
-
-
-## Running the Main Binary
-
-The main binary is located at `executables/main`.
-
-To see the command-line options, run `executables/main -h`
+To see the full help menu, run `executables/SCHENO_score -h`
 
 
-## Running the Experiments
+### `SCHENO_ga`
 
-In the example below, we get the modified version of a college football season team-plays-team graph. Then we extract the modified graph from the result file and re-run the algorithm on the modified graph, this time more slowly (using the heuristic).
+This program takes a graph (expressed as an edgelist) and tries to find the best schema-noise decomposition for that graph using a simple genetic algorithm. The genetic algorithm uses the SCHENO score as its fitness function.
 
-```
-nice -2 executables/main -graph experiments/real_world_graphs/season_4_undirected_edges.txt -nodes experiments/real_world_graphs/season_4_undirected_nodes.txt -n_itr=200 -o experiments/test_results/season_4_undir >> experiments/test_results/season_4_undir.txt
+The graph can be directed or undirected.
 
-cd experiments
-
-python3 make_node_list.py test_results/season_4_undir_graph.txt
-
-cd ..
-
-nice -2 executables/main -graph experiments/test_results/season_4_undir_graph.txt -nodes experiments/test_results/season_4_undir_graph_nodes.txt -n_itr=50 -use_heuristic -o experiments/test_results/season_4_core
-```
+To see the full help menu, run `executables/SCHENO_ga -h`
 
 
-In the example below, we take a 120-node Johnson graph, randomly modify 1% of its connections (measured in terms of the number of its edges), and then see if the algorithm can find the original graph.
+## Including SCHENO Scores in Your Own Program
 
-```
-time nice -2 executables/main -graph experiments/structure_recovery/johnson_10_3_120_edges.txt -nodes experiments/structure_recovery/johnson_10_3_120_nodes.txt -noise- 0.005 -noise+ 0.005 -n_itr 140 -o experiments/test_results/johnson_120
-```
+You can find a PDF manual describing the interface for this repository's code inside the `documentation` folder.
 
-(TODO: Fill in)
+If you want to call the code directly, you can include all the classes through the file `scheno.h` contained in the `scheno` subfolder.
+
+The file `SCHENO_score.cpp` illustrates the use of most of the classes.
+
+For scoring a bunch of candidate noise sets in parallel, consider using the `ThreadPoolScorer` class.
+
+## License
+
+This repository contains code from several sources, some of which have licenses or copyrights of their own. In particular, see `scheno/Jonker_Volgenant/LICENSE.md`, `scheno/nt_wrappers/nauty27r4/COPYRIGHT`, and `scheno/nt_wrappers/nauty27r4_modified/COPYRIGHT`.
+
+The rest of the code was written by Justus Hibshman and is licensed as follows:
+
+*Insert Standard MIT License*
