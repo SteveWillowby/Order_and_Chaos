@@ -1,0 +1,379 @@
+\documentclass{article}
+
+\usepackage{bbm}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{subcaption}
+
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{SCHENO's Binaries and C++ Classes}
+
+\author{Justus Hibshman}
+
+\date{April 2024}
+
+\maketitle
+
+\vspace{2cm}
+
+\section*{Outline}
+
+\begin{itemize}
+    \item \ref{sec:nt_intro} Introduction to SCHENO
+    \item \ref{sec:features} Features of this Repository
+    \item \ref{sec:setup} Setup and Compilation
+    \item \ref{sec:binaries} Using the Executables
+    \item \ref{sec:interface} Interface
+    \item \ref{sec:full_example} Simple Example
+\end{itemize}
+
+
+\newpage
+
+\section{Introduction to SCHENO}\label{sec:nt_intro}
+
+The core idea behind \verb|SCHENO| is that real-world graphs are messy manifestations of underlying patterns. \verb|SCHENO| offers a principled way to measure how well you've done at uncovering those patterns.
+
+The formal definitions and explanations can be read in the article located at: \textbf{LINK}
+
+\section{Features of This Repository}\label{sec:features}
+
+The code in this repository offers \verb|C++| wrappers around the \verb|nauty| and \verb|traces| \verb|C| code. These wrappers provide the following:
+
+\begin{enumerate}
+    \item A more convenient interface for the \verb|nauty| and \verb|traces| features mentioned in Section~\ref{sec:nt_intro}.
+    \item The ability to call \verb|nauty| and \verb|traces| in multiple \verb|C++| threads without errors.
+    \item The ability to find the automorphism orbits of \emph{edges}\footnote{not a direct feature of the original code -- requires an augmentation of the input graph\label{foot:new_feature}}.
+    \item The ability to conveniently manipulate graphs in \verb|nauty| and \verb|traces|' input format in amortized constant time, rather than needing to re-create the graph every time you want to modify it.
+    \item The ability to specify an initial \emph{edge} coloring$^\text{\ref{foot:new_feature}}$.
+    \item The ability to run \verb|traces| on directed graphs$^\text{\ref{foot:new_feature}}$.
+    \item A fast ``fake'' isomorphism algorithm that works on most graphs -- especially most graphs with varying node degrees\footnote{not associated with nauty or traces -- based on the Weisfeiler Lehman algorithm (aka color refinement)}.
+\end{enumerate}
+
+\newpage
+
+\section{Setup and Compilation}\label{sec:setup}
+
+Setting up the code is a simple as entering the \verb|nt_wrappers| folder and running: \verb|./setup.sh|
+
+Whatever code you write will need to include the fuke \verb|nauty_traces.h| from the \verb|nt_wrappers| folder.
+
+To compile your own code using the wrappers, you will need to include the static library \verb|nt_wrappers.a| located inside the \verb|nt_wrappers| folder.
+
+Example compilation:
+
+\begin{verbatim}
+    g++ -Wall -Wextra -o my_output -std=c++11 my_program.cpp nt_wrappers/nt_wrappers.a
+\end{verbatim}
+
+\subsection{Esoteric Note}
+
+If for some reason you want to experience the pain modifying the \verb|NTSparseGraph| class, you may want to debug it using the \verb|SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE| preprocessor flag.
+
+You can see an example of using this feature in \verb|test_nt_code.cpp|. The flag is defined in\\\verb|nt_wrappers/nt_sparse_graph.h|.
+
+\newpage
+
+\section{Using the Executables}\label{sec:binaries}
+
+\subsection{SCHENO\_score}
+
+\subsection{SCHENO\_ga}
+
+\newpage
+
+\section{Interface}\label{sec:interface}
+
+\subsection{Essential Components}
+
+The key classes and structs you will need are \verb|NTSparseGraph| which stores a graph that can be loaded directly into \verb|nauty| and/or \verb|traces|, \verb|NautyTracesOptions| which stores info on what you would like \verb|nauty|/\verb|traces| to compute, and \verb|NautyTracesResults| which contains the result of a call to \verb|nauty|/\verb|traces|.
+
+\subsubsection{NTSparseGraph}
+
+\verb|NTSparseGraph| is a subclass of \verb|SparseGraph|, which is a subgraph of \verb|Graph|. The \verb|NTSparseGraph| and the \verb|SparseGraph| always label their $n$ nodes 0 through $n - 1$.
+
+There are three main ways to get an \verb|NTSparseGraph|. The first is to load an edge list text file (see Section~\ref{sec:file_utils}), then initialize your \verb|nauty|/\verb|traces| graph. For example:
+
+\begin{verbatim}
+        #include "nt_wrappers/nauty_traces.h"
+        
+        int main( void ) {
+            bool directed = 0;
+            NTSparseGraph g_nt(read_graph(directed, "nt_test_graphs/karate.txt"));
+            return 0;
+        }
+\end{verbatim}
+
+The second way is to build up the graph from scratch using the \verb|add_edge()| function. For example:
+
+\vspace{-0.2cm}
+
+\begin{verbatim}
+        #include "nt_wrappers/nauty_traces.h"
+        
+        int main( void ) {
+            bool directed = 1;
+            size_t n = 12;
+            NTSparseGraph g_nt(directed, n);
+            g_nt.add_edge(0, 5);
+            g_nt.add_edge(3, 5);
+            g_nt.add_edge(5, 3);
+            g_nt.add_edge(11, 10);
+            return 0;
+        }
+\end{verbatim}
+
+The third way is to copy a pre-existing \verb|SparseGraph| or \verb|NTSparseGraph|. For example:
+
+\vspace{-0.2cm}
+
+\begin{verbatim}
+        #include "nt_wrappers/nauty_traces.h"
+        
+        int main( void ) {
+            bool directed = 1;
+            SparseGraph g(directed);  // Defaults to 1 node
+            g.add_node();
+            g.add_node();
+            g.add_edge(0, 1);
+            g.add_edge(1, 2);
+            g.add_edge(2, 0);
+
+            // Three ways of copying a graph:
+            NTSparseGraph g_nt_1(g);
+            NTSparseGraph g_nt_2(directed);
+            g_nt_2 = g;
+            NTSparseGraph g_nt_3(g_nt_1);
+            return 0;
+        }
+\end{verbatim}
+
+\ 
+
+\vspace{-1cm}
+
+The methods from the \verb|NTSparseGraph| class that you are most likely to use are the following:
+
+\begin{itemize}
+    \setlength\itemsep{-0.1em}
+    \item \verb|NTSparseGraph(bool directed)|
+    \item \verb|NTSparseGraph(bool directed, size_t num_nodes)|
+    \item \verb|NTSparseGraph(const Graph& g)|
+    \item \verb|size_t num_nodes()|
+    \item \verb|size_t num_edges()|
+    \item \verb|size_t num_loops()| -- Returns the number of self-loops
+    \item \verb|directed| -- Not a function - just a constant boolean
+    \item \verb|int add_node()| -- Adds a node and returns the new node's ID
+    \item \verb|int delete_node(int a)| -- Deletes node $a$. Relabels the node with the largest label to have the label $a$. Then returns what used to be the label of what used to be the largest node.
+    \item \verb|bool add_edge(int source, int target)| -- Returns true iff the edge was new
+    \item \verb|bool delete_edge(int source, int target)| -- Returns true iff the edge was there to be deleted
+    \item \verb|void flip_edge(int s, int t)| -- Deletes edge $(s, t)$ if it was present, adds edge $(s, t)$ if it was absent.
+    \item \verb|const std::unordered_set<int> &neighbors(int a)| -- Returns an unordered set (\verb|C++| standard library) of all the nodes connected to node $a$
+    \item \verb|const std::unordered_set<int> &out_neighbors(int a)| -- Returns all the nodes that node $a$ points to. In an undirected graph, this returns the same thing as \verb|neighbors(a)|.
+    \item \verb|const std::unordered_set<int> &in_neighbors(int a)| -- Returns all the nodes that point to node $a$. In an undirected graph, this returns the same thing as \verb|neighbors(a)|.
+\end{itemize}
+
+\subsubsection{NautyTracesOptions}
+
+The \verb|NautyTracesOptions| struct contains three boolean fields:
+
+\begin{itemize}
+    \setlength\itemsep{-0.1em}
+    \item \verb|get_node_orbits|
+    \item \verb|get_edge_orbits|
+    \item \verb|get_canonical_node_order|
+\end{itemize}
+
+They are largely self-explanatory. If they are set to true, then a call to \verb|nauty|/\verb|traces| using these options will populate the corresponding fields in the relevant \verb|NautyTracesResults| struct. Setting them to false may improve runtime, so only set them to true when you want the information.
+
+\subsubsection{NautyTracesResults}
+
+The \verb|NautyTracesOptions| struct stores the output of a \verb|nauty|/\verb|traces| computation. It has the following fields:
+
+
+\begin{itemize}
+    \setlength\itemsep{-0.1em}
+    \item \verb|int error_status| -- Will be non-zero if an error occurred
+    \item \verb|size_t num_node_orbits| -- Number of automorphism orbits of the nodes
+    \item \verb|size_t num_edge_orbits| -- Number of automorphism orbits of the edges
+    \item \verb|double num_aut_base|
+    \item \verb|int num_aut_exponent| -- The number of automorphisms of the graph is roughly \\
+    {\large num\_aut\_base $\times 10^\text{ num\_aut\_exponent}$}.
+    \item \verb|std::vector<int> canonical_node_order| -- Stores the node IDs (0 through \verb|num_nodes() - 1|) in a canonical order. This field is only populated when the \verb|get_canonical_node_order| option is used.
+    \item \verb|Coloring<int> node_orbits| -- Stores a ``coloring'' which gives every node a color corresponding to which automorphism orbit it is in. The \verb|Coloring| class is described in Section~\ref{sec:coloring}. This field is only populated when \verb|get_node_orbits| option is used.
+    \item \verb|Coloring<Edge, EdgeHash> edge_orbits| -- Stores a ``coloring'' which gives every edge a color corresponding to which automorphism orbit it is in. The \verb|Coloring| class is described in Section~\ref{sec:coloring} and the \verb|Edge| class is described in Section~\ref{sec:edge_class}. This field is only populated with the \verb|get_edge_orbits| option is used.
+\end{itemize}
+
+\subsection{Colorings}\label{sec:coloring}
+
+Colorings are used to store automorphism orbit information. They can also be used to force automorphisms to match nodes to other nodes of the same color.
+
+\subsubsection{Reading a Coloring}
+
+If you simply want to read the colorings that \verb|nauty| and \verb|traces| provide, then the only feature you really need is the access operator [].
+
+For example, if \verb|node_col| is a node coloring, then to see what color node 7 is, simply use \verb|node_col[7]|.
+
+Accessing the color of an edge is a tiny bit more complicated. If \verb|edge_col| is an edge coloring and \verb|dir| is a boolean indicating whether or not you have directed edges, then the color of edge $(a, b)$ is accessed as \verb|edge_col[EDGE(a, b, dir)]|. The \verb|EDGE| macro produces an \verb|Edge| (which is really just a \verb|std::pair<int, int>|) that respects a convention the code uses for undirected edges.
+
+There are a few other methods for accessing the \verb|Coloring| class that can be useful:
+
+\begin{itemize}
+    \item \verb|size_t size()| -- Returns the number of colored elements.
+    \item \verb|const std::set<int>& colors()| -- Returns a set of all the colors in the coloring.
+    \item \verb|const std::unordered_set<T, THash>& cell(int color)| -- Returns the set of nodes (type \verb|int|) or edges (type \verb|Edge|) that have the color \verb|color|.
+\end{itemize}
+
+
+\subsubsection{Creating a Coloring} \ 
+
+If you want to \emph{create} a \verb|Coloring| for nodes, it should be initialized as follows:
+
+\begin{verbatim}
+        Coloring<int> my_node_coloring();
+\end{verbatim}
+
+If you want to \emph{create} a \verb|Coloring| for edges, it should be initialized as follows:
+
+\begin{verbatim}
+        Coloring<Edge, EdgeHash> my_edge_coloring();
+\end{verbatim}
+
+To set the color of an element or to remove an element from the coloring, use the following two methods:
+
+\begin{itemize}
+    \item \verb|set(const T& elt, int color)| -- Sets node or edge \verb|elt| to color \verb|color|.
+    \item \verb|erase(const T& elt)| -- Removes node or edge \verb|elt| from the coloring.
+\end{itemize}
+
+\subsection{Edge Class for Edge Colorings}\label{sec:edge_class}
+
+The \verb|Edge| class is only needed if you want to work with edge colorings. It is simply a \verb|typedef| for \verb|std::pair<int, int>|. The code requires that undirected edges put the smaller node ID first. The easiest way to create an \verb|Edge| is probably to use the \verb|EDGE(source, target, directed)| macro, where \verb|source| and \verb|target| are integers and \verb|directed| is a boolean.
+
+\subsection{File Utils}\label{sec:file_utils}
+
+To load a graph from a file or write a graph to a file, you can use the following functions:
+
+\textbf{Read Graph from File Version 1}
+
+\ 
+
+This function assumes that the nodes are numbered 0 through the largest node ID found in the edge list.
+
+\begin{verbatim}
+        SparseGraph read_graph(const bool directed,
+                               const std::string& edgelist_filename);
+\end{verbatim}
+
+\newpage
+
+\textbf{Read Graph from File Version 2}
+
+\ 
+
+This function puts all nodes in the nodelist into the graph, even if they do not appear in the edgelist.
+
+Note that if the nodes in the node list are not labeled 0 through $n-1$, they will be relabeled in sorted order as they are loaded.
+
+\begin{verbatim}
+        SparseGraph read_graph(const bool directed,
+                               const std::string& nodelist_filename,
+                               const std::string& edgelist_filename);
+\end{verbatim}
+
+\ 
+
+\textbf{Write Graph to File}
+
+\ 
+
+If \verb|nodelist_filename| is empty then no nodelist is written.
+
+\verb|SparseGraph| and \verb|NTSparseGraph| are both subclasses of \verb|Graph|.
+
+\begin{verbatim}
+        void write_graph(const Graph& g, const std::string& nodelist_filename,
+                                         const std::string& edgelist_filename);
+\end{verbatim}
+
+\ 
+
+\textbf{Construct a node list file from an edge list file}
+
+\ 
+
+Reads the edgelist file and makes a nodelist for it.
+
+If \verb|full_range| is true, then the nodelist will consist of the interval from 0 through the largest node ID in the edgelist. If \verb|full_range| is false, only nodes mentioned in the edgelist will be listed in the nodelist.
+
+\begin{verbatim}
+        void make_nodelist(const std::string& edgelist_filename,
+                           const std::string& nodelist_filename,
+                           bool full_range);
+\end{verbatim}
+
+\newpage
+
+\section{Simple Example}\label{sec:full_example}
+
+\begin{verbatim}
+// minimal_nt_example.cpp
+
+#include "nt_wrappers/nauty_traces.h"
+
+#include<cmath>
+#include<iostream>
+
+int main(void) {
+
+    bool directed = false;
+    NTSparseGraph karate(directed);
+    karate = read_graph(directed, "nt_test_graphs/karate.txt");
+
+    std::cout<<"# Nodes: "<<karate.num_nodes()<<std::endl;
+    std::cout<<"# Edges: "<<karate.num_edges()<<std::endl<<std::endl;
+
+    NautyTracesOptions nto;
+    nto.get_node_orbits = true;
+    nto.get_edge_orbits = true;
+    nto.get_canonical_node_order = true;
+    
+    NautyTracesResults ntr = traces(karate, nto);
+    
+    double log10_aut = std::log10(ntr.num_aut_base) + ntr.num_aut_exponent;
+    std::cout<<"Log10 of Automorphisms:  "<<log10_aut<<std::endl;
+    std::cout<<"Number of Automorphisms: "<<(std::pow(10.0, log10_aut))<<std::endl;
+    std::cout<<"Number of Node Orbits:   "<<ntr.node_orbits.colors().size()<<std::endl;
+    std::cout<<"Number of Edge Orbits:   "<<ntr.edge_orbits.colors().size()<<std::endl;
+    std::cout<<"First Node in Canonical Ordering: "
+             <<ntr.canonical_node_order[0]<<std::endl;
+
+    return 0;
+}
+\end{verbatim}
+
+\ 
+
+The above example can be compiled with the following command:
+
+\begin{verbatim}
+g++ -Wall -Wextra -o minimal_nt_example -std=c++11 minimal_nt_example.cpp \
+                        nt_wrappers/nt_wrappers.a
+\end{verbatim}
+
+% \bibliographystyle{plain}
+% \bibliography{references}
+
+
+% \begin{appendices}
+
+% \section{An Appendix}
+
+% \end{appendices}
+
+\end{document}
