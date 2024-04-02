@@ -107,9 +107,13 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     std::cout<<"p_minus: "<<std::exp2l(log2_p_minus)<<std::endl;
     std::cout<<std::endl;
 
-    std::cout<<"  Beginning edge heuristic pre-computation..."<<std::endl;
+    if (sampling_heuristic) {
+        std::cout<<"  Beginning edge heuristic pre-computation..."<<std::endl;
+    }
     IntEdgeConverterAndSampler iecas(g, legal_edges, sampling_heuristic);
-    std::cout<<"  ...Finished edge heuristic pre-computation."<<std::endl;
+    if (sampling_heuristic) {
+        std::cout<<"  ...Finished edge heuristic pre-computation."<<std::endl;
+    }
 
     ThreadPoolScorer tps(nt, g_nt, comb_util,
                          nt_result.node_orbits, nt_result.edge_orbits,
