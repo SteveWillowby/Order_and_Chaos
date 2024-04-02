@@ -23,7 +23,7 @@ def run_scorer(graph_edges, nodes, noise_edges, directed, approximate=False):
     dir_str = ["-u", "-d"][int(directed)]
     approx_str = ["", " -approx "][int(approximate)]
 
-    os.system(("../executables/score_only -graph %s " % graph_file) + \
+    os.system(("../executables/SCHENO_score -graph %s " % graph_file) + \
               ("-edges %s -nodes %s %s -no_extra %s > %s" % \
                 (noise_file, nodes_file, dir_str, approx_str, result_file)))
 
@@ -45,13 +45,15 @@ def run_scorer(graph_edges, nodes, noise_edges, directed, approximate=False):
 
 # Returns:
 #   (struct_edges, noise_edges)
-def run_GA(edges, directed=False, nodes=None, n_itr=120, seed_noise=None):
+def run_GA(edges, directed=False, nodes=None, n_itr=120, seed_noise=None, \
+           approximate=False):
 
     tmp_graph = "/tmp/GA_tmp_graph.txt"
     tmp_nodes = "/tmp/GA_tmp_nodes.txt"
     tmp_out   = "/tmp/GA_tmp_out"
     tmp_seed  = "/tmp/GA_tmp_seed.txt"
     dir_str = ["-u", "-d"][int(directed)]
+    approx_str = ["", "-approx_iso"][int(approximate)]
 
     if nodes is None:
         nodes = edges_to_nodes(edges)
@@ -70,13 +72,13 @@ def run_GA(edges, directed=False, nodes=None, n_itr=120, seed_noise=None):
     print("GA --- THERE ARE %d EDGES" % len(edges))
 
     if seed_noise is None:
-        os.system("../executables/main -graph %s -nodes %s -o %s -n_itr %d %s" % \
-                    (tmp_graph, tmp_nodes, tmp_out, n_itr, dir_str))
+        os.system("../executables/SCHENO_ga -graph %s -nodes %s -o %s -n_itr %d %s %s" % \
+                    (tmp_graph, tmp_nodes, tmp_out, n_itr, dir_str, approx_str))
     else:
         seed_noise = set([(old_to_new[a], old_to_new[b]) \
                                 for (a, b) in seed_noise])
         write_edgeset(tmp_seed, seed_noise)
-        os.system("../executables/main -graph %s -nodes %s -seed %s -o %s -n_itr %d %s" % \
+        os.system("../executables/SCHENO_ga -graph %s -nodes %s -seed %s -o %s -n_itr %d %s" % \
                     (tmp_graph, tmp_nodes, tmp_seed, tmp_out, n_itr, dir_str))
 
     noise = get_edgeset(tmp_out + "_noise.txt", directed)

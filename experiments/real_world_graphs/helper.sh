@@ -4,7 +4,7 @@
 
 # echo "Karate"
 # rm results/karate*
-# time nice -2 ../../executables/main -graph karate.txt \
+# time nice -2 ../../executables/SCHENO_ga -graph karate.txt \
 #                                     -o results/karate \
 #                                     -n_itr 250 \
 #                                     >> results/karate.txt
@@ -12,7 +12,7 @@
 
 # echo "Foodweb"
 # rm results/foodweb*
-# time nice -2 ../../executables/main -graph maayan-foodweb.txt \
+# time nice -2 ../../executables/SCHENO_ga -graph maayan-foodweb.txt \
 #                                     -nodes maayan-foodweb_nodes.txt \
 #                                     -o results/foodweb \
 #                                     -n_itr 250 -d \
@@ -22,7 +22,7 @@
 
 echo "College Football Season 4"
 rm results/college_football_s4*
-time nice -2 ../../executables/main -graph season_4_undirected_edges.txt \
+time nice -2 ../../executables/SCHENO_ga -graph season_4_undirected_edges.txt \
                                     -nodes season_4_undirected_nodes.txt \
                                     -o results/college_football_s4 \
                                     -n_itr 250 \
@@ -31,7 +31,7 @@ time nice -2 ../../executables/main -graph season_4_undirected_edges.txt \
 
 echo "Political Blogs"
 rm results/pol_blogs*
-time nice -2 ../../executables/main -graph pol_blogs.txt \
+time nice -2 ../../executables/SCHENO_ga -graph pol_blogs.txt \
                                     -nodes pol_blogs_nodes.txt \
                                     -o results/pol_blogs \
                                     -n_itr 250 -d \
@@ -40,7 +40,7 @@ time nice -2 ../../executables/main -graph pol_blogs.txt \
 
 echo "EU-Core Emails"
 rm results/eucore*
-time nice -2 ../../executables/main -graph eucore.txt \
+time nice -2 ../../executables/SCHENO_ga -graph eucore.txt \
                                     -nodes eucore_nodes.txt \
                                     -o results/eucore \
                                     -n_itr 250 -d \
@@ -49,7 +49,7 @@ time nice -2 ../../executables/main -graph eucore.txt \
 
 echo "Cora Citations"
 rm results/cora*
-time nice -2 ../../executables/main -graph cora.txt \
+time nice -2 ../../executables/SCHENO_ga -graph cora.txt \
                                     -nodes cora_nodes.txt \
                                     -o results/cora \
                                     -n_itr 250 -d \

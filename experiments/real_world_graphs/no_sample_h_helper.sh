@@ -4,7 +4,7 @@
 
 echo "Karate"
 rm results/nsh_karate*
-time nice -2 ../../executables/main -graph karate.txt \
+time nice -2 ../../executables/SCHENO_ga -graph karate.txt \
                                     -o results/nsh_karate \
                                     -n_itr 250 \
                                     -no_sample_heuristic \
@@ -14,7 +14,7 @@ time nice -2 ../../executables/main -graph karate.txt \
 
 echo "College Football Season 4"
 rm results/nsh_college_football_s4*
-time nice -2 ../../executables/main -graph season_4_undirected_edges.txt \
+time nice -2 ../../executables/SCHENO_ga -graph season_4_undirected_edges.txt \
                                     -nodes season_4_undirected_nodes.txt \
                                     -o results/nsh_college_football_s4 \
                                     -n_itr 250 \
@@ -24,7 +24,7 @@ time nice -2 ../../executables/main -graph season_4_undirected_edges.txt \
 
 echo "Political Blogs"
 rm results/nsh_pol_blogs*
-time nice -2 ../../executables/main -graph pol_blogs.txt \
+time nice -2 ../../executables/SCHENO_ga -graph pol_blogs.txt \
                                     -nodes pol_blogs_nodes.txt \
                                     -o results/nsh_pol_blogs \
                                     -n_itr 250 -d \
@@ -34,7 +34,7 @@ time nice -2 ../../executables/main -graph pol_blogs.txt \
 
 echo "EU-Core Emails"
 rm results/nsh_eucore*
-time nice -2 ../../executables/main -graph eucore.txt \
+time nice -2 ../../executables/SCHENO_ga -graph eucore.txt \
                                     -nodes eucore_nodes.txt \
                                     -o results/nsh_eucore \
                                     -n_itr 250 -d \
@@ -44,7 +44,7 @@ time nice -2 ../../executables/main -graph eucore.txt \
 
 echo "Cora Citations"
 rm results/nsh_cora*
-time nice -2 ../../executables/main -graph cora.txt \
+time nice -2 ../../executables/SCHENO_ga -graph cora.txt \
                                     -nodes cora_nodes.txt \
                                     -o results/nsh_cora \
                                     -n_itr 250 -d \
@@ -55,7 +55,7 @@ time nice -2 ../../executables/main -graph cora.txt \
 
 echo "Foodweb"
 rm results/nsh_foodweb*
-time nice -2 ../../executables/main -graph maayan-foodweb.txt \
+time nice -2 ../../executables/SCHENO_ga -graph maayan-foodweb.txt \
                                     -nodes maayan-foodweb_nodes.txt \
                                     -o results/nsh_foodweb \
                                     -n_itr 250 -d \

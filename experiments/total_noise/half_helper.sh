@@ -4,7 +4,7 @@
 
 echo "50 Nodes t1"
 
-time nice -2 ../../executables/main -graph clique_50.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_50.txt \
                                     -noise- 0.5 -o results/run_50_01 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -12,7 +12,7 @@ time nice -2 ../../executables/main -graph clique_50.txt \
 
 echo "50 Nodes t2"
 
-time nice -2 ../../executables/main -graph clique_50.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_50.txt \
                                     -noise- 0.5 -o results/run_50_02 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -20,7 +20,7 @@ time nice -2 ../../executables/main -graph clique_50.txt \
 
 echo "50 Nodes t3"
 
-time nice -2 ../../executables/main -graph clique_50.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_50.txt \
                                     -noise- 0.5 -o results/run_50_03 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -31,7 +31,7 @@ time nice -2 ../../executables/main -graph clique_50.txt \
 
 echo "100 Nodes t1"
 
-time nice -2 ../../executables/main -graph clique_100.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_100.txt \
                                     -noise- 0.5 -o results/run_100_01 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -39,7 +39,7 @@ time nice -2 ../../executables/main -graph clique_100.txt \
 
 echo "100 Nodes t2"
 
-time nice -2 ../../executables/main -graph clique_100.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_100.txt \
                                     -noise- 0.5 -o results/run_100_02 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -47,7 +47,7 @@ time nice -2 ../../executables/main -graph clique_100.txt \
 
 echo "100 Nodes t3"
 
-time nice -2 ../../executables/main -graph clique_100.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_100.txt \
                                     -noise- 0.5 -o results/run_100_03 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -57,7 +57,7 @@ time nice -2 ../../executables/main -graph clique_100.txt \
 
 echo "150 Nodes t1"
 
-time nice -2 ../../executables/main -graph clique_150.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_150.txt \
                                     -noise- 0.5 -o results/run_150_01 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -65,7 +65,7 @@ time nice -2 ../../executables/main -graph clique_150.txt \
 
 echo "150 Nodes t2"
 
-time nice -2 ../../executables/main -graph clique_150.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_150.txt \
                                     -noise- 0.5 -o results/run_150_02 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -73,7 +73,7 @@ time nice -2 ../../executables/main -graph clique_150.txt \
 
 echo "150 Nodes t3"
 
-time nice -2 ../../executables/main -graph clique_150.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_150.txt \
                                     -noise- 0.5 -o results/run_150_03 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -83,7 +83,7 @@ time nice -2 ../../executables/main -graph clique_150.txt \
 
 echo "200 Nodes t1"
 
-time nice -2 ../../executables/main -graph clique_200.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_200.txt \
                                     -noise- 0.5 -o results/run_200_01 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -91,7 +91,7 @@ time nice -2 ../../executables/main -graph clique_200.txt \
 
 echo "200 Nodes t2"
 
-time nice -2 ../../executables/main -graph clique_200.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_200.txt \
                                     -noise- 0.5 -o results/run_200_02 \
                                     -n_itr 150 \
                                     -use_g_as_ses \
@@ -99,7 +99,7 @@ time nice -2 ../../executables/main -graph clique_200.txt \
 
 echo "200 Nodes t3"
 
-time nice -2 ../../executables/main -graph clique_200.txt \
+time nice -2 ../../executables/SCHENO_ga -graph clique_200.txt \
                                     -noise- 0.5 -o results/run_200_03 \
                                     -n_itr 150 \
                                     -use_g_as_ses \

@@ -70,7 +70,8 @@ if __name__ == "__main__":
         always_undirected = True
         decomp_fn = run_VoG
     elif algorithm.lower() == "ga":
-        decomp_fn = run_GA
+        decomp_fn = (lambda edges, directed=False : \
+                        run_GA(edges, directed=directed, approximate=True))
     elif algorithm.lower() == "subdue":
         #   Run SUBDUE but swap noise and structure
         # decomp_fn = (lambda edges, directed=False : \
