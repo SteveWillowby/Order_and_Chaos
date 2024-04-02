@@ -48,6 +48,12 @@ You can find a PDF manual describing the interface for this repository's code in
 
 If you want to call the code directly, you can include all the classes through the file `scheno.h` contained in the `scheno` subfolder.
 
+To compile, include the `scheno/scheno.a` static library. For example:
+
+```
+g++ my_program.cpp scheno/scheno.a
+```
+
 The file `SCHENO_score.cpp` illustrates the use of most of the classes.
 
 For scoring a bunch of candidate noise sets in parallel, consider using the `ThreadPoolScorer` class.
