@@ -43,39 +43,30 @@ The formal definitions and explanations can be read in the article located at: \
 
 \section{Features of This Repository}\label{sec:features}
 
-The code in this repository offers \verb|C++| wrappers around the \verb|nauty| and \verb|traces| \verb|C| code. These wrappers provide the following:
+This repository offers the following components:
 
 \begin{enumerate}
-    \item A more convenient interface for the \verb|nauty| and \verb|traces| features mentioned in Section~\ref{sec:nt_intro}.
-    \item The ability to call \verb|nauty| and \verb|traces| in multiple \verb|C++| threads without errors.
-    \item The ability to find the automorphism orbits of \emph{edges}\footnote{not a direct feature of the original code -- requires an augmentation of the input graph\label{foot:new_feature}}.
-    \item The ability to conveniently manipulate graphs in \verb|nauty| and \verb|traces|' input format in amortized constant time, rather than needing to re-create the graph every time you want to modify it.
-    \item The ability to specify an initial \emph{edge} coloring$^\text{\ref{foot:new_feature}}$.
-    \item The ability to run \verb|traces| on directed graphs$^\text{\ref{foot:new_feature}}$.
-    \item A fast ``fake'' isomorphism algorithm that works on most graphs -- especially most graphs with varying node degrees\footnote{not associated with nauty or traces -- based on the Weisfeiler Lehman algorithm (aka color refinement)}.
+    \item An efficient \verb|C++| implementation of the \verb|SCHENO| scoring function, available in a static library and as an executable.
+    \item Code to obtain \verb|SCHENO| scores for many schema-noise decompositions in parallel.
+    \item A genetic algorithm "\verb|SCHENO_ga|" that searches for good schema-noise decompositions, guided by \verb|SCHENO| as its fitness function.
+    \item Elegant \verb|C++| wrappers around the \verb|nauty| and \verb|traces| isomorphism algorithms\footnote{These wrappers are available in a standalone repository at \url{https://github.com/schemanoise/Nauty_and_Traces}}.
 \end{enumerate}
 
 \newpage
 
 \section{Setup and Compilation}\label{sec:setup}
 
-Setting up the code is a simple as entering the \verb|nt_wrappers| folder and running: \verb|./setup.sh|
+Setting up the code is a simple as running \verb|./setup.sh| to compile the libraries and then running \verb|./compile.sh| to compile the executables.
 
-Whatever code you write will need to include the fuke \verb|nauty_traces.h| from the \verb|nt_wrappers| folder.
+Whatever custom code you write will need to include the file \verb|scheno.h| from inside the \verb|scheno| folder.
 
-To compile your own code using the wrappers, you will need to include the static library \verb|nt_wrappers.a| located inside the \verb|nt_wrappers| folder.
+To compile your own code, you will need to include the static library \verb|scheno.a| located inside the \verb|scheno| folder.
 
 Example compilation:
 
 \begin{verbatim}
-    g++ -Wall -Wextra -o my_output -std=c++11 my_program.cpp nt_wrappers/nt_wrappers.a
+    g++ -Wall -Wextra -o my_output -std=c++11 my_program.cpp scheno/scheno.a
 \end{verbatim}
-
-\subsection{Esoteric Note}
-
-If for some reason you want to experience the pain modifying the \verb|NTSparseGraph| class, you may want to debug it using the \verb|SCHENO__NT_SPARSE_GRAPH_FULL_DEBUG_MODE| preprocessor flag.
-
-You can see an example of using this feature in \verb|test_nt_code.cpp|. The flag is defined in\\\verb|nt_wrappers/nt_sparse_graph.h|.
 
 \newpage
 

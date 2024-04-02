@@ -1,10 +1,12 @@
-# SCHENO, the SCHEma-NOise scoring function
+# `SCHENO`, the SCHEma-NOise scoring function
 
 ###...Also includes a pattern-finding genetic algorithm guided by SCHENO as its fitness function.
 
 ## About
 
-Given two graphs, SCHENO measures how well the first graph represents the underlying pattern(s) in the second graph.
+The core idea behind `SCHENO` is that real-world graphs are messy manifestations of underlying patterns. `SCHENO` offers a principled way to measure how well you've done at uncovering those patterns.
+
+Given two graphs, `SCHENO` measures how well the first graph represents the underlying pattern(s) in the second graph.
 
 ### Isomorphism and Automorphism Calculations
 
