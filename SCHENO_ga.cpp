@@ -139,6 +139,8 @@ int main(int argc, char* argv[]) {
                  <<std::endl<<std::endl
                  <<"-approx_iso:\tif set, uses a fast, inexact automorphisms"
                  <<" algorithm"
+                 <<std::endl<<"\t\t\t* can actually be SLOWER on some graphs"
+                 <<std::endl<<"\t\t\t\t(but sometimes is much faster)"
                  <<std::endl<<std::endl
                  ;
 

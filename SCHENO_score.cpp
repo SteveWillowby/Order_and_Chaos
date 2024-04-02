@@ -80,6 +80,8 @@ int main(int argc, char* argv[]) {
                  <<"-approx:\tUse an \"approximate\" isomorphism algorithm to" 
                  <<" calculate answer."
                  <<std::endl<<"\t\t\t* Scores may be too high but are often exactly correct."
+                 <<std::endl<<"\t\t\t* can actually be SLOWER on some graphs"
+                 <<std::endl<<"\t\t\t\t(but sometimes is much faster)"
                  <<std::endl<<std::endl
                  ;
 
