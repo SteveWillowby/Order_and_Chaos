@@ -1,7 +1,7 @@
 #include "int_edge_sampler.h"
 #include "thread_pool_scorer.h"
 
-#include "../nt_wrappers/nauty_traces.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<map>
 #include<memory>

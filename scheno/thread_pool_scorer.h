@@ -1,7 +1,7 @@
 #include "int_edge_sampler.h"
 #include "scoring_function.h"
 
-#include "../nt_wrappers/nauty_traces.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<condition_variable>
 #include<memory>

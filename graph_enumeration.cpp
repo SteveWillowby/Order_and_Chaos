@@ -1,4 +1,4 @@
-#include "nt_wrappers/nauty_traces.h"
+#include "scheno/scheno.h"
 
 #include<algorithm>
 #include<cmath>

@@ -1,4 +1,4 @@
-#include "../nt_wrappers/nauty_traces.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include<array>
 #include<unordered_set>

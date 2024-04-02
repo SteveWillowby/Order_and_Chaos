@@ -7,7 +7,7 @@
 #include<utility>
 #include<vector>
 
-#include "../nt_wrappers/nauty_traces.h"
+#include "nt_wrappers/nauty_traces.h"
 
 #include "Jonker_Volgenant/src/assignAlgs2D.h"
 #include "wl_measures.h"

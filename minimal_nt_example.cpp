@@ -1,6 +1,6 @@
 // minimal_nt_example.cpp
 
-#include "nt_wrappers/nauty_traces.h"
+#include "scheno/scheno.h"
 
 #include<cmath>
 #include<iostream>

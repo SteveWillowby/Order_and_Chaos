@@ -7,7 +7,6 @@
 #include<string>
 #include<vector>
 
-#include "nt_wrappers/nauty_traces.h"
 #include "scheno/scheno.h"
 
 std::string get_cmd_option(const std::vector<std::string>& inputs,

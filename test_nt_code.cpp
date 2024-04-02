@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string>
 
-#include "nt_wrappers/nauty_traces.h"
+#include "scheno/scheno.h"
 
 
 int main(void) {
