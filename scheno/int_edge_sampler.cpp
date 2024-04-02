@@ -1,7 +1,7 @@
 #include "int_edge_sampler.h"
 #include "thread_pool_wl_sim.h"
 
-#include "nt_wrappers/nauty_traces.h"
+#include "../nt_wrappers/nauty_traces.h"
 
 #include<random>
 #include<stdexcept>

@@ -8,10 +8,7 @@
 #include<vector>
 
 #include "nt_wrappers/nauty_traces.h"
-
-#include "edge_sampler.h"
-#include "genetic_alg_search.h"
-#include "noise_prob_choice.h"
+#include "scheno/scheno.h"
 
 std::string get_cmd_option(const std::vector<std::string>& inputs,
                            const std::string& option) {

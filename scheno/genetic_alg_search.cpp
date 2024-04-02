@@ -4,7 +4,7 @@
 #include "noise_prob_choice.h"
 #include "thread_pool_scorer.h"
 
-#include "nt_wrappers/nauty_traces.h"
+#include "../nt_wrappers/nauty_traces.h"
 
 #include<algorithm>
 #include<iostream>

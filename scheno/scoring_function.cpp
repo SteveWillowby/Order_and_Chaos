@@ -1,6 +1,6 @@
 #include "wl_measures.h"
 
-#include "nt_wrappers/nauty_traces.h"
+#include "../nt_wrappers/nauty_traces.h"
 
 #include "scoring_function.h"
 

@@ -1,6 +1,6 @@
 #include "scoring_function.h"
 
-#include "nt_wrappers/nauty_traces.h"
+#include "../nt_wrappers/nauty_traces.h"
 
 #ifndef SCHENO__NOISE_PROB_CHOICE_H
 #define SCHENO__NOISE_PROB_CHOICE_H

@@ -2,7 +2,7 @@
 #include "wl_measures.h"
 #include "thread_pool_wl_sim.h"
 
-#include "nt_wrappers/nauty_traces.h"
+#include "../nt_wrappers/nauty_traces.h"
 
 #include<condition_variable>
 #include<memory>

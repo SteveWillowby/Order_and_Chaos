@@ -1,5 +1,5 @@
 #include "edge_sampler.h"
-#include "nt_wrappers/nauty_traces.h"
+#include "../nt_wrappers/nauty_traces.h"
 
 #include<cstdint>
 #include<random>

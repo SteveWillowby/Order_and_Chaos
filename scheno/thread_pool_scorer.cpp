@@ -3,7 +3,7 @@
 #include "wl_measures.h"
 #include "Jonker_Volgenant/src/assignAlgs2D.h"
 
-#include "nt_wrappers/nauty_traces.h"
+#include "../nt_wrappers/nauty_traces.h"
 
 #include<condition_variable>
 #include<cstring>

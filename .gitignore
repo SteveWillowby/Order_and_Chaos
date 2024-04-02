@@ -1,10 +1,13 @@
 ~$*
 __pycache__/
+scheno/*.o
+scheno/*.a
 nt_wrappers/*
 nt_wrappers/nauty27r4/*
 nt_wrappers/nauty27r4_modified/*
 nt_wrappers/nauty27r4_modified/nauty.h
 executables/*
+scheno/Jonker_Volgenant/src/*.o
 *.o
 *.a
 *.ods

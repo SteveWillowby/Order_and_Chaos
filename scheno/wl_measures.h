@@ -1,4 +1,4 @@
-#include "nt_wrappers/nauty_traces.h"
+#include "../nt_wrappers/nauty_traces.h"
 
 #ifndef SCHENO__WL_MEASURES_H
 #define SCHENO__WL_MEASURES_H

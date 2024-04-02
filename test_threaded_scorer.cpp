@@ -4,12 +4,7 @@
 #include<string>
 
 #include "nt_wrappers/nauty_traces.h"
-
-#include "basic_edge_set.h"
-#include "edge_sampler.h"
-#include "int_edge_sampler.h"
-#include "scoring_function.h"
-#include "thread_pool_scorer.h"
+#include "scheno/scheno.h"
 
 int main(void) {
 
