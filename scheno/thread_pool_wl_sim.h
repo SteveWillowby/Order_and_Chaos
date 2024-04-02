@@ -25,7 +25,9 @@ public:
     //
     // A task consists of a graph and a node ID (for node-centric computation).
     //  If node-centric is not desired, pass -1 as the node.
-    const std::vector<std::vector<double>>& get_fuzzy_orbit_sizes(
+    //
+    // DO NOT MODIFY THE RETURNED VECTOR
+    const std::vector<std::vector<double>> *get_fuzzy_orbit_sizes(
             const std::vector<std::pair<const Graph*, size_t>>* tasks);
 
     void terminate();

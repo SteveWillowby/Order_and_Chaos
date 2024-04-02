@@ -11,22 +11,24 @@
 
 class IntEdgeConverterAndSampler {
 public:
-    IntEdgeConverterAndSampler(const Graph& g);
+    IntEdgeConverterAndSampler(const Graph& g, bool weight_samples);
 
     // When this constructor is used, then only edges from `legal_edges` are
-    //  randomly sampled by weighted_sample()
+    //  randomly sampled by sample()
     //
-    // IMPORTANT: This does not affect behavior of unweighted_sample()
+    // IMPORTANT: simple_sample() will not respect the `legal_edges` constraint
     IntEdgeConverterAndSampler(const Graph& g,
-                               const Graph& legal_edges);
+                               const Graph& legal_edges, bool weight_samples);
 
     // dist should be std::uniform_real_distribution<long double>(0, 1.0)
-    SCHENO__edge_int_type weighted_sample(std::mt19937& gen,
+    SCHENO__edge_int_type sample(std::mt19937& gen,
                 std::uniform_real_distribution<long double>& dist) const;
 
     // dist should be
     //  std::uniform_int_distribution<SCHENO__edge_int_type>(0, (n * n) - 1)
-    SCHENO__edge_int_type unweighted_sample(std::mt19937& gen,
+    //
+    // Quicker. Does not use weights. Does not respect `legal_edges`.
+    SCHENO__edge_int_type simple_sample(std::mt19937& gen,
                 std::uniform_int_distribution<SCHENO__edge_int_type>& dist) const;
 
     bool is_edge(SCHENO__edge_int_type e) const;

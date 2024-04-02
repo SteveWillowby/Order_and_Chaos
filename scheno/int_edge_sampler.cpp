@@ -8,11 +8,13 @@
 #include<unordered_set>
 #include<vector>
 
-IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g) :
-        IntEdgeConverterAndSampler(g, SparseGraph(g.directed, g.num_nodes())) {}
+IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(const Graph& g,
+                                                       bool weight_samples) :
+        IntEdgeConverterAndSampler(g, SparseGraph(g.directed, g.num_nodes()),
+                                   weight_samples) {}
 
 IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
-              const Graph& g, const Graph& legal_edges) :
+              const Graph& g, const Graph& legal_edges, bool weight_samples) :
         directed(g.directed), n(g.num_nodes()), self_loops(g.num_loops() > 0) {
 
     edges = std::unordered_set<SCHENO__edge_int_type>();
@@ -26,13 +28,15 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
         }
     }
 
-    ThreadPoolWLSim tpwls(0, n);
-    std::vector<std::pair<const Graph*, size_t>> tasks = {{&g, -1}};
-    for (size_t a = 0; a < n; a++) {
-        tasks.push_back({&g, a});
+    const std::vector<std::vector<double>> *fuzzy_orbit_sizes;
+    if (weight_samples) {
+        ThreadPoolWLSim tpwls(0, n);
+        std::vector<std::pair<const Graph*, size_t>> tasks = {{&g, -1}};
+        for (size_t a = 0; a < n; a++) {
+            tasks.push_back({&g, a});
+        }
+        fuzzy_orbit_sizes = tpwls.get_fuzzy_orbit_sizes(&tasks);
     }
-    const std::vector<std::vector<double>>& fuzzy_orbit_sizes =
-                                        tpwls.get_fuzzy_orbit_sizes(&tasks);
 
     heuristic_scores = std::vector<long double>(n*n, 0.0);
     bool self_loops = g.num_loops() > 0;
@@ -63,16 +67,20 @@ IntEdgeConverterAndSampler::IntEdgeConverterAndSampler(
             }
             edge_int = a * n + b;
             if (legal_edges.num_edges() == 0 || legal_edges.has_edge(a, b)) {
-                if (a == b) {
-                    score = 2.0 * fuzzy_orbit_sizes[0][a];
+                if (weight_samples) {
+                    if (a == b) {
+                        score = 2.0 * (*fuzzy_orbit_sizes)[0][a];
+                    } else {
+                        score = (((long double) (*fuzzy_orbit_sizes)[0][a]) * 
+                                  ((long double) (*fuzzy_orbit_sizes)[a+1][b]) +
+                                 ((long double) (*fuzzy_orbit_sizes)[0][b]) *
+                                  ((long double) (*fuzzy_orbit_sizes)[b+1][a]));
+                    }
+                    // TODO: Experiment with this further.
+                    score = 1.0 / std::sqrt(score);
                 } else {
-                    score = (((long double) fuzzy_orbit_sizes[0][a]) * 
-                              ((long double) fuzzy_orbit_sizes[a+1][b]) +
-                             ((long double) fuzzy_orbit_sizes[0][b]) *
-                              ((long double) fuzzy_orbit_sizes[b+1][a]));
+                    score = 1.0;
                 }
-                // TODO: Experiment with this further.
-                score = 1.0 / std::sqrt(score);
             } else {
                 score = 0.0;
             }
@@ -168,7 +176,7 @@ SCHENO__edge_int_type IntEdgeConverterAndSampler::edge(const Edge& e) const {
     return (e.first * n) + e.second;
 }
 
-SCHENO__edge_int_type IntEdgeConverterAndSampler::weighted_sample(
+SCHENO__edge_int_type IntEdgeConverterAndSampler::sample(
                 std::mt19937& gen,
                 std::uniform_real_distribution<long double>& dist) const {
 
@@ -196,7 +204,7 @@ SCHENO__edge_int_type IntEdgeConverterAndSampler::weighted_sample(
     return mid;
 }
 
-SCHENO__edge_int_type IntEdgeConverterAndSampler::unweighted_sample(
+SCHENO__edge_int_type IntEdgeConverterAndSampler::simple_sample(
                 std::mt19937& gen,
                 std::uniform_int_distribution<SCHENO__edge_int_type>& dist) const {
 

@@ -79,7 +79,7 @@ ThreadPoolWLSim::~ThreadPoolWLSim() {
     }
 }
 
-const std::vector<std::vector<double>>& ThreadPoolWLSim::get_fuzzy_orbit_sizes(
+const std::vector<std::vector<double>> *ThreadPoolWLSim::get_fuzzy_orbit_sizes(
                 const std::vector<std::pair<const Graph*, size_t>>* tasks) {
 
     std::unique_lock<std::mutex> begin_lock(m_worker_meta);
@@ -102,7 +102,7 @@ const std::vector<std::vector<double>>& ThreadPoolWLSim::get_fuzzy_orbit_sizes(
     done_wait_signal.wait(done_lock);
     done_lock.unlock();
 
-    return orbits_vec; 
+    return &orbits_vec; 
 }
 
 void ThreadPoolWLSim::terminate() {

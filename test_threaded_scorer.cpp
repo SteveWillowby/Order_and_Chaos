@@ -68,7 +68,7 @@ int main(void) {
                                std::log2l(1.0 + alpha_minus);
     long double log2_1_minus_p_minus = -std::log2l(1.0 + alpha_minus);
 
-    IntEdgeConverterAndSampler iecas(g);
+    IntEdgeConverterAndSampler iecas(g, true);
     const std::vector<long double>& heuristics = iecas.get_heuristic_scores();
     for (size_t i = 0; i < heuristics.size(); i++) {
         if (heuristics[i] == 0.0) {

@@ -108,7 +108,7 @@ std::vector<std::pair<std::unordered_set<Edge,EdgeHash>, long double>>
     std::cout<<std::endl;
 
     std::cout<<"  Beginning edge heuristic pre-computation..."<<std::endl;
-    IntEdgeConverterAndSampler iecas(g, legal_edges);
+    IntEdgeConverterAndSampler iecas(g, legal_edges, sampling_heuristic);
     std::cout<<"  ...Finished edge heuristic pre-computation."<<std::endl;
 
     ThreadPoolScorer tps(nt, g_nt, comb_util,
@@ -1058,11 +1058,8 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             while (!done) {
                 done = true;
                 next = std::vector<SCHENO__edge_int_type>(prev);
-                if (sampling_heuristic) {
-                    addition = iecas.weighted_sample(gen, distll);
-                } else {
-                    addition = iecas.unweighted_sample(gen, disti);
-                }
+                addition = iecas.sample(gen, distll);
+                // addition = iecas.simple_sample(gen, disti);
                 for (spot = 0; spot < remove_idx; spot++) {
                     if (addition > next[spot]) {
                         continue;
@@ -1119,11 +1116,8 @@ std::pair<bool, Gene*> GenePool::mutated(const Gene& g,
             size_t spot;
             while (!done) {
                 done = true;
-                if (sampling_heuristic) {
-                    addition = iecas.weighted_sample(gen, distll);
-                } else {
-                    addition = iecas.unweighted_sample(gen, disti);
-                }
+                addition = iecas.sample(gen, distll);
+                // addition = iecas.simple_sample(gen, disti);
                 for (spot = 0; spot < prev.size(); spot++) {
                     if (addition > prev[spot]) {
                         next[spot] = prev[spot];
