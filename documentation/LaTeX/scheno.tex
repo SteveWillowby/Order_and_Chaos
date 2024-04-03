@@ -29,7 +29,6 @@
     \item \ref{sec:setup} Setup and Compilation
     \item \ref{sec:binaries} Using the Executables
     \item \ref{sec:interface} Interface
-    \item \ref{sec:full_example} Simple Example
 \end{itemize}
 
 
@@ -39,7 +38,16 @@
 
 The core idea behind \verb|SCHENO| is that real-world graphs are messy manifestations of underlying patterns. \verb|SCHENO| offers a principled way to measure how well you've done at uncovering those patterns.
 
-The formal definitions and explanations can be read in the article located at: \textbf{LINK}
+The formal definitions and explanations can be read in the dissertation located at: \url{https://www.proquest.com/docview/2916028057}
+
+\subsection{Notation}
+
+Let $A$ and $B$ be sets. I use $A \oplus B$ to mean $(A \setminus B) \cap (B \setminus A)$. It can be thought of as analogous the logical XOR operation. The set $A \oplus B$ includes the things that are in exactly one of $A$ or $B$, but not both.
+
+Similarly, given two graphs $G_1 = (V, E_1)$ and $G_2 = (V, E_2)$, I define $G_1 \oplus G_2$ to be the graph $(V, E_1 \oplus E_2)$.
+
+Lastly, given a graph $G = (V, E)$, I define a ``Schema-Noise Decomposition'' of $G$ to be two graphs $S = (V, E_S)$ and $N = (V, E_N)$ such that $S \oplus N = G$. In other words, if you start with the schema $S$ and then ``XOR'' its edges with the noise edges, you get the graph $G$.
+
 
 \section{Features of This Repository}\label{sec:features}
 
@@ -49,7 +57,7 @@ This repository offers the following components:
     \item An efficient \verb|C++| implementation of the \verb|SCHENO| scoring function, available in a static library and as an executable.
     \item Code to obtain \verb|SCHENO| scores for many schema-noise decompositions in parallel.
     \item A genetic algorithm "\verb|SCHENO_ga|" that searches for good schema-noise decompositions, guided by \verb|SCHENO| as its fitness function.
-    \item Elegant \verb|C++| wrappers around the \verb|nauty| and \verb|traces| isomorphism algorithms\footnote{These wrappers are available in a standalone repository at \url{https://github.com/schemanoise/Nauty_and_Traces}}.
+    \item Elegant \verb|C++| wrappers around the \verb|nauty| and \verb|traces| isomorphism algorithms\footnote{These wrappers are available in a standalone repository at \url{https://github.com/schemanoise/Nauty_and_Traces}}.\footnote{Frankly, these wrappers provide a much more elegant code interface than the rest of the SCHENO code. If you find the SCHENO code interface crufty, you still may very well like the isomorphism interface.}.
 \end{enumerate}
 
 \newpage
@@ -74,288 +82,184 @@ Example compilation:
 
 \subsection{SCHENO\_score}
 
+This program requires two things as input: a graph $G = (V, E)$ given as an edgelist and a ``noise set'' $N = (V, E_N)$ also given as an edge list. The schema is inferred to be $S = G \oplus N$, which is the only edge set such that $S \oplus N = G$.
+
+It gives the SCHENO score for the schema-noise decomposition $S$, $N$. It also displays some information about the number of automorphisms of $G$ and $S$. 
+
+Finally, it also reports how much of the decomposition score is due to taking $G$ and deleting all the edges to some nodes, thereby forming ``singletons'' which are all structurally equivalent to each other, vs. how much of the decomposition score is due to the other ways the schema differs from the graph.
+
+There are many optional flags you can use when running the program. You can see a description of all of them by running \verb|SCHENO_score -h|
+
+A few of the most important flags are:
+
+\begin{itemize}
+    \item \verb|-nodes <arg>| -- This flag allows you to specify to text file with a list of node IDs. That way, if your edgelist does not have all the nodes you want, they can be included.
+    \item \verb|-d| and \verb|-u| -- These flags allow you to specify whether the graph is directed or undirected. Undirected is the default.
+    \item \verb|-approx| -- Causes the program to use a heuristic isomorphism program which might not always return the correct result. This is often correct, and can be significantly faster, particularly if the graph is large enough. If the graph is small enough, it can actually be slower. See more details at the end of the other manual, \verb|nauty_and_traces_wrappers.pdf|.
+\end{itemize}
+
 \subsection{SCHENO\_ga}
+
+This program takes a single graph as input in the form of an edgelist. It tries to find a good schema-noise decomposition of the graph.
+
+The program also takes a filepath argument \verb|-o <f>| to specify its output. It will produce three files: \verb|<f>_graph.txt|, \verb|<f>_noise.txt|, \verb|<f>_nodes.txt|. The graph file stores the schema. The noise file stores the noise. Neither file is guaranteed to reference all the nodes in the original graph -- hence the nodelist output file\footnote{Also, output node IDs might not line up with the original input edgelist's node IDs if the original IDs were not 0 through $n - 1$.}.
+
+There are many optional flags you can use when running the program. You can see a description of all of them by running \verb|SCHENO_ga -h|
+
+A few of the most important flags are:
+
+\begin{itemize}
+    \item \verb|-nodes <arg>| -- This flag allows you to specify to text file with a list of node IDs. That way, if your edgelist does not have all the nodes you want, they can be included.
+    \item \verb|-d| and \verb|-u| -- These flags allow you to specify whether the graph is directed or undirected. Undirected is the default.
+    \item \verb|-n_itr <arg>| -- How many iterations the genetic algorithm runs for
+    \item \verb|-topk <arg>| -- The number of top-scoring noise sets to report on the command line (only the very best decomposition is written to a file)
+    \item \verb|-no_sample_heuristic| -- By default, \verb|SCHENO_ga| uses a heuristic when randomly sampling edges to try adding to the noise set. This requires a hefty pre-computation step and is not guaranteed to improve performance. You can turn this feature off with this flag.
+    \item \verb|-nt| -- Number of threads to use. Defaults to 0, which means max parallelism available on the machine.
+    \item \verb|-approx_iso| -- Lets the \verb|SCHENO| score computation make use of an approximate isomorphism algorithm. This can sometimes speed up the computation on medium and large graphs.
+    \item \verb|-seed <arg>| -- Lets you specify a starting schema-noise decomposition by giving it an edgelist that corresponds to a noise set. The algorithm will use this as its starting point.
+    \item \verb|-legal_noise <arg>| -- Lets you specify limits on which edges and non-edges can be considered as noise. The argument should be a filename; the file should contain a list of node pairs (i.e. an edgelist).
+\end{itemize}
 
 \newpage
 
 \section{Interface}\label{sec:interface}
 
-\subsection{Essential Components}
+\subsection{What You Need for the Scoring Function}
 
-The key classes and structs you will need are \verb|NTSparseGraph| which stores a graph that can be loaded directly into \verb|nauty| and/or \verb|traces|, \verb|NautyTracesOptions| which stores info on what you would like \verb|nauty|/\verb|traces| to compute, and \verb|NautyTracesResults| which contains the result of a call to \verb|nauty|/\verb|traces|.
-
-\subsubsection{NTSparseGraph}
-
-\verb|NTSparseGraph| is a subclass of \verb|SparseGraph|, which is a subgraph of \verb|Graph|. The \verb|NTSparseGraph| and the \verb|SparseGraph| always label their $n$ nodes 0 through $n - 1$.
-
-There are three main ways to get an \verb|NTSparseGraph|. The first is to load an edge list text file (see Section~\ref{sec:file_utils}), then initialize your \verb|nauty|/\verb|traces| graph. For example:
+The \verb|SCHENO| scoring function has the following interface:
 
 \begin{verbatim}
-        #include "nt_wrappers/nauty_traces.h"
-        
-        int main( void ) {
-            bool directed = 0;
-            NTSparseGraph g_nt(read_graph(directed, "nt_test_graphs/karate.txt"));
-            return 0;
-        }
+long double score(NTSparseGraph& g,
+                  const CombinatoricUtility& comb_util,
+                  const Coloring<int>& node_orbit_coloring,
+                  const Coloring<Edge, EdgeHash>& edge_orbit_coloring,
+                  Coloring<Edge, EdgeHash>& editable_edge_orbit_coloring,
+                  const std::unordered_set<Edge,EdgeHash>& edge_additions,
+                  const std::unordered_set<Edge,EdgeHash>& edge_removals,
+                  const long double log2_p_plus,
+                  const long double log2_p_minus,
+                  const long double log2_1_minus_p_plus,
+                  const long double log2_1_minus_p_minus,
+                  const size_t max_change,
+                  bool full_iso);
 \end{verbatim}
 
-The second way is to build up the graph from scratch using the \verb|add_edge()| function. For example:
+You can see an example of using it's sister function, \verb|score_breakdown()| in the file \verb|SCHENO_score.cpp|. The two functions take exactly the same input arguments.
 
-\vspace{-0.2cm}
+The input graph is \verb|g|.
 
-\begin{verbatim}
-        #include "nt_wrappers/nauty_traces.h"
-        
-        int main( void ) {
-            bool directed = 1;
-            size_t n = 12;
-            NTSparseGraph g_nt(directed, n);
-            g_nt.add_edge(0, 5);
-            g_nt.add_edge(3, 5);
-            g_nt.add_edge(5, 3);
-            g_nt.add_edge(11, 10);
-            return 0;
-        }
-\end{verbatim}
+The \verb|CombinatoricUtility| class is basically a storage unit for math computations that are likely to come up again and again if you score many different decompositions. It's discussed in Section~\ref{sec:comb_util}.
 
-The third way is to copy a pre-existing \verb|SparseGraph| or \verb|NTSparseGraph|. For example:
+The arguments \verb|node_orbit_coloring| and \verb|edge_orbit_coloring| as well as \verb|editable_edge_orbit_coloring| are required for efficiency reasons. Precomputing them speeds things up if you score multiple different decompositions for a single graph. These colorings can be produced with a call to one of the isomorphism algorithms available in the repository, \verb|nauty|, \verb|traces|, and \verb|fake_iso|. Essentially, the inputs record which nodes and edges in the original graph are structurally equivalent to each other. Make sure that \verb|editable_edge_orbit_coloring| is a different object from \verb|edge_orbit_coloring|.
 
-\vspace{-0.2cm}
+The \verb|edge_additions| and \verb|edge_removals| arguments represent the noise set being considered in the schema-noise decomposition. They are the edges added to and removed from \verb|g| respectively.
 
-\begin{verbatim}
-        #include "nt_wrappers/nauty_traces.h"
-        
-        int main( void ) {
-            bool directed = 1;
-            SparseGraph g(directed);  // Defaults to 1 node
-            g.add_node();
-            g.add_node();
-            g.add_edge(0, 1);
-            g.add_edge(1, 2);
-            g.add_edge(2, 0);
+The next four inputs, \verb|log2_p_plus|, \verb|log2_p_minus|, \verb|log2_1_minus_p_plus|, \verb|log2_1_minus_p_minus| are parameters that affect the scoring function's calculation. They affect how likely noise is considered to be. \verb|log2_p_plus| is the base-2 logarithm of the probability that an edge is randomly added to the \emph{schema} (randomly \emph{removed} from \verb|g|). \verb|log2_p_minus| is the base-2 logarithm of the probability that an edge is randomly removed from the \emph{schema} (randomly \emph{added} to \verb|g|). It is strongly recommended that you stick with the default values, as discussed in Section~\ref{sec:log_probs}.
 
-            // Three ways of copying a graph:
-            NTSparseGraph g_nt_1(g);
-            NTSparseGraph g_nt_2(directed);
-            g_nt_2 = g;
-            NTSparseGraph g_nt_3(g_nt_1);
-            return 0;
-        }
-\end{verbatim}
+The parameter \verb|max_change| is the maximum number of node pairs you want to allow in the noise set. Any noise set with more than \verb|max_change| node pairs will automatically receive a score of $-\infty$.
 
-\ 
+Finally, \verb|full_iso| indicates whether or not the scoring function should use a full-fledged isomorphism algorithm (in this case \verb|traces|) or an approximate algorithm ``\verb|fake_iso|.'' A value of \verb|true| means \verb|traces|; a value of \verb|false| means \verb|fake_iso|. The \verb|fake_iso| algorithm often returns the correct result and can be much faster on large enough graphs.
 
-\vspace{-1cm}
-
-The methods from the \verb|NTSparseGraph| class that you are most likely to use are the following:
+The following classes, structs, and functions are important and are discussed at length in the other pdf manual associated with this repository (\verb|nauty_and_traces_wrappers.pdf|):
 
 \begin{itemize}
-    \setlength\itemsep{-0.1em}
-    \item \verb|NTSparseGraph(bool directed)|
-    \item \verb|NTSparseGraph(bool directed, size_t num_nodes)|
-    \item \verb|NTSparseGraph(const Graph& g)|
-    \item \verb|size_t num_nodes()|
-    \item \verb|size_t num_edges()|
-    \item \verb|size_t num_loops()| -- Returns the number of self-loops
-    \item \verb|directed| -- Not a function - just a constant boolean
-    \item \verb|int add_node()| -- Adds a node and returns the new node's ID
-    \item \verb|int delete_node(int a)| -- Deletes node $a$. Relabels the node with the largest label to have the label $a$. Then returns what used to be the label of what used to be the largest node.
-    \item \verb|bool add_edge(int source, int target)| -- Returns true iff the edge was new
-    \item \verb|bool delete_edge(int source, int target)| -- Returns true iff the edge was there to be deleted
-    \item \verb|void flip_edge(int s, int t)| -- Deletes edge $(s, t)$ if it was present, adds edge $(s, t)$ if it was absent.
-    \item \verb|const std::unordered_set<int> &neighbors(int a)| -- Returns an unordered set (\verb|C++| standard library) of all the nodes connected to node $a$
-    \item \verb|const std::unordered_set<int> &out_neighbors(int a)| -- Returns all the nodes that node $a$ points to. In an undirected graph, this returns the same thing as \verb|neighbors(a)|.
-    \item \verb|const std::unordered_set<int> &in_neighbors(int a)| -- Returns all the nodes that point to node $a$. In an undirected graph, this returns the same thing as \verb|neighbors(a)|.
+    \item \verb|Graph|, \verb|SparseGraph|, and \verb|NTSparseGraph|
+    \item \verb|NautyTracesOptions| and \verb|NautyTracesResults|
+    \item \verb|Coloring<T>|
+    \item \verb|Edge|
+    \item \verb|read_graph()| and \verb|write_graph()|
+    \item \verb|nauty()|, \verb|traces()|, and \verb|fake_iso()|
 \end{itemize}
 
-\subsubsection{NautyTracesOptions}
+\subsection{CombinatoricUtility}\label{sec:comb_util}
 
-The \verb|NautyTracesOptions| struct contains three boolean fields:
+The combinatoric utility class pre-computes useful values like the logarithms of factorials. Its constructor takes two inputs:
+
+\begin{verbatim}
+CombinatoricUtility(size_t max_e, size_t max_f);
+\end{verbatim}
+
+\verb|max_e| must be larger than the max number of edges your graph COULD ever have, including self-loops.
+
+\verb|max_f| must be larger than both of the following:
+\begin{itemize}
+    \item the max number of edges your graph WILL have PLUS the number of edges you will delete from it
+    \item (the max number of edges you COULD have MINUS the number of edges your graph WILL have) PLUS the number of edges you will delete from it
+\end{itemize}
+
+It's probably a safe bet to make: \verb|max_f| $\geq$ $\min(3m,$ \verb|max_e| $- (3($\verb|max_e|$ - m)))$ where $m$ is the number of edges.
+
+The constructor for the \verb|CombinatoricUtility| class will take O(\verb|max_e|) time, and the class's data structures will use O(\verb|max_f|) space.
+
+\subsection{Default Log-Prob Parameters}\label{sec:log_probs}
+
+To get the default values for \verb|log2_p_plus|, \verb|log2_p_minus|, \verb|log2_1_minus_p_plus|, and \verb|log2_1_minus_p_minus|, use the function:
+
+\begin{verbatim}
+std::vector<long double>
+        default_log2_noise_probs(NTSparseGraph& g,
+                                 const CombinatoricUtility& comb_util);
+\end{verbatim}
+
+It returns a vector of the four log-probabilities \emph{in the following order}:
 
 \begin{itemize}
-    \setlength\itemsep{-0.1em}
-    \item \verb|get_node_orbits|
-    \item \verb|get_edge_orbits|
-    \item \verb|get_canonical_node_order|
+    \setlength\itemsep{0em}
+    \item \verb|log2_p_plus|
+    \item \verb|log2_1_minus_p_plus|
+    \item \verb|log2_p_minus|
+    \item \verb|log2_1_minus_p_minus|
 \end{itemize}
 
-They are largely self-explanatory. If they are set to true, then a call to \verb|nauty|/\verb|traces| using these options will populate the corresponding fields in the relevant \verb|NautyTracesResults| struct. Setting them to false may improve runtime, so only set them to true when you want the information.
+\subsection{The Thread-Pool Scorer}
 
-\subsubsection{NautyTracesResults}
+If for some reason you want to score many schema-noise decompositions for the same graph in parallel, you could consider using the \verb|ThreadPoolScorer| class.
 
-The \verb|NautyTracesOptions| struct stores the output of a \verb|nauty|/\verb|traces| computation. It has the following fields:
-
-
-\begin{itemize}
-    \setlength\itemsep{-0.1em}
-    \item \verb|int error_status| -- Will be non-zero if an error occurred
-    \item \verb|size_t num_node_orbits| -- Number of automorphism orbits of the nodes
-    \item \verb|size_t num_edge_orbits| -- Number of automorphism orbits of the edges
-    \item \verb|double num_aut_base|
-    \item \verb|int num_aut_exponent| -- The number of automorphisms of the graph is roughly \\
-    {\large num\_aut\_base $\times 10^\text{ num\_aut\_exponent}$}.
-    \item \verb|std::vector<int> canonical_node_order| -- Stores the node IDs (0 through \verb|num_nodes() - 1|) in a canonical order. This field is only populated when the \verb|get_canonical_node_order| option is used.
-    \item \verb|Coloring<int> node_orbits| -- Stores a ``coloring'' which gives every node a color corresponding to which automorphism orbit it is in. The \verb|Coloring| class is described in Section~\ref{sec:coloring}. This field is only populated when \verb|get_node_orbits| option is used.
-    \item \verb|Coloring<Edge, EdgeHash> edge_orbits| -- Stores a ``coloring'' which gives every edge a color corresponding to which automorphism orbit it is in. The \verb|Coloring| class is described in Section~\ref{sec:coloring} and the \verb|Edge| class is described in Section~\ref{sec:edge_class}. This field is only populated with the \verb|get_edge_orbits| option is used.
-\end{itemize}
-
-\subsection{Colorings}\label{sec:coloring}
-
-Colorings are used to store automorphism orbit information. They can also be used to force automorphisms to match nodes to other nodes of the same color.
-
-\subsubsection{Reading a Coloring}
-
-If you simply want to read the colorings that \verb|nauty| and \verb|traces| provide, then the only feature you really need is the access operator [].
-
-For example, if \verb|node_col| is a node coloring, then to see what color node 7 is, simply use \verb|node_col[7]|.
-
-Accessing the color of an edge is a tiny bit more complicated. If \verb|edge_col| is an edge coloring and \verb|dir| is a boolean indicating whether or not you have directed edges, then the color of edge $(a, b)$ is accessed as \verb|edge_col[EDGE(a, b, dir)]|. The \verb|EDGE| macro produces an \verb|Edge| (which is really just a \verb|std::pair<int, int>|) that respects a convention the code uses for undirected edges.
-
-There are a few other methods for accessing the \verb|Coloring| class that can be useful:
-
-\begin{itemize}
-    \item \verb|size_t size()| -- Returns the number of colored elements.
-    \item \verb|const std::set<int>& colors()| -- Returns a set of all the colors in the coloring.
-    \item \verb|const std::unordered_set<T, THash>& cell(int color)| -- Returns the set of nodes (type \verb|int|) or edges (type \verb|Edge|) that have the color \verb|color|.
-\end{itemize}
-
-
-\subsubsection{Creating a Coloring} \ 
-
-If you want to \emph{create} a \verb|Coloring| for nodes, it should be initialized as follows:
+It is initialized in much the same way that the scoring function is called (discussed above):
 
 \begin{verbatim}
-        Coloring<int> my_node_coloring();
+ThreadPoolScorer(size_t nt, const Graph& g,
+                 const CombinatoricUtility& comb_util,
+                 const Coloring<int>& node_orbit_coloring,
+                 const Coloring<Edge,EdgeHash>& edge_orbit_coloring,
+                 long double log2_p_plus,
+                 long double log2_p_minus,
+                 long double log2_1_minus_p_plus,
+                 long double log2_1_minus_p_minus,
+                 size_t max_size,
+                 bool use_heuristic,
+                 bool full_iso);
 \end{verbatim}
 
-If you want to \emph{create} a \verb|Coloring| for edges, it should be initialized as follows:
+There are two parameters not asked for in the \verb|score()| function: \verb|nt| and \verb|use_heuristic|. The number \verb|nt| is the number of threads to use. If you pass $0$, the \verb|ThreadPoolScorer| will use the parallelism that the machine offers.
+
+You will almost certainly want to set the \verb|use_heuristic| value to \verb|false|. It was part of an experimental feature to give a fuzzy tie-breaker score meant to say which decompositions were \emph{closer} to getting a better \verb|SCHENO| score even if they had the same \emph{actual} \verb|SCHENO| score.
+
+Once you have initialized your \verb|ThreadPoolScorer| for a particular graph as shown above, you can score decompositions with the function:
 
 \begin{verbatim}
-        Coloring<Edge, EdgeHash> my_edge_coloring();
+const std::vector<std::pair<long double, long double>>& get_scores(
+                         std::vector<std::unique_ptr<EdgeSetPair>> *tasks);
 \end{verbatim}
 
-To set the color of an element or to remove an element from the coloring, use the following two methods:
+The input \verb|tasks| contains a list of all the different noise sets to be scored.
 
-\begin{itemize}
-    \item \verb|set(const T& elt, int color)| -- Sets node or edge \verb|elt| to color \verb|color|.
-    \item \verb|erase(const T& elt)| -- Removes node or edge \verb|elt| from the coloring.
-\end{itemize}
+The output is a vector of pairs of long doubles. The score for task $i$ is the \emph{first} of the two long doubles in the $i$'th output pair.
 
-\subsection{Edge Class for Edge Colorings}\label{sec:edge_class}
+IMPORTANT: The size of the output vector can be larger than the size of the input vector. Never make use of the output vector's size. Always use \verb|tasks->size()|.
 
-The \verb|Edge| class is only needed if you want to work with edge colorings. It is simply a \verb|typedef| for \verb|std::pair<int, int>|. The code requires that undirected edges put the smaller node ID first. The easiest way to create an \verb|Edge| is probably to use the \verb|EDGE(source, target, directed)| macro, where \verb|source| and \verb|target| are integers and \verb|directed| is a boolean.
+An \verb|EdgeSetPair| is a base class. You will likely want to use the \verb|BasicEdgeSetPair| subclass, which is basically just a wrapper around two sets of edges: one set for noise edges removed from the base graph (i.e. noise edges added to the schema), the other for noise edges added to the base graph (i.e. noise edges deleted from the schema).
 
-\subsection{File Utils}\label{sec:file_utils}
-
-To load a graph from a file or write a graph to a file, you can use the following functions:
-
-\textbf{Read Graph from File Version 1}
-
-\ 
-
-This function assumes that the nodes are numbered 0 through the largest node ID found in the edge list.
+A \verb|BasicEdgeSetPair| has the constructor:
 
 \begin{verbatim}
-        SparseGraph read_graph(const bool directed,
-                               const std::string& edgelist_filename);
+BasicEdgeSetPair(const std::unordered_set<Edge, EdgeHash>& removed,
+                 const std::unordered_set<Edge, EdgeHash>& added)
 \end{verbatim}
 
-\newpage
+\subsubsection{Esoteric Trivia}
 
-\textbf{Read Graph from File Version 2}
-
-\ 
-
-This function puts all nodes in the nodelist into the graph, even if they do not appear in the edgelist.
-
-Note that if the nodes in the node list are not labeled 0 through $n-1$, they will be relabeled in sorted order as they are loaded.
-
-\begin{verbatim}
-        SparseGraph read_graph(const bool directed,
-                               const std::string& nodelist_filename,
-                               const std::string& edgelist_filename);
-\end{verbatim}
-
-\ 
-
-\textbf{Write Graph to File}
-
-\ 
-
-If \verb|nodelist_filename| is empty then no nodelist is written.
-
-\verb|SparseGraph| and \verb|NTSparseGraph| are both subclasses of \verb|Graph|.
-
-\begin{verbatim}
-        void write_graph(const Graph& g, const std::string& nodelist_filename,
-                                         const std::string& edgelist_filename);
-\end{verbatim}
-
-\ 
-
-\textbf{Construct a node list file from an edge list file}
-
-\ 
-
-Reads the edgelist file and makes a nodelist for it.
-
-If \verb|full_range| is true, then the nodelist will consist of the interval from 0 through the largest node ID in the edgelist. If \verb|full_range| is false, only nodes mentioned in the edgelist will be listed in the nodelist.
-
-\begin{verbatim}
-        void make_nodelist(const std::string& edgelist_filename,
-                           const std::string& nodelist_filename,
-                           bool full_range);
-\end{verbatim}
-
-\newpage
-
-\section{Simple Example}\label{sec:full_example}
-
-\begin{verbatim}
-// minimal_nt_example.cpp
-
-#include "nt_wrappers/nauty_traces.h"
-
-#include<cmath>
-#include<iostream>
-
-int main(void) {
-
-    bool directed = false;
-    NTSparseGraph karate(directed);
-    karate = read_graph(directed, "nt_test_graphs/karate.txt");
-
-    std::cout<<"# Nodes: "<<karate.num_nodes()<<std::endl;
-    std::cout<<"# Edges: "<<karate.num_edges()<<std::endl<<std::endl;
-
-    NautyTracesOptions nto;
-    nto.get_node_orbits = true;
-    nto.get_edge_orbits = true;
-    nto.get_canonical_node_order = true;
-    
-    NautyTracesResults ntr = traces(karate, nto);
-    
-    double log10_aut = std::log10(ntr.num_aut_base) + ntr.num_aut_exponent;
-    std::cout<<"Log10 of Automorphisms:  "<<log10_aut<<std::endl;
-    std::cout<<"Number of Automorphisms: "<<(std::pow(10.0, log10_aut))<<std::endl;
-    std::cout<<"Number of Node Orbits:   "<<ntr.node_orbits.colors().size()<<std::endl;
-    std::cout<<"Number of Edge Orbits:   "<<ntr.edge_orbits.colors().size()<<std::endl;
-    std::cout<<"First Node in Canonical Ordering: "
-             <<ntr.canonical_node_order[0]<<std::endl;
-
-    return 0;
-}
-\end{verbatim}
-
-\ 
-
-The above example can be compiled with the following command:
-
-\begin{verbatim}
-g++ -Wall -Wextra -o minimal_nt_example -std=c++11 minimal_nt_example.cpp \
-                        nt_wrappers/nt_wrappers.a
-\end{verbatim}
+The reason for the class/sub-class functionality is that the genetic algorithm \verb|SCHENO_ga| encodes edges more space-efficiently as integers. That way the \verb|tasks| vector is smaller. When the thread-pool scorer asks for the two edge sets within an edge set pair, the genetic algorithm's \verb|EdgeSetPair| subclass, \verb|GeneEdgeSetPair|, temporarily converts the integers to sets of \verb|Edge| objects.
 
 % \bibliographystyle{plain}
 % \bibliography{references}
