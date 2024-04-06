@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
                  <<"-score_heuristic:\ttells genetic algorithm to use a"
                  <<std::endl<<"\t\t\t\theuristic score as a tiebreaker"
                  <<std::endl<<std::endl
-                 <<"-no_sample_heuristic:\ttells genetic algorithm to NOT use"
+                 <<"-sample_heuristic:\ttells genetic algorithm to use"
                  <<std::endl<<"\t\t\t\tits edge sampling heuristic"
                  <<std::endl<<std::endl
                  <<"-noise- <arg>:\tfraction of input edges to randomly remove"
@@ -199,7 +199,7 @@ int main(int argc, char* argv[]) {
     }
 
     bool score_heuristic = cmd_flag_present(inputs, "-score_heuristic");
-    bool sample_heuristic = !cmd_flag_present(inputs, "-no_sample_heuristic");
+    bool sample_heuristic = cmd_flag_present(inputs, "-sample_heuristic");
 
     std::string edgelist_file;
     edgelist_file = get_cmd_option(inputs, "-graph");

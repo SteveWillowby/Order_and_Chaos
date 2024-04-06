@@ -54,7 +54,7 @@ def run_GA(edges, directed=False, nodes=None, n_itr=120, seed_noise=None, \
     tmp_seed  = "/tmp/GA_tmp_seed.txt"
     dir_str = ["-u", "-d"][int(directed)]
     approx_str = ["", "-approx_iso"][int(approximate)]
-    sample_str = ["-no_sample_heuristic", ""][int(sample_heuristic)]
+    sample_str = ["", "-sample_heuristic"][int(sample_heuristic)]
 
     if nodes is None:
         nodes = edges_to_nodes(edges)
