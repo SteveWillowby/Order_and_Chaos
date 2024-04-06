@@ -1,5 +1,6 @@
 ###
 #  karate
+#Directed: False
 #Nodes:  34
 #Edges:  78
 #Struct: 36
@@ -31,6 +32,7 @@
 		#From noise size probability: -47.261400
 ###
 #  season_4
+#Directed: False
 #Nodes:  195
 #Edges:  804
 #Struct: 165
@@ -62,6 +64,7 @@
 		#From noise size probability: -171.058000
 ###
 #  foodweb
+#Directed: True
 #Nodes:  183
 #Edges:  2476
 #Struct: 114
@@ -93,6 +96,7 @@
 		#From noise size probability: -324.423000
 ###
 #  pol_blogs
+#Directed: True
 #Nodes:  1224
 #Edges:  19022
 #Struct: 615
@@ -124,6 +128,7 @@
 		#From noise size probability: -533.668000
 ###
 #  eucore
+#Directed: True
 #Nodes:  1005
 #Edges:  24929
 #Struct: 595
@@ -155,6 +160,7 @@
 		#From noise size probability: -832.540000
 ###
 #  cora
+#Directed: True
 #Nodes:  2708
 #Edges:  5429
 #Struct: 2002
@@ -186,6 +192,7 @@
 		#From noise size probability: -50.580600
 ###
 #  fullerene_c180
+#Directed: False
 #Nodes:  180
 #Edges:  270
 #Struct: 236
@@ -217,6 +224,7 @@
 		#From noise size probability: -9.715090
 ###
 #  fullerene_c720
+#Directed: False
 #Nodes:  720
 #Edges:  1080
 #Struct: 813
@@ -248,6 +256,7 @@
 		#From noise size probability: -24.321300
 ###
 #  fullerene_c6000
+#Directed: False
 #Nodes:  6000
 #Edges:  9000
 #Struct: 6388

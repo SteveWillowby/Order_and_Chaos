@@ -13,6 +13,7 @@ VOG -- THERE ARE 195 NODES
 VOG -- THERE ARE 804 EDGES
 ###
 #  season_4
+#Directed: False
 #Nodes:  45
 #Edges:  139
 #Struct: 129
@@ -46,6 +47,7 @@ VOG -- THERE ARE 183 NODES
 VOG -- THERE ARE 2434 EDGES
 ###
 #  foodweb
+#Directed: False
 #Nodes:  176
 #Edges:  2320
 #Struct: 1320
@@ -79,6 +81,7 @@ VOG -- THERE ARE 1224 NODES
 VOG -- THERE ARE 16715 EDGES
 ###
 #  pol_blogs
+#Directed: False
 #Nodes:  1087
 #Edges:  16477
 #Struct: 10854
@@ -112,6 +115,7 @@ VOG -- THERE ARE 986 NODES
 VOG -- THERE ARE 16064 EDGES
 ###
 #  eucore
+#Directed: False
 #Nodes:  846
 #Edges:  15673
 #Struct: 7450
@@ -145,6 +149,7 @@ VOG -- THERE ARE 2708 NODES
 VOG -- THERE ARE 5278 EDGES
 ###
 #  cora
+#Directed: False
 #Nodes:  875
 #Edges:  1784
 #Struct: 1117
@@ -178,6 +183,7 @@ VOG -- THERE ARE 105938 NODES
 VOG -- THERE ARE 2316948 EDGES
 ###
 #  flickr
+#Directed: False
 #Nodes:  61609
 #Edges:  2066044
 #Struct: 1614307
@@ -211,6 +217,7 @@ VOG -- THERE ARE 75879 NODES
 VOG -- THERE ARE 405740 EDGES
 ###
 #  epinions
+#Directed: False
 #Nodes:  47816
 #Edges:  370797
 #Struct: 320657
@@ -244,6 +251,7 @@ VOG -- THERE ARE 36692 NODES
 VOG -- THERE ARE 183831 EDGES
 ###
 #  enron
+#Directed: False
 #Nodes:  31070
 #Edges:  174431
 #Struct: 136128

@@ -1,6 +1,7 @@
 Using k = 3
 ###
 #  karate
+#Directed: False
 #Nodes:  32
 #Edges:  75
 #Struct: 67
@@ -32,6 +33,7 @@ Using k = 3
 		#From noise size probability: -9.488950
 ###
 #  season_4
+#Directed: False
 #Nodes:  122
 #Edges:  718
 #Struct: 597
@@ -63,6 +65,7 @@ Using k = 3
 		#From noise size probability: -47.430500
 ###
 #  foodweb
+#Directed: True
 #Nodes:  151
 #Edges:  2325
 #Struct: 2243
@@ -94,6 +97,7 @@ Using k = 3
 		#From noise size probability: -13.107800
 ###
 #  pol_blogs
+#Directed: True
 #Nodes:  999
 #Edges:  18658
 #Struct: 18300
@@ -125,6 +129,7 @@ Using k = 3
 		#From noise size probability: -12.309900
 ###
 #  eucore
+#Directed: True
 #Nodes:  875
 #Edges:  24779
 #Struct: 24577
@@ -156,6 +161,7 @@ Using k = 3
 		#From noise size probability: -7.759590
 ###
 #  cora
+#Directed: True
 #Nodes:  1470
 #Edges:  3418
 #Struct: 2968
