@@ -113,7 +113,7 @@ A few of the most important flags are:
     \item \verb|-d| and \verb|-u| -- These flags allow you to specify whether the graph is directed or undirected. Undirected is the default.
     \item \verb|-n_itr <arg>| -- How many iterations the genetic algorithm runs for
     \item \verb|-topk <arg>| -- The number of top-scoring noise sets to report on the command line (only the very best decomposition is written to a file)
-    \item \verb|-no_sample_heuristic| -- By default, \verb|SCHENO_ga| uses a heuristic when randomly sampling edges to try adding to the noise set. This requires a hefty pre-computation step and is not guaranteed to improve performance. You can turn this feature off with this flag.
+    \item \verb|-sample_heuristic| -- \verb|SCHENO_ga| can use a heuristic when randomly sampling edges to add to the noise set. This feature is experimental; it requires a hefty pre-computation step and is not guaranteed to improve performance. You can turn this feature on with this flag.
     \item \verb|-nt| -- Number of threads to use. Defaults to 0, which means max parallelism available on the machine.
     \item \verb|-approx_iso| -- Lets the \verb|SCHENO| score computation make use of an approximate isomorphism algorithm. This can sometimes speed up the computation on medium and large graphs.
     \item \verb|-seed <arg>| -- Lets you specify a starting schema-noise decomposition by giving it an edgelist that corresponds to a noise set. The algorithm will use this as its starting point.
