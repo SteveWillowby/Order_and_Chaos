@@ -1,7 +1,6 @@
 ~$*
 __pycache__/
-scheno/*.o
-scheno/*.a
+scheno/*
 executables/*
 scheno/Jonker_Volgenant/src/*.o
 scheno/nt_wrappers

@@ -160,11 +160,13 @@ if __name__ == "__main__":
             print("#  Random Graph with n = %d, p = %f" % (rand_n, rand_p))
         else:
             print("#  %s" % __name_list__[i])
-        print("#Directed: %s" % str(directed))
-        print("#Nodes:  %d" % len(nodes))
-        print("#Edges:  %d" % len(edges))
-        print("#Struct: %d" % len(struct_edges))
-        print("#Noise:  %d" % len(noise_edges))
+        print("#Directed:   %s" % str(directed))
+        print("#Nodes:      %d" % len(nodes))
+        print("#Edges:      %d" % len(edges))
+        print("#Und. Edges: %d" % \
+                len(set([(min(a, b), max(a, b)) for (a, b) in edges])))
+        print("#Struct:     %d" % len(struct_edges))
+        print("#Noise:      %d" % len(noise_edges))
 
         score = run_scorer(edges, nodes, noise_edges, directed, \
                            approximate=approximate)

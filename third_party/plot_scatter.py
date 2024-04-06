@@ -14,15 +14,16 @@ if __name__ == "__main__":
     f.close()
 
     tok_seq = ["#Directed", "#Nodes", "#Edges", \
-               "#Struct", "#Gain", "#AR Gain"]
-    directed = []
-    nodes    = []
-    edges    = []
-    struct   = []
-    gain     = []
-    ar_gain  = []
-    types = [bool, int, int, int, float, float]
-    lists = [directed, nodes, edges, struct, gain, ar_gain]
+               "#Und. Edges", "#Struct", "#Gain", "#AR Gain"]
+    directed  = []
+    nodes     = []
+    edges     = []
+    und_edges = []
+    struct    = []
+    gain      = []
+    ar_gain   = []
+    types = [bool, int, int, int, int, float, float]
+    lists = [directed, nodes, edges, und_edges, struct, gain, ar_gain]
 
     # Collect Information
     idx = 0
@@ -36,25 +37,40 @@ if __name__ == "__main__":
             idx = (idx + 1) % len(tok_seq)
 
     # Plot
-    fns = [(lambda d, n, e, s: (e * 2) / n), \
-           (lambda d, n, e, s: ((e * (int(not d) + 1)) / (n * (n - 1)))), \
-           (lambda d, n, e, s: \
+    fns = [(lambda d, n, e, ue, s: (e * 2) / n), \
+           (lambda d, n, e, ue, s: ((e * (int(not d) + 1)) / (n * (n - 1)))), \
+           (lambda d, n, e, ue, s: \
             math.log10(((e * (int(not d) + 1)) / (n * (n - 1))))), \
-           (lambda d, n, e, s: ((s + 1) * 2) / n), \
-           (lambda d, n, e, s: \
+           (lambda d, n, e, ue, s: \
+            math.log10(((ue * 2) / (n * (n - 1))))), \
+           (lambda d, n, e, ue, s: ((s + 1) * 2) / n), \
+           (lambda d, n, e, ue, s: \
             (((s + 1) * (int(not d) + 1)) / (n * (n - 1)))), \
-           (lambda d, n, e, s: \
+           (lambda d, n, e, ue, s: \
             math.log10((((s + 1) * (int(not d) + 1)) / (n * (n - 1)))))]
-    terms = ["Avg. Degree", "Density", "Log Density", \
+    terms = ["Avg. Degree", "Density", "Log Density", "Und. Log Density", \
              "Rem. Avg. Degree", "Rem. Density", "Log Rem. Density"]
 
-    for idx in range(0, len(fns)):
+    indices = [1, 2, 3, 5, 6]
+
+    gain_aug    = list(gain)
+    ar_gain_aug = list(ar_gain)
+    for i in range(0, len(gain_aug)):
+        if gain_aug[i] == 0.0:
+            gain_aug[i] = 0.0001
+        if ar_gain_aug[i] == 0.0:
+            ar_gain_aug[i] = 0.0001
+
+    log10_gain    = [(g / abs(g)) * math.log10(abs(g)) for g in gain_aug]
+    log10_ar_gain = [(g / abs(g)) * math.log10(abs(g)) for g in ar_gain_aug]
+
+    for idx in indices:
         fn = fns[idx]
         plt.figure(figsize=(9,6))
-        x_axis = [fn(directed[i], nodes[i], edges[i], struct[i]) \
+        x_axis = [fn(directed[i], nodes[i], edges[i], und_edges[i], struct[i]) \
                         for i in range(0, len(nodes))]
-        plt.scatter(x_axis, gain, label="algorithm", marker="o", c="#BBBBBB",  s=80)
-        plt.scatter(x_axis, ar_gain, label="random", marker="x", c="#000000", s=100)
+        plt.scatter(x_axis, log10_gain, label="algorithm", marker="o", c="#BBBBBB",  s=80)
+        plt.scatter(x_axis, log10_ar_gain, label="random", marker="x", c="#000000", s=100)
         plt.legend()
         plt.title("Effectiveness of Algorithm vs. Graph Property", size=18)
         plt.xlabel(terms[idx], size=14)
