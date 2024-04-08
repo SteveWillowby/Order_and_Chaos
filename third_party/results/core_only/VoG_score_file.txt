@@ -13,11 +13,12 @@ VOG -- THERE ARE 195 NODES
 VOG -- THERE ARE 804 EDGES
 ###
 #  season_4
-#Directed: False
-#Nodes:  45
-#Edges:  139
-#Struct: 129
-#Noise:  10
+#Directed:   False
+#Nodes:      45
+#Edges:      139
+#Und. Edges: 139
+#Struct:     129
+#Noise:      10
 #Added:  0
 #Del:    10
 	#All Noise:      244.712000
@@ -35,23 +36,24 @@ VOG -- THERE ARE 804 EDGES
 		#From AO (no sing. swaps):    16.076800
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -8.868780
-	#AR Score:       -5.676300
-	#AR Gain Above All Structure:   -10.261260
-	#W/O Singletons: -5.676300
-		#From Aut (no singletons):    2.933984
+	#AR Score:       -6.193292
+	#AR Gain Above All Structure:   -10.778252
+	#W/O Singletons: -6.193292
+		#From Aut (no singletons):    2.375488
 		#From Aut (singletons only):  0.000000
-		#From AO (no sing. swaps):    0.258496
+		#From AO (no sing. swaps):    0.300000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -8.868780
 VOG -- THERE ARE 183 NODES
 VOG -- THERE ARE 2434 EDGES
 ###
 #  foodweb
-#Directed: False
-#Nodes:  176
-#Edges:  2320
-#Struct: 1320
-#Noise:  1000
+#Directed:   False
+#Nodes:      176
+#Edges:      2320
+#Und. Edges: 2320
+#Struct:     1320
+#Noise:      1000
 #Added:  0
 #Del:    1000
 	#All Noise:      1243.490000
@@ -69,23 +71,24 @@ VOG -- THERE ARE 2434 EDGES
 		#From AO (no sing. swaps):    93.954100
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -291.015000
-	#AR Score:       -260.871000
-	#AR Gain Above All Structure:   -470.234000
-	#W/O Singletons: -267.154663
-		#From Aut (no singletons):    26.085010
-		#From Aut (singletons only):  3.141665
-		#From AO (no sing. swaps):    -2.224673
-		#From AO (sing. swaps only):  3.141665
+	#AR Score:       -258.719000
+	#AR Gain Above All Structure:   -468.082000
+	#W/O Singletons: -264.685460
+		#From Aut (no singletons):    28.222020
+		#From Aut (singletons only):  2.983169
+		#From AO (no sing. swaps):    -1.892480
+		#From AO (sing. swaps only):  2.983169
 		#From noise size probability: -291.015000
 VOG -- THERE ARE 1224 NODES
 VOG -- THERE ARE 16715 EDGES
 ###
 #  pol_blogs
-#Directed: False
-#Nodes:  1087
-#Edges:  16477
-#Struct: 10854
-#Noise:  5623
+#Directed:   False
+#Nodes:      1087
+#Edges:      16477
+#Und. Edges: 16477
+#Struct:     10854
+#Noise:      5623
 #Added:  0
 #Del:    5623
 	#All Noise:      17658.200000
@@ -103,23 +106,24 @@ VOG -- THERE ARE 16715 EDGES
 		#From AO (no sing. swaps):    204.861000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -362.314000
-	#AR Score:       22.832880
-	#AR Gain Above All Structure:   -60.906320
-	#W/O Singletons: -215.134860
-		#From Aut (no singletons):    101.951610
-		#From Aut (singletons only):  118.983760
-		#From AO (no sing. swaps):    45.227530
-		#From AO (sing. swaps only):  118.983760
+	#AR Score:       20.178490
+	#AR Gain Above All Structure:   -63.560710
+	#W/O Singletons: -211.485570
+		#From Aut (no singletons):    103.771670
+		#From Aut (singletons only):  115.832020
+		#From AO (no sing. swaps):    47.056760
+		#From AO (sing. swaps only):  115.832020
 		#From noise size probability: -362.314000
 VOG -- THERE ARE 986 NODES
 VOG -- THERE ARE 16064 EDGES
 ###
 #  eucore
-#Directed: False
-#Nodes:  846
-#Edges:  15673
-#Struct: 7450
-#Noise:  8223
+#Directed:   False
+#Nodes:      846
+#Edges:      15673
+#Und. Edges: 15673
+#Struct:     7450
+#Noise:      8223
 #Added:  0
 #Del:    8223
 	#All Noise:      12760.700000
@@ -137,23 +141,24 @@ VOG -- THERE ARE 16064 EDGES
 		#From AO (no sing. swaps):    120.000000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -654.338000
-	#AR Score:       -464.708800
-	#AR Gain Above All Structure:   -482.048700
-	#W/O Singletons: -634.475253
-		#From Aut (no singletons):    14.070096
-		#From Aut (singletons only):  84.883200
-		#From AO (no sing. swaps):    5.792651
-		#From AO (sing. swaps only):  84.883200
+	#AR Score:       -468.218300
+	#AR Gain Above All Structure:   -485.558200
+	#W/O Singletons: -639.671334
+		#From Aut (no singletons):    11.434308
+		#From Aut (singletons only):  85.726500
+		#From AO (no sing. swaps):    3.232358
+		#From AO (sing. swaps only):  85.726500
 		#From noise size probability: -654.338000
 VOG -- THERE ARE 2708 NODES
 VOG -- THERE ARE 5278 EDGES
 ###
 #  cora
-#Directed: False
-#Nodes:  875
-#Edges:  1784
-#Struct: 1117
-#Noise:  667
+#Directed:   False
+#Nodes:      875
+#Edges:      1784
+#Und. Edges: 1784
+#Struct:     1117
+#Noise:      667
 #Added:  0
 #Del:    667
 	#All Noise:      13966.200000
@@ -171,23 +176,24 @@ VOG -- THERE ARE 5278 EDGES
 		#From AO (no sing. swaps):    1977.740000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -51.594400
-	#AR Score:       1924.547000
-	#AR Gain Above All Structure:   1438.036000
-	#W/O Singletons: 677.328500
-		#From Aut (no singletons):    512.129800
-		#From Aut (singletons only):  623.609400
-		#From AO (no sing. swaps):    216.793100
-		#From AO (sing. swaps only):  623.609400
+	#AR Score:       1879.069000
+	#AR Gain Above All Structure:   1392.558000
+	#W/O Singletons: 737.488500
+		#From Aut (no singletons):    544.154600
+		#From Aut (singletons only):  570.790200
+		#From AO (no sing. swaps):    244.928300
+		#From AO (sing. swaps only):  570.790200
 		#From noise size probability: -51.594400
 VOG -- THERE ARE 105938 NODES
 VOG -- THERE ARE 2316948 EDGES
 ###
 #  flickr
-#Directed: False
-#Nodes:  61609
-#Edges:  2066044
-#Struct: 1614307
-#Noise:  451737
+#Directed:   False
+#Nodes:      61609
+#Edges:      2066044
+#Und. Edges: 2066044
+#Struct:     1614307
+#Noise:      451737
 #Added:  0
 #Del:    451737
 	#All Noise:      1733560.000000
@@ -205,23 +211,24 @@ VOG -- THERE ARE 2316948 EDGES
 		#From AO (no sing. swaps):    125023.000000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -848.981000
-	#AR Score:       24305.000000
-	#AR Gain Above All Structure:   -21006.400000
-	#W/O Singletons: 21963.509000
-		#From Aut (no singletons):    20561.000000
-		#From Aut (singletons only):  1170.747300
-		#From AO (no sing. swaps):    2251.490000
-		#From AO (sing. swaps only):  1170.747300
+	#AR Score:       24227.940000
+	#AR Gain Above All Structure:   -21083.460000
+	#W/O Singletons: 21958.032000
+		#From Aut (no singletons):    20579.730000
+		#From Aut (singletons only):  1134.959700
+		#From AO (no sing. swaps):    2227.283000
+		#From AO (sing. swaps only):  1134.959700
 		#From noise size probability: -848.981000
 VOG -- THERE ARE 75879 NODES
 VOG -- THERE ARE 405740 EDGES
 ###
 #  epinions
-#Directed: False
-#Nodes:  47816
-#Edges:  370797
-#Struct: 320657
-#Noise:  50140
+#Directed:   False
+#Nodes:      47816
+#Edges:      370797
+#Und. Edges: 370797
+#Struct:     320657
+#Noise:      50140
 #Added:  0
 #Del:    50140
 	#All Noise:      1302150.000000
@@ -239,23 +246,24 @@ VOG -- THERE ARE 405740 EDGES
 		#From AO (no sing. swaps):    27769.200000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -118.356000
-	#AR Score:       89593.280000
-	#AR Gain Above All Structure:   43944.180000
-	#W/O Singletons: 43228.240000
-		#From Aut (no singletons):    41262.680000
-		#From Aut (singletons only):  23182.520000
-		#From AO (no sing. swaps):    2083.916000
-		#From AO (sing. swaps only):  23182.520000
+	#AR Score:       89917.890000
+	#AR Gain Above All Structure:   44268.790000
+	#W/O Singletons: 43425.642000
+		#From Aut (no singletons):    41366.740000
+		#From Aut (singletons only):  23246.110000
+		#From AO (no sing. swaps):    2177.258000
+		#From AO (sing. swaps only):  23246.110000
 		#From noise size probability: -118.356000
 VOG -- THERE ARE 36692 NODES
 VOG -- THERE ARE 183831 EDGES
 ###
 #  enron
-#Directed: False
-#Nodes:  31070
-#Edges:  174431
-#Struct: 136128
-#Noise:  38315
+#Directed:   False
+#Nodes:      31070
+#Edges:      174431
+#Und. Edges: 174431
+#Struct:     136128
+#Noise:      38315
 #Added:  6
 #Del:    38309
 	#All Noise:      788115.000000
@@ -273,11 +281,11 @@ VOG -- THERE ARE 183831 EDGES
 		#From AO (no sing. swaps):    26205.100000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -133.079000
-	#AR Score:       77690.090000
-	#AR Gain Above All Structure:   28712.290000
-	#W/O Singletons: 36569.247900
-		#From Aut (no singletons):    37822.310000
-		#From Aut (singletons only):  20560.420000
-		#From AO (no sing. swaps):    -1119.983100
-		#From AO (sing. swaps only):  20560.420000
+	#AR Score:       78235.640000
+	#AR Gain Above All Structure:   29257.840000
+	#W/O Singletons: 36428.609500
+		#From Aut (no singletons):    37755.040000
+		#From Aut (singletons only):  20903.530000
+		#From AO (no sing. swaps):    -1193.351500
+		#From AO (sing. swaps only):  20903.530000
 		#From noise size probability: -133.079000

@@ -1,10 +1,44 @@
 ###
+#  subdue_sanity_check
+#Directed:   False
+#Nodes:      12
+#Edges:      14
+#Und. Edges: 14
+#Struct:     12
+#Noise:      2
+#Added:  0
+#Del:    2
+	#All Noise:      3.509220
+	#All Structure:  7.000000
+		#From Aut (no singletons):    7.000000
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    0.000000
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: 0.000000
+	#Score:          16.112200
+	#Gain Above All Structure:      9.112200
+	#W/O Singletons: 16.112230
+		#From Aut (no singletons):    14.924800
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    7.924810
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -6.737380
+	#AR Score:       -0.118434
+	#AR Gain Above All Structure:   -7.118434
+	#W/O Singletons: -0.118432
+		#From Aut (no singletons):    5.309474
+		#From Aut (singletons only):  0.000000
+		#From AO (no sing. swaps):    1.309474
+		#From AO (sing. swaps only):  0.000000
+		#From noise size probability: -6.737380
+###
 #  karate
-#Directed: False
-#Nodes:  28
-#Edges:  67
-#Struct: 36
-#Noise:  31
+#Directed:   False
+#Nodes:      28
+#Edges:      67
+#Und. Edges: 67
+#Struct:     36
+#Noise:      31
 #Added:  0
 #Del:    31
 	#All Noise:      104.461000
@@ -22,21 +56,22 @@
 		#From AO (no sing. swaps):    6.000000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -41.377100
-	#AR Score:       -32.624110
-	#AR Gain Above All Structure:   -34.624110
-	#W/O Singletons: -35.692140
-		#From Aut (no singletons):    2.892480
-		#From Aut (singletons only):  1.533984
-		#From AO (no sing. swaps):    2.792480
-		#From AO (sing. swaps only):  1.533984
+	#AR Score:       -32.575110
+	#AR Gain Above All Structure:   -34.575110
+	#W/O Singletons: -35.126124
+		#From Aut (no singletons):    3.275488
+		#From Aut (singletons only):  1.275488
+		#From AO (no sing. swaps):    2.975488
+		#From AO (sing. swaps only):  1.275488
 		#From noise size probability: -41.377100
 ###
 #  season_4
-#Directed: False
-#Nodes:  160
-#Edges:  756
-#Struct: 165
-#Noise:  591
+#Directed:   False
+#Nodes:      160
+#Edges:      756
+#Und. Edges: 756
+#Struct:     165
+#Noise:      591
 #Added:  0
 #Del:    591
 	#All Noise:      1651.580000
@@ -54,21 +89,22 @@
 		#From AO (no sing. swaps):    140.387000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -185.859000
-	#AR Score:       94.880410
-	#AR Gain Above All Structure:   92.880410
-	#W/O Singletons: -174.291032
-		#From Aut (no singletons):    6.533984
-		#From Aut (singletons only):  134.585800
-		#From AO (no sing. swaps):    5.033984
-		#From AO (sing. swaps only):  134.585800
+	#AR Score:       86.350160
+	#AR Gain Above All Structure:   84.350160
+	#W/O Singletons: -175.642000
+		#From Aut (no singletons):    5.658500
+		#From Aut (singletons only):  130.996100
+		#From AO (no sing. swaps):    4.558500
+		#From AO (sing. swaps only):  130.996100
 		#From noise size probability: -185.859000
 ###
 #  foodweb
-#Directed: True
-#Nodes:  141
-#Edges:  2150
-#Struct: 114
-#Noise:  2036
+#Directed:   True
+#Nodes:      141
+#Edges:      2150
+#Und. Edges: 2108
+#Struct:     114
+#Noise:      2036
 #Added:  0
 #Del:    2036
 	#All Noise:      1166.260000
@@ -86,21 +122,22 @@
 		#From AO (no sing. swaps):    173.677000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -343.448000
-	#AR Score:       -10.385388
-	#AR Gain Above All Structure:   -97.748188
-	#W/O Singletons: -329.212341
-		#From Aut (no singletons):    12.805742
-		#From Aut (singletons only):  159.413500
-		#From AO (no sing. swaps):    1.429917
-		#From AO (sing. swaps only):  159.413500
+	#AR Score:       -30.721374
+	#AR Gain Above All Structure:   -118.084174
+	#W/O Singletons: -333.619896
+		#From Aut (no singletons):    11.151148
+		#From Aut (singletons only):  151.449200
+		#From AO (no sing. swaps):    -1.323044
+		#From AO (sing. swaps only):  151.449200
 		#From noise size probability: -343.448000
 ###
 #  pol_blogs
-#Directed: True
-#Nodes:  839
-#Edges:  17379
-#Struct: 615
-#Noise:  16764
+#Directed:   True
+#Nodes:      839
+#Edges:      17379
+#Und. Edges: 15192
+#Struct:     615
+#Noise:      16764
 #Added:  0
 #Del:    16764
 	#All Noise:      13193.700000
@@ -118,21 +155,22 @@
 		#From AO (no sing. swaps):    1759.960000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -666.932000
-	#AR Score:       4396.876000
-	#AR Gain Above All Structure:   4392.876000
-	#W/O Singletons: -478.194840
-		#From Aut (no singletons):    96.118580
-		#From Aut (singletons only):  2437.536000
-		#From AO (no sing. swaps):    92.618580
-		#From AO (sing. swaps only):  2437.536000
+	#AR Score:       4397.545000
+	#AR Gain Above All Structure:   4393.545000
+	#W/O Singletons: -485.976860
+		#From Aut (no singletons):    92.177560
+		#From Aut (singletons only):  2441.761000
+		#From AO (no sing. swaps):    88.777580
+		#From AO (sing. swaps only):  2441.761000
 		#From noise size probability: -666.932000
 ###
 #  eucore
-#Directed: True
-#Nodes:  818
-#Edges:  24043
-#Struct: 595
-#Noise:  23448
+#Directed:   True
+#Nodes:      818
+#Edges:      24043
+#Und. Edges: 15383
+#Struct:     595
+#Noise:      23448
 #Added:  0
 #Del:    23448
 	#All Noise:      12505.000000
@@ -150,21 +188,22 @@
 		#From AO (no sing. swaps):    1575.520000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -952.756000
-	#AR Score:       3739.314000
-	#AR Gain Above All Structure:   3739.314000
-	#W/O Singletons: -766.761460
-		#From Aut (no singletons):    92.997270
-		#From Aut (singletons only):  2253.038000
-		#From AO (no sing. swaps):    92.997270
-		#From AO (sing. swaps only):  2253.038000
+	#AR Score:       3737.315000
+	#AR Gain Above All Structure:   3737.315000
+	#W/O Singletons: -786.896320
+		#From Aut (no singletons):    82.929840
+		#From Aut (singletons only):  2262.105000
+		#From AO (no sing. swaps):    82.929840
+		#From AO (sing. swaps only):  2262.105000
 		#From noise size probability: -952.756000
 ###
 #  cora
-#Directed: True
-#Nodes:  2225
-#Edges:  4693
-#Struct: 2002
-#Noise:  2691
+#Directed:   True
+#Nodes:      2225
+#Edges:      4693
+#Und. Edges: 4557
+#Struct:     2002
+#Noise:      2691
 #Added:  0
 #Del:    2691
 	#All Noise:      42887.700000
@@ -182,21 +221,22 @@
 		#From AO (no sing. swaps):    1903.980000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -46.992700
-	#AR Score:       7864.980000
-	#AR Gain Above All Structure:   7758.639000
-	#W/O Singletons: 1238.488700
-		#From Aut (no singletons):    659.592700
-		#From Aut (singletons only):  3313.247000
-		#From AO (no sing. swaps):    625.888700
-		#From AO (sing. swaps only):  3313.247000
+	#AR Score:       7771.824000
+	#AR Gain Above All Structure:   7665.483000
+	#W/O Singletons: 1213.606800
+		#From Aut (no singletons):    648.039400
+		#From Aut (singletons only):  3279.108000
+		#From AO (no sing. swaps):    612.560100
+		#From AO (sing. swaps only):  3279.108000
 		#From noise size probability: -46.992700
 ###
 #  fullerene_c180
-#Directed: False
-#Nodes:  177
-#Edges:  261
-#Struct: 236
-#Noise:  25
+#Directed:   False
+#Nodes:      177
+#Edges:      261
+#Und. Edges: 261
+#Struct:     236
+#Noise:      25
 #Added:  0
 #Del:    25
 	#All Noise:      2067.330000
@@ -214,21 +254,22 @@
 		#From AO (no sing. swaps):    1.000000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -7.241890
-	#AR Score:       -7.241890
-	#AR Gain Above All Structure:   -7.241890
-	#W/O Singletons: -7.241890
-		#From Aut (no singletons):    0.000000
+	#AR Score:       -6.641890
+	#AR Gain Above All Structure:   -6.641890
+	#W/O Singletons: -6.641890
+		#From Aut (no singletons):    0.300000
 		#From Aut (singletons only):  0.000000
-		#From AO (no sing. swaps):    0.000000
+		#From AO (no sing. swaps):    0.300000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -7.241890
 ###
 #  fullerene_c720
-#Directed: False
-#Nodes:  716
-#Edges:  1069
-#Struct: 813
-#Noise:  256
+#Directed:   False
+#Nodes:      716
+#Edges:      1069
+#Und. Edges: 1069
+#Struct:     813
+#Noise:      256
 #Added:  0
 #Del:    256
 	#All Noise:      11429.200000
@@ -246,21 +287,22 @@
 		#From AO (no sing. swaps):    12.000000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -23.428200
-	#AR Score:       49.608360
-	#AR Gain Above All Structure:   49.608360
-	#W/O Singletons: 4.968920
-		#From Aut (no singletons):    14.198560
-		#From Aut (singletons only):  22.319780
-		#From AO (no sing. swaps):    14.198560
-		#From AO (sing. swaps only):  22.319780
+	#AR Score:       41.770330
+	#AR Gain Above All Structure:   41.770330
+	#W/O Singletons: 0.655172
+		#From Aut (no singletons):    12.041686
+		#From Aut (singletons only):  20.557605
+		#From AO (no sing. swaps):    12.041686
+		#From AO (sing. swaps only):  20.557605
 		#From noise size probability: -23.428200
 ###
 #  fullerene_c6000
-#Directed: False
-#Nodes:  5932
-#Edges:  8799
-#Struct: 6388
-#Noise:  2411
+#Directed:   False
+#Nodes:      5932
+#Edges:      8799
+#Und. Edges: 8799
+#Struct:     6388
+#Noise:      2411
 #Added:  0
 #Del:    2411
 	#All Noise:      131474.000000
@@ -278,11 +320,11 @@
 		#From AO (no sing. swaps):    333.612000
 		#From AO (sing. swaps only):  0.000000
 		#From noise size probability: -36.168800
-	#AR Score:       2200.940000
-	#AR Gain Above All Structure:   2200.940000
-	#W/O Singletons: 693.244600
-		#From Aut (no singletons):    364.706700
-		#From Aut (singletons only):  753.848100
-		#From AO (no sing. swaps):    364.706700
-		#From AO (sing. swaps only):  753.848100
+	#AR Score:       2275.363000
+	#AR Gain Above All Structure:   2275.363000
+	#W/O Singletons: 744.277800
+		#From Aut (no singletons):    390.223300
+		#From Aut (singletons only):  765.543200
+		#From AO (no sing. swaps):    390.223300
+		#From AO (sing. swaps only):  765.543200
 		#From noise size probability: -36.168800
