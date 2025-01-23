@@ -11,6 +11,10 @@ scheno/nt_wrappers
 test_nt_code
 minimal_nt_example
 experiments/plotting_code/structure_graph*
+third_party/GIN/cpu_virtual_env/*
+third_party/GIN/virtual_env/*
+third_party/GIN/data/*
+third_party/GIN/~
 third_party/crossspot/nodes.txt
 third_party/crossspot/prepared.csv
 third_party/crossspot/line_graph.csv
