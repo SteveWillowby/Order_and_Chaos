@@ -3,11 +3,13 @@ import math
 import sys
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Error! Needs filename.")
+    if len(sys.argv) < 3:
+        print("Error! Needs filename and algorithm name.")
         exit(1)
 
     filename = sys.argv[1]
+
+    alg_name = sys.argv[2]
 
     f = open(filename, "r")
     lines = f.readlines()
@@ -69,10 +71,11 @@ if __name__ == "__main__":
         plt.figure(figsize=(9,6))
         x_axis = [fn(directed[i], nodes[i], edges[i], und_edges[i], struct[i]) \
                         for i in range(0, len(nodes))]
-        plt.scatter(x_axis, log10_gain, label="algorithm", marker="o", c="#BBBBBB",  s=80)
-        plt.scatter(x_axis, log10_ar_gain, label="random", marker="x", c="#000000", s=100)
-        plt.legend()
-        plt.title("Effectiveness of Algorithm vs. Graph Property", size=18)
+        plt.scatter(x_axis, gain, label=alg_name, marker="x", c="#000000",  s=100)
+        # plt.scatter(x_axis, gain, label=alg_name, marker="o", c="#BBBBBB",  s=80)
+        # plt.scatter(x_axis, ar_gain, label="random", marker="x", c="#000000", s=100)
+        # plt.legend()
+        plt.title("Effectiveness of %s vs. %s" % (alg_name, terms[idx]), size=18)
         plt.xlabel(terms[idx], size=14)
         plt.ylabel("Gain above all Structure", size=14)
         plt.show()
