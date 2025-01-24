@@ -207,7 +207,9 @@ for epoch in range(1, 351):
         best_val_auc = val_auc
     scheduler.step()
     print(f'Epoch: {epoch:03d}, Loss: {loss:.4f}, Val: {val_auc:.4f}')
+    sys.stdout.flush()
 print("Best val_auc: %f" % best_val_auc)
+sys.stdout.flush()
 
 z = model.encode(train_data.x, train_data.edge_index)
 # final_edge_index = model.decode_all(z)
@@ -252,6 +254,7 @@ while i < len(edges_by_rank):
 print("Best F1 of %.2f with a precision of %.2f and a recall of %.2f" % (best_F1, best_F1_precision, best_F1_recall))
 print("Best F1 Endpoint: %d" % best_F1_endpoint)
 print("Original number of edges: %d" % len(train_data.edges))
+sys.stdout.flush()
 
 edges = [edge for (rank, edge) in edges_by_rank]
 edges = edges[:best_F1_endpoint]
@@ -259,8 +262,9 @@ edges = edges[:best_F1_endpoint]
 
 f = open(output_filename, "w")
 for i in range(0, len(edges)):
+    (a, b) = edges[i]
     if a != b:
         f.write("%d %d" % (a, b))
-    if i < len(edges) - 1:
-        f.write("\n")
+        if i < len(edges) - 1:
+            f.write("\n")
 f.close()

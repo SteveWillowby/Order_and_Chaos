@@ -43,6 +43,43 @@ def run_scorer(graph_edges, nodes, noise_edges, directed, approximate=False):
 
     return score_info
 
+
+# Returns:
+#   (struct_edges, noise_edges)
+def run_GIN(edges, directed=False):
+
+    if directed:
+        print("NOTE: GIN does not handle directed graphs. Setting directed to False.")
+        directed=False
+
+    tmp_graph  = "/tmp/GIN_tmp_graph.txt"
+    tmp_output = "/tmp/GIN_tmp_output.txt"
+
+    for (a, b) in edges:
+        assert a < b    
+
+    nodes = edges_to_nodes(edges)
+    # Zero-index everything
+    nodes = sorted(list(nodes))
+    new_nodes = set([i for i in range(0, len(nodes))])
+    old_to_new = {nodes[i]: i for i in range(0, len(nodes))}
+    new_to_old = {i: nodes[i] for i in range(0, len(nodes))}
+    edges = set([(old_to_new[a], old_to_new[b]) for (a, b) in edges])
+
+    write_edgeset(tmp_graph, edges)
+
+    os.system("rm %s" % tmp_output)
+    os.system("cd GIN; ./run_link_pred.sh %s %s" % (tmp_graph, tmp_output))
+
+    struct_edges = get_edgeset(tmp_output, directed)
+    print(len(struct_edges))
+    noise = (edges - struct_edges) | (struct_edges - edges)
+    print(len(noise))
+
+    return (set([(new_to_old[a], new_to_old[b]) for (a, b) in struct_edges]), \
+            set([(new_to_old[a], new_to_old[b]) for (a, b) in noise]))
+
+
 # Returns:
 #   (struct_edges, noise_edges)
 def run_GA(edges, directed=False, nodes=None, n_itr=120, seed_noise=None, \

@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         print("Error! Need to pass an algorithm as input:\n" + \
-              "\tVoG, SUBDUE, GA, kcore, or ktruss")
+              "\tVoG, SUBDUE, GA, GIN, kcore, or ktruss")
         exit(1)
 
     algorithm = sys.argv[1]
@@ -73,6 +73,9 @@ if __name__ == "__main__":
     if algorithm.lower() == "vog":
         always_undirected = True
         decomp_fn = run_VoG
+    elif algorithm.lower() == "gin":
+        always_undirected = True
+        decomp_fn = run_GIN
     elif algorithm.lower() == "ga":
         decomp_fn = (lambda edges, directed=False : \
                         run_GA(edges, directed=directed, approximate=True))
@@ -102,7 +105,7 @@ if __name__ == "__main__":
         decomp_fn = (lambda edges, directed=False : \
                         run_k_truss(edges, directed=directed, k=k))
     else:
-        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, GA, or kcore")
+        print("Error! Need to pass an algorithm as input: VoG, SUBDUE, GA, GIN, or kcore")
         exit(1)
 
     num_rounds = len(__graphs_list__)
@@ -218,6 +221,8 @@ if __name__ == "__main__":
         print("\t\t#From AO (no sing. swaps):    %f" % avg_rand_score[3])
         print("\t\t#From AO (sing. swaps only):  %f" % avg_rand_score[4])
         print("\t\t#From noise size probability: %f" % avg_rand_score[5])
+
+        sys.stdout.flush()
 
         bottoms      = [no_noise[5], score[5], avg_rand_score[5]]
         aut_no_sing  = [no_noise[1], score[1], avg_rand_score[1]]
