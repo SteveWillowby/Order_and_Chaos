@@ -76,6 +76,8 @@ if __name__ == "__main__":
     elif algorithm.lower() == "gin":
         always_undirected = True
         decomp_fn = run_GIN
+        if core_only:
+            raise Exception("Error! Cannot run GIN in core_only mode.")
     elif algorithm.lower() == "ga":
         decomp_fn = (lambda edges, directed=False : \
                         run_GA(edges, directed=directed, approximate=True))
@@ -143,7 +145,41 @@ if __name__ == "__main__":
         if preprocess and algorithm.lower() != "ga":
             (edges, _) = run_GA(edges, directed=directed)
 
-        (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
+        if algorithm.lower() in ["gin"]:
+            no_noise = run_scorer(edges, nodes, set(), directed, \
+                                  approximate=approximate)
+
+            sn_list = decomp_fn(edges, directed=directed)
+
+            f = open("results/pan_threshold_%s_scores_%s.txt" % (algorithm, __name_list__[i]), "w")
+
+            for (struct_edges, noise_edges, percent_through) in sn_list:
+                score = run_scorer(edges, nodes, noise_edges, directed, \
+                                   approximate=approximate)
+                gain_above_all_structure = score[0] - no_noise[0]
+
+                num_added =   len(noise_edges - edges)
+                num_removed = len(edges & noise_edges)
+
+                num_rand_scores = 5
+                avg_rand_score = [0, 0, 0, 0, 0, 0]
+                for _ in range(0, num_rand_scores):
+                    rand_noise = rand_noise_set(edges, nodes, num_added, num_removed)
+                    rand_score = run_scorer(edges, nodes, rand_noise, directed, \
+                                            approximate=approximate)
+                    for j in range(0, 6):
+                        avg_rand_score[j] += rand_score[j]
+                for j in range(0, 6):
+                    avg_rand_score[j] /= num_rand_scores
+                rand_gain_above_all_structure = avg_rand_score[0] - no_noise[0]
+
+                f.write("%f %f %f\n" % (percent_through, gain_above_all_structure, \
+                                        rand_gain_above_all_structure))
+            f.close()
+
+            (struct_edges, noise_edges, _) = sn_list[len(sn_list) // 2]
+        else:
+            (struct_edges, noise_edges) = decomp_fn(edges, directed=directed)
 
         if core_only:
             nodes = edges_to_nodes(struct_edges)

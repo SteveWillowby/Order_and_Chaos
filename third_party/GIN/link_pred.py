@@ -233,6 +233,8 @@ best_F1_recall = None
 i = 0
 n = 0
 correct = 0
+same_size_endpoint = None
+best_size = None
 while i < len(edges_by_rank):
     (rank, (a, b)) = edges_by_rank[i]
     if a != b:
@@ -249,6 +251,11 @@ while i < len(edges_by_rank):
             best_F1_endpoint = i + 1
             best_F1_precision = precision
             best_F1_recall = recall
+
+        diff = abs(n - len(train_data.edges))
+        if best_size is None or diff < best_size:
+            same_size_endpoint = i + 1
+            best_size = diff
     i += 1
 
 print("Best F1 of %.2f with a precision of %.2f and a recall of %.2f" % (best_F1, best_F1_precision, best_F1_recall))
@@ -256,15 +263,21 @@ print("Best F1 Endpoint: %d" % best_F1_endpoint)
 print("Original number of edges: %d" % len(train_data.edges))
 sys.stdout.flush()
 
-edges = [edge for (rank, edge) in edges_by_rank]
-edges = edges[:best_F1_endpoint]
+# edges = [edge for (rank, edge) in edges_by_rank]
+# edges = edges[:best_F1_endpoint]
+# edges = edges[:same_size_endpoint]
 
+new_edges_by_rank = []
+for (rank, (a, b)) in edges_by_rank:
+    if a == b:
+        continue
+    new_edges_by_rank.append((rank, (a, b)))
+edges_by_rank = new_edges_by_rank
 
 f = open(output_filename, "w")
-for i in range(0, len(edges)):
-    (a, b) = edges[i]
-    if a != b:
-        f.write("%d %d" % (a, b))
-        if i < len(edges) - 1:
-            f.write("\n")
+for i in range(0, len(edges_by_rank)):
+    (rank, (a, b)) = edges_by_rank[i]
+    f.write("%d %d %f" % (a, b, rank))
+    if i < len(edges_by_rank) - 1:
+        f.write("\n")
 f.close()

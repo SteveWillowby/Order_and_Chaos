@@ -45,8 +45,12 @@ def run_scorer(graph_edges, nodes, noise_edges, directed, approximate=False):
 
 
 # Returns:
-#   (struct_edges, noise_edges)
-def run_GIN(edges, directed=False):
+#   a LIST of (struct_edges, noise_edges, percent_through) tuples
+#       where percent_through is |struct_edges| divided by |edges| and can fall
+#       anywhere between 0 and 2
+def run_GIN(edges, directed=False, max_num_points=400):
+
+    MIN_X_INCREMENT = 2.0 / max_num_points
 
     if directed:
         print("NOTE: GIN does not handle directed graphs. Setting directed to False.")
@@ -71,13 +75,33 @@ def run_GIN(edges, directed=False):
     os.system("rm %s" % tmp_output)
     os.system("cd GIN; ./run_link_pred.sh %s %s" % (tmp_graph, tmp_output))
 
-    struct_edges = get_edgeset(tmp_output, directed)
-    print(len(struct_edges))
-    noise = (edges - struct_edges) | (struct_edges - edges)
-    print(len(noise))
+    M = len(edges)
+    N = len(nodes)
 
-    return (set([(new_to_old[a], new_to_old[b]) for (a, b) in struct_edges]), \
-            set([(new_to_old[a], new_to_old[b]) for (a, b) in noise]))
+    f = open(tmp_output, "r")
+    lines = f.readlines()
+    f.close()
+    ordered_edges = [tuple(l.strip().split(" ")) for l in lines]
+    ordered_edges = [((int(a), int(b)), float(rank)) for (a, b, rank) in ordered_edges]
+
+    result = []
+    accumulated_edges = []
+    max_M = min(len(ordered_edges), 2 * M)
+    for i in range(0, max_M):
+        ((a, b), rank) = ordered_edges[i]
+        accumulated_edges.append((a, b))
+        if i == len(ordered_edges) - 1 or rank != ordered_edges[i + 1][1]:
+            percent_through = len(accumulated_edges) / len(edges)
+
+            if len(result) == 0 or percent_through - result[-1][2] >= MIN_X_INCREMENT:
+                struct_edges = set(accumulated_edges)
+                noise = (edges - struct_edges) | (struct_edges - edges)
+
+                result.append( (set([(new_to_old[a], new_to_old[b]) for (a, b) in struct_edges]), \
+                                set([(new_to_old[a], new_to_old[b]) for (a, b) in noise]), \
+                                percent_through) )
+
+    return result
 
 
 # Returns:
@@ -653,7 +677,12 @@ def rand_noise_set(graph_edges, nodes, num_added, num_removed, directed=False):
     ge_list = list(graph_edges)
     removed = set()
     while len(removed) < num_removed:
-        removed.add(ge_list[random.randint(0, len(ge_list) - 1)])
+        idx = random.randint(0, len(ge_list) - 1)
+        removed.add(ge_list[idx])
+        if idx < len(ge_list) - 1:
+            ge_list[idx] = ge_list.pop()
+        else:
+            ge_list.pop()
 
     added = set()
     nodes_list = list(nodes)
