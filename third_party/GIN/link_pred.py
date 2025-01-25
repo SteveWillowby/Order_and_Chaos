@@ -55,10 +55,14 @@ class LocalUndirectedGraph:
         self.num_edges = M
         self.edges = edges
 
-        input_mode = ["1_hot", "random"][0]
+        input_mode = ["1_hot", "1_hot_nbr", "random"][0]
 
         if input_mode == "1_hot":
             self.x = torch.tensor([[float(int(i == j)) for j in range(0, N)] for i in range(0, N)]).to(device)
+            self.num_features = N
+        elif input_mode == "1_hot_nbr":
+            self.x = torch.tensor([[float(int(i == j or (min(i, j), max(i, j)) in edges)) for j in range(0, N)] \
+                                        for i in range(0, N)]).to(device)
             self.num_features = N
 
         else:
@@ -128,7 +132,7 @@ class Net(torch.nn.Module):
 
 class Net2(GIN):
     def __init__(self, in_channels, hidden_channels, out_channels):
-        super().__init__(in_channels, hidden_channels, 1, out_channels=out_channels, \
+        super().__init__(in_channels, hidden_channels, 2, out_channels=out_channels, \
                          dropout=0.0)
 
     def encode(self, x, edge_index):
@@ -154,8 +158,8 @@ class Net2(GIN):
         return [(-rank, edge) for (rank, edge) in all_edges]
 
 model = Net2(dataset.num_features, 128, 64).to(device)
-optimizer = torch.optim.Adam(params=model.parameters(), lr=0.01)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.5)
+optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
+scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.9)
 criterion = torch.nn.BCEWithLogitsLoss()
 
 
@@ -200,7 +204,7 @@ def test(data):
     return roc_auc_score(data.edge_label.cpu().numpy(), out.cpu().numpy())
 
 best_val_auc = final_test_auc = 0
-for epoch in range(1, 351):
+for epoch in range(1, 1001):
     loss = train()
     val_auc = test(val_data)
     if val_auc > best_val_auc:
